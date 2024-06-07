@@ -1,0 +1,57 @@
+@use 'colors' as *;
+
+html[data-theme="dark"] {
+  --background-color: #{$dark-bg-black-color};
+  --border: #{$dark-default-border};
+  --input-border: #{$dark-input-border};
+  --block-bg: #{$dark-block-bg-color};
+  --button-color: #{$dark-button-color};
+  --button-text: #{$dark-button-text};
+  --default-text: #{$dark-default-text};
+  --secondary-text: #{$dark-secondary-text};
+  --low-text: #{$dark-low-text};
+  --gray-text-first: #{$dark-gray-text-first};
+  --gray-text-second: #{$dark-gray-text-second};
+  --header-btn: #{$dark-header-btn};
+  --header-red: #{$dark-header-red-color};
+  --button-border-2: #{$dark-button-border-2};
+  --modal-color: #{$dark-secondary-text-700};
+  --burger-bg: #{$dark-burger-color};
+  --border-burger: #{$dark-border-burger};
+  --green-color: #{$dark-green-color};
+  --green-border: #{$dark-green-border};
+  --green-bg: #{$dark-green-bg};
+  --select-bg: #{$dark-select-bg};
+  --sale-bg: #{$dark-sale-bg-color};
+  --button-border: #{$dark-button-border-3};
+  --button-color-balance: #{$dark-button-color-balance};
+  --burger-title-color: #{$dark-color-burger-title};
+}
+
+html[data-theme="light"] {
+  --background-color: #{$bg-light-color};
+  --border: #{$default-border};
+  --input-border: #{$input-border};
+  --block-bg: #{$block-bg-color};
+  --button-color: #{$button-color};
+  --button-text: #{$button-text};
+  --default-text: #{$default-text};
+  --secondary-text: #{$secondary-text};
+  --low-text: #{$low-text};
+  --gray-text-first: #{$gray-text-first};
+  --gray-text-second: #{$gray-text-second};
+  --header-btn: #{$header-btn};
+  --header-red: #{$header-red-color};
+  --button-border-2: #{$button-border-2};
+  --modal-color: #{$secondary-text-700};
+  --burger-bg: #{$burger-color};
+  --border-burger: #{$border-burger};
+  --green-color: #{$green-color};
+  --green-border: #{$green-border};
+  --green-bg: #{$green-bg-color};
+  --select-bg: #{$select-bg};
+  --sale-bg: #{$sale-bg-color};
+  --button-border: #{$button-border-3};
+  --button-color-balance: #{$button-color-balance};
+  --burger-title-color: #{$color-burger-title};
+}

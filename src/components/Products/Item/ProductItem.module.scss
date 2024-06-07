@@ -1,0 +1,34 @@
+.productCard {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  position: relative;
+
+  .productCardTop {
+    .icon {
+      position: absolute;
+      right: 10px;
+      display: flex;
+      flex-direction: column;
+      top: 10px;
+    }
+  }
+
+  .productCardBottom {
+    margin-top: 12px;
+
+    .cardTitle {
+      margin-bottom: 4px;
+    }
+
+    .price {
+      color: var(--secondary-text);
+    }
+  }
+}
+
+.heartFilled {
+  path {
+    fill: red
+  }
+}

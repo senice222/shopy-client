@@ -1,0 +1,61 @@
+.favoriteContainer {
+  margin: 0px 15px;
+  margin-top: 35px;
+
+  .titleHeader {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #D0D5DD;
+
+    .text {
+      font-family: "Graphik LCG SemiBold", sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 28px;
+      text-align: left;
+    }
+  }
+}
+
+.container {
+  //margin-bottom: 32px;
+  display: grid;
+  margin-top: 30px;
+  grid-template-columns: repeat(2, 165px);
+  justify-content: center;
+  gap: 15px;
+}
+
+.productCard {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  position: relative;
+}
+
+.productCardTop {
+  .icon {
+    position: absolute;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    top: 10px;
+  }
+}
+
+.productCardBottom {
+  margin-top: 12px;
+
+  .cardTitle {
+    margin-bottom: 4px;
+  }
+
+  .price {
+    color: var(--secondary-text);
+  }
+}
+
+.heartFilled {
+  path {
+    fill: red
+  }
+}

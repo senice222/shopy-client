@@ -1,0 +1,20 @@
+.main-slider {
+  &__content {
+    & .swiper-wrapper {
+      align-items: center;
+      padding: 10px 0;
+    }
+  }
+  &__slide {
+    min-height: 260px;
+    border: 1px solid #d1e9ff;
+    border-radius: 8px;
+    background: #eff8ff;
+    &.swiper-slide-active {
+      padding: 20px 0;
+      border: 1px solid #fef7c3;
+      box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+      background: #fefbe8;
+    }
+  }
+}

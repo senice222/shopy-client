@@ -1,0 +1,33 @@
+.search {
+  margin-top: 32px;
+  margin-bottom: 20px;
+  .container {
+    margin: 0 auto;
+    padding: 0 15px;
+  }
+
+  &-body {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1px solid var(--input-border);
+
+    .searchInput {
+      background-color: transparent;
+      font-weight: 400;
+      width: 100%;
+      color: #667085;
+      font-size: 16px;
+      line-height: 24px;
+    }
+  }
+  .label {
+    svg {
+      path {
+        fill: #667085
+      }
+    }
+  }
+}

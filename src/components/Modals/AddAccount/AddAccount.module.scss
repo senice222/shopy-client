@@ -1,0 +1,119 @@
+.modalWinPopupHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h3 {
+    font-family: "Graphik LCG SemiBold", sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 28px;
+    text-align: left;
+
+  }
+}
+
+
+.selectItem {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 44px;
+  p {
+    margin-left: 10px;
+    color: var(--modal-color) !important;
+    font-size: 16px !important;
+    font-weight: 500 !important;
+    line-height: 24px !important;
+    text-align: left !important;
+  }
+}
+.selected {
+  background-color: var(--select-bg);
+  border-radius: 6px;
+  color: #fff;
+}
+
+.option {
+  background-color: var(--background-color) !important;
+}
+
+.select {
+  display: flex;
+  height: 46px !important;
+
+  div {
+    width: 100%;
+    height: 46px !important;
+    background-color: var(--background-color) !important;
+  }
+
+  img {
+    height: 20px;
+    width: 20px;
+  }
+
+  p {
+    color: #101828;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    text-align: left;
+    margin-left: 5px;
+  }
+}
+.securityDiv {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  .security {
+    width: 230px;
+    margin-top: 15px;
+    border-radius: 15px;
+    background-color: var(--green-bg);
+    padding: 5px;
+    border: 1px solid var(--green-border);
+    display: flex;
+    align-items: center;
+
+    p {
+      margin-left: 5px;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 18px;
+      text-align: center;
+      color: var(--green-color);
+    }
+  }
+}
+
+
+.form {
+  .item {
+    height: 70px;
+    margin-top: 15px;
+
+    .title {
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 20px;
+      text-align: left;
+      padding-bottom: 7px;
+      color: var(--modal-color);
+    }
+
+    input {
+      height: 44px;
+      font-size: 16px;
+      font-weight: 400;
+      line-height: 24px;
+      text-align: left;
+      padding: 10px 14px 10px 14px;
+      color: var(--modal-color);
+      border-radius: 8px;
+      background-color: var(--background-color) !important;
+      border: 1px solid var(--input-border) !important;
+      font-family: 'Graphik LCG', sans-serif;
+    }
+  }
+}

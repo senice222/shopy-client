@@ -1,0 +1,81 @@
+
+.basketContainer {
+  margin: 0px 15px;
+  margin-top: 35px;
+
+  .items {
+    height: 100%;
+  }
+  .totalItems {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    p {
+      color: var(--gray-text-first);
+      font-weight: 500;
+      font-size: 16px;
+    }
+    h2 {
+      font-family: Graphik LCG, sans-serif;
+      font-size: 16px;
+      line-height: 30px;
+      color: var(--gray-text-first);
+    }
+  }
+  .skidka {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    p {
+      color: var(--gray-text-first);
+      font-weight: 500;
+      font-size: 20px;
+    }
+    h2 {
+      font-family: Graphik LCG, sans-serif;
+      font-size: 20px;
+      line-height: 30px;
+      color: var(--gray-text-first);
+    }
+  }
+  .toPay {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    p {
+      color: var(--default-text);
+      //font-weight: 500;
+      font-family: Graphik LCG SemiBold, sans-serif;
+      font-size: 18px;
+    }
+    h2 {
+      font-family: Graphik LCG SemiBold, sans-serif;
+      font-size: 18px;
+      line-height: 30px;
+      color: var(--default-text);
+    }
+  }
+}
+.paymentButton {
+  margin-top: 35px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .activateInfo {
+    margin-top: 10px;
+    background-color: var(--block-bg);
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;
+    border: 1px solid var(--modal-color);
+
+    p {
+      width: 95%;
+      color: var(--modal-color);
+      font-size: 16.7px;
+      font-family: Graphik LCG SemiBold, sans-serif;
+      line-height: 20px;
+      font-weight: 600;
+    }
+  }
+}

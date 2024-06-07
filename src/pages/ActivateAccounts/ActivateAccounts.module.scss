@@ -1,0 +1,63 @@
+.subscrContainer {
+  margin: 0px 15px;
+  margin-top: 35px;
+
+  .titleHeader {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #D0D5DD;
+
+    .activateh2Text {
+      font-family: "Graphik LCG SemiBold", sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 28px;
+      text-align: left;
+    }
+
+    .security {
+      width: 230px;
+      margin-top: 15px;
+      border-radius: 15px;
+      background-color: #ECFDF3;
+      padding: 5px;
+      border: 1px solid #ABEFC6;
+      display: flex;
+      align-items: center;
+
+      p {
+        margin-left: 5px;
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 18px;
+        text-align: center;
+        color: #067647;
+      }
+    }
+  }
+
+  .nothingYet {
+    margin-top: 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    h2 {
+      font-family: "Graphik LCG SemiBold", sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 28px;
+      text-align: center;
+    }
+    p {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 20px;
+      text-align: center;
+
+    }
+    div {
+      width: 100%;
+      margin-top: 30px;
+    }
+  }
+
+}

@@ -1,0 +1,17 @@
+.container {
+  margin: 0 auto;
+  padding: 0 15px;
+}
+.productsContainer {
+  margin-bottom: 32px;
+  display: grid;
+  grid-template-columns: repeat(2, 165px);
+  justify-content: center;
+  gap: 15px;
+}
+.paginationDiv {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0px 10px;
+}
