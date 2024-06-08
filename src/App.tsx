@@ -16,6 +16,7 @@ import {ThemeContext} from "./context/ThemeContext";
 import FavoriteProducts from "./pages/FavoriteProducts/FavoriteProducts";
 import {addToFavorite, deleteFromFavorite, FavoriteItem} from "./store/features/favoriteSlice";
 import {useAppDispatch, useAppSelector} from "./hooks/redux-hooks";
+import {SubscribeActivate} from "./pages/SubscribeActivate/SubscribeActivate";
 
 function App() {
     const location = useLocation()
@@ -62,6 +63,7 @@ function App() {
             <Route path="/proceed-payment" element={<ProceedToPayment/>}/>
             <Route path="/product/:id" element={<DetailedProduct setAddedFunc={setAddedFunc} isAdd={isAdd} added={added} setAdded={setAdded} />}/>
             <Route path="/history-of-orders" element={<HistoryOfOrders/>}/>
+            <Route path="/activation" element={<SubscribeActivate/>}/>
             <Route path="/successful-payment" element={
                 <Payment
                     title={"Оплата прошла успешно!"}

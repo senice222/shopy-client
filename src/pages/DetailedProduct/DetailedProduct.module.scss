@@ -5,6 +5,8 @@
   flex-direction: column;
   align-items: center;
   margin-top: 30px;
+  background-color: var(--burger-color);
+  //background-color: ;
 
   .imgCont {
 
@@ -240,7 +242,7 @@
 }
 
 .background {
-  background-color: #F2F4F7;
+  background-color: var(--border);
 }
 
 .heartFilled {

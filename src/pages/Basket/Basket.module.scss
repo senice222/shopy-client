@@ -6,15 +6,18 @@
   .items {
     height: 100%;
   }
+
   .totalItems {
     display: flex;
     justify-content: space-between;
     margin-top: 30px;
+
     p {
       color: var(--gray-text-first);
       font-weight: 500;
       font-size: 16px;
     }
+
     h2 {
       font-family: Graphik LCG, sans-serif;
       font-size: 16px;
@@ -22,15 +25,18 @@
       color: var(--gray-text-first);
     }
   }
+
   .skidka {
     display: flex;
     justify-content: space-between;
     margin-top: 15px;
+
     p {
       color: var(--gray-text-first);
       font-weight: 500;
       font-size: 20px;
     }
+
     h2 {
       font-family: Graphik LCG, sans-serif;
       font-size: 20px;
@@ -38,16 +44,19 @@
       color: var(--gray-text-first);
     }
   }
+
   .toPay {
     display: flex;
     justify-content: space-between;
     margin-top: 15px;
+
     p {
       color: var(--default-text);
       //font-weight: 500;
       font-family: Graphik LCG SemiBold, sans-serif;
       font-size: 18px;
     }
+
     h2 {
       font-family: Graphik LCG SemiBold, sans-serif;
       font-size: 18px;
@@ -56,18 +65,21 @@
     }
   }
 }
+
 .paymentButton {
   margin-top: 35px;
   display: flex;
   flex-direction: column;
   align-items: center;
+
   .activateInfo {
     margin-top: 10px;
-    background-color: var(--block-bg);
+    background-color: var(--repeat-btn-bg);
     padding: 20px;
     border-radius: 10px;
     width: 100%;
-    border: 1px solid var(--modal-color);
+    border: 1px solid var(--input-border);
+    box-shadow: 0px 1px 2px 0px #1018280D;
 
     p {
       width: 95%;

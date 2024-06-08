@@ -1,0 +1,97 @@
+.background {
+  background-color: var(--burger-bg);
+}
+.activationWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .headingText {
+    line-height: 20px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+}
+.firstBlock {
+  margin-top: 20px;
+  border-bottom: 1px solid var(--input-border);
+  padding-bottom: 10px;
+  width: 90vw;
+
+  .security {
+    width: 230px;
+    margin-top: 15px;
+    border-radius: 15px;
+    background-color: #ECFDF3;
+    padding: 5px;
+    border: 1px solid #ABEFC6;
+    display: flex;
+    align-items: center;
+
+    p {
+      margin-left: 5px;
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 18px;
+      text-align: center;
+      color: #067647;
+    }
+  }
+}
+.selectBlock {
+  margin-top: 35px;
+  width: 90vw;
+}
+.loginBlock {
+  width: 90vw;
+  margin-top: 25px;
+  .descr {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    margin-top: 5px;
+    color: var(--gray-text-first);
+  }
+  input {
+    margin-top: 5px;
+    height: 40px;
+    width: 100%;
+    padding: 0 8px;
+    font-size: 16px;
+    background-color: var(--background-color);
+    color: var(--default-text);
+    border: 1px solid var(--input-border);
+    border-radius: 8px;
+  }
+}
+.saveDataBlock {
+  width: 90vw;
+  margin-top: 25px;
+  .topDiv {
+    display: flex;
+    align-items: center;
+    h3 {
+      font-size: 14px;
+      margin-left: 4px;
+      font-weight: 600;
+    }
+
+  }
+  p {
+    margin-top: 4px;
+    margin-left: 20px;
+    color: var(--gray-text-first);
+    font-size: 14px;
+    font-weight: 400;
+  }
+}
+.blueBtn {
+  background-color: #0070CC;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  width: 90vw;
+  height: 44px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 20px;
+}

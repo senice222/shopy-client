@@ -14,7 +14,7 @@ const ActivateAccounts = () => {
             <AddAccount addAccount={addAccount} onClose={() => setAddAccount(false)}/>
             <div className={style.subscrContainer}>
                 <div className={style.titleHeader}>
-                    <h2 className={style.activateh2Text}>Активация подписки</h2>
+                    <h2 className={style.activateh2Text}>Сохраненные аккаунты</h2>
                     <div className={style.security}>
                         <img src={lock} alt="/"/>
                         <p>Все данные надёжно защищены</p>

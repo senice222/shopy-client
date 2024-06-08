@@ -5,6 +5,7 @@ html[data-theme="dark"] {
   --border: #{$dark-default-border};
   --input-border: #{$dark-input-border};
   --block-bg: #{$dark-block-bg-color};
+  --repeat-btn-bg: #{$dark-block-bg-color};
   --button-color: #{$dark-button-color};
   --button-text: #{$dark-button-text};
   --default-text: #{$dark-default-text};
@@ -26,6 +27,11 @@ html[data-theme="dark"] {
   --button-border: #{$dark-button-border-3};
   --button-color-balance: #{$dark-button-color-balance};
   --burger-title-color: #{$dark-color-burger-title};
+  --cancel-bg: #{$dark-cancel-bg};
+  --border-bg: #{$dark-border-bg};
+  --cancel-color: #{$dark-cancel-color};
+  --order-text: #{$dark-button-text};
+  --hr-color: #{$dark-hr-color};
 }
 
 html[data-theme="light"] {
@@ -33,6 +39,7 @@ html[data-theme="light"] {
   --border: #{$default-border};
   --input-border: #{$input-border};
   --block-bg: #{$block-bg-color};
+  --repeat-btn-bg: white;
   --button-color: #{$button-color};
   --button-text: #{$button-text};
   --default-text: #{$default-text};
@@ -54,4 +61,9 @@ html[data-theme="light"] {
   --button-border: #{$button-border-3};
   --button-color-balance: #{$button-color-balance};
   --burger-title-color: #{$color-burger-title};
+  --cancel-bg: #{$cancel-bg};
+  --border-bg: #{$border-bg};
+  --cancel-color: #{$cancel-color};
+  --hr-color: #{$hr-color};
+
 }

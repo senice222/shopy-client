@@ -2,12 +2,18 @@
 
 
 @font-face {
-  font-family: Graphik LCG;
-  src: url(../public/GraphikLCG-Medium.ttf);
+ font-family: Graphik LCG;
+ src: url(../public/GraphikLCG-Medium.ttf);
 }
+
 @font-face {
-  font-family: Graphik LCG SemiBold;
-  src: url(../public/GraphikLCG-Semibold.ttf);
+  font-family: Graphik LCG Regular;
+  src: url(../public/GraphikLCG-Regular.ttf);
+}
+
+@font-face {
+ font-family: Graphik LCG SemiBold;
+ src: url(../public/GraphikLCG-Semibold.ttf);
 }
 
 * {
