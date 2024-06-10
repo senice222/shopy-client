@@ -8,7 +8,7 @@
   .headingText {
     line-height: 20px;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 500;
   }
 }
 .firstBlock {
@@ -28,11 +28,10 @@
     align-items: center;
 
     p {
-      margin-left: 5px;
       font-size: 12px;
-      font-weight: 600;
+      font-weight: 500;
       line-height: 18px;
-      text-align: center;
+      margin-left: 5px;
       color: #067647;
     }
   }
@@ -48,6 +47,7 @@
     font-size: 14px;
     font-weight: 400;
     line-height: 20px;
+    font-family: "Graphik LCG Regular", sans-serif;
     margin-top: 5px;
     color: var(--gray-text-first);
   }
@@ -62,6 +62,9 @@
     border: 1px solid var(--input-border);
     border-radius: 8px;
   }
+  input::placeholder {
+    font-family: "Graphik LCG Regular", sans-serif;
+  }
 }
 .saveDataBlock {
   width: 90vw;
@@ -72,13 +75,15 @@
     h3 {
       font-size: 14px;
       margin-left: 4px;
-      font-weight: 600;
+      font-weight: 500;
     }
 
   }
   p {
     margin-top: 4px;
     margin-left: 20px;
+    font-family: "Graphik LCG Regular", sans-serif;
+    letter-spacing: 0.5px;
     color: var(--gray-text-first);
     font-size: 14px;
     font-weight: 400;

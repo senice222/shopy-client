@@ -1,6 +1,5 @@
-import s from './PromoModal.module.scss'
 import './PromoModal.scss'
-import {FC, useState} from "react";
+import {ChangeEvent, FC, useState} from "react";
 import {PromoModalI} from "../../../interfaces/PromoModalI";
 import BootstrapModal from "../BootstrapModal/BootstrapModal";
 import {RequestSent} from "../RequestSent/RequestSent";
@@ -11,7 +10,7 @@ export const PromoModal: FC<PromoModalI> = ({promoActive, onClose, setBurger}) =
     const [errorStatus, setErrorStatus] = useState(false);
     const [isModal, setModal] = useState(false)
 
-    const checkingPromo = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const checkingPromo = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setPromoInputValue(value);
         // Пример проверки промокода

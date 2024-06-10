@@ -20,9 +20,9 @@
     margin-left: 10px;
     padding-top: 11px;
     h2 {
+      font-weight: 500;
       font-size: 18px;
-      font-weight: 600;
-      font-family: Graphik LCG SemiBold, sans-serif;
+      line-height: 156%;
     }
 
     div {
@@ -33,7 +33,8 @@
       }
       p {
         color: var(--gray-text-first);
-        font-size: 14px;
+        font-size: 14.3px;
+        font-family: "Graphik LCG Regular", sans-serif;
         line-height: 20px;
         font-weight: 400;
       }

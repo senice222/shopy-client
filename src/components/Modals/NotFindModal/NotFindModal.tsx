@@ -2,6 +2,7 @@ import './NotFindModal.scss'
 import {FC, useState} from "react";
 import {RequestSent} from "../RequestSent/RequestSent";
 import BootstrapModal from "../BootstrapModal/BootstrapModal";
+import Button from "../../Button/Button";
 
 interface NotFoundDialogProps {
     isOpen: boolean;
@@ -114,9 +115,9 @@ export const NotFindModal: FC<NotFoundDialogProps> = ({isOpen, onClose, setBurge
                                 />
                             </div>
                         </div>
-                        <button type="submit" className="BlueBtn">
-                            Отправить заявку
-                        </button>
+                        <div style={{width: "100%", marginTop: "10px"}}>
+                            <Button text={"Отправить заявку"} width={"100%"} height={"40px"} />
+                        </div>
                     </form>
                 </BootstrapModal>
             </div>

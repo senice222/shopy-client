@@ -20,7 +20,7 @@ import {SubscribeActivate} from "./pages/SubscribeActivate/SubscribeActivate";
 
 function App() {
     const location = useLocation()
-    const { darkTheme, toggleTheme } = useContext(ThemeContext);
+    const { darkTheme } = useContext(ThemeContext);
     const [added, setAdded] = useState<boolean>(false)
     const [isAdd, setIsAdd] = useState<boolean>(false)
     const dispatch = useAppDispatch()
@@ -29,6 +29,7 @@ function App() {
     const setAddedFunc = (isAdd: boolean, item: FavoriteItem) => {
         setIsAdd(isAdd)
         dispatch(deleteFromFavorite(item.id))
+
         const product = state.find((el) => el.id === item.id)
 
         if (!product) {
@@ -40,6 +41,7 @@ function App() {
             setIsAdd(false)
             setAdded(true)
         }
+
         setTimeout(() => {
             setAdded(false)
         }, 2500)

@@ -8,10 +8,10 @@ import {DoDepModal} from "../Modals/DoDepModal/DoDepModal";
 import {NotFindModal} from "../Modals/NotFindModal/NotFindModal";
 import {useNavigate} from "react-router-dom";
 import CashBackModal from "../Modals/CashBackModal/CashBackModal";
-import { Emoji, Sale, Bookmark, Calendar, Clock, Users, HelpCircle, Message, Search } from "./Svgs";
+import {Emoji, Sale, Bookmark, Calendar, Clock, Users, HelpCircle, Message, Search} from "./Svgs";
 
 const BurgerMenu: FC<BurgerMenuI> = ({isOpened, setOpened}) => {
-        
+
     useEffect(() => {
         if (isOpened) {
             document.body.style.overflow = 'hidden';
@@ -36,7 +36,7 @@ const BurgerMenu: FC<BurgerMenuI> = ({isOpened, setOpened}) => {
             <div className={s.contentWrapper}>
                 <div className={s.content}>
                     <div className={s.headerDiv}>
-                        <div className={s.svg}><Emoji /></div>
+                        <div className={s.svg}><Emoji/></div>
                         <h3>Доброе утро, Иван!</h3>
                     </div>
                     <div className={s.popolnit}>
@@ -56,7 +56,7 @@ const BurgerMenu: FC<BurgerMenuI> = ({isOpened, setOpened}) => {
                     </div>
                     <div onClick={() => setPromo(!isPromo)} className={s.block}>
                         <div className={s.icon}>
-                            <div className={s.svg1}><Sale /></div>
+                            <div className={s.svg1}><Sale/></div>
                         </div>
                         <p>Активировать промокод </p>
                     </div>
@@ -67,25 +67,25 @@ const BurgerMenu: FC<BurgerMenuI> = ({isOpened, setOpened}) => {
 
                     <div className={s.block} onClick={() => navigate("/active-accounts")}>
                         <div className={s.icon}>
-                        <div className={s.svg1}><Bookmark /></div>
+                            <div className={s.svg1}><Bookmark/></div>
                         </div>
                         <p>Сохраненные аккаунты</p>
                     </div>
                     <div className={s.block}>
                         <div className={s.icon}>
-                            <div className={s.svg1}><Calendar /></div>
+                            <div className={s.svg1}><Calendar/></div>
                         </div>
                         <p>Активные подписки</p>
                     </div>
                     <div className={s.block}>
                         <div className={s.icon}>
-                        <div className={s.svg1}><Clock /></div>
+                            <div className={s.svg1}><Clock/></div>
                         </div>
                         <p onClick={() => navigate("/history-of-orders")}>История заказов</p>
                     </div>
                     <div className={s.block}>
                         <div className={s.icon}>
-                            <div className={s.svg1}><Users /></div>
+                            <div className={s.svg1}><Users/></div>
                         </div>
                         <p>Реферальная система </p>
                     </div>
@@ -94,19 +94,19 @@ const BurgerMenu: FC<BurgerMenuI> = ({isOpened, setOpened}) => {
                     </div>
                     <div className={s.block}>
                         <div className={s.icon}>
-                            <div className={s.svg1}><HelpCircle /></div>
+                            <div className={s.svg1}><HelpCircle/></div>
                         </div>
                         <p>Справочный центр</p>
                     </div>
                     <div className={s.block}>
                         <div className={s.icon}>
-                            <div className={s.svg1}><Message /></div>
+                            <div className={s.svg1}><Message/></div>
                         </div>
                         <p>Обратится в поддержку</p>
                     </div>
                     <div onClick={() => setNotFind(!notFind)} className={s.block}>
                         <div className={s.icon}>
-                            <div className={s.svg1}><Search /></div>
+                            <div className={s.svg1}><Search/></div>
                         </div>
                         <p>Не нашли, то что искали?</p>
                     </div>

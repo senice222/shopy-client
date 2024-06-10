@@ -3,6 +3,7 @@ import './DoDepModal.scss'
 import React, { useState, FC, useRef, ChangeEvent, FocusEvent, FormEvent } from 'react';
 import BootstrapModal from "../BootstrapModal/BootstrapModal";
 import {RequestSent} from "../RequestSent/RequestSent";
+import Button from "../../Button/Button";
 interface DoDepModalI {
     isOpen: boolean,
     onClose: () => void,
@@ -81,9 +82,7 @@ export const DoDepModal : FC<DoDepModalI> = ({isOpen, onClose, setBurger}) => {
                        <span className="title">Итого к оплате</span>
                        <span className={"balance"}>{topUpBalance}₽</span>
                    </div>
-                   <button className="BlueBtn" onClick={allGood}>
-                       Перейти к оплате
-                   </button>
+                   <Button text={"Перейти к оплате"} height={"40px"} width={"100%"}/>
                </BootstrapModal>
            </div></>
     );
