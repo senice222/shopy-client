@@ -4,8 +4,11 @@ import Layout from '../../layouts/Layout'
 import spotify64 from '../../assets/spotify64x64.png'
 import featured from '../../assets/featured.png'
 import Button from "../../components/Button/Button";
+import {useNavigate} from "react-router-dom";
 
 const HistoryOfOrders = () => {
+    const navigate = useNavigate()
+
     return (
         <div className={style.historyWrapp}>
             <Layout isRightArrow={true}>
@@ -33,7 +36,9 @@ const HistoryOfOrders = () => {
                                 </div>
                                 <div className={style.btnDiv}>
                                     <button className={style.repeatOrder}>Повторить заказ</button>
-                                    <Button text={"Подробнее"} width={"100%"} height={"40px"}/>
+                                    <div style={{width: "100%"}} onClick={() => navigate("/history-of-orders/1")}>
+                                        <Button text={"Подробнее"} width={"100%"} height={"40px"}/>
+                                    </div>
                                 </div>
                             </div>
                         </div>

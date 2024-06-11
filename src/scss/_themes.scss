@@ -32,6 +32,10 @@ html[data-theme="dark"] {
   --cancel-color: #{$dark-cancel-color};
   --order-text: #{$dark-button-text};
   --hr-color: #{$dark-hr-color};
+  --blue-text: #{$dark-blue-text};
+  --pending-text: #{$dark-pending-color};
+  --pending-bg: #{$dark-pending-bg};
+  --pending-border: #{$dark-pending-border};
 }
 
 html[data-theme="light"] {
@@ -65,5 +69,8 @@ html[data-theme="light"] {
   --border-bg: #{$border-bg};
   --cancel-color: #{$cancel-color};
   --hr-color: #{$hr-color};
-
+  --blue-text: #{$blue-text};
+  --pending-text: #{$pending-color};
+  --pending-bg: #{$pending-bg};
+  --pending-border: #{$pending-border};
 }

@@ -71,7 +71,7 @@ const BurgerMenu: FC<BurgerMenuI> = ({isOpened, setOpened}) => {
                         </div>
                         <p>Сохраненные аккаунты</p>
                     </div>
-                    <div className={s.block}>
+                    <div className={s.block} onClick={() => navigate("/active-subscriptions")}>
                         <div className={s.icon}>
                             <div className={s.svg1}><Calendar/></div>
                         </div>

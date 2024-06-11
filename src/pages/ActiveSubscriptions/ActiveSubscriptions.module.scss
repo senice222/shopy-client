@@ -1,0 +1,124 @@
+.historyWrapp {
+  background-color: var(--border);
+}
+
+.wrapperOfHistory {
+  margin-top: 26px;
+  margin-left: 15px;
+  width: 90%;
+
+  .historyTitle {
+    h2 {
+      font-size: 19px;
+      font-weight: 500;
+      line-height: 28px;
+      text-align: left;
+      color: var(--burger-title-color);
+    }
+    p {
+      margin-top: 2px;
+      font-family: Graphik LCG Regular, "sans-serif";
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 20px;
+      text-align: left;
+      color: var(--gray-text-first)
+    }
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--input-border);
+  }
+  .orderItems {
+    margin-top: 40px;
+    .orderWrapper {
+      background-color: var(--background-color);
+      margin-top: 15px;
+      border-radius: 12px 12px 0 0;
+      .orderTitle {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 20px 12px 16px;
+        gap: 12px;
+        border-bottom: 1px solid var(--border-burger);
+        div {
+          display: flex;
+          align-items: center;
+          h2 {
+            margin-left: 10px;
+            font-family: "Graphik LCG", sans-serif;
+            font-size: 16px;
+            line-height: 24px;
+            text-align: left;
+            color: var(--modal-color);
+          }
+        }
+      }
+
+      .productInfo {
+        padding: 16px;
+        .status {
+
+          border: 1px solid var(--green-border);
+          background-color: var(--green-bg);
+          width: 60%;
+          border-radius: 20px;
+          padding: 2px 8px 2px 8px;
+          p {
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 18px;
+            text-align: center;
+            color: var(--green-color);
+          }
+        }
+        .statusExpire {
+          border: 1px solid var(--border-bg);
+          background-color: var(--cancel-bg);
+          width: 60%;
+          border-radius: 20px;
+          padding: 2px 8px 2px 8px;
+          p {
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 18px;
+            text-align: center;
+            color: var(--cancel-color);
+          }
+        }
+        .amount {
+          display: flex;
+          align-items: flex-end;
+          margin-top: 5px;
+          margin-bottom: 5px;
+          h2 {
+            font-family: "Graphik LCG SemiBold", sans-serif;
+            font-size: 30px;
+            font-weight: 600;
+            line-height: 38px;
+            color: var(--modal-color);
+            text-align: left;
+          }
+          p {
+            margin-left: 5px;
+            font-family: "Graphik LCG Regular", sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 20px;
+            text-align: left;
+          }
+        }
+        .data {
+          p {
+            font-family: "Graphik LCG Regular", sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 20px;
+            text-align: left;
+            margin-bottom: 10px;
+          }
+        }
+      }
+    }
+  }
+
+}

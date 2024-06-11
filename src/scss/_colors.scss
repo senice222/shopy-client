@@ -10,7 +10,7 @@ $header-btn: white;
 $select-bg: #F9FAFB;
 $burger-color: #F2F4F7;
 $border-burger: #EAECF0;
-$green-bg-color: #ECFDF3;
+$green-bg-color: #ECFDF3; //
 $sale-bg-color: #EFF8FF;
 $cancel-bg: #FEF3F2;
 $border-bg: #FECDCA;
@@ -27,14 +27,18 @@ $button-color-balance: #0157A3;
 $default-text: #344054;
 $secondary-text: #0B3F6F;
 $low-text: #667085;
+$pending-bg: #FFFAEB;
+$pending-border: #FEDF89;
+$pending-color: #B54708;
 $gray-text-first: #475467;
 $gray-text-second: #98A2B3;
 $header-red-color: #D92D20;
 $secondary-text-700: #344054;
-$green-color: #067647;
-$green-border: #ABEFC6;
+$green-color: #067647; //
+$green-border: #ABEFC6; //
 $color-burger-title: #101828;
 $hr-color: #D0D5DD;
+$blue-text: #0157A3;
 
 // -----dark
 
@@ -52,6 +56,9 @@ $dark-cancel-bg: #55160C;
 $dark-border-bg: #912018;
 $dark-cancel-color: #FDA29B;
 $dark-hr-color: #61646C;
+$dark-pending-bg: #4E1D09;
+$dark-pending-border: #93370D;
+$dark-pending-color: #FEC84B;
 //button
 $dark-button-color: #161B26;
 $dark-button-text: #CECFD2;
@@ -71,3 +78,4 @@ $dark-secondary-text-700: #CECFD2;
 $dark-green-color: #75E0A7;
 $dark-green-border: #085D3A;
 $dark-color-burger-title: #F5F5F6;
+$dark-blue-text: #CECFD2;

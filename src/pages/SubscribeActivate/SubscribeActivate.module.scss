@@ -5,10 +5,21 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  p {
+    color: var(--modal-color)
+  }
   .headingText {
     line-height: 20px;
     font-size: 14px;
     font-weight: 500;
+  }
+  .descr {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    font-family: "Graphik LCG Regular", sans-serif;
+    margin-top: 5px;
+    color: var(--gray-text-first);
   }
 }
 .firstBlock {
@@ -40,17 +51,34 @@
   margin-top: 35px;
   width: 90vw;
 }
+.haveAccBlock {
+  display: flex;
+  background-color: var(--background-color);
+  border: 1px solid var(--border-burger);
+  padding: 10px;
+  width: 90vw;
+  margin-top: 20px;
+  border-radius: 8px;
+  align-items: flex-start;
+  .rightDiv {
+    margin-left: 10px;
+    .variants {
+      margin-top: 10px;
+      display: flex;
+      p {
+        cursor: pointer;
+        color: var(--gray-text-first)
+      }
+      .blue {
+        color: var(--blue-text) !important;
+        margin-right: 15px;
+      }
+    }
+  }
+}
 .loginBlock {
   width: 90vw;
   margin-top: 25px;
-  .descr {
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 20px;
-    font-family: "Graphik LCG Regular", sans-serif;
-    margin-top: 5px;
-    color: var(--gray-text-first);
-  }
   input {
     margin-top: 5px;
     height: 40px;

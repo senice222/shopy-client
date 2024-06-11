@@ -1,10 +1,11 @@
 import s from './SubscribeActivate.module.scss'
 import Layout from "../../layouts/Layout";
-import lock from "../../assets/lock-02.png";
 import {useState} from "react";
 import {OwnSelect} from "../../components/OwnSelect/OwnSelect";
 import {CheckBox} from "../../components/CheckBox/CheckBox";
 import Button from "../../components/Button/Button";
+import {Spotify} from "./Svgs";
+import {SelectAccount} from "../../components/Modals/SelectAccount/SelectAccount";
 
 const items = [
     {
@@ -24,8 +25,10 @@ const items = [
 export const SubscribeActivate = () => {
     const [selected, setSelected] = useState('')
     const [isSave, setIsSave] = useState(false)
-
+    const [isOpened, setOpened] = useState(false)
     return (
+        <>
+            <SelectAccount promoActive={isOpened} onClose={() => setOpened((prev) => !prev)} />
         <div className={s.background}>
             <Layout isRightArrow={true}>
                 <div className={s.activationWrapper}>
@@ -55,6 +58,21 @@ export const SubscribeActivate = () => {
                                 </defs>
                             </svg>
                             <p>Все данные надёжно защищены</p>
+                        </div>
+                    </div>
+                    <div className={s.haveAccBlock}>
+                        <Spotify />
+                        <div className={s.rightDiv}>
+                            <p className={s.headingText}>
+                                Активировать подписку на сохранённый аккаунт?
+                            </p>
+                            <p className={s.descr}>
+                                mail@mshopy.ru
+                            </p>
+                            <div className={s.variants}>
+                                <p className={s.blue}>Да</p>
+                                <p onClick={() => setOpened(true)}>Выбрать другой</p>
+                            </div>
                         </div>
                     </div>
                     <div className={s.selectBlock}>
@@ -97,5 +115,6 @@ export const SubscribeActivate = () => {
                 </div>
             </Layout>
         </div>
+        </>
     )
 }
