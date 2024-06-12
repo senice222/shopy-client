@@ -10,6 +10,7 @@ import {AccountSelect} from "../../AccountSelect_Select/AccountSelect";
 export interface SelectAccountI {
     promoActive: boolean,
     onClose: () => void,
+    nextStep: () => void
 }
 const accounts = [
     {
@@ -33,7 +34,7 @@ const accounts = [
         email: "spotifyuser3@example.com"
     }
 ];
-export const SelectAccount: FC<SelectAccountI> = ({promoActive, onClose}) => {
+export const SelectAccount: FC<SelectAccountI> = ({promoActive, onClose, nextStep}) => {
 
     const [errorStatus, setErrorStatus] = useState(false);
     const [isModal, setModal] = useState(false)
@@ -47,9 +48,8 @@ export const SelectAccount: FC<SelectAccountI> = ({promoActive, onClose}) => {
     };
 
     const setConfirmDialog = () => {
-        if (!errorStatus) {
-            setModal(true)
-        }
+        nextStep()
+        onClose()
     };
 
     return (
@@ -91,7 +91,7 @@ export const SelectAccount: FC<SelectAccountI> = ({promoActive, onClose}) => {
                 >
                     Выбрать
                 </button>
-                <div className={s.byOwn}><h3>Ввести данные вручную</h3></div>
+                <div onClick={onClose} className={s.byOwn}><h3>Ввести данные вручную</h3></div>
                 <div className={s.securityWrapper}>
                     <div className={s.security}>
                         <svg

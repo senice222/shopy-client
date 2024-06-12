@@ -1,11 +1,12 @@
 import s from './SubscribeActivate.module.scss'
 import Layout from "../../layouts/Layout";
-import {useState} from "react";
+import React, {useState} from "react";
 import {OwnSelect} from "../../components/OwnSelect/OwnSelect";
 import {CheckBox} from "../../components/CheckBox/CheckBox";
 import Button from "../../components/Button/Button";
 import {Spotify} from "./Svgs";
 import {SelectAccount} from "../../components/Modals/SelectAccount/SelectAccount";
+import Payment from "../Payment/Payment";
 
 const items = [
     {
@@ -26,9 +27,10 @@ export const SubscribeActivate = () => {
     const [selected, setSelected] = useState('')
     const [isSave, setIsSave] = useState(false)
     const [isOpened, setOpened] = useState(false)
+    const [step, setStep] = useState(1)
     return (
         <>
-            <SelectAccount promoActive={isOpened} onClose={() => setOpened((prev) => !prev)} />
+            <SelectAccount nextStep={() => setStep(2)} promoActive={isOpened} onClose={() => setOpened((prev) => !prev)} />
         <div className={s.background}>
             <Layout isRightArrow={true}>
                 <div className={s.activationWrapper}>
@@ -60,58 +62,65 @@ export const SubscribeActivate = () => {
                             <p>Все данные надёжно защищены</p>
                         </div>
                     </div>
-                    <div className={s.haveAccBlock}>
-                        <Spotify />
-                        <div className={s.rightDiv}>
-                            <p className={s.headingText}>
-                                Активировать подписку на сохранённый аккаунт?
-                            </p>
-                            <p className={s.descr}>
-                                mail@mshopy.ru
-                            </p>
-                            <div className={s.variants}>
-                                <p className={s.blue}>Да</p>
-                                <p onClick={() => setOpened(true)}>Выбрать другой</p>
+                    {
+                        step !== 3 ? <><div className={s.haveAccBlock}>
+                                <Spotify />
+                                <div className={s.rightDiv}>
+                                    <p className={s.headingText}>
+                                        {step === 2 ? "Подписка будет активирована на сохранённый аккаунт" : "Активировать подписку на сохранённый аккаунт?"}
+                                    </p>
+                                    <p className={s.descr}>
+                                        mail@mshopy.ru
+                                    </p>
+                                    <div className={s.variants}>
+                                        {step === 2 ? null : <p className={s.blue}>Да</p>}
+                                        <p onClick={() => setOpened(true)}>Выбрать другой</p>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div className={s.selectBlock}>
-                        <p className={s.headingText}>У Вас есть существующий аккаунт от необходимого сервиса или его требуется зарегистрировать?</p>
-                        <div className={s.select}>
-                            <OwnSelect items={items} setSelected={setSelected}/>
-                        </div>
-                    </div>
-                    <div className={s.loginBlock}>
-                        <p className={s.headingText}>Логин для входа в необходимый сервис</p>
-                        <input placeholder={'olivia@untitledui.com'}/>
-                        <p className={s.descr}>
-                            Введите почту, на которую зарегистрирован / необходимо зарегистрировать аккаунт в необходимом сервисе.
-                        </p>
-                    </div>
-                    <div className={s.loginBlock}>
-                        <p className={s.headingText}>Пароль для входа в необходимый сервис</p>
-                        <input type={'password'} placeholder={'****'}/>
-                        <p className={s.descr}>
-                            Введите пароль от аккаунта / для регистрации аккаунта в необходимом сервисе.                         </p>
-                    </div>
-                    <div className={s.loginBlock}>
-                        <p className={s.headingText}>
-                            Укажите дополнительную информацию, которая нам может быть необходима для активации подписки
-                        </p>
-                        <input placeholder={'Вход через Apple, Google и т.д.'}/>
-                        <p className={s.descr}>
-                            К примеру, вход в аккаунт сервиса выполняется через определённую соц.сеть. Если же доп.информация не нужна, оставьте поле пустым.</p>
-                    </div>
-                    <div className={s.saveDataBlock}>
-                        <div className={s.topDiv}>
-                            <CheckBox setChecked={setIsSave}/>
-                            <h3>Cохранить данные</h3>
-                        </div>
-                        <p>Мы сохраним эти данные в вашем профиле, чтобы в следующий раз вам не приходилось их вводить</p>
-                    </div>
-                    <div className={s.saveDataBlock}>
-                        <Button text={"Активировать аккаунт"} width={"100%"} height={"40px"} />
-                    </div>
+                            {step === 1 ? <><div className={s.selectBlock}>
+                                <p className={s.headingText}>У Вас есть существующий аккаунт от необходимого сервиса или его требуется зарегистрировать?</p>
+                                <div className={s.select}>
+                                    <OwnSelect items={items} setSelected={setSelected}/>
+                                </div>
+                            </div>
+                                <div className={s.loginBlock}>
+                                    <p className={s.headingText}>Логин для входа в необходимый сервис</p>
+                                    <input placeholder={'olivia@untitledui.com'}/>
+                                    <p className={s.descr}>
+                                        Введите почту, на которую зарегистрирован / необходимо зарегистрировать аккаунт в необходимом сервисе.
+                                    </p>
+                                </div>
+                                <div className={s.loginBlock}>
+                                    <p className={s.headingText}>Пароль для входа в необходимый сервис</p>
+                                    <input type={'password'} placeholder={'****'}/>
+                                    <p className={s.descr}>
+                                        Введите пароль от аккаунта / для регистрации аккаунта в необходимом сервисе.                         </p>
+                                </div>
+                                <div className={s.loginBlock}>
+                                    <p className={s.headingText}>
+                                        Укажите дополнительную информацию, которая нам может быть необходима для активации подписки
+                                    </p>
+                                    <input placeholder={'Вход через Apple, Google и т.д.'}/>
+                                    <p className={s.descr}>
+                                        К примеру, вход в аккаунт сервиса выполняется через определённую соц.сеть. Если же доп.информация не нужна, оставьте поле пустым.</p>
+                                </div>
+                                <div className={s.saveDataBlock}>
+                                    <div className={s.topDiv}>
+                                        <CheckBox setChecked={setIsSave}/>
+                                        <h3>Cохранить данные</h3>
+                                    </div>
+                                    <p>Мы сохраним эти данные в вашем профиле, чтобы в следующий раз вам не приходилось их вводить</p>
+                                </div></> : null}
+                        <div className={s.saveDataBlock}>
+                    <div onClick={() => setStep(3)}><Button text={"Активировать аккаунт"}  width={"100%"} height={"40px"} /></div>
+                </div></> : <Payment
+                            without={true}
+                            title={"Оплата прошла успешно!"}
+                            descr={"Не забудьте активировать аккаунт, чтобы пользоваться подпиской."}
+                            btnText={"Активировать аккаунт"}
+                            type={"success"}
+                        />}
                 </div>
             </Layout>
         </div>

@@ -11,10 +11,11 @@ interface Payment {
     title: string;
     descr: string;
     btnText: string;
-    type: "success" | "rejected" | "pending" | "cancelled" | "receive"
+    type: "success" | "rejected" | "pending" | "cancelled" | "receive",
+    without?: boolean
 }
 
-const SuccessfulPayment: FC<Payment> = ({title, descr, btnText, type}) => {
+const SuccessfulPayment: FC<Payment> = ({title, descr, btnText, type, without}) => {
     let img;
 
     switch (type) {
@@ -32,7 +33,28 @@ const SuccessfulPayment: FC<Payment> = ({title, descr, btnText, type}) => {
         default:
             img = success;
     }
-
+    if (without) {
+        return (
+            <div className={style.proceedContainer}>
+                <div className={style.textDiv}>
+                    <img src={img} alt={'/'}/>
+                    <div className={style.wrapp}>
+                        <h2>{title}</h2>
+                        <p>{descr}</p>
+                    </div>
+                    <div className={style.btnsDiv}>
+                        <div className={style.firstBtn}>
+                            <button>{btnText}</button>
+                        </div>
+                        <div className={style.anotherBtns}>
+                            <button className={style.supportBtn}>Поддержка</button>
+                            <Button width={"47%"} height={"44px"} text={"На главную"}/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
     return (
         <Layout>
             <div className={style.proceedContainer}>

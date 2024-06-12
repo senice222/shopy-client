@@ -46,6 +46,7 @@
       margin-top: 10px;
       display: flex;
       align-items: center;
+
       p {
         font-family: "Graphik LCG Regular", sans-serif;
         color: var(--gray-text-first);
@@ -61,6 +62,7 @@
         border-radius: 20px;
         padding: 2px 8px 2px 8px;
         margin-left: 5px;
+
         p {
           font-size: 12px;
           font-weight: 500;
@@ -70,5 +72,158 @@
         }
       }
     }
+  }
+}
+
+.subscriptionContainer {
+  width: 100%;
+  margin-top: 10px;
+  background-color: var(--background-color);
+  border: 1px solid var(--border-burger);
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+
+  div {
+    margin-left: 10px;
+
+    h2 {
+      color: var(--default-text);
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 20px;
+      text-align: left;
+    }
+
+    p {
+      font-family: "Graphik LCG Regular", sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 20px;
+      text-align: left;
+    }
+  }
+}
+
+.changeDataText {
+  margin-top: 9px;
+  width: 100%;
+
+  p {
+    font-family: "Graphik LCG Regular", sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: left;
+    color: var(--gray-text-first);
+
+    span {
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 20px;
+      color: var(--gray-text-first);
+      text-align: left;
+      text-decoration: underline;
+    }
+  }
+}
+
+.item {
+  margin-top: 30px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+  .container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  img {
+    width: 106px;
+    height: 106px;
+  }
+
+  .infoWrapper {
+    margin-left: 10px;
+
+    h2 {
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 156%;
+      color: var(--burger-title-color);
+    }
+
+    div {
+      margin: 3px 0px;
+      width: 195px;
+
+      p {
+        color: var(--gray-text-first);
+        font-size: 14.3px;
+        font-family: "Graphik LCG Regular", sans-serif;
+        line-height: 20px;
+        font-weight: 400;
+      }
+    }
+  }
+}
+.totalItems {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+
+  p {
+    color: var(--gray-text-first);
+    font-weight: 500;
+    font-size: 16px;
+  }
+
+  h2 {
+    font-family: Graphik LCG, sans-serif;
+    font-size: 16px;
+    line-height: 30px;
+    color: var(--gray-text-first);
+  }
+}
+
+.skidka {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+
+  p {
+    color: var(--gray-text-first);
+    font-weight: 500;
+    font-size: 16px;
+  }
+
+  h2 {
+    font-family: Graphik LCG, sans-serif;
+    font-size: 20px;
+    line-height: 30px;
+    color: var(--gray-text-first);
+  }
+}
+
+.toPay {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+
+  p {
+    color: var(--default-text);
+    //font-weight: 500;
+    font-family: Graphik LCG SemiBold, sans-serif;
+    font-size: 18px;
+  }
+
+  h2 {
+    font-family: Graphik LCG SemiBold, sans-serif;
+    font-size: 18px;
+    line-height: 30px;
+    color: var(--default-text);
   }
 }
