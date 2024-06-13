@@ -4,7 +4,7 @@
 
   .titleHeader {
     padding-bottom: 10px;
-    border-bottom: 1px solid #D0D5DD;
+    border-bottom: 1px solid var(--hr-color);
 
     .activateh2Text {
       font-family: "Graphik LCG SemiBold", sans-serif;
@@ -18,9 +18,9 @@
       width: 230px;
       margin-top: 15px;
       border-radius: 15px;
-      background-color: #ECFDF3;
+      background-color: var(--green-bg);
       padding: 5px;
-      border: 1px solid #ABEFC6;
+      border: 1px solid var(--green-border);
       display: flex;
       align-items: center;
 
@@ -30,7 +30,7 @@
         font-weight: 500;
         line-height: 18px;
         text-align: center;
-        color: #067647;
+        color: var(--green-color);
       }
     }
   }
@@ -40,6 +40,51 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    .item {
+      width: 100%;
+      height: 64px;
+      border-radius: 12px;
+      padding: 12px;
+      border: 1px solid var(--border-burger);
+      background-color: var(--repeat-btn-bg);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .itemInfo {
+        display: flex;
+        align-items: flex-start;
+
+        img {
+          width: 32px;
+          height: 32px;
+        }
+
+        div {
+          margin-left: 10px;
+
+          h2 {
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 20px;
+            text-align: left;
+          }
+
+          p {
+            font-family: "Graphik LCG Regular", sans-serif;
+            font-size: 14px;
+            font-weight: 400;
+            line-height: 20px;
+            text-align: left;
+          }
+        }
+      }
+      .imgDots {
+        cursor: pointer;
+      }
+    }
+
     h2 {
       font-family: "Graphik LCG SemiBold", sans-serif;
       font-size: 18px;
@@ -47,6 +92,7 @@
       line-height: 28px;
       text-align: center;
     }
+
     p {
       font-size: 14px;
       font-weight: 400;
@@ -54,7 +100,8 @@
       text-align: center;
 
     }
-    div {
+
+    .btnDiv {
       width: 100%;
       margin-top: 30px;
     }

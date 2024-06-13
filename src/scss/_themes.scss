@@ -36,12 +36,14 @@ html[data-theme="dark"] {
   --pending-text: #{$dark-pending-color};
   --pending-bg: #{$dark-pending-bg};
   --pending-border: #{$dark-pending-border};
+  --delete-btn: #{$dark-delete-btn};
 }
 
 html[data-theme="light"] {
   --background-color: #{$bg-light-color};
   --border: #{$default-border};
   --input-border: #{$input-border};
+  --delete-btn: #{$delete-btn};
   --block-bg: #{$block-bg-color};
   --repeat-btn-bg: white;
   --button-color: #{$button-color};

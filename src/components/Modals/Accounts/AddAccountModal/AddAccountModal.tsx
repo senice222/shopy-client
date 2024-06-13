@@ -1,13 +1,13 @@
-import style from './AddAccount.module.scss'
+import style from './AddAccountModal.module.scss'
 import './antd.scss'
-import BootstrapModal from "../BootstrapModal/BootstrapModal";
-import spotify from '../../../assets/spotify.png'
-import yt from '../../../assets/youtube.png'
-import netflix from '../../../assets/netflix.png'
+import BootstrapModal from "../../BootstrapModal/BootstrapModal";
+import spotify from '../../../../assets/spotify.png'
+import yt from '../../../../assets/youtube.png'
+import netflix from '../../../../assets/netflix.png'
 import {Input, Select} from "antd";
 import {useState} from "react";
-import BlueButton from "../../Button/Button";
-import lock from "../../../assets/lock-02.png";
+import BlueButton from "../../../Button/Button";
+import lock from "../../../../assets/lock-02.png";
 
 interface AccountProps {
     addAccount: boolean;
@@ -16,7 +16,7 @@ interface AccountProps {
 
 const { Option } = Select;
 
-const AddAccount = ({addAccount, onClose}: AccountProps) => {
+const AddAccountModal = ({addAccount, onClose}: AccountProps) => {
     const [selected, setSelected] = useState<string>('');
 
     const handleChange = (value: string) => {
@@ -88,4 +88,4 @@ const AddAccount = ({addAccount, onClose}: AccountProps) => {
     );
 };
 
-export default AddAccount;
+export default AddAccountModal;
