@@ -37,9 +37,11 @@ html[data-theme="dark"] {
   --pending-bg: #{$dark-pending-bg};
   --pending-border: #{$dark-pending-border};
   --delete-btn: #{$dark-delete-btn};
+  --delete-img: #{$dark-delete-img};
 }
 
 html[data-theme="light"] {
+  --delete-img: #{$delete-img};
   --background-color: #{$bg-light-color};
   --border: #{$default-border};
   --input-border: #{$input-border};
