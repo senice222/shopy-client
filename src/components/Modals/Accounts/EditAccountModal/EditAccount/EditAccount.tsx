@@ -78,7 +78,8 @@ const EditAccount = ({emailInput, setIsEdit, onClose}: any) => {
                     <p className={style.title}>Пароль</p>
                     <Input.Password
                         className={style.input}
-                        placeholder="input password"
+                        value={"your password"}
+                        placeholder="****"
                         iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
                     />
                 </div>
