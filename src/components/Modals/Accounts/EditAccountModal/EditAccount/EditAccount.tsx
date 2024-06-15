@@ -10,8 +10,8 @@ import lock from "../../../../../assets/lock-02.png";
 const {Option} = Select;
 
 const EditAccount = ({emailInput, setIsEdit, onClose}: any) => {
-    const [selected, setSelected] = useState<string>('');
-
+    const [selected, setSelected] = useState<string>('Spotify');
+    const [newEmail, setNewEmail] = useState(emailInput);
     const handleChange = (value: string) => {
         setSelected(value);
     };
@@ -54,6 +54,7 @@ const EditAccount = ({emailInput, setIsEdit, onClose}: any) => {
                     <p className={style.title}>Сервис</p>
                     <Select
                         className={style.select}
+                        value={selected}
                         onChange={handleChange}
                     >
                         <Option value="Spotify" className={style.option}>
@@ -74,7 +75,7 @@ const EditAccount = ({emailInput, setIsEdit, onClose}: any) => {
                 </div>
                 <div className={style.item}>
                     <p className={style.title}>Почта или логин</p>
-                    <Input className={style.input} value={emailInput} placeholder="olivia@mshopy.ru"/>
+                    <Input className={style.input} value={newEmail} onChange={(e) => setNewEmail(e.target.value)} placeholder="olivia@mshopy.ru"/>
                 </div>
                 <div className={style.item}>
                     <p className={style.title}>Пароль</p>

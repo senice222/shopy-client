@@ -42,7 +42,7 @@ const EditAccountModal: FC<EditAccountModalProps> = ({active, onClose}) => {
                     />
                 ) : (
                     <EditAccount
-                        email={emailInput}
+                        emailInput={emailInput}
                         setIsEdit={setIsEdit}
                         onClose={handleClose}
                     />
