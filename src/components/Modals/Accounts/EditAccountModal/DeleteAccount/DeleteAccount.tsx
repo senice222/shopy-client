@@ -8,6 +8,8 @@ interface DetailsProps extends EditAccountModalProps {
 }
 
 const DeleteAccount:FC<DetailsProps> = ({onClose, setIsDelete}) => {
+
+
     return (
         <div className={style.deleteAccount}>
             <div className={style.header}>
