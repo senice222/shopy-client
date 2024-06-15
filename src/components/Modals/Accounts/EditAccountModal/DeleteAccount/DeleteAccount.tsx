@@ -3,12 +3,11 @@ import deleteIcon from '../../../../../assets/deleteIcon.png'
 import React, {Dispatch, FC, SetStateAction} from "react";
 import {EditAccountModalProps} from "../EditAccountModal";
 
-interface DetailesProps extends EditAccountModalProps {
+interface DetailsProps extends EditAccountModalProps {
     setIsDelete: Dispatch<SetStateAction<boolean>>;
 }
 
-
-const DeleteAccount:FC<DetailesProps> = ({onClose, setIsDelete}) => {
+const DeleteAccount:FC<DetailsProps> = ({onClose, setIsDelete}) => {
     return (
         <div className={style.deleteAccount}>
             <div className={style.header}>

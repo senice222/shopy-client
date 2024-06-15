@@ -6,10 +6,9 @@ interface ActiveProps {
     children: React.ReactNode;
     onClose?: () => void;
     bottom?: boolean;
-    setIsDelete?: Dispatch<SetStateAction<boolean>>;
 }
 
-const BootstrapModal = ({active, children, onClose, bottom, setIsDelete}: ActiveProps) => {
+const BootstrapModal = ({active, children, onClose, bottom}: ActiveProps) => {
 
     return (
         <div
@@ -18,9 +17,6 @@ const BootstrapModal = ({active, children, onClose, bottom, setIsDelete}: Active
                 if (onClose) {
                     onClose();
                 }
-                setIsDelete && setTimeout(() => {
-                    setIsDelete(false);
-                }, 300);
             }}
         >
             <div className={`modal-win__popup promo__popup ${active ? "activeCont" : ''}`}

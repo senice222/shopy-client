@@ -10,9 +10,10 @@ import {EditAccountModalProps} from "../EditAccountModal";
 interface DetailesProps extends EditAccountModalProps {
     email: string;
     setIsDelete: Dispatch<SetStateAction<boolean>>;
+    setIsEdit: Dispatch<SetStateAction<boolean>>;
 }
 
-const AccountsDetailes: FC<DetailesProps> = ({onClose, email, setIsDelete}) => {
+const AccountsDetailes: FC<DetailesProps> = ({setIsEdit, onClose, email, setIsDelete}) => {
 
     return (
         <>
@@ -62,7 +63,7 @@ const AccountsDetailes: FC<DetailesProps> = ({onClose, email, setIsDelete}) => {
                 </div>
                 <div className={style.btnDiv}>
                     <BlueButton text={"Продлить подписку"} height={"44px"} width={"100%"}/>
-                    <button className={style.whiteBtn}>Изменить</button>
+                    <button className={style.whiteBtn} onClick={() => setIsEdit(true)}>Изменить</button>
                     <h2 className={style.deleteBtn} onClick={() => setIsDelete(true)}>Удалить данные из бота</h2>
                 </div>
             </div>
