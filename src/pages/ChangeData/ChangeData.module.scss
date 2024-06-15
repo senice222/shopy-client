@@ -10,7 +10,6 @@
 
 .background {
   background-color: var(--burger-bg);
-
 }
 
 .firstBlock {
@@ -36,11 +35,11 @@
 
   .security {
     width: 230px;
-    margin-top: 10px;
+    margin-top: 15px;
     border-radius: 15px;
-    background-color: #ECFDF3;
+    background-color: var(--green-bg);
     padding: 5px;
-    border: 1px solid #ABEFC6;
+    border: 1px solid var(--green-border);
     display: flex;
     align-items: center;
 
