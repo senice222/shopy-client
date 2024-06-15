@@ -1,17 +1,19 @@
 import {useState} from "react";
-import BootstrapModal from "../../../BootstrapModal/BootstrapModal";
 import style from "./EditAccount.module.scss"
 import {Input, Select} from "antd";
 import spotify from "../../../../../assets/spotify.png";
 import netflix from "../../../../../assets/netflix.png";
 import BlueButton from "../../../../Button/Button";
 import lock from "../../../../../assets/lock-02.png";
+import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 
 const {Option} = Select;
 
 const EditAccount = ({emailInput, setIsEdit, onClose}: any) => {
     const [selected, setSelected] = useState<string>('Spotify');
     const [newEmail, setNewEmail] = useState(emailInput);
+    const [passwordVisible, setPasswordVisible] = useState(false);
+
     const handleChange = (value: string) => {
         setSelected(value);
     };
@@ -21,12 +23,7 @@ const EditAccount = ({emailInput, setIsEdit, onClose}: any) => {
             <div className={style.modalWinPopupHead}>
                 <h3>Изменить данные</h3>
                 <svg
-                    onClick={() => {
-                        onClose()
-                        setTimeout(() => {
-                            setIsEdit(false);
-                        }, 300);
-                    }}
+                    onClick={() => setIsEdit(false)}
                     width="24"
                     height="24"
                     viewBox="0 0 24 24"
@@ -79,7 +76,11 @@ const EditAccount = ({emailInput, setIsEdit, onClose}: any) => {
                 </div>
                 <div className={style.item}>
                     <p className={style.title}>Пароль</p>
-                    <Input className={style.input} value={"*******"} placeholder="*******"/>
+                    <Input.Password
+                        className={style.input}
+                        placeholder="input password"
+                        iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+                    />
                 </div>
                 <div style={{width: "100%", marginTop: "20px"}}>
                     <BlueButton text={"Сохранить"} height={"44px"} width={"100%"}/>

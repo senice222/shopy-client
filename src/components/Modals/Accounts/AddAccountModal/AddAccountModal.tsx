@@ -71,7 +71,7 @@ const AddAccountModal = ({addAccount, onClose}: AccountProps) => {
                     <Input className={style.input} placeholder="olivia@mshopy.ru"/>
                 </div>
                 <div className={style.item}>
-                    <p className={style.title}>Почта</p>
+                    <p className={style.title}>Пароль</p>
                     <Input className={style.input} placeholder="*******"/>
                 </div>
                 <div style={{width: "100%", marginTop: "20px"}}>
