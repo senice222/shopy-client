@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {Dispatch, FC, SetStateAction, useState} from "react";
 import style from "./EditAccount.module.scss"
 import {Input, Select} from "antd";
 import spotify from "../../../../../assets/spotify.png";
@@ -8,8 +8,13 @@ import lock from "../../../../../assets/lock-02.png";
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 
 const {Option} = Select;
+interface EditAccountProps {
+    emailInput: string;
+    setIsEdit: Dispatch<SetStateAction<boolean>>;
+    onClose: () => void;
+}
 
-const EditAccount = ({emailInput, setIsEdit, onClose}: any) => {
+const EditAccount:FC<EditAccountProps> = ({emailInput, setIsEdit, onClose}) => {
     const [selected, setSelected] = useState<string>('Spotify');
     const [newEmail, setNewEmail] = useState(emailInput);
     const [passwordVisible, setPasswordVisible] = useState(false);

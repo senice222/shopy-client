@@ -6,13 +6,15 @@ import React from "react";
 import Layout from "../../layouts/Layout";
 
 const ActiveSubscriptions = () => {
+
+    
     return (
         <div className={style.historyWrapp}>
             <Layout isRightArrow={true}>
                 <div className={style.wrapperOfHistory}>
                     <div className={style.historyTitle}>
                         <h2>Активные подписки</h2>
-                        <p>Здесь находятся все активные подписки, которые вы <br/> оформили через Shopy.</p>
+                        <p>Здесь находятся все активные подписки, которые вы оформили через Shopy.</p>
                     </div>
                     <div className={style.orderItems}>
                         <div className={style.orderWrapper}>
