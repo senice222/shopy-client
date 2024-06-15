@@ -3,8 +3,10 @@ import Layout from "../../../layouts/Layout";
 import React from "react";
 import spotify from "../../../assets/svg/Spotify.svg";
 import Button from "../../../components/Button/Button";
+import { useNavigate } from 'react-router-dom';
 
 const DetailedOrder = () => {
+    const navigate = useNavigate()
 
     return (
         <div className={style.historyWrapp}>
@@ -71,7 +73,7 @@ const DetailedOrder = () => {
                             <h2>399₽</h2>
                         </div>
                     </div>
-                    <div style={{width: "100%", marginTop: "25px"}}>
+                    <div style={{width: "100%", marginTop: "25px"}} onClick={() => navigate('/change-data')}>
                         <Button text={"Написать в поддержку"} width={"100%"} height={"48px"} />
                     </div>
                 </div>

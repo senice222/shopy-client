@@ -17,7 +17,6 @@ interface EditAccountProps {
 const EditAccount:FC<EditAccountProps> = ({emailInput, setIsEdit, onClose}) => {
     const [selected, setSelected] = useState<string>('Spotify');
     const [newEmail, setNewEmail] = useState(emailInput);
-    const [passwordVisible, setPasswordVisible] = useState(false);
 
     const handleChange = (value: string) => {
         setSelected(value);

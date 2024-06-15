@@ -1,8 +1,11 @@
-import React from 'react'
 import s from './ChangeData.module.scss'
 import Layout from '../../layouts/Layout'
 import BlueButton from '../../components/Button/Button'
+import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
+import {Input} from "antd";
+
 const ChangeData = () => {
+
     return (
         <div className={s.background}>
             <Layout isRightArrow={true}>
@@ -132,12 +135,18 @@ const ChangeData = () => {
                             </div>
                             <div className={s.loginBlock}>
                                 <p className={s.headingText}>Пароль для входа в необходимый сервис</p>
-                                <input type={'password'} placeholder={'****'} />
+                                {/* <input type={'password'} placeholder={'****'} /> */}
+                                <Input.Password
+                                    className={s.input}
+                                    value={"your password"}
+                                    placeholder="****"
+                                    iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
+                                />
                                 <p className={s.descr}>
                                     Введите пароль от аккаунта / для регистрации аккаунта в необходимом сервисе.                         </p>
                             </div>
                             <div className={s.btns}>
-                                <BlueButton fontSize='16px' width='100%' height={'48px'} text='Изменить пароль'/>
+                                <BlueButton fontSize='16px' width='100%' height={'48px'} text='Изменить пароль' />
                                 <button className={s.second}>Написать в поддержку</button>
                             </div>
                         </div>
