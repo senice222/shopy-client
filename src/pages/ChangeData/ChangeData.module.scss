@@ -1,0 +1,25 @@
+.firstBlock {
+    margin-top: 20px;
+    border-bottom: 1px solid var(--input-border);
+    padding-bottom: 10px;
+    width: 90vw;
+  
+    .security {
+      width: 230px;
+      margin-top: 15px;
+      border-radius: 15px;
+      background-color: #ECFDF3;
+      padding: 5px;
+      border: 1px solid #ABEFC6;
+      display: flex;
+      align-items: center;
+  
+      p {
+        font-size: 12px;
+        font-weight: 500;
+        line-height: 18px;
+        margin-left: 5px;
+        color: #067647;
+      }
+    }
+  }

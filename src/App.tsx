@@ -19,6 +19,7 @@ import {useAppDispatch, useAppSelector} from "./hooks/redux-hooks";
 import {SubscribeActivate} from "./pages/SubscribeActivate/SubscribeActivate";
 import ActiveSubscriptions from "./pages/ActiveSubscriptions/ActiveSubscriptions";
 import DetailedOrder from "./pages/HistoryOfOrders/DetailedOrder/DetailedOrder";
+import ChangeData from './pages/ChangeData/ChangeData';
 
 function App() {
     const location = useLocation()
@@ -68,6 +69,7 @@ function App() {
             <Route path="/proceed-payment" element={<ProceedToPayment/>}/>
             <Route path="/product/:id" element={<DetailedProduct setAddedFunc={setAddedFunc} isAdd={isAdd} added={added} setAdded={setAdded} />}/>
             <Route path="/history-of-orders" element={<HistoryOfOrders />}/>
+            <Route path="/changePassword" element={<ChangeData/>}/>
             <Route path="/history-of-orders/:id" element={<DetailedOrder />}/>
             <Route path="/activation" element={<SubscribeActivate/>}/>
             <Route path="/successful-payment" element={
