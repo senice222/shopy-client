@@ -8,7 +8,52 @@
     color: var(--default-text);
   }
 }
+.burgerButton {
+  position: relative;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  z-index: 11;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.line {
+  position: absolute;
+  top: 0px;
+  left: 1px;
+  width: 15px;
+  height: 2px;
+  background-color: #000;
+  transition: 0.3s ease-in-out;
+}
 
+.line1 {
+  top: 8px;
+}
+
+.line2 {
+  top: 14px;
+  transition: .3s;
+}
+
+.line3 {
+  top: 20px;
+}
+
+.line1Active {
+  transform: rotate(45deg) translate(10px, 10px);
+  top: 0 !important;
+}
+
+.line2Active {
+  opacity: 0;
+}
+
+.line3Active {
+  transform: rotate(-45deg) translate(10px, -10px);
+  top: 28px;
+}
 .navbar {
   padding-top: .5rem;
   padding-bottom: .5rem;

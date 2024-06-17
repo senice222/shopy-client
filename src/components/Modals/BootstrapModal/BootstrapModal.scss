@@ -20,9 +20,10 @@
   }
 
   .promo__popup {
-    transform: scale(0.7);
-    transition: .3s;
+    transition: .3s ease-in-out;
     width: 95%;
+    border-radius: 12px;
+
     & .modal-win__popup {
 
       &-head {
@@ -60,7 +61,7 @@
     }
   }
   .activeCont {
-    transform: scale(1) !important;
+    //transform: scale(1) !important;
   }
   .active {
     opacity: 1 !important;

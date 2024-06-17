@@ -20,6 +20,7 @@ import {SubscribeActivate} from "./pages/SubscribeActivate/SubscribeActivate";
 import ActiveSubscriptions from "./pages/ActiveSubscriptions/ActiveSubscriptions";
 import DetailedOrder from "./pages/HistoryOfOrders/DetailedOrder/DetailedOrder";
 import ChangeData from './pages/ChangeData/ChangeData';
+import Referral from "./pages/Referral/Referral";
 
 function App() {
     const location = useLocation()
@@ -72,6 +73,7 @@ function App() {
             <Route path="/change-data" element={<ChangeData/>}/>
             <Route path="/history-of-orders/:id" element={<DetailedOrder />}/>
             <Route path="/activation" element={<SubscribeActivate/>}/>
+            <Route path="/referral" element={<Referral />}/>
             <Route path="/successful-payment" element={
                 <Payment
                     title={"Оплата прошла успешно!"}

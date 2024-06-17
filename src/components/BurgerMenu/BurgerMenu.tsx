@@ -11,6 +11,11 @@ import CashBackModal from "../Modals/CashBackModal/CashBackModal";
 import {Emoji, Sale, Bookmark, Calendar, Clock, Users, HelpCircle, Message, Search} from "./Svgs";
 
 const BurgerMenu: FC<BurgerMenuI> = ({isOpened, setOpened}) => {
+    const [isPromo, setPromo] = useState<boolean>(false)
+    const [topUp, setTopUp] = useState<boolean>(false)
+    const [notFind, setNotFind] = useState<boolean>(false)
+    const [cashback, setCashback] = useState<boolean>(false)
+    const navigate = useNavigate()
 
     useEffect(() => {
         if (isOpened) {
@@ -20,19 +25,15 @@ const BurgerMenu: FC<BurgerMenuI> = ({isOpened, setOpened}) => {
         }
     }, [isOpened]);
 
-    const [isPromo, setPromo] = useState<boolean>(false)
-    const [topUp, setTopUp] = useState<boolean>(false)
-    const [notFind, setNotFind] = useState<boolean>(false)
-    const [cashback, setCashback] = useState<boolean>(false)
-    const navigate = useNavigate()
-
     return (
         isOpened ? <div className={`${s.burger} 'openned`}>
             <NotFindModal setBurger={setOpened} isOpen={notFind} onClose={() => setNotFind(false)}/>
             <DoDepModal setBurger={setOpened} isOpen={topUp} onClose={() => setTopUp(false)}/>
             <PromoModal setBurger={setOpened} promoActive={isPromo} onClose={() => setPromo(false)}/>
             <CashBackModal cashback={cashback} onClose={() => setCashback(!cashback)}/>
-            <div className={s.header1Div}><Header isCross={true} setOpened={setOpened}/></div>
+            <div className={s.header1Div}>
+                <Header isCross={isOpened} setOpened={setOpened}/>
+            </div>
             <div className={s.contentWrapper}>
                 <div className={s.content}>
                     <div className={s.headerDiv}>
@@ -77,17 +78,17 @@ const BurgerMenu: FC<BurgerMenuI> = ({isOpened, setOpened}) => {
                         </div>
                         <p>Активные подписки</p>
                     </div>
-                    <div className={s.block}>
+                    <div className={s.block} onClick={() => navigate("/history-of-orders")}>
                         <div className={s.icon}>
                             <div className={s.svg1}><Clock/></div>
                         </div>
-                        <p onClick={() => navigate("/history-of-orders")}>История заказов</p>
+                        <p >История заказов</p>
                     </div>
-                    <div className={s.block}>
+                    <div className={s.block} onClick={() => navigate("/referral")}>
                         <div className={s.icon}>
                             <div className={s.svg1}><Users/></div>
                         </div>
-                        <p>Реферальная система </p>
+                        <p>Реферальная систем</p>
                     </div>
                     <div className={s.hrDiv}>
                         <h2>Помощь</h2>

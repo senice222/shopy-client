@@ -1,0 +1,147 @@
+.bg {
+  background-color: var(--border);
+}
+
+.wrapper {
+  margin-top: 26px;
+  margin-left: 15px;
+  width: 90%;
+
+  .nothing {
+    margin-top: 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    div {
+      width: 100%;
+      margin-top: 35px;
+    }
+
+    h2 {
+      font-size: 17px;
+      font-weight: 500;
+      line-height: 28px;
+      color: var(--burger-title-color);
+      text-align: left;
+    }
+
+    p {
+      font-family: "Graphik LCG Regular", sans-serif;
+      font-size: 13px;
+      color: var(--gray-text-first);
+      font-weight: 400;
+      line-height: 20px;
+      text-align: center;
+    }
+  }
+
+  .yourReferral {
+    width: 100%;
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--hr-color);
+    margin-top: 25px;
+    h2 {
+      font-size: 17px;
+      font-weight: 500;
+      line-height: 28px;
+      color: var(--burger-title-color);
+      text-align: left;
+    }
+    p {
+      font-family: "Graphik LCG Regular", sans-serif;
+      font-size: 14px;
+      color: var(--gray-text-first);
+      font-weight: 400;
+      line-height: 20px;
+      text-align: left;
+    }
+  }
+
+  .earnings {
+    width: 100%;
+    height: 90px;
+    padding: 20px 16px;
+    background-color: var(--repeat-btn-bg);
+    border-radius: 12px;
+    margin-top: 20px;
+
+    p {
+      color: var(--gray-text-first);
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 20px;
+      text-align: left;
+
+    }
+
+    h2 {
+      font-size: 30px;
+      font-weight: 500;
+      line-height: 38px;
+      text-align: left;
+      color: var(--burger-title-color);
+    }
+  }
+}
+
+.refDiv {
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--hr-color);
+  h2 {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 28px;
+    color: var(--burger-title-color);
+    text-align: left;
+  }
+  p {
+    font-family: "Graphik LCG Regular", sans-serif;
+    font-size: 14px;
+    color: var(--gray-text-first);
+    margin-top: 3px;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: left;
+  }
+}
+.inputDiv {
+  display: flex;
+  margin-top: 35px;
+  justify-content: center;
+  flex-direction: column;
+  p {
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 20px;
+    text-align: left;
+
+  }
+
+  .input {
+    height: 44px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    width: 95%;
+    text-align: left;
+    padding: 10px 14px 10px 14px;
+    color: var(--modal-color);
+    border-radius: 8px;
+    background-color: var(--background-color) !important;
+    border: 1px solid var(--input-border) !important;
+    font-family: 'Graphik LCG', sans-serif;
+  }
+
+  div {
+    margin-top: 5px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    img {
+      width: 20px;
+      height: 20px;
+      margin-left: 10px;
+    }
+  }
+}

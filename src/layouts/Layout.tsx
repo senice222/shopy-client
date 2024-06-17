@@ -12,7 +12,7 @@ const Layout = ({children, isRightArrow}: LayoutProps) => {
     return (
         <div>
             <BurgerMenu isOpened={isOpened} setOpened={() => setOpened(!isOpened)}/>
-            <Header setOpened={() => setOpened(true)} isRightArrow={isRightArrow}/>
+            <Header isCross={isOpened} setOpened={() => setOpened(true)} isRightArrow={isRightArrow}/>
             <AnimatedPage>
                 {children}
                 <Footer/>

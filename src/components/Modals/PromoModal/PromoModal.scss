@@ -5,8 +5,8 @@
 }
 
 .promo__popup {
-  transform: scale(0.7);
-  transition: .3s;
+  //transform: scale(0.7);
+  transition: .6s !important;
   & .modal-win__popup {
 
     &-head {
@@ -43,7 +43,7 @@
   }
 }
 .activeCont {
-  transform: scale(1) !important;
+  //transform: scale(1) !important;
 }
 .promo {
   position: fixed;
@@ -58,7 +58,7 @@
   z-index: 99;
   backdrop-filter: blur(16px);
   opacity: 0;
-  transition: .3s;
+  transition: .6s !important;
   pointer-events: none;
 
 }
@@ -70,6 +70,8 @@
   margin-bottom: 60px;
   background-color: var(--block-bg);
   border-radius: 12px;
+  position: absolute;
+
 }
 
 .modal-win__popup-body {

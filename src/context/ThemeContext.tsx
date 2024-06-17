@@ -14,7 +14,7 @@ interface Props {
 }
 
 const ThemeProvider: React.FC<Props> = ({ children }) => {
-    const [darkTheme, setDarkTheme] = useState(true);
+    const [darkTheme, setDarkTheme] = useState(false);
 
     const toggleThemeHandler = () => {
         setDarkTheme((prevState) => !prevState);

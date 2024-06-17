@@ -1,4 +1,4 @@
-import React, {Dispatch, SetStateAction} from 'react'
+import React, {Dispatch, SetStateAction, useEffect, useRef, useState} from 'react'
 import './BootstrapModal.scss'
 
 interface ActiveProps {
@@ -9,7 +9,16 @@ interface ActiveProps {
 }
 
 const BootstrapModal = ({active, children, onClose, bottom}: ActiveProps) => {
-
+    const [height, setHeight] = useState(600);
+    const ref = useRef<HTMLDivElement>(null);
+    console.log(height)
+    useEffect(() => {
+        if (active) {
+            if (ref.current) {
+                setHeight(ref.current.offsetHeight);
+            }
+        }
+    }, [active, ref]);
     return (
         <div
             className={`promo ${active ? "active" : ""} ${bottom ? 'bottom' : ''}`}
@@ -19,8 +28,8 @@ const BootstrapModal = ({active, children, onClose, bottom}: ActiveProps) => {
                 }
             }}
         >
-            <div className={`modal-win__popup promo__popup ${active ? "activeCont" : ''}`}
-                 style={{borderRadius: '12px'}}
+            <div ref={ref} className={`modal-win__popup promo__popup ${active ? "activeCont" : ''}`}
+                 style={!active ? {bottom : `-${height+60}px`} : {bottom: 0}}
                  onClick={onClose}
             >
                 <div className="modal-win__popup-body" onClick={e => e.stopPropagation()}>

@@ -133,7 +133,7 @@
     margin-bottom: 15px;
   }
   .promo__popup {
-    transform: scale(0.7);
+    //transform: scale(0.7);
     transition: .3s;
     width: 94%;
     & .modal-win__popup {
@@ -173,7 +173,7 @@
     }
   }
   .activeCont {
-    transform: scale(1) !important;
+    //transform: scale(1) !important;
   }
   .active {
     opacity: 1 !important;
