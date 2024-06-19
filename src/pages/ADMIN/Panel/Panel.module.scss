@@ -1,0 +1,55 @@
+.panelWrapper {
+  padding: 20px;
+  width: 100%;
+
+  .header {
+    h2 {
+      font-size: 30px;
+      font-weight: 500;
+      line-height: 38px;
+      text-align: left;
+      color: #101828;
+    }
+  }
+
+  .totalInfo {
+    margin-top: 30px;
+    display: flex;
+    width: 100%;
+    .info {
+      div {
+        margin-top: 10px;
+        h2 {
+          font-size: 30px;
+          font-weight: 600;
+          line-height: 38px;
+          text-align: left;
+          letter-spacing: 2px;
+          color: #101828;
+          margin-top: 5px;
+        }
+
+        p {
+          font-size: 14px;
+          font-weight: 500;
+          line-height: 20px;
+          text-align: left;
+        }
+      }
+    }
+    .fastMoves {
+      margin-left: 250px;
+      width: 40%;
+      h2 {
+        padding-bottom: 10px;
+        border-bottom: 1px solid #EAECF0;
+        color: #101828;
+        font-family: "Graphik LCG SemiBold", sans-serif;
+        font-size: 18px;
+        line-height: 28px;
+        text-align: left;
+
+      }
+    }
+  }
+}

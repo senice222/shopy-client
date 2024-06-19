@@ -1,7 +1,5 @@
 import styles from './Header.module.scss'
 import {Link, useNavigate} from "react-router-dom";
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {faBars} from '@fortawesome/free-solid-svg-icons';
 import {FC, useContext, useEffect, useState} from "react";
 import {SVGHeart} from "../Svgs/Svgs";
 import rightArrow from '../../assets/svg/arrow-left.svg'

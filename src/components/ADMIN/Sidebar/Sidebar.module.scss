@@ -1,0 +1,61 @@
+.sidebar {
+  padding: 15px;
+  width: 280px;
+  border-right: 1px solid #EAECF0;
+  height: 100vh;
+  img {
+    width: 38px;
+    height: 38px;
+  }
+  .items {
+    margin-top: 30px;
+    .item {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      width: 248px;
+      height: 40px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      background: #F9FAFB;
+
+      img {
+        width: 24px;
+        height: 24px;
+      }
+      h2 {
+        font-family: "Graphik LCG SemiBold", sans-serif;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 24px;
+        text-align: left;
+        margin-left: 10px;
+        color: #182230;
+      }
+    }
+    .itemNotActive {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      width: 248px;
+      height: 40px;
+      cursor: pointer;
+      padding: 8px 12px;
+      border-radius: 6px;
+      background: #FFFFFF;
+
+      img {
+        width: 24px;
+        height: 24px;
+      }
+      h2 {
+        font-family: "Graphik LCG SemiBold", sans-serif;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 24px;
+        text-align: left;
+        margin-left: 10px;
+      }
+    }
+  }
+}
