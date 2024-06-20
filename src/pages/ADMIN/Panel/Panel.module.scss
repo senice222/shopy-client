@@ -16,9 +16,11 @@
     margin-top: 30px;
     display: flex;
     width: 100%;
+
     .info {
       div {
         margin-top: 10px;
+
         h2 {
           font-size: 30px;
           font-weight: 600;
@@ -37,19 +39,151 @@
         }
       }
     }
-    .fastMoves {
-      margin-left: 250px;
-      width: 40%;
+  }
+}
+
+.wrapper {
+  margin-top: 30px;
+
+  .lastOrders {
+    width: 536px;
+    //height: 857px;
+    border-radius: 12px;
+    border: 1px solid #EAECF0;
+    box-shadow: 0px 1px 2px 0px #1018280D;
+
+    .orderHeader {
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
       h2 {
-        padding-bottom: 10px;
-        border-bottom: 1px solid #EAECF0;
-        color: #101828;
-        font-family: "Graphik LCG SemiBold", sans-serif;
         font-size: 18px;
+        color: #101828;
+        font-weight: 500;
         line-height: 28px;
         text-align: left;
 
       }
+    }
+  }
+}
+
+.wrapper {
+  display: flex;
+  gap: 20px;
+}
+
+.ordersTable {
+  width: 100%;
+  overflow-y: visible;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+//.scrollContainer {
+//  max-height: 302px;
+//  overflow-y: auto;
+//}
+
+.tbody {
+  max-height: 400px;
+}
+
+.id {
+  font-family: Graphik LCG !important;
+  font-size: 14px !important;
+  text-align: center;
+  line-height: 20px !important;
+  color: #101828 !important;
+}
+
+.ordersTable th,
+.ordersTable td {
+  height: 45px;
+  font-family: "Graphik LCG Regular", sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 20px;
+  text-align: center;
+  padding: 12px;
+  color: #475467;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.ordersTable th {
+  text-align: center;
+  font-size: 14px;
+  font-family: "Graphik LCG SemiBold", sans-serif;
+  font-weight: 500;
+  line-height: 18px;
+  color: #475467;
+  background-color: #f1f3f5;
+}
+
+.status {
+  font-weight: bold;
+  border-radius: 8px;
+  padding: 5px 10px;
+
+  .wrapperPaid {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    .refunded {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      //background-color: #F9FAFB;
+      width: 85px;
+      height: 20px;
+      border-radius: 15px;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 18px;
+      text-align: center;
+      color: #344054;
+      border: 1px solid #EAECF0;
+      p {
+        margin-left: 4px;
+      }
+    }
+
+    .paid {
+      background-color: #ECFDF3;
+      width: 53px;
+      height: 20px;
+      border-radius: 15px;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 18px;
+      text-align: center;
+      color: #067647;
+      border: 1px solid #ABEFC6;
+    }
+  }
+
+
+
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+
+  .info,
+  .edit {
+    cursor: pointer;
+    font-size: 16px;
+
+    &:hover {
+      color: #007bff;
+    }
+
+    &.info:hover {
+      color: #17a2b8;
     }
   }
 }
