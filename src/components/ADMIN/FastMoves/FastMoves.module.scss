@@ -1,8 +1,9 @@
 .fastMoves {
   margin-left: 290px;
-  width: 54.4%;
+  width: 100%;
   .title {
     padding-bottom: 10px;
+    width: 98.3%;
     border-bottom: 1px solid #EAECF0;
     color: #101828;
     font-family: "Graphik LCG SemiBold", sans-serif;
@@ -13,14 +14,14 @@
 
   .items {
     margin-top: 20px;
-    width: auto;
+    width: 100%;
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
     .item {
       cursor: pointer;
       display: flex;
-      width: 430px;
+      width: 49%;
       border-radius: 12px;
       padding: 20px;
       border: 1px solid #EAECF0;
@@ -54,6 +55,32 @@
 
         }
       }
+    }
+  }
+}
+
+@media (max-width: 1668px) {
+  .fastMoves {
+    margin-left: 200px !important;
+  }
+}
+
+@media (max-width: 1500px) {
+  .fastMoves {
+    margin-left: 150px !important;
+  }
+}
+
+@media (max-width: 1450px) {
+  .fastMoves {
+    margin-left: 100px !important;
+  }
+}
+@media (max-width: 500px) {
+  .fastMoves {
+    margin-left: 0px !important;
+    .items {
+      flex-direction: column;
     }
   }
 }

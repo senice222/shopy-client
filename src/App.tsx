@@ -23,6 +23,7 @@ import ChangeData from './pages/ChangeData/ChangeData';
 import Referral from "./pages/Referral/Referral";
 import Login from "./pages/ADMIN/Login/Login";
 import Panel from "./pages/ADMIN/Panel/Panel";
+import Users from "./pages/ADMIN/Users/Users";
 
 function App() {
     const location = useLocation()
@@ -78,6 +79,7 @@ function App() {
             <Route path="/referral" element={<Referral />}/>
             <Route path="/login" element={<Login />}/>
             <Route path="/panel" element={<Panel />}/>
+            <Route path="/panel/users" element={<Users />}/>
             <Route path="/successful-payment" element={
                 <Payment
                     title={"Оплата прошла успешно!"}

@@ -25,6 +25,9 @@
   color: var(--default-text);
   font-family: Graphik LCG;
 }
+img {
+  user-select: none;
+}
 *,
 *:before,
 *:after {

@@ -3,8 +3,11 @@ import users from "../../../assets/users-01.png";
 import bag from "../../../assets/shopping-bag-02.png";
 import orders from "../../../assets/receipt.png";
 import rassylka from "../../../assets/message-text-square-01.png";
+import {useNavigate} from "react-router-dom";
 
 const FastMoves = () => {
+    const navigate = useNavigate()
+
     return (
         <div className={style.fastMoves}>
             <h2 className={style.title}>Быстрые действия</h2>
@@ -13,7 +16,7 @@ const FastMoves = () => {
                     <div className={style.icon}>
                         <img src={users} alt="/"/>
                     </div>
-                    <div className={style.users}>
+                    <div className={style.users} onClick={() => navigate('/panel/users')}>
                         <h2>Пользователи</h2>
                         <p>Список и управление пользователями</p>
                     </div>

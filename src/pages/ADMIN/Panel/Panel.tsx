@@ -3,6 +3,8 @@ import style from './Panel.module.scss'
 import FastMoves from "../../../components/ADMIN/FastMoves/FastMoves";
 import Button from "../../../components/Button/Button";
 import reverse from '../../../assets/reverse-left.png'
+import info from '../../../assets/info-circle.png'
+import edit from '../../../assets/edit-02.png'
 
 const Panel = () => {
     return (
@@ -55,8 +57,14 @@ const Panel = () => {
                                             </div>
                                         </td>
                                         <td className={style.actions}>
-                                            <span className={style.info}>ℹ</span>
-                                            <span className={style.edit}>✎</span>
+                                            <div>
+                                                <span className={style.info}>
+                                                    <img src={info} alt={'/'}/>
+                                                </span>
+                                                <span className={style.edit}>
+                                                    <img src={edit} alt={"/"}/>
+                                                </span>
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr>
@@ -68,8 +76,14 @@ const Panel = () => {
                                             </div>
                                         </td>
                                         <td className={style.actions}>
-                                            <span className={style.info}>ℹ</span>
-                                            <span className={style.edit}>✎</span>
+                                            <div>
+                                                <span className={style.info}>
+                                                    <img src={info} alt={'/'}/>
+                                                </span>
+                                                <span className={style.edit}>
+                                                    <img src={edit} alt={"/"}/>
+                                                </span>
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr>
@@ -81,8 +95,14 @@ const Panel = () => {
                                             </div>
                                         </td>
                                         <td className={style.actions}>
-                                            <span className={style.info}>ℹ</span>
-                                            <span className={style.edit}>✎</span>
+                                            <div>
+                                                <span className={style.info}>
+                                                    <img src={info} alt={'/'}/>
+                                                </span>
+                                                <span className={style.edit}>
+                                                    <img src={edit} alt={"/"}/>
+                                                </span>
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr>
@@ -94,8 +114,14 @@ const Panel = () => {
                                             </div>
                                         </td>
                                         <td className={style.actions}>
-                                            <span className={style.info}>ℹ</span>
-                                            <span className={style.edit}>✎</span>
+                                            <div>
+                                                <span className={style.info}>
+                                                    <img src={info} alt={'/'}/>
+                                                </span>
+                                                <span className={style.edit}>
+                                                    <img src={edit} alt={"/"}/>
+                                                </span>
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr>
@@ -110,8 +136,14 @@ const Panel = () => {
                                             </div>
                                         </td>
                                         <td className={style.actions}>
-                                            <span className={style.info}>ℹ</span>
-                                            <span className={style.edit}>✎</span>
+                                            <div>
+                                                <span className={style.info}>
+                                                    <img src={info} alt={'/'}/>
+                                                </span>
+                                                <span className={style.edit}>
+                                                    <img src={edit} alt={"/"}/>
+                                                </span>
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr>
@@ -123,36 +155,16 @@ const Panel = () => {
                                             </div>
                                         </td>
                                         <td className={style.actions}>
-                                            <span className={style.info}>ℹ</span>
-                                            <span className={style.edit}>✎</span>
+                                            <div>
+                                                <span className={style.info}>
+                                                    <img src={info} alt={'/'}/>
+                                                </span>
+                                                <span className={style.edit}>
+                                                    <img src={edit} alt={"/"}/>
+                                                </span>
+                                            </div>
                                         </td>
                                     </tr>
-                                    {/*<tr>*/}
-                                    {/*    <td className={style.id}>#3061</td>*/}
-                                    {/*    <td>Monthly subscription</td>*/}
-                                    {/*    <td className={style.status}>*/}
-                                    {/*        <div className={style.wrapperPaid}>*/}
-                                    {/*            <div className={style.paid}>✔ Paid</div>*/}
-                                    {/*        </div>*/}
-                                    {/*    </td>*/}
-                                    {/*    <td className={style.actions}>*/}
-                                    {/*        <span className={style.info}>ℹ</span>*/}
-                                    {/*        <span className={style.edit}>✎</span>*/}
-                                    {/*    </td>*/}
-                                    {/*</tr>*/}
-                                    {/*<tr>*/}
-                                    {/*    <td className={style.id}>#3061</td>*/}
-                                    {/*    <td>Monthly subscription</td>*/}
-                                    {/*    <td className={style.status}>*/}
-                                    {/*        <div className={style.wrapperPaid}>*/}
-                                    {/*            <div className={style.paid}>✔ Paid</div>*/}
-                                    {/*        </div>*/}
-                                    {/*    </td>*/}
-                                    {/*    <td className={style.actions}>*/}
-                                    {/*        <span className={style.info}>ℹ</span>*/}
-                                    {/*        <span className={style.edit}>✎</span>*/}
-                                    {/*    </td>*/}
-                                    {/*</tr>*/}
                                     </tbody>
                                 </table>
                             </div>
@@ -184,8 +196,14 @@ const Panel = () => {
                                         </td>
                                         <td>1000103230</td>
                                         <td className={style.actions}>
-                                            <span className={style.info}>ℹ</span>
-                                            <span className={style.edit}>✎</span>
+                                            <div>
+                                                <span className={style.info}>
+                                                    <img src={info} alt={'/'}/>
+                                                </span>
+                                                <span className={style.edit}>
+                                                    <img src={edit} alt={"/"}/>
+                                                </span>
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr>
@@ -197,8 +215,14 @@ const Panel = () => {
                                         </td>
                                         <td>1000103230</td>
                                         <td className={style.actions}>
-                                            <span className={style.info}>ℹ</span>
-                                            <span className={style.edit}>✎</span>
+                                            <div>
+                                                <span className={style.info}>
+                                                    <img src={info} alt={'/'}/>
+                                                </span>
+                                                <span className={style.edit}>
+                                                    <img src={edit} alt={"/"}/>
+                                                </span>
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr>
@@ -210,8 +234,14 @@ const Panel = () => {
                                         </td>
                                         <td>1000103230</td>
                                         <td className={style.actions}>
-                                            <span className={style.info}>ℹ</span>
-                                            <span className={style.edit}>✎</span>
+                                            <div>
+                                                <span className={style.info}>
+                                                    <img src={info} alt={'/'}/>
+                                                </span>
+                                                <span className={style.edit}>
+                                                    <img src={edit} alt={"/"}/>
+                                                </span>
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr>
@@ -223,8 +253,14 @@ const Panel = () => {
                                         </td>
                                         <td>1000103230</td>
                                         <td className={style.actions}>
-                                            <span className={style.info}>ℹ</span>
-                                            <span className={style.edit}>✎</span>
+                                            <div>
+                                                <span className={style.info}>
+                                                    <img src={info} alt={'/'}/>
+                                                </span>
+                                                <span className={style.edit}>
+                                                    <img src={edit} alt={"/"}/>
+                                                </span>
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr>
@@ -236,8 +272,14 @@ const Panel = () => {
                                         </td>
                                         <td>1000103230</td>
                                         <td className={style.actions}>
-                                            <span className={style.info}>ℹ</span>
-                                            <span className={style.edit}>✎</span>
+                                            <div>
+                                                <span className={style.info}>
+                                                    <img src={info} alt={'/'}/>
+                                                </span>
+                                                <span className={style.edit}>
+                                                    <img src={edit} alt={"/"}/>
+                                                </span>
+                                            </div>
                                         </td>
                                     </tr>
                                     <tr>
@@ -249,8 +291,14 @@ const Panel = () => {
                                         </td>
                                         <td>1000103230</td>
                                         <td className={style.actions}>
-                                            <span className={style.info}>ℹ</span>
-                                            <span className={style.edit}>✎</span>
+                                            <div>
+                                                <span className={style.info}>
+                                                    <img src={info} alt={'/'}/>
+                                                </span>
+                                                <span className={style.edit}>
+                                                    <img src={edit} alt={"/"}/>
+                                                </span>
+                                            </div>
                                         </td>
                                     </tr>
                                     </tbody>

@@ -1,0 +1,18 @@
+.backTick {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  img {
+    cursor: pointer;
+  }
+  div {
+    width: 120px;
+    height: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+    background-color: #F9FAFB;
+    user-select: none;
+  }
+}
