@@ -6,10 +6,12 @@ import {useNavigate} from "react-router-dom";
 
 interface BackTickProps {
     title: string;
-    to: string
+    to: string;
+    nestedTitle?: string;
+    nestedTo?: string;
 }
 
-const BackTick = ({title, to}: BackTickProps) => {
+const BackTick = ({title, to, nestedTitle, nestedTo}: BackTickProps) => {
     const navigate = useNavigate()
 
     return (
@@ -19,6 +21,16 @@ const BackTick = ({title, to}: BackTickProps) => {
             <div>
                 <p>{title}</p>
             </div>
+            {
+                nestedTitle && nestedTo && (
+                    <>
+                        <img onClick={() => navigate(nestedTo)} src={right} alt={"/"}/>
+                        <div>
+                            <p>{nestedTitle}</p>
+                        </div>
+                    </>
+                )
+            }
         </div>
     );
 };

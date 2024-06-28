@@ -1,79 +1,74 @@
-.panelWrapper {
-  padding: 20px;
-  width: 100%;
-
-  .header {
-    h2 {
-      font-size: 30px;
-      font-weight: 500;
-      line-height: 38px;
-      text-align: left;
-      color: #101828;
-    }
-  }
-
-  .totalInfo {
-    margin-top: 30px;
-    display: flex;
-    width: 100%;
-
-    .info {
-      div {
-        margin-top: 10px;
-
-        h2 {
-          font-size: 30px;
-          font-weight: 600;
-          line-height: 38px;
-          text-align: left;
-          letter-spacing: 2px;
-          color: #101828;
-          margin-top: 5px;
-        }
-
-        p {
-          font-size: 14px;
-          font-weight: 500;
-          line-height: 20px;
-          text-align: left;
-        }
-      }
-    }
-  }
-}
-
-.wrapper {
+.profileActionsContainer {
   margin-top: 30px;
 
-  .lastOrders {
-    width: 50%;
-    //height: 8 57px;
-    border-radius: 12px;
-    border: 1px solid #EAECF0;
-    box-shadow: 0px 1px 2px 0px #1018280D;
-
-    .orderHeader {
-      padding: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      h2 {
-        font-size: 18px;
-        color: #101828;
-        font-weight: 500;
-        line-height: 28px;
-        text-align: left;
-
-      }
-    }
+  h2 {
+    color: #101828;
+    font-size: 24px;
+    margin-bottom: 20px;
   }
 }
 
-.container {
-  //height: 468px;
-  //overflow-y: auto;
-  //&::-webkit-scrollbar { width: 0; }
+.actionsGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.actionItem {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 calc(33.333% - 20px);
+  padding: 20px;
+  height: 88px;
+  max-width: 350px;
+  border: 1px solid #EAECF0;
+  border-radius: 8px;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  box-shadow: 0px 1px 2px 0px #1018280D;
+
+  &:hover {
+    background-color: #f0f0f0;
+  }
+
+  p {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 500;
+    color: #344054;
+  }
+
+  .icon {
+    margin-right: 10px;
+    font-size: 24px;
+    color: #1890ff;
+  }
+}
+
+.lastOrders {
+  width: 50%;
+  //height: 857px;
+  border-radius: 12px;
+  border: 1px solid #EAECF0;
+  box-shadow: 0px 1px 2px 0px #1018280D;
+
+  .orderHeader {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h2 {
+      font-size: 18px;
+      color: #101828;
+      font-weight: 500;
+      line-height: 28px;
+      text-align: left;
+
+    }
+  }
 }
 
 .wrapper {
@@ -200,12 +195,5 @@
     &.info:hover {
       color: #17a2b8;
     }
-  }
-}
-
-@media (max-width: 500px) {
-  .totalInfo {
-    display: flex;
-    flex-direction: column;
   }
 }

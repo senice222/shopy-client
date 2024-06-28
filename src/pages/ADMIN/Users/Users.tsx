@@ -11,6 +11,10 @@ const Users = () => {
         { id: 3063, name: 'Иван', nick: '@shopymg', status: 'Активен', balance: 399, statusClass: 'active' },
         { id: 3062, name: 'Иван', nick: '@shopymg', status: 'Заблокирован', balance: 399, statusClass: 'blocked' },
         { id: 3061, name: 'Иван', nick: '@shopymg', status: 'Активен', balance: 399, statusClass: 'active' },
+        { id: 3061, name: 'Иван', nick: '@shopymg', status: 'Активен', balance: 399, statusClass: 'active' },
+        { id: 3061, name: 'Иван', nick: '@shopymg', status: 'Активен', balance: 399, statusClass: 'active' },
+        { id: 3061, name: 'Иван', nick: '@shopymg', status: 'Активен', balance: 399, statusClass: 'active' },
+        { id: 3061, name: 'Иван', nick: '@shopymg', status: 'Активен', balance: 399, statusClass: 'active' },
     ]);
 
     return (

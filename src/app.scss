@@ -25,6 +25,15 @@
   color: var(--default-text);
   font-family: Graphik LCG;
 }
+body::-webkit-scrollbar {
+  width: 7px;
+  background-color: #eaeaea;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #c9c9c9;
+}
+
 img {
   user-select: none;
 }

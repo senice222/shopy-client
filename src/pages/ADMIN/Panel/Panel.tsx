@@ -7,6 +7,42 @@ import info from '../../../assets/info-circle.png'
 import edit from '../../../assets/edit-02.png'
 
 const Panel = () => {
+    const lastUsers = [
+        {name: 'Olivia Rhye', status: '✔ Paid', id: '1000103230'},
+        {name: 'Olivia Rhye', status: '✔ Paid', id: '1000103230'},
+        {name: 'Olivia Rhye', status: '✔ Paid', id: '1000103230'},
+        {name: 'Olivia Rhye', status: '✔ Paid', id: '1000103230'},
+        {name: 'Olivia Rhye', status: '✔ Paid', id: '1000103230'},
+        {name: 'Olivia Rhye', status: '✔ Paid', id: '1000103230'},
+        {name: 'Olivia Rhye', status: '✔ Paid', id: '1000103230'},
+        {name: 'Olivia Rhye', status: '✔ Paid', id: '1000103230'},
+        {name: 'Olivia Rhye', status: '✔ Paid', id: '1000103230'},
+        {name: 'Olivia Rhye', status: '✔ Paid', id: '1000103230'},
+        {name: 'Olivia Rhye', status: '✔ Paid', id: '1000103230'},
+        {name: 'Olivia Rhye', status: '✔ Paid', id: '1000103230'},
+        {name: 'Olivia Rhye', status: '✔ Paid', id: '1000103230'},
+        {name: 'Olivia Rhye', status: '✔ Paid', id: '1000103230'},
+        {name: 'Olivia Rhye', status: '✔ Paid', id: '1000103230'},
+        {name: 'Olivia Rhye', status: '✔ Paid', id: '1000103230'},
+        {name: 'Olivia Rhye', status: '✔ Paid', id: '1000103230'},
+    ];
+    const ordersData = [
+        {orderId: '1001', product: 'Hoodie', status: '✔ Paid'},
+        {orderId: '1002', product: 'T-shirt', status: '✔ Paid'},
+        {orderId: '1003', product: 'Pants', status: '✔ Paid'},
+        {orderId: '1004', product: 'Dress', status: '✔ Paid'},
+        {orderId: '1005', product: 'Shoes', status: '✔ Paid'},
+        {orderId: '1006', product: 'Hat', status: '✔ Paid'},
+        {orderId: '1006', product: 'Hat', status: '✔ Paid'},
+        {orderId: '1006', product: 'Hat', status: '✔ Paid'},
+        {orderId: '1006', product: 'Hat', status: '✔ Paid'},
+        {orderId: '1006', product: 'Hat', status: '✔ Paid'},
+        {orderId: '1006', product: 'Hat', status: '✔ Paid'},
+        {orderId: '1006', product: 'Hat', status: '✔ Paid'},
+        {orderId: '1006', product: 'Hat', status: '✔ Paid'},
+        {orderId: '1006', product: 'Hat', status: '✔ Paid'},
+    ];
+
     return (
         <AdminLayout>
             <div className={style.panelWrapper}>
@@ -48,123 +84,27 @@ const Panel = () => {
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td className={style.id}>#3066</td>
-                                        <td>Monthly subscription</td>
-                                        <td className={style.status}>
-                                            <div className={style.wrapperPaid}>
-                                                <div className={style.paid}>✔ Paid</div>
-                                            </div>
-                                        </td>
-                                        <td className={style.actions}>
-                                            <div>
-                                                <span className={style.info}>
-                                                    <img src={info} alt={'/'}/>
-                                                </span>
-                                                <span className={style.edit}>
-                                                    <img src={edit} alt={"/"}/>
-                                                </span>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className={style.id}>#3065</td>
-                                        <td>Monthly subscription</td>
-                                        <td className={style.status}>
-                                            <div className={style.wrapperPaid}>
-                                                <div className={style.paid}>✔ Paid</div>
-                                            </div>
-                                        </td>
-                                        <td className={style.actions}>
-                                            <div>
-                                                <span className={style.info}>
-                                                    <img src={info} alt={'/'}/>
-                                                </span>
-                                                <span className={style.edit}>
-                                                    <img src={edit} alt={"/"}/>
-                                                </span>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className={style.id}>#3064</td>
-                                        <td>Monthly subscription</td>
-                                        <td className={style.status}>
-                                            <div className={style.wrapperPaid}>
-                                                <div className={style.paid}>✔ Paid</div>
-                                            </div>
-                                        </td>
-                                        <td className={style.actions}>
-                                            <div>
-                                                <span className={style.info}>
-                                                    <img src={info} alt={'/'}/>
-                                                </span>
-                                                <span className={style.edit}>
-                                                    <img src={edit} alt={"/"}/>
-                                                </span>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className={style.id}>#3063</td>
-                                        <td>Monthly subscription</td>
-                                        <td className={style.status}>
-                                            <div className={style.wrapperPaid}>
-                                                <div className={style.paid}>✔ Paid</div>
-                                            </div>
-                                        </td>
-                                        <td className={style.actions}>
-                                            <div>
-                                                <span className={style.info}>
-                                                    <img src={info} alt={'/'}/>
-                                                </span>
-                                                <span className={style.edit}>
-                                                    <img src={edit} alt={"/"}/>
-                                                </span>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className={style.id}>#3062</td>
-                                        <td>Monthly subscription</td>
-                                        <td className={`${style.status} ${style.refunded}`}>
-                                            <div className={style.wrapperPaid}>
-                                                <div className={style.refunded}>
-                                                    <img src={reverse} alt="/"/>
-                                                    <p>Refunded</p>
+                                    {lastUsers.map((order, index) => (
+                                        <tr key={index}>
+                                            <td className={style.id}>{order.name}</td>
+                                            <td className={style.status}>
+                                                <div className={style.wrapperPaid}>
+                                                    <div className={style.paid}>{order.status}</div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td className={style.actions}>
-                                            <div>
-                                                <span className={style.info}>
-                                                    <img src={info} alt={'/'}/>
-                                                </span>
-                                                <span className={style.edit}>
-                                                    <img src={edit} alt={"/"}/>
-                                                </span>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className={style.id}>#3061</td>
-                                        <td>Monthly subscription</td>
-                                        <td className={style.status}>
-                                            <div className={style.wrapperPaid}>
-                                                <div className={style.paid}>✔ Paid</div>
-                                            </div>
-                                        </td>
-                                        <td className={style.actions}>
-                                            <div>
-                                                <span className={style.info}>
-                                                    <img src={info} alt={'/'}/>
-                                                </span>
-                                                <span className={style.edit}>
-                                                    <img src={edit} alt={"/"}/>
-                                                </span>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                            </td>
+                                            <td>{order.id}</td>
+                                            <td className={style.actions}>
+                                                <div>
+                                                        <span className={style.info}>
+                                                            <img src={info} alt={'/'}/>
+                                                        </span>
+                                                    <span className={style.edit}>
+                                                            <img src={edit} alt={"/"}/>
+                                                        </span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))}
                                     </tbody>
                                 </table>
                             </div>
@@ -187,120 +127,27 @@ const Panel = () => {
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td className={style.id}>Olivia Rhye</td>
-                                        <td className={style.status}>
-                                            <div className={style.wrapperPaid}>
-                                                <div className={style.paid}>✔ Paid</div>
-                                            </div>
-                                        </td>
-                                        <td>1000103230</td>
-                                        <td className={style.actions}>
-                                            <div>
-                                                <span className={style.info}>
-                                                    <img src={info} alt={'/'}/>
-                                                </span>
-                                                <span className={style.edit}>
-                                                    <img src={edit} alt={"/"}/>
-                                                </span>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className={style.id}>Olivia Rhye</td>
-                                        <td className={style.status}>
-                                            <div className={style.wrapperPaid}>
-                                                <div className={style.paid}>✔ Paid</div>
-                                            </div>
-                                        </td>
-                                        <td>1000103230</td>
-                                        <td className={style.actions}>
-                                            <div>
-                                                <span className={style.info}>
-                                                    <img src={info} alt={'/'}/>
-                                                </span>
-                                                <span className={style.edit}>
-                                                    <img src={edit} alt={"/"}/>
-                                                </span>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className={style.id}>Olivia Rhye</td>
-                                        <td className={style.status}>
-                                            <div className={style.wrapperPaid}>
-                                                <div className={style.paid}>✔ Paid</div>
-                                            </div>
-                                        </td>
-                                        <td>1000103230</td>
-                                        <td className={style.actions}>
-                                            <div>
-                                                <span className={style.info}>
-                                                    <img src={info} alt={'/'}/>
-                                                </span>
-                                                <span className={style.edit}>
-                                                    <img src={edit} alt={"/"}/>
-                                                </span>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className={style.id}>Olivia Rhye</td>
-                                        <td className={style.status}>
-                                            <div className={style.wrapperPaid}>
-                                                <div className={style.paid}>✔ Paid</div>
-                                            </div>
-                                        </td>
-                                        <td>1000103230</td>
-                                        <td className={style.actions}>
-                                            <div>
-                                                <span className={style.info}>
-                                                    <img src={info} alt={'/'}/>
-                                                </span>
-                                                <span className={style.edit}>
-                                                    <img src={edit} alt={"/"}/>
-                                                </span>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className={style.id}>Olivia Rhye</td>
-                                        <td className={style.status}>
-                                            <div className={style.wrapperPaid}>
-                                                <div className={style.paid}>✔ Paid</div>
-                                            </div>
-                                        </td>
-                                        <td>1000103230</td>
-                                        <td className={style.actions}>
-                                            <div>
-                                                <span className={style.info}>
-                                                    <img src={info} alt={'/'}/>
-                                                </span>
-                                                <span className={style.edit}>
-                                                    <img src={edit} alt={"/"}/>
-                                                </span>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className={style.id}>Olivia Rhye</td>
-                                        <td className={style.status}>
-                                            <div className={style.wrapperPaid}>
-                                                <div className={style.paid}>✔ Paid</div>
-                                            </div>
-                                        </td>
-                                        <td>1000103230</td>
-                                        <td className={style.actions}>
-                                            <div>
-                                                <span className={style.info}>
-                                                    <img src={info} alt={'/'}/>
-                                                </span>
-                                                <span className={style.edit}>
-                                                    <img src={edit} alt={"/"}/>
-                                                </span>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    {ordersData.map((order, index) => (
+                                        <tr key={index}>
+                                            <td className={style.id}>{order.orderId}</td>
+                                            <td>{order.product}</td>
+                                            <td className={style.status}>
+                                                <div className={style.wrapperPaid}>
+                                                    <div className={style.paid}>{order.status}</div>
+                                                </div>
+                                            </td>
+                                            <td className={style.actions}>
+                                                <div>
+                                                    <span className={style.info}>
+                                                        <img src={info} alt={'/'}/>
+                                                    </span>
+                                                    <span className={style.edit}>
+                                                        <img src={edit} alt={"/"}/>
+                                                    </span>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))}
                                     </tbody>
                                 </table>
                             </div>

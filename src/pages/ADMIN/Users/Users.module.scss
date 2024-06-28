@@ -53,6 +53,9 @@
   border-radius: 12px;
   padding: 20px;
   margin-top: 20px;
+  height: 650px;
+  overflow-y: auto;
+  &::-webkit-scrollbar { width: 0; }
   .topWrapper {
     display: flex;
     align-items: center;
@@ -152,5 +155,8 @@
   .icon {
     margin-right: 10px;
     cursor: pointer;
+  }
+  tbody {
+
   }
 }

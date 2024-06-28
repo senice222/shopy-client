@@ -1,4 +1,4 @@
-import {FC, ReactElement, ReactNode, useEffect, useState} from "react";
+import {FC, ReactElement, useEffect, useState} from "react";
 import s from './AccountSelect.module.scss'
 
 interface Account {
@@ -15,6 +15,7 @@ interface SelectI {
 
 export const AccountSelect : FC<SelectI> = ({items, setSelected}) => {
     const [activeItem, setActiveItem] = useState('iror200895@gmail.com')
+
     useEffect(() => {
         setSelected(activeItem)
     }, [activeItem])

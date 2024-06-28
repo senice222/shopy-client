@@ -4,7 +4,7 @@ import BootstrapModal from "../BootstrapModal/BootstrapModal";
 import {RequestSent} from "../RequestSent/RequestSent";
 import s from './SelectAccount.module.scss'
 import {Spotify} from "../../../pages/SubscribeActivate/Svgs";
-import {AccountSelect} from "../../AccountSelect_Select/AccountSelect";
+import {AccountSelect} from "../../AccountSelect/AccountSelect";
 
 
 export interface SelectAccountI {
