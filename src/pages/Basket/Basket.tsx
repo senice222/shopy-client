@@ -11,40 +11,46 @@ const Basket = () => {
     const navigate = useNavigate()
 
     return (
-        <Layout isRightArrow={true}>
-            <div className={style.basketContainer}>
-                <TopItem text={"Корзина"}/>
-                <div className={style.items}>
-                    <BasketItem/>
-                    <BasketItem/>
-                    <BasketItem/>
-                    <BasketItem/>
+        <div className={style.wrapp}>
+            <Layout isRightArrow={true}>
+                <div className={style.basketContainer}>
+                    <TopItem text={"Корзина"}/>
+                    <div className={style.items}>
+                        <BasketItem/>
+                        <BasketItem/>
+                        <BasketItem/>
+                        <BasketItem/>
+                    </div>
+                    <PromoInput/>
+                    <div className={style.bonusRubles}>
+                        <h2>После оплаты заказа вы получите 30 бонусных рублей</h2>
+                        <p>Они начислятся на баланс и ими можно будет оплатить до 100% суммы следующих заказов.</p>
+                    </div>
+                    <div>
+                        <div className={style.totalItems}>
+                            <p>Стоимость товаров</p>
+                            <h2>399₽</h2>
+                        </div>
+                        <div className={style.skidka}>
+                            <p>Скидка (-20%):</p>
+                            <h2>-39₽</h2>
+                        </div>
+                        <div className={style.toPay}>
+                            <p>Итого к оплате: </p>
+                            <h2>399₽</h2>
+                        </div>
+                    </div>
+                    <div className={style.paymentButton}>
+                        <div style={{width: "100%"}} onClick={() => navigate('/proceed-payment')}>
+                            <Button height={"48px"} width={"100%"} fontSize={"18px"} text={"Перейти к оплате"} letterSpacing={"0.4px"}/>
+                        </div>
+                        <div className={style.activateInfo}>
+                            <p>Активировать аккаунт вы сможете сразу после оплаты</p>
+                        </div>
+                    </div>
                 </div>
-                <PromoInput/>
-                <div>
-                    <div className={style.totalItems}>
-                        <p>Стоимость товаров</p>
-                        <h2>399₽</h2>
-                    </div>
-                    <div className={style.skidka}>
-                        <p>Скидка (-20%):</p>
-                        <h2>-39₽</h2>
-                    </div>
-                    <div className={style.toPay}>
-                        <p>Итого к оплате: </p>
-                        <h2>399₽</h2>
-                    </div>
-                </div>
-                <div className={style.paymentButton}>
-                    <div style={{width: "100%"}} onClick={() => navigate('/proceed-payment')}>
-                        <Button height={"48px"} width={"100%"} fontSize={"18px"} text={"Оплатить заказ"}/>
-                    </div>
-                    <div className={style.activateInfo}>
-                        <p>Активировать аккаунт вы сможете сразу после оплаты</p>
-                    </div>
-                </div>
-            </div>
-        </Layout>
+            </Layout>
+        </div>
     );
 };
 

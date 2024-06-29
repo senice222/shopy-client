@@ -82,7 +82,7 @@ export const DoDepModal : FC<DoDepModalI> = ({isOpen, onClose, setBurger}) => {
                        <span className="title">Итого к оплате</span>
                        <span className={"balance"}>{topUpBalance}₽</span>
                    </div>
-                   <Button text={"Перейти к оплате"} height={"40px"} width={"100%"}/>
+                   <Button text={"Перейти к оплате"} letterSpacing={"0.5px"} height={"44px"} width={"100%"}/>
                </BootstrapModal>
            </div></>
     );

@@ -11,11 +11,12 @@ interface NotFoundSubmitFormDialogProps {
 }
 
 
-export const RequestSent : FC<NotFoundSubmitFormDialogProps> = ({isOpen, onClose, switchDialog, type, setBurger}) => {
+export const RequestSent: FC<NotFoundSubmitFormDialogProps> = ({isOpen, onClose, switchDialog, type, setBurger}) => {
     const navigate = useNavigate()
     return (
         <div className={`Req ${isOpen ? 'active' : ''}`}>
-            <div className={`modal-win__popup promo__popup ${isOpen ? 'activeCont' : ''}`} style={{ borderRadius: '12px' }}>
+            <div className={`modal-win__popup promo__popup ${isOpen ? 'activeCont' : ''}`}
+                 style={{borderRadius: '12px'}}>
                 <div className="modal-win__popup-body">
 
                     <div className="modal-win__popup-head">
@@ -46,7 +47,7 @@ export const RequestSent : FC<NotFoundSubmitFormDialogProps> = ({isOpen, onClose
                             viewBox="0 0 24 24"
                             fill="none"
                             xmlns="http://www.w3.org/2000/svg"
-                            style={{ cursor: 'pointer' }}
+                            style={{cursor: 'pointer'}}
                         >
                             <path
                                 d="M18 6L6 18M6 6L18 18"
@@ -57,7 +58,7 @@ export const RequestSent : FC<NotFoundSubmitFormDialogProps> = ({isOpen, onClose
                             />
                         </svg>
                     </div>
-                    <h3 className="title" style={{ marginBottom: 0, marginTop: '12px' }}>
+                    <h3 className="title" style={{marginBottom: 0, marginTop: '12px'}}>
                         {!type ? 'Заявка успешно отправлена' : type === "promo" ? 'Промокод активирован!' : type === "balance" ? "Баланс успешно пополнен" : ""}
                     </h3>
                     {
@@ -65,17 +66,15 @@ export const RequestSent : FC<NotFoundSubmitFormDialogProps> = ({isOpen, onClose
                         {!type ? 'Мы все проверим и свяжемся с вами в ближайщее время' : type === "promo" ? 'Он автоматически применится в корзине. Приятных покупок!' : ''}
           </span> : null}
                     {
-                        type ? <button
+                        type && <button
                             className="BlueBtn"
                             onClick={() => {
                                 navigate('/')
                                 setBurger()
                             }}
-                            // disabled={errorStatus}
-                            // onClick={setConfirmDialog}
                         >
                             Перейти в каталог
-                        </button> : null
+                        </button>
                     }
                     <button
                         onClick={() => {

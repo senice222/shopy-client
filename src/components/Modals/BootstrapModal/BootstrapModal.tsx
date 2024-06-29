@@ -11,7 +11,7 @@ interface ActiveProps {
 const BootstrapModal = ({active, children, onClose, bottom}: ActiveProps) => {
     const [height, setHeight] = useState(600);
     const ref = useRef<HTMLDivElement>(null);
-    console.log(height)
+
     useEffect(() => {
         if (active) {
             if (ref.current) {
@@ -19,6 +19,7 @@ const BootstrapModal = ({active, children, onClose, bottom}: ActiveProps) => {
             }
         }
     }, [active, ref]);
+
     return (
         <div
             className={`promo ${active ? "active" : ""} ${bottom ? 'bottom' : ''}`}

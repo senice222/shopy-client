@@ -13,41 +13,46 @@ const ActivateAccounts = () => {
     const [addAccount, setAddAccount] = useState<boolean>(false)
     const [isOpen, setIsOpen] = useState<boolean>(false)
 
+
+
     return (
-        <Layout>
-            <EditAccountModal active={isOpen} onClose={() => setIsOpen(false)} />
-            <AddAccountModal addAccount={addAccount} onClose={() => setAddAccount(false)}/>
-            <div className={style.subscrContainer}>
-                <div className={style.titleHeader}>
-                    <h2 className={style.activateh2Text}>Сохранённые данные</h2>
-                    <div className={style.security}>
-                        <img src={lock} alt="/"/>
-                        <p>Все данные надёжно защищены</p>
+        <div className={style.wrapp}>
+            <Layout>
+                <EditAccountModal active={isOpen} onClose={() => setIsOpen(false)} />
+                <AddAccountModal addAccount={addAccount} onClose={() => setAddAccount(false)}/>
+                <div className={style.subscrContainer}>
+                    <div className={style.titleHeader}>
+                        <h2 className={style.activateh2Text}>Сохранённые данные</h2>
+                        <p className={style.descr}>Сохраняйте данные от ваших аккаунтов здесь, чтобы не заполнять их каждый раз при продлении.</p>
+                        <div className={style.security}>
+                            <img src={lock} alt="/"/>
+                            <p>Все данные надёжно защищены</p>
+                        </div>
                     </div>
-                </div>
-                <div className={style.nothingYet}>
-                    {/*IF NO ACCOUNTS HERE*/}
-                    {/*    <img src={nothing} alt="/"/>*/}
-                    {/*    <h2>Пока что тут ничего нет</h2>*/}
-                    {/*    <p>Нажмите на кнопку ниже, чтобы добавить данные от аккаунтов или сохраняйте их при покупке в корзине.</p>*/}
-                    <div className={style.item}>
-                        <div className={style.itemInfo}>
-                            <img src={spotify48} alt="/"/>
+                    <div className={style.nothingYet}>
+                        {/*IF NO ACCOUNTS HERE*/}
+                        {/*    <img src={nothing} alt="/"/>*/}
+                        {/*    <h2>Пока что тут ничего нет</h2>*/}
+                        {/*    <p>Нажмите на кнопку ниже, чтобы добавить данные от аккаунтов или сохраняйте их при покупке в корзине.</p>*/}
+                        <div className={style.item} onClick={() => setIsOpen(true)}>
+                            <div className={style.itemInfo}>
+                                <img src={spotify48} alt="/"/>
+                                <div>
+                                    <h2>Spotify</h2>
+                                    <p>mail@mshopy.ru</p>
+                                </div>
+                            </div>
                             <div>
-                                <h2>Spotify</h2>
-                                <p>mail@mshopy.ru</p>
+                                <img className={style.imgDots} src={dots} alt=""/>
                             </div>
                         </div>
-                        <div onClick={() => setIsOpen(true)}>
-                            <img className={style.imgDots} src={dots} alt=""/>
+                        <div className={style.btnDiv} onClick={() => setAddAccount(true)}>
+                            <Button letterSpacing={"0.5px"} text={"Добавить аккаунт"} height={"48px"} width={"100%"}/>
                         </div>
                     </div>
-                    <div className={style.btnDiv} onClick={() => setAddAccount(true)}>
-                        <Button text={"Добавить аккаунт"} height={"48px"} width={"100%"}/>
-                    </div>
                 </div>
-            </div>
-        </Layout>
+            </Layout>
+        </div>
     );
 };
 

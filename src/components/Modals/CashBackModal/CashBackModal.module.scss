@@ -18,9 +18,11 @@
 }
 
 .infoWrapper {
+  margin-top: 4px;
   h3 {
-    font-family: "Graphik LCG SemiBold", sans-serif;
+    font-family: "Inter Semi Bold";
     margin-bottom: 10px;
+    color: var(--burger-title-color);
     font-size: 18px;
     font-weight: 600;
     line-height: 28px;
@@ -28,7 +30,7 @@
   }
 
   p {
-    color: var(--button-text);
+    color: var(--default-text);
     font-size: 14px;
     font-weight: 400;
     line-height: 18px;
@@ -37,9 +39,10 @@
 
   .prices {
     h2 {
-      font-family: "Graphik LCG SemiBold", sans-serif;
+      font-family: "Inter Semi Bold";
+      color: var(--burger-title-color);
       margin-bottom: 10px;
-      font-size: 16px;
+      font-size: 17px;
       font-weight: 600;
       line-height: 28px;
       text-align: left;
@@ -50,6 +53,7 @@
       display: flex;
       justify-content: space-between;
       margin-top: 5px;
+      color: var(--default-text);
     }
   }
   .amountOfOrders {
@@ -68,10 +72,12 @@
         font-weight: 500;
         line-height: 20px;
         text-align: left;
+        color: var(--default-text);
       }
     }
   }
 }
 .cashText {
+  font-family: "Graphik LCG Regular";
   color: var(--gray-text-first) !important;
 }

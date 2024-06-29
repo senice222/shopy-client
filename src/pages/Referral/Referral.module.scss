@@ -5,7 +5,7 @@
 .wrapper {
   margin-top: 26px;
   margin-left: 15px;
-  width: 90%;
+  width: 92%;
 
   .nothing {
     margin-top: 35px;
@@ -28,7 +28,7 @@
 
     p {
       font-family: "Graphik LCG Regular", sans-serif;
-      font-size: 13px;
+      font-size: 14px;
       color: var(--gray-text-first);
       font-weight: 400;
       line-height: 20px;
@@ -65,7 +65,8 @@
     background-color: var(--repeat-btn-bg);
     border-radius: 12px;
     margin-top: 20px;
-
+    border: 1px solid #EAECF0;
+    box-shadow: 0px 1px 2px 0px #1018280D;
     p {
       color: var(--gray-text-first);
       font-size: 14px;

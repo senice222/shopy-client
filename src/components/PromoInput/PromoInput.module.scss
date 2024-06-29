@@ -2,6 +2,7 @@
   margin-top: 30px;
   p {
     color: #079455;
+    font-size: 15px;
     font-family: "Graphik LCG Regular", sans-serif;
   }
   h2 {
@@ -16,8 +17,9 @@
 
     .input {
       font-size: 16px;
-      font-family: 'Graphik LCG', sans-serif;
+      font-family: "Graphik LCG Regular", sans-serif;
       background-color: var(--background-color);
+      color: var(--low-text);
       border-color: var(--input-border);
     }
 

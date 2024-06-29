@@ -18,15 +18,16 @@
 
   .infoWrapper {
     margin-left: 10px;
-    padding-top: 11px;
     h2 {
+      font-family: "Inter Semi Bold", sans-serif;
+      color: var(--burger-title-color);
       font-weight: 500;
       font-size: 18px;
       line-height: 156%;
     }
 
     div {
-      margin: 10px 0px;
+      margin: 7px 0px;
       width: 195px;
       h2 {
 

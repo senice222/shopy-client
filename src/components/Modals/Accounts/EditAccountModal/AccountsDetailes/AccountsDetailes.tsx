@@ -1,8 +1,8 @@
-import React, {Dispatch, FC, SetStateAction} from 'react';
+import React, {Dispatch, FC, SetStateAction, useState} from 'react';
 import style from "../EditAccountModal.module.scss";
 import spotify from "../../../../../assets/spotify48x48.png";
 import lock from "../../../../../assets/lock-02.png";
-import {Input} from "antd";
+import {Input, message} from "antd";
 import copy from "../../../../../assets/copy-01.png";
 import BlueButton from "../../../../Button/Button";
 import {EditAccountModalProps} from "../EditAccountModal";
@@ -14,6 +14,24 @@ interface DetailesProps extends EditAccountModalProps {
 }
 
 const AccountsDetailes: FC<DetailesProps> = ({setIsEdit, onClose, email, setIsDelete}) => {
+    const [copied, setCopied] = useState(false);
+
+    const copyToClipboard = () => {
+        navigator.clipboard.writeText(email)
+            .then(() => {
+                setCopied(true);
+                message.success({
+                    type: "success",
+                    content: 'Успешно скопировано',
+                    style: {color: "#52c41a"}
+                })
+                setTimeout(() => setCopied(false), 2000); // Убираем сообщение через 2 секунды
+            })
+            .catch(err => {
+                message.error('Ошибка при копировании');
+                console.error('Ошибка при копировании: ', err);
+            });
+    };
 
     return (
         <>
@@ -49,8 +67,8 @@ const AccountsDetailes: FC<DetailesProps> = ({setIsEdit, onClose, email, setIsDe
                     <p className={style.title}>Почта</p>
                     <div>
                         <Input className={style.input} value={email} placeholder="olivia@mshopy.ru" readOnly/>
-                        <div>
-                            <img src={copy} alt={'/'}/>
+                        <div onClick={copyToClipboard} className="copy-icon">
+                            <img src={copy} alt="Копировать" />
                         </div>
                     </div>
                 </div>

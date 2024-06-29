@@ -1,8 +1,11 @@
 
+.wrapp {
+  background: var(--burger-bg);
+}
+
 .basketContainer {
   margin: 0px 15px;
   margin-top: 35px;
-
   .items {
     height: 100%;
   }
@@ -29,7 +32,7 @@
   .skidka {
     display: flex;
     justify-content: space-between;
-    margin-top: 15px;
+    margin-top: 8px;
 
     p {
       color: var(--gray-text-first);
@@ -48,21 +51,44 @@
   .toPay {
     display: flex;
     justify-content: space-between;
-    margin-top: 15px;
+    margin-top: 12px;
 
     p {
-      color: var(--default-text);
-      //font-weight: 500;
-      font-family: Graphik LCG SemiBold, sans-serif;
-      font-size: 18px;
+      color: var(--burger-title-color);
+      font-family: "Inter Semi Bold", sans-serif;
+      font-size: 19px;
     }
 
     h2 {
-      font-family: Graphik LCG SemiBold, sans-serif;
-      font-size: 18px;
+      font-family: "Inter Semi Bold", sans-serif;
+      font-size: 19px;
       line-height: 30px;
-      color: var(--default-text);
+      color: var(--burger-title-color);
     }
+  }
+}
+
+.bonusRubles {
+  border: 1px solid #EAECF0;
+  background-color: var(--repeat-btn-bg);
+  padding: 16px;
+  border-radius: 12px;
+  margin-top: 30px;
+  h2 {
+    font-family: "Inter Semi Bold";
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20px;
+    text-align: left;
+    color: var(--modal-color);
+  }
+  p {
+    font-family: "Graphik LCG Regular";
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: left;
+    color: var(--gray-text-first);
   }
 }
 
@@ -82,11 +108,13 @@
     box-shadow: 0px 1px 2px 0px #1018280D;
 
     p {
-      width: 95%;
       color: var(--modal-color);
-      //font-weight: 500;
-      font-family: Graphik LCG SemiBold, sans-serif;
-      font-size: 18px;
+      font-family: "Inter Semi Bold", sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 20px;
+      text-align: left;
+
     }
   }
 }

@@ -44,7 +44,6 @@ const DeleteAccount:FC<DetailsProps> = ({onClose, setIsDelete}) => {
                     <button className={style.deleteBtn}>Удалить</button>
                     <button className={style.cancelBtn} onClick={() => {
                         setIsDelete(false)
-                        onClose()
                     }}>Отмена</button>
                 </div>
             </div>

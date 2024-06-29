@@ -13,7 +13,6 @@
   }
 
   .wrappInfo {
-    //width: 87%;
     margin-top: 30px;
 
     .info {
@@ -124,8 +123,10 @@
       h3 {
         margin-top: 20px;
         margin-bottom: 10px;
-        font-family: "Graphik LCG SemiBold", 'sans-serif';
-        font-size: 14px;
+        //font-family: "Graphik LCG SemiBold", 'sans-serif';
+        font-family: "Inter Semi Bold", 'sans-serif';
+        color: var(--burger-title-color);
+        font-size: 15px;
         font-weight: 600;
         line-height: 20px;
         text-align: left;

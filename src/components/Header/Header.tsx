@@ -1,5 +1,5 @@
 import styles from './Header.module.scss'
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import {FC, useContext, useEffect, useState} from "react";
 import {SVGHeart} from "../Svgs/Svgs";
 import rightArrow from '../../assets/svg/arrow-left.svg'
@@ -16,6 +16,9 @@ const Header : FC<HeaderI> = ({setOpened, isRightArrow, isCross}) => {
     const navigate = useNavigate()
     const { darkTheme, toggleTheme } = useContext(ThemeContext);
     const [opened, setOpened1] = useState(false)
+    const {pathname} = useLocation()
+    const isBasket = pathname === "/basket" && styles.basketActive
+    const isFavorite = pathname === "/favorite-products" && styles.favoriteActive
 
     useEffect(() => {
         if (!isCross) {
@@ -46,10 +49,16 @@ const Header : FC<HeaderI> = ({setOpened, isRightArrow, isCross}) => {
                     <div onClick={toggleTheme} className={`${styles.navbarButton} ${styles.roundedBorder}`}>
                         <p>{darkTheme ? "D" : 'L'}</p>
                     </div>
-                    <div className={`${styles.navbarButton} ${styles.roundedBorder}`} onClick={() => navigate("/favorite-products")}>
+                    <div className={`${styles.navbarButton} ${styles.roundedBorder} ${isFavorite}`} onClick={() => {
+                        navigate("/favorite-products")
+                        setOpened()
+                    }}>
                         <SVGHeart />
                     </div>
-                    <div className={`${styles.navbarButton} ${styles.roundedBorder}`} onClick={() => navigate("/basket")}>
+                    <div className={`${styles.navbarButton} ${styles.roundedBorder} ${isBasket}`} onClick={() => {
+                        navigate("/basket")
+                        setOpened()
+                    }}>
                         <svg
                             width={20}
                             height={20}

@@ -18,6 +18,34 @@
   flex-direction: column;
   justify-content: center;
 }
+.basketActive {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  width: 40px;
+  background: #0070CC !important;
+  height: 40px;
+  svg {
+    path {
+      fill: white;
+    }
+  }
+}
+.favoriteActive {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  width: 40px;
+  background: #D92D20 !important;
+  height: 40px;
+  svg {
+    path {
+      fill: white;
+    }
+  }
+}
 .line {
   position: absolute;
   top: 0px;

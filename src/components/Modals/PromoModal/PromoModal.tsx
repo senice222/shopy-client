@@ -13,7 +13,6 @@ export const PromoModal: FC<PromoModalI> = ({promoActive, onClose, setBurger}) =
     const checkingPromo = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setPromoInputValue(value);
-        // Пример проверки промокода
         setErrorStatus(value !== '123'); // Замените 'VALID_PROMO_CODE' на ваш валидный промокод
     };
 
@@ -30,19 +29,21 @@ export const PromoModal: FC<PromoModalI> = ({promoActive, onClose, setBurger}) =
                 <div className="modal-win__popup-head">
                     <div className="rounded-border">
                         <svg
-                            width="16"
-                            height="17"
-                            viewBox="0 0 16 17"
-                            fill="none"
                             xmlns="http://www.w3.org/2000/svg"
+                            width={24}
+                            height={24}
+                            viewBox="0 0 24 24"
+                            fill="none"
                         >
                             <path
-                                d="M6.00001 6.50016H6.00668M10 10.5002H10.0067M10.6667 5.8335L5.33334 11.1668M14.6667 8.50016C14.6667 12.1821 11.6819 15.1668 8.00001 15.1668C4.31811 15.1668 1.33334 12.1821 1.33334 8.50016C1.33334 4.81826 4.31811 1.8335 8.00001 1.8335C11.6819 1.8335 14.6667 4.81826 14.6667 8.50016ZM6.33334 6.50016C6.33334 6.68426 6.18411 6.8335 6.00001 6.8335C5.81592 6.8335 5.66668 6.68426 5.66668 6.50016C5.66668 6.31607 5.81592 6.16683 6.00001 6.16683C6.18411 6.16683 6.33334 6.31607 6.33334 6.50016ZM10.3333 10.5002C10.3333 10.6843 10.1841 10.8335 10 10.8335C9.81592 10.8335 9.66668 10.6843 9.66668 10.5002C9.66668 10.3161 9.81592 10.1668 10 10.1668C10.1841 10.1668 10.3333 10.3161 10.3333 10.5002Z"
+                                d="M9 9H9.01M15 15H15.01M16 8L8 16M22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2C17.5228 2 22 6.47715 22 12ZM9.5 9C9.5 9.27614 9.27614 9.5 9 9.5C8.72386 9.5 8.5 9.27614 8.5 9C8.5 8.72386 8.72386 8.5 9 8.5C9.27614 8.5 9.5 8.72386 9.5 9ZM15.5 15C15.5 15.2761 15.2761 15.5 15 15.5C14.7239 15.5 14.5 15.2761 14.5 15C14.5 14.7239 14.7239 14.5 15 14.5C15.2761 14.5 15.5 14.7239 15.5 15Z"
                                 stroke="#344054"
+                                strokeWidth={2}
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
                             />
                         </svg>
+
                     </div>
                     <svg
                         onClick={onClose}
@@ -93,7 +94,7 @@ export const PromoModal: FC<PromoModalI> = ({promoActive, onClose, setBurger}) =
                         </>
                     )}
                 </div>
-                {errorStatus ? <span style={{color: 'red', marginTop: '5px'}}>
+                {errorStatus ? <span style={{color: 'red', fontFamily: "Graphik LCG Regular", marginTop: '5px'}}>
                       Такого промокода не существует
                     </span> : null}
                 <button

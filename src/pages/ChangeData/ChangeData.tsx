@@ -127,7 +127,6 @@ const ChangeData = () => {
                                     <div className={s.circle}>
                                         <div className={s.circleCont}></div>
                                     </div>
-                                    <div className={s.vertLine}></div>
                                 </div>
                                 <div className={s.rightDiv}>
                                     <h2>Введите новые данные в поле ниже</h2>
@@ -146,7 +145,7 @@ const ChangeData = () => {
                                     Введите пароль от аккаунта / для регистрации аккаунта в необходимом сервисе.                         </p>
                             </div>
                             <div className={s.btns}>
-                                <BlueButton fontSize='16px' width='100%' height={'48px'} text='Изменить пароль' />
+                                <BlueButton fontSize='16px' width='100%' height={'44px'} text='Изменить пароль' />
                                 <button className={s.second}>Написать в поддержку</button>
                             </div>
                         </div>
