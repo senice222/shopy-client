@@ -3,6 +3,7 @@ import {FC, useState} from "react";
 import {RequestSent} from "../RequestSent/RequestSent";
 import BootstrapModal from "../BootstrapModal/BootstrapModal";
 import Button from "../../Button/Button";
+import { motion } from 'framer-motion';
 
 interface NotFoundDialogProps {
     isOpen: boolean;
@@ -68,13 +69,23 @@ export const NotFindModal: FC<NotFoundDialogProps> = ({isOpen, onClose, setBurge
                     <form onSubmit={handleSubmit} className="new-product__form">
                         <div className={'type'}>
                             <h3 className={'title'}>Тип товара</h3>
-                            <div className={'items'}>
-                                <div onClick={() => setType('digital')} className={type === "digital" ? 'active' : ""}>
+                            <div className="items">
+                                <motion.div
+                                    onClick={() => setType('digital')}
+                                    className={`item ${type === 'digital' ? 'active' : ''}`}
+                                    animate={{ opacity: type === 'digital' ? 1 : 0.5 }}
+                                    transition={{ duration: 0.5 }}
+                                >
                                     Цифровой
-                                </div>
-                                <div onClick={() => setType('physical')} className={type === "physical" ? 'active' : ""}>
+                                </motion.div>
+                                <motion.div
+                                    onClick={() => setType('physical')}
+                                    className={`item ${type === 'physical' ? 'active' : ''}`}
+                                    animate={{ opacity: type === 'physical' ? 1 : 0.5 }}
+                                    transition={{ duration: 0.5 }}
+                                >
                                     Физический
-                                </div>
+                                </motion.div>
                             </div>
                         </div>
                         <div className="new-product__description">
