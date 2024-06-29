@@ -13,7 +13,7 @@ interface NotFoundDialogProps {
 
 export const NotFindModal: FC<NotFoundDialogProps> = ({isOpen, onClose, setBurger}) => {
     const [isOk, setOk] = useState(false)
-    const [type, setType] = useState('digital')  // physical
+    const [type, setType] = useState('digital')
     const [form, setForm] = useState({
         description: '',
         link: '',

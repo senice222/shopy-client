@@ -102,7 +102,7 @@ const Category = () => {
         }
     }
     return (
-        <Layout>
+        <Layout notAnimated={true}>
             <Slider />
             <Search />
             <AddedToFav isAdd={isAdd} isOpen={added} setOpen={() => setAdded(false)} />

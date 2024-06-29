@@ -6,17 +6,28 @@ import {LayoutProps} from "../interfaces/Layout";
 import AnimatedPage from "../pages/AnimatedPage/AnimatedPage";
 
 
-const Layout = ({children, isRightArrow}: LayoutProps) => {
+const Layout = ({children, isRightArrow, notAnimated}: LayoutProps) => {
     const [isOpened, setOpened] = useState(false)
 
     return (
         <div>
             <BurgerMenu isOpened={isOpened} setOpened={() => setOpened(!isOpened)}/>
             <Header isCross={isOpened} setOpened={() => setOpened(true)} isRightArrow={isRightArrow}/>
-            <AnimatedPage>
-                {children}
-                <Footer/>
-            </AnimatedPage>
+            {
+                notAnimated ? (
+                    <>
+                        {children}
+                        <Footer/>
+                    </>
+                ) : (
+                    <>
+                        <AnimatedPage>
+                            {children}
+                            <Footer/>
+                        </AnimatedPage>
+                    </>
+                )
+            }
         </div>
     )
 }
