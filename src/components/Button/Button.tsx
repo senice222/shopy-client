@@ -6,11 +6,12 @@ interface ButtonProps {
     height?: string;
     width?: string;
     fontSize?: string;
+    letterSpacing?: string;
 }
 
-const BlueButton: FC<ButtonProps> = ({text, height, width, fontSize}) => {
+const BlueButton: FC<ButtonProps> = ({text, height, width, fontSize, letterSpacing}) => {
     return (
-        <button className={style.blue} style={{height, width, fontSize}}>{text}</button>
+        <button className={style.blue} style={{height, width, fontSize, letterSpacing}}>{text}</button>
     );
 };
 

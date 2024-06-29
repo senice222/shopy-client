@@ -127,7 +127,7 @@ export const NotFindModal: FC<NotFoundDialogProps> = ({isOpen, onClose, setBurge
                             </div>
                         </div>
                         <div style={{width: "100%", marginTop: "10px"}}>
-                            <Button text={"Отправить заявку"} width={"100%"} height={"40px"} />
+                            <Button text={"Отправить заявку"} letterSpacing={"0.4px"} width={"100%"} height={"44px"} />
                         </div>
                     </form>
                 </BootstrapModal>
