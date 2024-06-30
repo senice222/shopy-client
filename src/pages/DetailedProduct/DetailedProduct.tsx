@@ -19,7 +19,7 @@ const DetailedProduct: FC<ModalAndFavorite> = ({data, setAddedFunc, isAdd, added
     const {mutate} = useSWRConfig()
 
 
-    const handleAddToCart = () => {
+    const handleAddToCart = async () => {
         mutate(`${url}/api/user/cart/${id}`, fetcher(`${url}/api/user/cart/${id}`, {
             method: "POST",
             headers: {"Content-type": "application/json"},
@@ -30,6 +30,7 @@ const DetailedProduct: FC<ModalAndFavorite> = ({data, setAddedFunc, isAdd, added
                 "Длительность" : "1 месяц",
             })
         }))
+        await mutate(`${url}/api/user/cart/${id}`);
     }
 
     const redirect = useCallback(() => {
@@ -56,7 +57,7 @@ const DetailedProduct: FC<ModalAndFavorite> = ({data, setAddedFunc, isAdd, added
         } else {
             tg.MainButton.hide();
         }
-    }, [data])
+    }, [data?.length])
 
     return (
         <div className={style.background}>
