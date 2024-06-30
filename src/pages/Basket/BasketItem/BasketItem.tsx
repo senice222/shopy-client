@@ -4,7 +4,7 @@ import cross from "../../../assets/svg/x-close.svg";
 import {FC} from "react";
 import {useTelegram} from "../../../hooks/useTelegram";
 import {fetcher, url} from "../../../core/fetch";
-import {useSWRConfig} from "swr/dist/core";
+import {useSWRConfig} from "swr";
 
 interface OptionalI {
     name: string,
