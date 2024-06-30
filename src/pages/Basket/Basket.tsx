@@ -12,8 +12,8 @@ import {useTelegram} from "../../hooks/useTelegram";
 
 const Basket = () => {
     const navigate = useNavigate()
-    const {user} = useTelegram()
-    const { data, error } = useSWR(`${url}/api/user/cart/${user?.id}`, fetcher);
+    const {id} = useTelegram()
+    const { data, error } = useSWR(`${url}/api/user/cart/${id}`, fetcher);
 
     return (
         <div className={style.wrapp}>
