@@ -11,6 +11,7 @@ import redHeart from '../../assets/heart.png'
 import {useTelegram} from "../../hooks/useTelegram";
 import { CartItem, addToCart } from '../../store/features/cartSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
+import { v4 as uuidv4 } from 'uuid';
 
 const DetailedProduct: FC<ModalAndFavorite> = ({setAddedFunc, isAdd, added, setAdded}) => {
     const dispatch = useAppDispatch();
@@ -21,6 +22,7 @@ const DetailedProduct: FC<ModalAndFavorite> = ({setAddedFunc, isAdd, added, setA
 
     const handleAddToCart = () => {
         const newItem: CartItem = {
+            id: uuidv4(),
             main: {
               name: 'Spotify',
               price: 2000,

@@ -6,6 +6,7 @@ export interface OptionalItem {
 }
 
 export interface CartItem {
+  id: string;
   main: {
     name: string;
     price: number;
@@ -30,9 +31,12 @@ const cartSlice = createSlice({
     setCart: (state, action: PayloadAction<CartItem[]>) => {
       state.items = action.payload;
     },
+    removeFromCart: (state, action: PayloadAction<string>) => { 
+      state.items = state.items.filter(item => item.id !== action.payload);
+    }
   },
 });
 
-export const { addToCart, setCart } = cartSlice.actions;
+export const { addToCart, setCart, removeFromCart  } = cartSlice.actions;
 
 export default cartSlice.reducer;

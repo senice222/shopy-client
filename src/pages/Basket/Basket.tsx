@@ -21,6 +21,7 @@ const Basket = () => {
                             data.map((item: BasketProps, i: number) => (
                                 <BasketItem
                                     key={i}
+                                    id={item.id}
                                     main={item.main}
                                     optional={item.optional}
                                 />
