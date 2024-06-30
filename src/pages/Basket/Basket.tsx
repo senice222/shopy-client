@@ -7,7 +7,7 @@ import Button from "../../components/Button/Button";
 import TopItem from "../../components/TopItem/TopItem";
 import {useNavigate} from "react-router-dom";
 import useSWR from "swr";
-import {fetcher, url} from "../../core/axios";
+import {fetcher, url} from "../../core/fetch";
 import {useTelegram} from "../../hooks/useTelegram";
 
 const Basket = () => {

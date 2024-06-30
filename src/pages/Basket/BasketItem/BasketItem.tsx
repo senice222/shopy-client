@@ -2,6 +2,7 @@ import style from './BasketItem.module.scss'
 import spotify from "../../../assets/svg/Spotify.svg";
 import cross from "../../../assets/svg/x-close.svg";
 import {FC} from "react";
+import {useTelegram} from "../../../hooks/useTelegram";
 
 interface OptionalI {
     name: string,
@@ -17,9 +18,10 @@ export interface BasketProps {
 }
 
 const BasketItem: FC<BasketProps> = ({main, optional}) => {
-
+    const {id} = useTelegram()
     return (
         <div className={style.item}>
+            {id ? id : "НЕТУ НАХУЙ"}
             <img src={spotify} alt="/"/>
             <div className={style.container}>
                 <div className={style.infoWrapper}>
