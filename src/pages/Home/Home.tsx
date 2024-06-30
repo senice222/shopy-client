@@ -8,7 +8,7 @@ import {ModalAndFavorite} from "../../interfaces/ModalAndFavorite";
 import { motion, AnimatePresence  } from 'framer-motion';
 import styles from './Home.module.scss'
 
-const Home: FC<ModalAndFavorite> = ({setAddedFunc, isAdd, added, setAdded}) => {
+const  Home: FC<ModalAndFavorite> = ({setAddedFunc, isAdd, added, setAdded}) => {
     const [isVisible, setIsVisible] = useState(false);
 
     const toggleVisibility = () => {
