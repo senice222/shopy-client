@@ -26,7 +26,7 @@ import Panel from "./pages/ADMIN/Panel/Panel";
 import Users from "./pages/ADMIN/Users/Users";
 import DetailedUser from "./pages/ADMIN/Users/DetailedUser/DetailedUser";
 import {useTelegram} from "./hooks/useTelegram";
-import useSWR from "swr/dist/core";
+import useSWR from "swr";
 import {fetcher, url} from "./core/fetch";
 
 function App() {
