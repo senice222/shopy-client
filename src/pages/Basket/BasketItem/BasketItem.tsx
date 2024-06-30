@@ -22,6 +22,7 @@ export interface BasketProps {
 const BasketItem: FC<BasketProps> = ({main, optional, _id}) => {
     const {id} = useTelegram()
     const {mutate} = useSWRConfig()
+    alert(_id)
     const handleDelete = () => {
         mutate(`${url}/api/user/cart/${id}`, fetcher(`${url}/api/user/cart/${id}`, {
             method: "DELETE",
