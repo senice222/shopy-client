@@ -76,7 +76,7 @@ function App() {
         <Routes key={location.pathname} location={location}>
             <Route path="/" element={<Home setAddedFunc={setAddedFunc} isAdd={isAdd} added={added} setAdded={setAdded}/>}/>
             <Route path="/category/:category" element={<Category/>}/>
-            <Route path="/basket" element={<Basket data={data}/>}/>
+            <Route path="/basket" element={<Basket />}/>
             <Route path="/active-accounts" element={<ActivateAccounts />}/>
             <Route path="/active-subscriptions" element={<ActiveSubscriptions />}/>
             <Route path="/favorite-products" element={<FavoriteProducts setAddedFunc={setAddedFunc} isAdd={isAdd} added={added} setAdded={setAdded}/>}/>

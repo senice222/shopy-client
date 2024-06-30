@@ -1,4 +1,3 @@
-import React from 'react';
 import style from './Basket.module.scss'
 import Layout from "../../layouts/Layout";
 import BasketItem, {BasketProps} from "./BasketItem/BasketItem";
@@ -6,12 +5,12 @@ import PromoInput from "../../components/PromoInput/PromoInput";
 import Button from "../../components/Button/Button";
 import TopItem from "../../components/TopItem/TopItem";
 import {useNavigate} from "react-router-dom";
-import {useTelegram} from "../../hooks/useTelegram";
+import { useAppSelector } from '../../hooks/redux-hooks';
 
-const Basket = ({data}: any) => {
+const Basket = () => {
     const navigate = useNavigate()
-    const {id} = useTelegram()
-
+    const data = useAppSelector((state: any) => state.cart.items);
+    
     return (
         <div className={style.wrapp}>
             <Layout isRightArrow={true}>

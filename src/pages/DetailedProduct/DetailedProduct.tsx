@@ -4,17 +4,15 @@ import prdct from '../../assets/detailed.png'
 import percent from '../../assets/svg/percent-03.svg'
 import Button from "../../components/Button/Button";
 import {useNavigate} from 'react-router-dom';
-import React, {FC, useCallback, useEffect, useState} from "react";
+import {FC, useCallback, useEffect, useState} from "react";
 import {ModalAndFavorite} from "../../interfaces/ModalAndFavorite";
 import {AddedToFav} from "../../components/AddedToFav/AddedToFav";
 import redHeart from '../../assets/heart.png'
-import {useSWRConfig} from "swr";
-import {fetcher, url} from "../../core/fetch";
 import {useTelegram} from "../../hooks/useTelegram";
 import { CartItem, addToCart } from '../../store/features/cartSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 
-const DetailedProduct: FC<ModalAndFavorite> = ({data, setAddedFunc, isAdd, added, setAdded}) => {
+const DetailedProduct: FC<ModalAndFavorite> = ({setAddedFunc, isAdd, added, setAdded}) => {
     const dispatch = useAppDispatch();
     const { id, tg } = useTelegram();
     const navigate = useNavigate();
