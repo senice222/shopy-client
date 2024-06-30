@@ -33,7 +33,7 @@ const DetailedProduct: FC<ModalAndFavorite> = ({data, setAddedFunc, isAdd, added
     }
 
     const redirect = useCallback(() => {
-        window.location.href = `${url}/basket`
+        navigate('/basket')
     }, [])
 
     useEffect(() => {
@@ -51,9 +51,9 @@ const DetailedProduct: FC<ModalAndFavorite> = ({data, setAddedFunc, isAdd, added
 
     useEffect(() => {
         if(data?.length > 0) {
-            tg.MainButton.hide();
-        } else {
             tg.MainButton.show();
+        } else {
+            tg.MainButton.hide();
         }
     }, [data])
 
