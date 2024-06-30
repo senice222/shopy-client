@@ -3,6 +3,7 @@ interface TelegramWebApp {
     ThemeParams: any;
     close(): void;
     MainButton: {
+        color: string;
         isVisible: boolean;
         show(): void;
         hide(): void;
