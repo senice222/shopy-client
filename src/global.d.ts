@@ -14,6 +14,8 @@ interface TelegramWebApp {
         };
         query_id?: string;
     };
+
+    expand(): void;
 }
 
 interface Window {

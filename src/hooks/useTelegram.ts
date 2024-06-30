@@ -1,12 +1,12 @@
 const tg = window.Telegram.WebApp;
+tg.expand();
+tg.MainButton.color = "#0f73d5"
 
 export function useTelegram() {
 
     const onClose = () => {
         tg.close()
     }
-
-    tg.MainButton.color = "#0f73d5"
 
     const onToggleButton = () => {
         if(tg.MainButton.isVisible) {
