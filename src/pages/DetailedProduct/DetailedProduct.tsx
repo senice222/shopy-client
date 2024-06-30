@@ -3,69 +3,67 @@ import Layout from "../../layouts/Layout";
 import prdct from '../../assets/detailed.png'
 import percent from '../../assets/svg/percent-03.svg'
 import Button from "../../components/Button/Button";
-import {useNavigate} from 'react-router-dom';
-import React, {FC, useCallback, useEffect, useState} from "react";
-import {ModalAndFavorite} from "../../interfaces/ModalAndFavorite";
-import {AddedToFav} from "../../components/AddedToFav/AddedToFav";
+import { useNavigate } from 'react-router-dom';
+import React, { FC, useCallback, useEffect, useState } from "react";
+import { ModalAndFavorite } from "../../interfaces/ModalAndFavorite";
+import { AddedToFav } from "../../components/AddedToFav/AddedToFav";
 import redHeart from '../../assets/heart.png'
-import {useSWRConfig} from "swr";
-import {fetcher, url} from "../../core/fetch";
-import {useTelegram} from "../../hooks/useTelegram";
+import { useSWRConfig } from "swr";
+import { fetcher, url } from "../../core/fetch";
+import { useTelegram } from "../../hooks/useTelegram";
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
+import { CartItem, addToCart } from '../../store/features/cartSlice';
 
-const DetailedProduct: FC<ModalAndFavorite> = ({data, setAddedFunc, isAdd, added, setAdded}) => {
-    const navigate = useNavigate()
-    const [favouriteStatus, setFavouriteStatus] = useState(false);
-    const {tg, id} = useTelegram()
-    const {mutate} = useSWRConfig()
+const DetailedProduct: FC<ModalAndFavorite> = ({ data, setAddedFunc, isAdd, added, setAdded }) => {
+    const dispatch = useAppDispatch();
+    const { id, tg } = useTelegram();
+    const navigate = useNavigate();
+    const cartItems = useAppSelector((state: any) => state.cart.items);
 
+    const handleAddToCart = () => {
+        const newItem: CartItem = {
+            name: 'Spotify',
+            price: 2000,
+            План: 'Индивидульный',
+            Длительность: '1 месяц',
+        };
 
-    const handleAddToCart = async () => {
-        mutate(`${url}/api/user/cart/${id}`, fetcher(`${url}/api/user/cart/${id}`, {
-            method: "POST",
-            headers: {"Content-type": "application/json"},
-            body: JSON.stringify({
-                "name" : "Spotify",
-                "price" : 2000,
-                "План" : "Индивидульный",
-                "Длительность" : "1 месяц",
-            })
-        }))
-        await mutate(`${url}/api/user/cart/${id}`);
-    }
+        dispatch(addToCart(newItem));
+    };
 
     const redirect = useCallback(() => {
-        navigate('/basket')
+        navigate('/basket');
         tg.MainButton.hide();
-    }, [])
+    }, [navigate, tg]);
 
     useEffect(() => {
-        tg.onEvent('mainButtonClicked', redirect)
+        tg.onEvent('mainButtonClicked', redirect);
         return () => {
-            tg.offEvent('mainButtonClicked', redirect)
-        }
-    }, [redirect])
+            tg.offEvent('mainButtonClicked', redirect);
+        };
+    }, [redirect, tg]);
 
     useEffect(() => {
         tg.MainButton.setParams({
-            text: `В корзине ${data?.length}`
-        })
-    }, [])
+            text: `В корзине ${cartItems.length}`
+        });
+    }, [cartItems, tg]);
 
     useEffect(() => {
-        if(data?.length > 0) {
+        if (cartItems.length > 0) {
             tg.MainButton.show();
         } else {
             tg.MainButton.hide();
         }
-    }, [data?.length])
+    }, [cartItems, tg]);
 
     return (
         <div className={style.background}>
-            <AddedToFav isAdd={isAdd} isOpen={added} setOpen={() => setAdded(false)}/>
+            <AddedToFav isAdd={isAdd} isOpen={added} setOpen={() => setAdded(false)} />
             <Layout>
                 <div className={style.productContainer}>
                     <div className={style.imgCont}>
-                        <img src={prdct} alt="/"/>
+                        <img src={prdct} alt="/" />
                     </div>
                     <div className={style.wrappInfo}>
                         <div className={style.info}>
@@ -81,7 +79,7 @@ const DetailedProduct: FC<ModalAndFavorite> = ({data, setAddedFunc, isAdd, added
                         </div>
                         <div className={style.promotionDiv}>
                             <div className={style.promotionImg}>
-                                <img src={percent} alt="/"/>
+                                <img src={percent} alt="/" />
                             </div>
                             <div className={style.promotionText}>
                                 <h2>Два месяца по цене одного!</h2>
@@ -123,23 +121,23 @@ const DetailedProduct: FC<ModalAndFavorite> = ({data, setAddedFunc, isAdd, added
                                     />
                                 ) : (
                                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20"
-                                         className={favouriteStatus ? style.heartFilled : style.svg}
-                                         onClick={() => {
-                                             setFavouriteStatus(!favouriteStatus)
-                                             setAddedFunc(true, {
-                                                 id: String(1),
-                                                 name: "Spotify",
-                                                 price: 399,
-                                                 img: "https://picsum.photos/200/300?random=2"
-                                             })
-                                         }
-                                         }
-                                         fill="none"
+                                        className={favouriteStatus ? style.heartFilled : style.svg}
+                                        onClick={() => {
+                                            setFavouriteStatus(!favouriteStatus)
+                                            setAddedFunc(true, {
+                                                id: String(1),
+                                                name: "Spotify",
+                                                price: 399,
+                                                img: "https://picsum.photos/200/300?random=2"
+                                            })
+                                        }
+                                        }
+                                        fill="none"
                                     >
                                         <path fill-rule="evenodd" clip-rule="evenodd"
-                                              d="M9.99428 4.27985C8.32816 2.332 5.54978 1.80804 3.46224 3.59168C1.37469 5.37532 1.0808 8.35748 2.72015 10.467C4.08317 12.2209 8.20813 15.9201 9.56007 17.1174C9.71133 17.2513 9.78695 17.3183 9.87517 17.3446C9.95216 17.3676 10.0364 17.3676 10.1134 17.3446C10.2016 17.3183 10.2772 17.2513 10.4285 17.1174C11.7804 15.9201 15.9054 12.2209 17.2684 10.467C18.9078 8.35748 18.6498 5.35656 16.5263 3.59168C14.4029 1.8268 11.6604 2.332 9.99428 4.27985Z"
-                                              stroke="#344054" stroke-width="1.66667" stroke-linecap="round"
-                                              stroke-linejoin="round"/>
+                                            d="M9.99428 4.27985C8.32816 2.332 5.54978 1.80804 3.46224 3.59168C1.37469 5.37532 1.0808 8.35748 2.72015 10.467C4.08317 12.2209 8.20813 15.9201 9.56007 17.1174C9.71133 17.2513 9.78695 17.3183 9.87517 17.3446C9.95216 17.3676 10.0364 17.3676 10.1134 17.3446C10.2016 17.3183 10.2772 17.2513 10.4285 17.1174C11.7804 15.9201 15.9054 12.2209 17.2684 10.467C18.9078 8.35748 18.6498 5.35656 16.5263 3.59168C14.4029 1.8268 11.6604 2.332 9.99428 4.27985Z"
+                                            stroke="#344054" stroke-width="1.66667" stroke-linecap="round"
+                                            stroke-linejoin="round" />
                                     </svg>
                                 )}
                             </div>
