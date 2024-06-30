@@ -19,7 +19,6 @@ const DetailedProduct: FC<ModalAndFavorite> = ({ setAddedFunc, isAdd, added, set
     const navigate = useNavigate();
     const cartItems = useAppSelector((state: any) => state.cart.items);
     const [favouriteStatus, setFavouriteStatus] = useState(false);
-    const isCart = cartItems.some((item: CartItem) => item.main.name === newItem.main.name)
     
     const newItem: CartItem = {
         id: uuidv4(),
@@ -32,6 +31,7 @@ const DetailedProduct: FC<ModalAndFavorite> = ({ setAddedFunc, isAdd, added, set
             { name: 'Длительность', value: '1 месяц' },
         ],
     };
+    const isCart = cartItems.some((item: CartItem) => item.main.name === newItem.main.name)
 
     const handleAddOrRemoveFromCart = () => {
         const existingItem = cartItems.find((item: CartItem) => item.main.name === newItem.main.name);
