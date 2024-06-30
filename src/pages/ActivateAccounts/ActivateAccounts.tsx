@@ -8,12 +8,15 @@ import Button from "../../components/Button/Button";
 import {useState} from "react";
 import AddAccountModal from "../../components/Modals/Accounts/AddAccountModal/AddAccountModal";
 import EditAccountModal from "../../components/Modals/Accounts/EditAccountModal/EditAccountModal";
+import useSWR from "swr";
+import {fetcher, url} from "../../core/fetch";
+import {useTelegram} from "../../hooks/useTelegram";
 
 const ActivateAccounts = () => {
     const [addAccount, setAddAccount] = useState<boolean>(false)
     const [isOpen, setIsOpen] = useState<boolean>(false)
-
-
+    const {id} = useTelegram()
+    const {data, error} = useSWR(`${url}/api/user/account/${id}`, fetcher)
 
     return (
         <div className={style.wrapp}>
@@ -30,22 +33,28 @@ const ActivateAccounts = () => {
                         </div>
                     </div>
                     <div className={style.nothingYet}>
-                        {/*IF NO ACCOUNTS HERE*/}
-                        {/*    <img src={nothing} alt="/"/>*/}
-                        {/*    <h2>Пока что тут ничего нет</h2>*/}
-                        {/*    <p>Нажмите на кнопку ниже, чтобы добавить данные от аккаунтов или сохраняйте их при покупке в корзине.</p>*/}
-                        <div className={style.item} onClick={() => setIsOpen(true)}>
-                            <div className={style.itemInfo}>
-                                <img src={spotify48} alt="/"/>
-                                <div>
-                                    <h2>Spotify</h2>
-                                    <p>mail@mshopy.ru</p>
+                        {
+                            data.length > 0 ? (
+                                <div className={style.item} onClick={() => setIsOpen(true)}>
+                                    <div className={style.itemInfo}>
+                                        <img src={spotify48} alt="/"/>
+                                        <div>
+                                            <h2>Spotify</h2>
+                                            <p>mail@mshopy.ru</p>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <img className={style.imgDots} src={dots} alt=""/>
+                                    </div>
                                 </div>
-                            </div>
-                            <div>
-                                <img className={style.imgDots} src={dots} alt=""/>
-                            </div>
-                        </div>
+                            ) : (
+                                <>
+                                    <img src={nothing} alt="/"/>
+                                    <h2>Пока что тут ничего нет</h2>
+                                    <p>Нажмите на кнопку ниже, чтобы добавить данные от аккаунтов или сохраняйте их при покупке в корзине.</p>
+                                </>
+                            )
+                        }
                         <div className={style.btnDiv} onClick={() => setAddAccount(true)}>
                             <Button letterSpacing={"0.5px"} text={"Добавить аккаунт"} height={"48px"} width={"100%"}/>
                         </div>
