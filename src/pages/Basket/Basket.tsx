@@ -20,6 +20,7 @@ const Basket = () => {
             <Layout isRightArrow={true}>
                 <div className={style.basketContainer}>
                     <TopItem text={"Корзина"}/>
+                    {id ? id : "netu"}
                     <div className={style.items}>
                         {data?.length > 0 ? (
                             data.map((item: BasketProps, i: number) => (
