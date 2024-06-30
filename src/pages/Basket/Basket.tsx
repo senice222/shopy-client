@@ -14,12 +14,13 @@ const Basket = () => {
     const navigate = useNavigate()
     const {id} = useTelegram()
     const { data, error } = useSWR(`${url}/api/user/cart/${id}`, fetcher);
-
+    alert(data.toString())
     return (
         <div className={style.wrapp}>
             <Layout isRightArrow={true}>
                 <div className={style.basketContainer}>
                     <TopItem text={"Корзина"}/>
+                    {id ? id : "НЕТУ НАХУЙ"}
                     <div className={style.items}>
                         {data?.length > 0 ? (
                             data.map((item: BasketProps, i: number) => (

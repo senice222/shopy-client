@@ -21,7 +21,6 @@ const BasketItem: FC<BasketProps> = ({main, optional}) => {
     const {id} = useTelegram()
     return (
         <div className={style.item}>
-            {id ? id : "НЕТУ НАХУЙ"}
             <img src={spotify} alt="/"/>
             <div className={style.container}>
                 <div className={style.infoWrapper}>
