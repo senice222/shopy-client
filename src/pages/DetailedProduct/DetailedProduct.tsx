@@ -21,11 +21,15 @@ const DetailedProduct: FC<ModalAndFavorite> = ({setAddedFunc, isAdd, added, setA
 
     const handleAddToCart = () => {
         const newItem: CartItem = {
-            name: 'Spotify',
-            price: 2000,
-            План: 'Индивидульный',
-            Длительность: '1 месяц',
-        };
+            main: {
+              name: 'Spotify',
+              price: 2000,
+            },
+            optional: [
+              { name: 'План', value: 'Индивидульный' },
+              { name: 'Длительность', value: '1 месяц' },
+            ],
+          };
 
         dispatch(addToCart(newItem));
     };

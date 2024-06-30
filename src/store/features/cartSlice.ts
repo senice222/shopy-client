@@ -1,12 +1,17 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
+export interface OptionalItem {
+  name: string;
+  value: string;
+}
+
 export interface CartItem {
+  main: {
     name: string;
     price: number;
-    План: string;
-    Длительность: string;
-  }
-
+  };
+  optional: OptionalItem[];
+}
 interface CartState {
   items: CartItem[];
 }

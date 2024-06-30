@@ -16,21 +16,21 @@ export interface BasketProps {
         price: string;
     },
     optional: OptionalI[]
-    _id: string,
+    // _id: string,
 }
 
-const BasketItem: FC<BasketProps> = ({main, optional, _id}) => {
+const BasketItem: FC<BasketProps> = ({main, optional}) => {
     const {id} = useTelegram()
     const {mutate} = useSWRConfig()
 
     const handleDelete = () => {
-        mutate(`${url}/api/user/cart/${id}`, fetcher(`${url}/api/user/cart/${id}`, {
-            method: "DELETE",
-            headers: {"Content-type": "application/json"},
-            body: JSON.stringify({
-                "_id" : _id
-            })
-        }))
+    //     mutate(`${url}/api/user/cart/${id}`, fetcher(`${url}/api/user/cart/${id}`, {
+    //         method: "DELETE",
+    //         headers: {"Content-type": "application/json"},
+    //         body: JSON.stringify({
+    //             "_id" : _id
+    //         })
+    //     }))
     }
 
     return (
