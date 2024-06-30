@@ -1,7 +1,7 @@
 import React from 'react';
 import style from './Basket.module.scss'
 import Layout from "../../layouts/Layout";
-import BasketItem, {Basket} from "./BasketItem/BasketItem";
+import BasketItem, {BasketItem} from "./BasketItem/BasketItem";
 import PromoInput from "../../components/PromoInput/PromoInput";
 import Button from "../../components/Button/Button";
 import TopItem from "../../components/TopItem/TopItem";
@@ -22,7 +22,7 @@ const Basket = () => {
                     <TopItem text={"Корзина"}/>
                     <div className={style.items}>
                         {data.length > 0 ? (
-                            data.map((item: Basket, i: number) => (
+                            data.map((item: BasketItem, i: number) => (
                                 <BasketItem name={item.name} price={item.price} plan={item.plan} duration={item.duration} />
                             ))
                         ) : (

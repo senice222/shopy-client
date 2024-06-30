@@ -3,14 +3,14 @@ import spotify from "../../../assets/svg/Spotify.svg";
 import cross from "../../../assets/svg/x-close.svg";
 import {FC} from "react";
 
-export interface Basket {
+export interface BasketItem {
     name: string;
     price: number;
     plan: string;
     duration: string;
 }
 
-const BasketItem: FC<Basket> = ({name, price, plan, duration}) => {
+const BasketItem: FC<BasketItem> = ({name, price, plan, duration}) => {
 
     return (
         <div className={style.item}>
