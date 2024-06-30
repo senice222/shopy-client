@@ -5,7 +5,7 @@ export function useTelegram() {
     const onClose = () => {
         tg.close()
     }
-
+    tg.ThemeParams.button_color = "blue"
     const onToggleButton = () => {
         if(tg.MainButton.isVisible) {
             tg.MainButton.hide();

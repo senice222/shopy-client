@@ -34,6 +34,7 @@ const DetailedProduct: FC<ModalAndFavorite> = ({data, setAddedFunc, isAdd, added
 
     const redirect = useCallback(() => {
         navigate('/basket')
+        tg.MainButton.hide();
     }, [])
 
     useEffect(() => {
@@ -45,7 +46,7 @@ const DetailedProduct: FC<ModalAndFavorite> = ({data, setAddedFunc, isAdd, added
 
     useEffect(() => {
         tg.MainButton.setParams({
-            text: 'В корзине'
+            text: `В корзине ${data?.length}`
         })
     }, [])
 

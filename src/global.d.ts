@@ -1,5 +1,6 @@
 
 interface TelegramWebApp {
+    ThemeParams: any;
     close(): void;
     MainButton: {
         isVisible: boolean;
