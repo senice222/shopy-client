@@ -21,14 +21,18 @@ const Basket = () => {
                 <div className={style.basketContainer}>
                     <TopItem text={"Корзина"}/>
                     <div className={style.items}>
-                        {data.length > 0 ? (
+                        {data?.length > 0 ? (
                             data.map((item: BasketProps, i: number) => (
-                                <BasketItem name={item.name} price={item.price} plan={item.plan} duration={item.duration} />
+                                <BasketItem
+                                    key={i}
+                                    name={item.name}
+                                    price={item.price}
+                                    plan={item.plan}
+                                    duration={item.duration}
+                                />
                             ))
                         ) : (
-                            <div>
-                                pusto
-                            </div>
+                            <div>pusto</div>
                         )}
                     </div>
                     <PromoInput/>
