@@ -17,6 +17,10 @@ const ProductItem : FC<ProductItemI> = ({toFav, img, price, name, id}) => {
 
     const handleClick = () => {
         navigate('/product/1');
+
+        window.scrollTo({
+            top: 0
+        });
     };
 
     return (

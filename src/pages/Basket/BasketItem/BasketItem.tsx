@@ -3,6 +3,8 @@ import spotify from "../../../assets/svg/Spotify.svg";
 import cross from "../../../assets/svg/x-close.svg";
 import {FC} from "react";
 import {useTelegram} from "../../../hooks/useTelegram";
+import {fetcher, url} from "../../../core/fetch";
+import {useSWRConfig} from "swr/dist/core";
 
 interface OptionalI {
     name: string,
@@ -14,11 +16,33 @@ export interface BasketProps {
         price: string;
     },
     optional: OptionalI[]
-
+    _id: string,
 }
 
-const BasketItem: FC<BasketProps> = ({main, optional}) => {
+const BasketItem: FC<BasketProps> = ({main, optional, _id}) => {
     const {id} = useTelegram()
+    const {mutate} = useSWRConfig()
+    const handleDelete = () => {
+        mutate(`${url}/api/user/cart/${id}`, fetcher(`${url}/api/user/cart/${id}`, {
+            method: "DELETE",
+            headers: {"Content-type": "application/json"},
+            body: JSON.stringify({
+                "_id" : _id
+            })
+        }))
+    }
+    // const handleAddToCart = () => {
+    //     mutate(`${url}/api/user/cart/${id}`, fetcher(`${url}/api/user/cart/${id}`, {
+    //         method: "POST",
+    //         headers: {"Content-type": "application/json"},
+    //         body: JSON.stringify({
+    //             "name" : "Spotify",
+    //             "price" : 2000,
+    //             "План" : "Индивидульный",
+    //             "Длительность" : "1 месяц",
+    //         })
+    //     }))
+    // }
     return (
         <div className={style.item}>
             <img src={spotify} alt="/"/>
@@ -37,7 +61,7 @@ const BasketItem: FC<BasketProps> = ({main, optional}) => {
                     <h2>{main.price}₽</h2>
                 </div>
                 <div className={style.cross}>
-                    <img src={cross} alt="/"/>
+                    <img onClick={handleDelete} src={cross} alt="/"/>
                 </div>
             </div>
         </div>

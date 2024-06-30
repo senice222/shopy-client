@@ -27,6 +27,7 @@ const Basket = () => {
                                     key={i}
                                     main={item.main}
                                     optional={item.optional}
+                                    _id={item._id}
                                 />
                             ))
                         ) : (
