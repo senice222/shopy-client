@@ -35,18 +35,20 @@ const ActivateAccounts = () => {
                     <div className={style.nothingYet}>
                         {
                             (data && data?.length > 0) ? (
-                                <div className={style.item} onClick={() => setIsOpen(true)}>
-                                    <div className={style.itemInfo}>
-                                        <img src={spotify48} alt="/"/>
+                                data.map((item: any) => (
+                                    <div className={style.item} onClick={() => setIsOpen(true)} key={item.id}>
+                                        <div className={style.itemInfo}>
+                                            <img src={`${url}/api/uploads/${item.image}`} alt=""/>
+                                            <div>
+                                                <h2>{item.service}</h2>
+                                                <p>{item.email}</p>
+                                            </div>
+                                        </div>
                                         <div>
-                                            <h2>Spotify</h2>
-                                            <p>mail@mshopy.ru</p>
+                                            <img className={style.imgDots} src={dots} alt=""/>
                                         </div>
                                     </div>
-                                    <div>
-                                        <img className={style.imgDots} src={dots} alt=""/>
-                                    </div>
-                                </div>
+                                ))
                             ) : (
                                 <>
                                     <img src={nothing} alt="/"/>
