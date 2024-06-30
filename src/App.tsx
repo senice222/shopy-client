@@ -25,6 +25,7 @@ import Login from "./pages/ADMIN/Login/Login";
 import Panel from "./pages/ADMIN/Panel/Panel";
 import Users from "./pages/ADMIN/Users/Users";
 import DetailedUser from "./pages/ADMIN/Users/DetailedUser/DetailedUser";
+import {useTelegram} from "./hooks/useTelegram";
 
 function App() {
     const location = useLocation()
@@ -33,6 +34,11 @@ function App() {
     const [isAdd, setIsAdd] = useState<boolean>(false)
     const dispatch = useAppDispatch()
     const state = useAppSelector(state => state.favorite.items)
+    const {tg} = useTelegram();
+
+    useEffect(() => {
+        tg?.ready();
+    }, [])
 
     const setAddedFunc = (isAdd: boolean, item: FavoriteItem) => {
         setIsAdd(isAdd)

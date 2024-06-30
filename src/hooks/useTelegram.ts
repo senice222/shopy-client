@@ -11,6 +11,7 @@ type TelegramWebApp = {
         };
         query_id?: string;
     };
+    ready: () => void;
 };
 
 export const useTelegram = () => {
