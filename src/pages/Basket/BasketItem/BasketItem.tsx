@@ -23,6 +23,7 @@ const BasketItem: FC<BasketProps> = ({main, optional, _id}) => {
     const {id} = useTelegram()
     const {mutate} = useSWRConfig()
     alert(_id)
+
     const handleDelete = () => {
         mutate(`${url}/api/user/cart/${id}`, fetcher(`${url}/api/user/cart/${id}`, {
             method: "DELETE",
@@ -32,18 +33,7 @@ const BasketItem: FC<BasketProps> = ({main, optional, _id}) => {
             })
         }))
     }
-    // const handleAddToCart = () => {
-    //     mutate(`${url}/api/user/cart/${id}`, fetcher(`${url}/api/user/cart/${id}`, {
-    //         method: "POST",
-    //         headers: {"Content-type": "application/json"},
-    //         body: JSON.stringify({
-    //             "name" : "Spotify",
-    //             "price" : 2000,
-    //             "План" : "Индивидульный",
-    //             "Длительность" : "1 месяц",
-    //         })
-    //     }))
-    // }
+
     return (
         <div className={style.item}>
             <img src={spotify} alt="/"/>
