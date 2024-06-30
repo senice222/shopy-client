@@ -9,6 +9,9 @@ import {useState} from "react";
 import BlueButton from "../../../Button/Button";
 import lock from "../../../../assets/lock-02.png";
 import { useForm, Controller } from 'react-hook-form';
+import {useSWRConfig} from "swr";
+import {fetcher, url} from "../../../../core/fetch";
+import {useTelegram} from "../../../../hooks/useTelegram";
 
 interface AccountProps {
     addAccount: boolean;
@@ -20,9 +23,28 @@ const { Option } = Select;
 const AddAccountModal = ({addAccount, onClose}: AccountProps) => {
     const [selected, setSelected] = useState<string>('');
     const { control, handleSubmit, formState: { errors } } = useForm();
+    const {mutate} = useSWRConfig()
+    const {id} = useTelegram()
 
-    const onSubmit = (data: any) => {
-        console.log(data);
+    const onSubmit = async (data: any) => {
+        const formData = new FormData();
+
+        formData.append('service', data.service.service);
+        formData.append('email', data.email);
+        formData.append('password', data.password);
+        formData.append('image', data.service.image);
+
+        try {
+            mutate(`${url}/api/user/account/${id}`, fetcher(`${url}/api/user/account/${id}`, {
+                method: "POST",
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            }));
+        } catch (error) {
+            console.error('Error:', error);
+        }
     };
 
     const handleChange = (value: string) => {
@@ -65,13 +87,13 @@ const AddAccountModal = ({addAccount, onClose}: AccountProps) => {
                                 className={style.select}
                                 onChange={(value) => field.onChange(value)}
                             >
-                                <Option value="Spotify" className={style.option}>
+                                <Option value={{ service: 'Spotify', image: spotify }} className={style.option}>
                                     <div className={style.selectItem}>
                                         <img src={spotify} alt="/" />
                                         <p>Spotify</p>
                                     </div>
                                 </Option>
-                                <Option value="Netflix" className={style.option}>
+                                <Option value={{ service: 'Netflix', image: netflix }} className={style.option}>
                                     <div className={style.selectItem}>
                                         <img src={netflix} alt="/" />
                                         <p>Netflix</p>
