@@ -3,26 +3,37 @@ import spotify from "../../../assets/svg/Spotify.svg";
 import cross from "../../../assets/svg/x-close.svg";
 import {FC} from "react";
 
+interface OptionalI {
+    name: string,
+    value: string
+}
 export interface BasketProps {
-    name: string;
-    price: number;
-    plan: string;
-    duration: string;
+    main: {
+        name: string;
+        price: string;
+    },
+    optional: OptionalI[]
+
 }
 
-const BasketItem: FC<BasketProps> = ({name, price, plan, duration}) => {
+const BasketItem: FC<BasketProps> = ({main, optional}) => {
 
     return (
         <div className={style.item}>
             <img src={spotify} alt="/"/>
             <div className={style.container}>
                 <div className={style.infoWrapper}>
-                    <h2>{name}</h2>
-                    {/*<div>*/}
-                    {/*<p>План: Индивидуальный</p>*/}
-                    {/*<p>Длительность: 1 месяц</p>*/}
-                    {/*</div>*/}
-                    <h2>{price}₽</h2>
+                    <h2>{main.name}</h2>
+                    <div>
+                        {
+                            optional.map((item, i) => (
+                                <>
+                                    <p>{item.name}: {item.value}</p>
+                                </>
+                            ))
+                        }
+                    </div>
+                    <h2>{main.price}₽</h2>
                 </div>
                 <div className={style.cross}>
                     <img src={cross} alt="/"/>

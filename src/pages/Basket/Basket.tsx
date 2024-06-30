@@ -12,8 +12,8 @@ import {useTelegram} from "../../hooks/useTelegram";
 
 const Basket = () => {
     const navigate = useNavigate()
-    const {id} = useTelegram()
-    const { data, error } = useSWR(`${url}/api/user/cart/6527850384`, fetcher);
+    const {user} = useTelegram()
+    const { data, error } = useSWR(`${url}/api/user/cart/${user?.id}`, fetcher);
 
     return (
         <div className={style.wrapp}>
@@ -25,10 +25,8 @@ const Basket = () => {
                             data.map((item: BasketProps, i: number) => (
                                 <BasketItem
                                     key={i}
-                                    name={item.name}
-                                    price={item.price}
-                                    plan={item.plan}
-                                    duration={item.duration}
+                                    main={item.main}
+                                    optional={item.optional}
                                 />
                             ))
                         ) : (
