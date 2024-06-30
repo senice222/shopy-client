@@ -8,7 +8,7 @@ import {FC} from "react";
 import {ModalAndFavorite} from "../../interfaces/ModalAndFavorite";
 
 const ProductsList:FC<ModalAndFavorite> = ({setAddedFunc, isAdd, added, setAdded}) => {
-
+    
     return (
         <>
             <AddedToFav isAdd={isAdd} isOpen={added} setOpen={() => setAdded(false)} />

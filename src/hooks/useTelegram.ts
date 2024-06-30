@@ -1,24 +1,38 @@
-const tg = window.Telegram.WebApp
-
+type TelegramWebApp = {
+    close: () => void;
+    MainButton: {
+        isVisible: boolean;
+        hide: () => void;
+        show: () => void;
+    };
+    initDataUnsafe?: {
+        user?: {
+            id?: number;
+        };
+        query_id?: string;
+    };
+};
 
 export const useTelegram = () => {
+    const tg: TelegramWebApp | undefined = (window as any).Telegram?.WebApp;
+
     const onClose = () => {
-        tg.close()
-    }
+        tg?.close();
+    };
 
     const onToggleButton = () => {
-        if (tg.MainButton.isVisible) {
-            tg.MainButton.hide()
+        if (tg?.MainButton.isVisible) {
+            tg.MainButton.hide();
         } else {
-            tg.MainButton.show()
+            tg?.MainButton.show();
         }
-    }
+    };
 
     return {
         tg,
-        id: tg.initDataUnsafe?.user?.id,
-        queryId: tg.initDataUnsafe?.query_id,
+        id: tg?.initDataUnsafe?.user?.id,
+        queryId: tg?.initDataUnsafe?.query_id,
         onClose,
         onToggleButton
-    }
-}
+    };
+};
