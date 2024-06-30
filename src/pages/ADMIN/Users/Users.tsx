@@ -2,7 +2,6 @@ import React, {useState} from 'react';
 import AdminLayout from "../../../layouts/AdminLayout";
 import style from './Users.module.scss'
 import BackTick from "../../../components/ADMIN/BackTick/BackTick";
-import {SendMessage} from "../../../components/Modals/SendMessageModal/SendMessageModal";
 
 const Users = () => {
     const [active, setActive] = useState(true)
@@ -22,7 +21,7 @@ const Users = () => {
     return (
         <AdminLayout>
             <div className={style.users}>
-                <SendMessage promoActive={active} onClose={() => setActive(!active)} />
+                {/*<SendMessage promoActive={active} onClose={() => setActive(!active)} />*/}
                 <BackTick title={"Пользователи"} to={"/panel"} />
                 <h2 className={style.title}>Пользователи</h2>
                 <div className={style.listOfUsers}>

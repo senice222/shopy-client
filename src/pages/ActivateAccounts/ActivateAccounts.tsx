@@ -34,7 +34,7 @@ const ActivateAccounts = () => {
                     </div>
                     <div className={style.nothingYet}>
                         {
-                            data.length > 0 ? (
+                            data?.length > 0 ? (
                                 <div className={style.item} onClick={() => setIsOpen(true)}>
                                     <div className={style.itemInfo}>
                                         <img src={spotify48} alt="/"/>
