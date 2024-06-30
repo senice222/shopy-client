@@ -26,6 +26,8 @@ import Panel from "./pages/ADMIN/Panel/Panel";
 import Users from "./pages/ADMIN/Users/Users";
 import DetailedUser from "./pages/ADMIN/Users/DetailedUser/DetailedUser";
 import {useTelegram} from "./hooks/useTelegram";
+import useSWR from "swr/dist/core";
+import {fetcher, url} from "./core/fetch";
 
 function App() {
     const location = useLocation()
@@ -34,7 +36,8 @@ function App() {
     const [isAdd, setIsAdd] = useState<boolean>(false)
     const dispatch = useAppDispatch()
     const state = useAppSelector(state => state.favorite.items)
-    const {tg} = useTelegram();
+    const {tg, id} = useTelegram();
+    const { data, error } = useSWR(`${url}/api/user/cart/${id}`, fetcher);
 
     useEffect(() => {
         tg.ready();
@@ -73,12 +76,12 @@ function App() {
         <Routes key={location.pathname} location={location}>
             <Route path="/" element={<Home setAddedFunc={setAddedFunc} isAdd={isAdd} added={added} setAdded={setAdded}/>}/>
             <Route path="/category/:category" element={<Category/>}/>
-            <Route path="/basket" element={<Basket/>}/>
+            <Route path="/basket" element={<Basket data={data}/>}/>
             <Route path="/active-accounts" element={<ActivateAccounts />}/>
             <Route path="/active-subscriptions" element={<ActiveSubscriptions />}/>
             <Route path="/favorite-products" element={<FavoriteProducts setAddedFunc={setAddedFunc} isAdd={isAdd} added={added} setAdded={setAdded}/>}/>
             <Route path="/proceed-payment" element={<ProceedToPayment/>}/>
-            <Route path="/product/:id" element={<DetailedProduct setAddedFunc={setAddedFunc} isAdd={isAdd} added={added} setAdded={setAdded} />}/>
+            <Route path="/product/:id" element={<DetailedProduct data={data} setAddedFunc={setAddedFunc} isAdd={isAdd} added={added} setAdded={setAdded} />}/>
             <Route path="/history-of-orders" element={<HistoryOfOrders />}/>
             <Route path="/change-data" element={<ChangeData/>}/>
             <Route path="/history-of-orders/:id" element={<DetailedOrder />}/>

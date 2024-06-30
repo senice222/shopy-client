@@ -4,7 +4,7 @@ import prdct from '../../assets/detailed.png'
 import percent from '../../assets/svg/percent-03.svg'
 import Button from "../../components/Button/Button";
 import {useNavigate} from 'react-router-dom';
-import React, {FC, useState} from "react";
+import React, {FC, useCallback, useEffect, useState} from "react";
 import {ModalAndFavorite} from "../../interfaces/ModalAndFavorite";
 import {AddedToFav} from "../../components/AddedToFav/AddedToFav";
 import redHeart from '../../assets/heart.png'
@@ -12,11 +12,12 @@ import {useSWRConfig} from "swr";
 import {fetcher, url} from "../../core/fetch";
 import {useTelegram} from "../../hooks/useTelegram";
 
-const DetailedProduct: FC<ModalAndFavorite> = ({setAddedFunc, isAdd, added, setAdded}) => {
+const DetailedProduct: FC<ModalAndFavorite> = ({data, setAddedFunc, isAdd, added, setAdded}) => {
     const navigate = useNavigate()
     const [favouriteStatus, setFavouriteStatus] = useState(false);
-    const {id} = useTelegram()
+    const {tg, id} = useTelegram()
     const {mutate} = useSWRConfig()
+
 
     const handleAddToCart = () => {
         mutate(`${url}/api/user/cart/${id}`, fetcher(`${url}/api/user/cart/${id}`, {
@@ -30,6 +31,31 @@ const DetailedProduct: FC<ModalAndFavorite> = ({setAddedFunc, isAdd, added, setA
             })
         }))
     }
+
+    const redirect = useCallback(() => {
+        window.location.href = `${url}/basket`
+    }, [])
+
+    useEffect(() => {
+        tg.onEvent('mainButtonClicked', redirect)
+        return () => {
+            tg.offEvent('mainButtonClicked', redirect)
+        }
+    }, [redirect])
+
+    useEffect(() => {
+        tg.MainButton.setParams({
+            text: 'В корзине'
+        })
+    }, [])
+
+    useEffect(() => {
+        if(data?.length > 0) {
+            tg.MainButton.hide();
+        } else {
+            tg.MainButton.show();
+        }
+    }, [data])
 
     return (
         <div className={style.background}>

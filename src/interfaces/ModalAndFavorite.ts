@@ -6,4 +6,5 @@ export interface ModalAndFavorite {
     isAdd: boolean;
     added: boolean;
     setAdded: Dispatch<SetStateAction<boolean>>;
+    data?: any;
 }

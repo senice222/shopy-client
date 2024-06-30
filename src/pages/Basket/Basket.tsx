@@ -6,14 +6,11 @@ import PromoInput from "../../components/PromoInput/PromoInput";
 import Button from "../../components/Button/Button";
 import TopItem from "../../components/TopItem/TopItem";
 import {useNavigate} from "react-router-dom";
-import useSWR from "swr";
-import {fetcher, url} from "../../core/fetch";
 import {useTelegram} from "../../hooks/useTelegram";
 
-const Basket = () => {
+const Basket = ({data}: any) => {
     const navigate = useNavigate()
     const {id} = useTelegram()
-    const { data, error } = useSWR(`${url}/api/user/cart/${id}`, fetcher);
 
     return (
         <div className={style.wrapp}>
