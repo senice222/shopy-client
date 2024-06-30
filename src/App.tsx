@@ -37,7 +37,7 @@ function App() {
     const {tg} = useTelegram();
 
     useEffect(() => {
-        tg?.ready();
+        tg.ready();
     }, [])
 
     const setAddedFunc = (isAdd: boolean, item: FavoriteItem) => {

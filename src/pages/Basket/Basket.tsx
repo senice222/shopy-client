@@ -14,7 +14,7 @@ const Basket = () => {
     const navigate = useNavigate()
     const {id} = useTelegram()
     const { data, error } = useSWR(`${url}/api/user/cart/${id}`, fetcher);
-
+    // alert(id.toString())
     return (
         <div className={style.wrapp}>
             <Layout isRightArrow={true}>

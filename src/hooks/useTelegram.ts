@@ -1,25 +1,25 @@
+const tg = window.Telegram.WebApp;
 
-
-export const useTelegram = () => {
-    const tg = window.Telegram.WebApp;
+export function useTelegram() {
 
     const onClose = () => {
-        tg?.close();
-    };
+        tg.close()
+    }
 
     const onToggleButton = () => {
-        if (tg?.MainButton.isVisible) {
+        if(tg.MainButton.isVisible) {
             tg.MainButton.hide();
         } else {
-            tg?.MainButton.show();
+            tg.MainButton.show();
         }
-    };
+    }
 
     return {
-        tg,
-        id: tg?.initDataUnsafe?.user?.id,
-        queryId: tg?.initDataUnsafe?.query_id,
         onClose,
-        onToggleButton
-    } as any;
-};
+        onToggleButton,
+        tg,
+        user: tg.initDataUnsafe?.user,
+        id: tg.initDataUnsafe?.user?.id,
+        queryId: tg.initDataUnsafe?.query_id,
+    } as any
+}
