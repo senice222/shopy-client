@@ -1,7 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import favoriteReducer from './features/favoriteSlice'
 import cartReducer from './features/cartSlice'
-import { PersistGate } from 'redux-persist/integration/react';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { combineReducers } from 'redux';

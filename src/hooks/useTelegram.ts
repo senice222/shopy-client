@@ -3,7 +3,7 @@ tg.expand();
 tg.MainButton.color = "#0f73d5"
 
 export function useTelegram() {
-
+    
     const onClose = () => {
         tg.close()
     }

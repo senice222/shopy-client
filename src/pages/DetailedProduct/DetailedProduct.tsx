@@ -15,7 +15,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 const DetailedProduct: FC<ModalAndFavorite> = ({ setAddedFunc, isAdd, added, setAdded }) => {
     const dispatch = useAppDispatch();
-    const { id, tg } = useTelegram();
+    const { tg } = useTelegram();
     const navigate = useNavigate();
     const cartItems = useAppSelector((state: any) => state.cart.items);
     const [favouriteStatus, setFavouriteStatus] = useState(false);
@@ -57,7 +57,7 @@ const DetailedProduct: FC<ModalAndFavorite> = ({ setAddedFunc, isAdd, added, set
 
     useEffect(() => {
         tg.MainButton.setParams({
-            text: `В корзине ${cartItems.length}`
+            text: `Корзина (${cartItems.length})`
         });
     }, [cartItems, tg]);
 

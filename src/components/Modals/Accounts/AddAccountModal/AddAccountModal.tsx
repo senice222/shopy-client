@@ -27,19 +27,20 @@ const AddAccountModal = ({addAccount, onClose}: AccountProps) => {
     const {id} = useTelegram()
 
     const onSubmit = async (data: any) => {
+        const serviceData = JSON.parse(data.service);
         const formData = new FormData();
 
-        formData.append('service', data.service.service);
+        formData.append('service', serviceData.service);
         formData.append('email', data.email);
         formData.append('password', data.password);
-        formData.append('image', data.service.image);
+        formData.append('image', serviceData.image);
 
         try {
             mutate(`${url}/api/user/account/${id}`, fetcher(`${url}/api/user/account/${id}`, {
                 method: "POST",
                 body: formData,
                 headers: {
-                    'Accept': 'application/json'
+                    'Content-Type': 'multipart/form-data'
                 }
             }));
         } catch (error) {
@@ -87,13 +88,13 @@ const AddAccountModal = ({addAccount, onClose}: AccountProps) => {
                                 className={style.select}
                                 onChange={(value) => field.onChange(value)}
                             >
-                                <Option value={{ service: 'Spotify', image: spotify }} className={style.option}>
+                                <Option value={JSON.stringify({ service: 'Spotify', image: spotify })} className={style.option}>
                                     <div className={style.selectItem}>
                                         <img src={spotify} alt="/" />
                                         <p>Spotify</p>
                                     </div>
                                 </Option>
-                                <Option value={{ service: 'Netflix', image: netflix }} className={style.option}>
+                                <Option value={JSON.stringify({ service: 'Netflix', image: netflix })} className={style.option}>
                                     <div className={style.selectItem}>
                                         <img src={netflix} alt="/" />
                                         <p>Netflix</p>

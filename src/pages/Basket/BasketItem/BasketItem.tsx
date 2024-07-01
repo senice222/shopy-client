@@ -2,9 +2,6 @@ import style from './BasketItem.module.scss'
 import spotify from "../../../assets/svg/Spotify.svg";
 import cross from "../../../assets/svg/x-close.svg";
 import { FC } from "react";
-import { useTelegram } from "../../../hooks/useTelegram";
-import { fetcher, url } from "../../../core/fetch";
-import { useSWRConfig } from "swr";
 import { useAppDispatch } from '../../../hooks/redux-hooks';
 import { removeFromCart } from '../../../store/features/cartSlice';
 
