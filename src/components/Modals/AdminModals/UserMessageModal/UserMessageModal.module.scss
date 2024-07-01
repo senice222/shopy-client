@@ -1,0 +1,78 @@
+.btns {
+  display: flex;
+  margin-top: 10px;
+  align-items: center;
+  .item {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    margin-right: 5px;
+
+  }
+}
+.inputDiv {
+  margin-top: 25px;
+  textarea {
+    margin-top: 10px;
+    width: 100%;
+    border: 1px solid #D0D5DD;
+    resize: none;
+    padding: 10px;
+    height: 120px;
+    border-radius: 8px;
+    color: #667085;
+    font-weight: 400 !important;
+    font-size: 16px;
+  }
+}
+.textWithLines {
+  margin-top: 15px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .line {
+    height: 1px;
+    background-color: #EAECF0;
+    width: 41%;
+  }
+}
+.addDiv {
+  margin-top: 30px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  h1 {
+    font-family: "Inter Semi Bold", sans-serif;
+    color: #0157A3;
+    font-size: 16px;
+    font-weight: 600;
+  }
+}
+.lastbtns {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 35px;
+  button {
+    height: 50px;
+    font-size: 16px;
+    font-weight: 600;
+    width: 49%;
+    border-radius: 8px;
+    letter-spacing: .6px;
+  }
+  .grayBtn {
+    background-color: transparent;
+    border: 1px solid #D0D5DD;
+    color: #344054;
+  }
+  .blueBtn {
+    background-color: #0070CC;
+    color: white;
+  }
+
+}

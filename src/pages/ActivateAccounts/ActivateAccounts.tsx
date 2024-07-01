@@ -16,27 +16,31 @@ const ActivateAccounts = () => {
     const [addAccount, setAddAccount] = useState<boolean>(false)
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const {id} = useTelegram()
-    const {data, error} = useSWR(`${url}/api/user/account/6527850384`, fetcher)
+    const [selectedAccountId, setSelectedAccountId] = useState<string>('');
+    const {data, error} = useSWR(`${url}/api/user/account/${id}`, fetcher)
 
     return (
         <div className={style.wrapp}>
             <Layout>
                 <AddAccountModal  addAccount={addAccount} onClose={() => setAddAccount(false)}/>
+                <EditAccountModal selectedAccountId={selectedAccountId} account={data} active={isOpen} onClose={() => setIsOpen(false)} />
                 <div className={style.subscrContainer}>
                     <div className={style.titleHeader}>
                         <h2 className={style.activateh2Text}>Сохранённые данные</h2>
                         <p className={style.descr}>Сохраняйте данные от ваших аккаунтов здесь, чтобы не заполнять их каждый раз при продлении.</p>
                         <div className={style.security}>
                             <img src={lock} alt="/"/>
-                            <p>Все данные надёжно защищены</p>
+                            <p className={style.securityP}>Все данные надёжно защищены</p>
                         </div>
                     </div>
                     <div className={style.nothingYet}>
                         {
                             (data && data?.length > 0) ? (
                                 data.map((item: any) => (
-                                    <div className={style.item} onClick={() => setIsOpen(true)} key={item.id}>
-                                        <EditAccountModal account={item} active={isOpen} onClose={() => setIsOpen(false)} />
+                                    <div className={style.item} onClick={() => {
+                                        setSelectedAccountId(item.id);
+                                        setIsOpen(true)
+                                    }} key={item.id}>
                                         <div className={style.itemInfo}>
                                             <img src={item.image} alt=""/>
                                             <div>

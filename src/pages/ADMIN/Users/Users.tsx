@@ -6,7 +6,7 @@ import {AdminModal} from "../../../components/Modals/AdminModal/AdminModal";
 import {UserMessageModal} from "../../../components/Modals/AdminModals/UserMessageModal/UserMessageModal";
 
 const Users = () => {
-    const [active, setActive] = useState(true)
+    const [active, setActive] = useState(false)
     const [users, setUsers] = useState([
         { id: 3066, name: 'Иван', nick: '@shopymg', status: 'Неактивен', balance: 399, statusClass: 'inactive' },
         { id: 3065, name: 'Иван', nick: '@shopymg', status: 'Активен', balance: 399, statusClass: 'active' },
@@ -67,7 +67,7 @@ const Users = () => {
                                 <td>{user.balance}₽</td>
                                 <td>
                                     <span className={style.icon}>👤</span>
-                                    <span className={style.icon}>💬</span>
+                                    <span onClick={() => setActive(true)} className={style.icon}>💬</span>
                                     <span className={style.icon}>➕</span>
                                     <span className={style.icon}>🔒</span>
                                 </td>

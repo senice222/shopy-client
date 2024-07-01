@@ -13,6 +13,11 @@
   }
 }
 
+.error {
+  color: #cc1d1d;
+  margin-top: 5px;
+  font-family: "Graphik LCG Regular";
+}
 
 .selectItem {
   display: flex;
@@ -90,7 +95,7 @@
 
 .form {
   .item {
-    height: 70px;
+    //height: 70px;
     margin-top: 15px;
 
     .title {

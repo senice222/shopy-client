@@ -7,17 +7,28 @@ import copy from "../../../../../assets/copy-01.png";
 import BlueButton from "../../../../Button/Button";
 import {EditAccountModalProps} from "../EditAccountModal";
 
-interface DetailesProps extends EditAccountModalProps {
-    email: string;
+interface DetailesProps {
     setIsDelete: Dispatch<SetStateAction<boolean>>;
     setIsEdit: Dispatch<SetStateAction<boolean>>;
+    onClose: () => void;
+    account: {
+        id: string;
+        service: string;
+        email: string;
+        password: string;
+        image: string;
+    }
 }
 
-const AccountsDetailes: FC<DetailesProps> = ({account, setIsEdit, onClose, email, setIsDelete}) => {
+const AccountsDetailes: FC<DetailesProps> = ({account, setIsEdit, onClose, setIsDelete}) => {
     const [copied, setCopied] = useState(false);
 
-    const copyToClipboard = () => {
-        navigator.clipboard.writeText(email)
+    const renderPasswordMask = (password: string) => {
+        return '*'.repeat(password.length);
+    };
+
+    const copyToClipboard = (text: string) => {
+        navigator.clipboard.writeText(text)
             .then(() => {
                 setCopied(true);
                 message.success({
@@ -25,7 +36,7 @@ const AccountsDetailes: FC<DetailesProps> = ({account, setIsEdit, onClose, email
                     content: 'Успешно скопировано',
                     style: {color: "#52c41a"}
                 })
-                setTimeout(() => setCopied(false), 2000); // Убираем сообщение через 2 секунды
+                setTimeout(() => setCopied(false), 2000);
             })
             .catch(err => {
                 message.error('Ошибка при копировании');
@@ -36,7 +47,7 @@ const AccountsDetailes: FC<DetailesProps> = ({account, setIsEdit, onClose, email
     return (
         <>
             <div className={style.modalWinPopupHead}>
-                <img src={spotify} alt="/"/>
+                <img src={account.image} alt="/"/>
                 <svg
                     onClick={onClose}
                     width="24"
@@ -57,17 +68,17 @@ const AccountsDetailes: FC<DetailesProps> = ({account, setIsEdit, onClose, email
             </div>
             <div className={style.form}>
                 <div className={style.dataCont}>
-                    <h2>Данные аккаунта Spotify</h2>
+                    <h2>Данные аккаунта {account.service}</h2>
                     <div className={style.security}>
                         <img src={lock} alt="/"/>
-                        <p>Все данные надёжно защищены</p>
+                        <p className={style.securityP}>Все данные надёжно защищены</p>
                     </div>
                 </div>
                 <div className={style.item}>
                     <p className={style.title}>Почта</p>
                     <div>
-                        <Input className={style.input} value={email} placeholder="olivia@mshopy.ru" readOnly/>
-                        <div onClick={copyToClipboard} className="copy-icon">
+                        <Input className={style.input} value={account.email} placeholder={account.email} readOnly/>
+                        <div onClick={() => copyToClipboard(account.email ? account.email : "")} className="copy-icon">
                             <img src={copy} alt="Копировать" />
                         </div>
                     </div>
@@ -75,8 +86,8 @@ const AccountsDetailes: FC<DetailesProps> = ({account, setIsEdit, onClose, email
                 <div className={style.item}>
                     <p className={style.title}>Пароль</p>
                     <div>
-                        <Input className={style.input} value={account.password} readOnly/>
-                        <img src={copy} alt={'/'}/>
+                        <Input className={style.input} value={account.password ? renderPasswordMask(account.password) : ''} readOnly/>
+                        <img onClick={() => copyToClipboard(account.password ? account.password : "")} src={copy} alt={'/'}/>
                     </div>
                 </div>
                 <div className={style.btnDiv}>

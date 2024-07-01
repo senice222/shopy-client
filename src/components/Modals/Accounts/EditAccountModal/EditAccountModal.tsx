@@ -7,20 +7,23 @@ import EditAccount from "./EditAccount/EditAccount";
 export interface EditAccountModalProps {
     active: boolean;
     onClose: () => void;
-    account: {
+    selectedAccountId?: string;
+    account: Array<{
+        id: string;
         service: string;
         email: string;
         password: string;
         image: string;
-    }
+    }>
 }
 
 
-const EditAccountModal: FC<EditAccountModalProps> = ({account, active, onClose}) => {
-    const [emailInput, setEmailInput] = useState<string>(account.email);
+const EditAccountModal: FC<EditAccountModalProps> = ({selectedAccountId, account, active, onClose}) => {
     const [isDelete, setIsDelete] = useState<boolean>(false)
     const [isEdit, setIsEdit] = useState<boolean>(false)
-    console.log(account)
+    const currentAccount = account?.find(item => item.id === selectedAccountId)
+    const [emailInput, setEmailInput] = useState<string>(currentAccount?.email || '');
+
     const handleClose = () => {
         onClose();
         setTimeout(() => {
@@ -29,16 +32,16 @@ const EditAccountModal: FC<EditAccountModalProps> = ({account, active, onClose})
         }, 300);
     };
 
+    if (!currentAccount) return null;
+
     return (
         <BootstrapModal active={active} onClose={handleClose}>
             {
                 !isDelete && !isEdit ? (
                     <AccountsDetailes
-                        account={account}
+                        account={currentAccount}
                         setIsDelete={setIsDelete}
                         setIsEdit={setIsEdit}
-                        email={emailInput}
-                        active={active}
                         onClose={handleClose}
                     />
                 ) : isDelete ? (
@@ -50,7 +53,7 @@ const EditAccountModal: FC<EditAccountModalProps> = ({account, active, onClose})
                     />
                 ) : (
                     <EditAccount
-                        account={account}
+                        account={currentAccount}
                         emailInput={emailInput}
                         setIsEdit={setIsEdit}
                         onClose={handleClose}
