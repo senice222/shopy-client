@@ -21,7 +21,7 @@ export interface EditAccountModalProps {
 const EditAccountModal: FC<EditAccountModalProps> = ({selectedAccountId, account, active, onClose}) => {
     const [isDelete, setIsDelete] = useState<boolean>(false)
     const [isEdit, setIsEdit] = useState<boolean>(false)
-    const currentAccount = account?.find(item => item.id === selectedAccountId)
+    const currentAccount = Array.isArray(account) ? account.find(item => item.id === selectedAccountId) : undefined;
     const [emailInput, setEmailInput] = useState<string>(currentAccount?.email || '');
 
     const handleClose = () => {

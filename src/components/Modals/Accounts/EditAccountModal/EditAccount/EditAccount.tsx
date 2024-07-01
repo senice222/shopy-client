@@ -1,6 +1,6 @@
 import {ChangeEvent, Dispatch, FC, SetStateAction, useState} from "react";
 import style from "./EditAccount.module.scss"
-import {Input, Select} from "antd";
+import {Input, notification, Select} from "antd";
 import spotify from "../../../../../assets/spotify.png";
 import netflix from "../../../../../assets/netflix.png";
 import BlueButton from "../../../../Button/Button";
@@ -27,7 +27,7 @@ interface EditAccountProps {
     }
 }
 
-const EditAccount:FC<EditAccountProps> = ({account, setIsEdit}) => {
+const EditAccount:FC<EditAccountProps> = ({account, onClose, setIsEdit}) => {
     const [selected, setSelected] = useState<string>(account.service);
     const { handleSubmit, formState: { errors }, control } = useForm();
     const {mutate} = useSWRConfig()
@@ -52,6 +52,11 @@ const EditAccount:FC<EditAccountProps> = ({account, setIsEdit}) => {
                 'Content-Type': 'application/json'
             }
         }))
+        notification.success({
+            message: "Вы успешно изменили свой аккаунт.",
+            duration: 2
+        })
+        onClose()
     }
 
     return (
