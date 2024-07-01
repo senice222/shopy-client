@@ -45,7 +45,7 @@ const EditAccount:FC<EditAccountProps> = ({account, setIsEdit}) => {
             image: imgs[selected]
         }
 
-        mutate(`${url}/api/user/account/${id}`, fetcher(`${url}/api/user/account/${id}`, {
+        mutate(`${url}/api/user/account/6527850384`, fetcher(`${url}/api/user/account/6527850384`, {
             method: "PUT",
             body: JSON.stringify(withImg),
             headers: {

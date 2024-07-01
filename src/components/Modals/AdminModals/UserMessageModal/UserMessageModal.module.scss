@@ -44,12 +44,34 @@
   margin-top: 30px;
   width: 100%;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   h1 {
+    cursor: pointer;
+    user-select: none;
     font-family: "Inter Semi Bold", sans-serif;
     color: #0157A3;
     font-size: 16px;
     font-weight: 600;
+  }
+  .createdBtns {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    input {
+      margin-top: 5px;
+      width: 90%;
+      text-align: center;
+      height: 40px;
+      font-size: 16px;
+      font-weight: 600;
+      border-radius: 8px;
+      letter-spacing: .6px;
+      background-color: transparent;
+      border: 1px solid #D0D5DD;
+      color: #344054;
+    }
   }
 }
 .lastbtns {
@@ -59,8 +81,8 @@
   margin-top: 35px;
   button {
     height: 50px;
-    font-size: 16px;
-    font-weight: 600;
+    font-size: 14px;
+    font-weight: 500;
     width: 49%;
     border-radius: 8px;
     letter-spacing: .6px;

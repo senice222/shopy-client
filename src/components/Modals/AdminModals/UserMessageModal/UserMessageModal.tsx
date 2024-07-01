@@ -22,7 +22,14 @@ export const UserMessageModal: FC<UserMessageModal> = ({ isOpen, setOpen }) => {
         setOpen();
     }
     const addButton = () => {
-        let btnsCopied = btns.concat()
+        if (btns.length < 4) {
+            let btnsCopied = btns.concat()
+            btnsCopied.push({
+                text: 'New button',
+                id: String(btns.length + 1)
+            })
+            setBtns(btnsCopied)
+        }
     }
     const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         setText(e.target.value);
@@ -87,7 +94,7 @@ export const UserMessageModal: FC<UserMessageModal> = ({ isOpen, setOpen }) => {
             </div>
 
             <div className={s.addDiv}>
-                <h1>+ Добавить кнопки</h1>
+                <h1 onClick={addButton}>+ Добавить кнопки</h1>
                 <div className={s.createdBtns}>
                     {btns.map((item) => <input value={item.text}/>)}
                 </div>

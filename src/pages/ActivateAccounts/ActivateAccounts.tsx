@@ -14,16 +14,17 @@ import {useTelegram} from "../../hooks/useTelegram";
 
 const ActivateAccounts = () => {
     const [addAccount, setAddAccount] = useState<boolean>(false)
+    const [editAccount, setEditAccount] = useState<boolean>(false)
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const {id} = useTelegram()
     const [selectedAccountId, setSelectedAccountId] = useState<string>('');
-    const {data, error} = useSWR(`${url}/api/user/account/${id}`, fetcher)
+    const {data, error} = useSWR(`${url}/api/user/account/6527850384`, fetcher)
 
     return (
         <div className={style.wrapp}>
             <Layout>
-                <AddAccountModal  addAccount={addAccount} onClose={() => setAddAccount(false)}/>
-                <EditAccountModal selectedAccountId={selectedAccountId} account={data} active={isOpen} onClose={() => setIsOpen(false)} />
+                <AddAccountModal addAccount={addAccount} onClose={() => setAddAccount(false)}/>
+                <EditAccountModal active={editAccount} onClose={() => setEditAccount(false)} selectedAccountId={selectedAccountId} account={data} />
                 <div className={style.subscrContainer}>
                     <div className={style.titleHeader}>
                         <h2 className={style.activateh2Text}>Сохранённые данные</h2>
@@ -39,7 +40,7 @@ const ActivateAccounts = () => {
                                 data.map((item: any) => (
                                     <div className={style.item} onClick={() => {
                                         setSelectedAccountId(item.id);
-                                        setIsOpen(true)
+                                        setEditAccount(true)
                                     }} key={item.id}>
                                         <div className={style.itemInfo}>
                                             <img src={item.image} alt=""/>

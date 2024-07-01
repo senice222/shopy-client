@@ -6,11 +6,13 @@ import {Input, message} from "antd";
 import copy from "../../../../../assets/copy-01.png";
 import BlueButton from "../../../../Button/Button";
 import {EditAccountModalProps} from "../EditAccountModal";
+import BootstrapModal from "../../../BootstrapModal/BootstrapModal";
 
 interface DetailesProps {
     setIsDelete: Dispatch<SetStateAction<boolean>>;
     setIsEdit: Dispatch<SetStateAction<boolean>>;
     onClose: () => void;
+    editAccount: boolean;
     account: {
         id: string;
         service: string;

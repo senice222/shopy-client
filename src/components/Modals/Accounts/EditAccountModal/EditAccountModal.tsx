@@ -39,6 +39,7 @@ const EditAccountModal: FC<EditAccountModalProps> = ({selectedAccountId, account
             {
                 !isDelete && !isEdit ? (
                     <AccountsDetailes
+                        editAccount={active}
                         account={currentAccount}
                         setIsDelete={setIsDelete}
                         setIsEdit={setIsEdit}
