@@ -34,9 +34,9 @@ const AddAccountModal = ({addAccount, onClose}: AccountProps) => {
         formData.append('email', data.email);
         formData.append('password', data.password);
         formData.append('image', serviceData.image);
-
+        console.log(serviceData)
         try {
-            mutate(`${url}/api/user/account/${id}`, fetcher(`${url}/api/user/account/${id}`, {
+            mutate(`${url}/api/user/account/6527850384`, fetcher(`${url}/api/user/account/6527850384`, {
                 method: "POST",
                 body: formData,
                 headers: {

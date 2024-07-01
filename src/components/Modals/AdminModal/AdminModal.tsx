@@ -1,10 +1,18 @@
 import s from './AdminModal.module.scss'
-import {ReactNode} from "react";
+import {FC, ReactNode} from "react";
 
-export const AdminModal = ({children} : {children : ReactNode}) => {
+interface AdminModalI {
+    children: ReactNode,
+    setOpen: () => void,
+    isOpened: boolean
+}
+
+export const AdminModal : FC<AdminModalI> = ({children, isOpened, setOpen}) => {
     return (
-        <div className={s.bgModal}>
-            <div className={s.content}></div>
+        <div onClick={setOpen} className={s.bgModal}>
+            <div onClick={(e) => e.stopPropagation()} className={s.content}>
+                {children}
+            </div>
         </div>
     )
 }

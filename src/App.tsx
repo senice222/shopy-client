@@ -9,7 +9,7 @@ import Basket from "./pages/Basket/Basket";
 import ProceedToPayment from "./pages/ProceedToPayment/ProceedToPayment";
 import Payment from "./pages/Payment/Payment";
 import React, {useContext, useEffect, useState} from "react";
-import DetailedProduct from "./pages/DetailedProduct/DetailedProduct";
+import {DetailedProduct} from "./pages/DetailedProduct/DetailedProduct";
 import HistoryOfOrders from './pages/HistoryOfOrders/HistoryOfOrders';
 import ActivateAccounts from "./pages/ActivateAccounts/ActivateAccounts";
 import {ThemeContext} from "./context/ThemeContext";

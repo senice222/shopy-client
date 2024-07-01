@@ -13,7 +13,7 @@ import { CartItem, addToCart, removeFromCart } from '../../store/features/cartSl
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { v4 as uuidv4 } from 'uuid';
 
-const DetailedProduct: FC<ModalAndFavorite> = ({ setAddedFunc, isAdd, added, setAdded }) => {
+export const DetailedProduct: FC<ModalAndFavorite> = ({ setAddedFunc, isAdd, added, setAdded }) => {
     const dispatch = useAppDispatch();
     const { tg } = useTelegram();
     const navigate = useNavigate();
@@ -189,5 +189,3 @@ const DetailedProduct: FC<ModalAndFavorite> = ({ setAddedFunc, isAdd, added, set
         </div>
     );
 };
-
-export default DetailedProduct

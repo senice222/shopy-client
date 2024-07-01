@@ -3,6 +3,7 @@ import AdminLayout from "../../../layouts/AdminLayout";
 import style from './Users.module.scss'
 import BackTick from "../../../components/ADMIN/BackTick/BackTick";
 import {AdminModal} from "../../../components/Modals/AdminModal/AdminModal";
+import {UserMessageModal} from "../../../components/Modals/AdminModals/UserMessageModal/UserMessageModal";
 
 const Users = () => {
     const [active, setActive] = useState(true)
@@ -22,7 +23,7 @@ const Users = () => {
     return (
         <AdminLayout>
             <div className={style.users}>
-                <AdminModal />
+                <UserMessageModal isOpen={active} setOpen={() => setActive((prev) => !prev)}/>
                 {/*<SendMessage promoActive={active} onClose={() => setActive(!active)} />*/}
                 <BackTick title={"Пользователи"} to={"/panel"} />
                 <h2 className={style.title}>Пользователи</h2>
