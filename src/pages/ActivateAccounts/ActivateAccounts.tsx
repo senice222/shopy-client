@@ -38,7 +38,7 @@ const ActivateAccounts = () => {
                                     <div className={style.item} onClick={() => setIsOpen(true)} key={item.id}>
                                         <EditAccountModal account={item} active={isOpen} onClose={() => setIsOpen(false)} />
                                         <div className={style.itemInfo}>
-                                            <img src={`${url}/api/uploads/${item.image}`} alt=""/>
+                                            <img src={item.image} alt=""/>
                                             <div>
                                                 <h2>{item.service}</h2>
                                                 <p>{item.email}</p>
