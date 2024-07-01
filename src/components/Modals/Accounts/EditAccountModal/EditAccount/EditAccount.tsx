@@ -8,15 +8,23 @@ import lock from "../../../../../assets/lock-02.png";
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 
 const {Option} = Select;
+
 interface EditAccountProps {
     emailInput: string;
     setIsEdit: Dispatch<SetStateAction<boolean>>;
     onClose: () => void;
+    account: {
+        service: string;
+        email: string;
+        password: string;
+        image: string;
+    }
 }
 
-const EditAccount:FC<EditAccountProps> = ({emailInput, setIsEdit, onClose}) => {
+const EditAccount:FC<EditAccountProps> = ({account, emailInput, setIsEdit, onClose}) => {
     const [selected, setSelected] = useState<string>('Spotify');
-    const [newEmail, setNewEmail] = useState(emailInput);
+    const [newEmail, setNewEmail] = useState(account.email);
+
 
     const handleChange = (value: string) => {
         setSelected(value);
@@ -76,13 +84,13 @@ const EditAccount:FC<EditAccountProps> = ({emailInput, setIsEdit, onClose}) => {
                 </div>
                 <div className={style.item}>
                     <p className={style.title}>Почта или логин</p>
-                    <Input className={style.input} value={newEmail} onChange={(e) => setNewEmail(e.target.value)} placeholder="olivia@mshopy.ru"/>
+                    <Input className={style.input} value={newEmail} onChange={(e) => setNewEmail(e.target.value)}/>
                 </div>
                 <div className={style.item}>
                     <p className={style.title}>Пароль</p>
                     <Input.Password
                         className={style.input}
-                        value={"your password"}
+                        value={account.password}
                         placeholder="****"
                         iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
                     />

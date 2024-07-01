@@ -8,10 +8,11 @@ import {Input, Select} from "antd";
 import {useState} from "react";
 import BlueButton from "../../../Button/Button";
 import lock from "../../../../assets/lock-02.png";
-import { useForm, Controller } from 'react-hook-form';
+import {useForm, Controller, SubmitHandler, FieldValues} from 'react-hook-form';
 import {useSWRConfig} from "swr";
 import {fetcher, url} from "../../../../core/fetch";
 import {useTelegram} from "../../../../hooks/useTelegram";
+import {imgs} from "../../../../utils/imgs";
 
 interface AccountProps {
     addAccount: boolean;
@@ -26,21 +27,18 @@ const AddAccountModal = ({addAccount, onClose}: AccountProps) => {
     const {mutate} = useSWRConfig()
     const {id} = useTelegram()
 
-    const onSubmit = async (data: any) => {
-        const serviceData = JSON.parse(data.service);
-        const formData = new FormData();
-
-        formData.append('service', serviceData.service);
-        formData.append('email', data.email);
-        formData.append('password', data.password);
-        formData.append('image', serviceData.image);
-        console.log(serviceData)
+    const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+        const img = imgs[data.service]
+        const withImg = {
+            ...data,
+            image: img
+        }
         try {
-            mutate(`${url}/api/user/account/6527850384`, fetcher(`${url}/api/user/account/6527850384`, {
+            mutate(`${url}/api/user/account/${id}`, fetcher(`${url}/api/user/account/${id}`, {
                 method: "POST",
-                body: formData,
+                body: JSON.stringify(withImg),
                 headers: {
-                    'Content-Type': 'multipart/form-data'
+                    'Content-Type': 'application/json'
                 }
             }));
         } catch (error) {
@@ -88,13 +86,13 @@ const AddAccountModal = ({addAccount, onClose}: AccountProps) => {
                                 className={style.select}
                                 onChange={(value) => field.onChange(value)}
                             >
-                                <Option value={JSON.stringify({ service: 'Spotify', image: spotify })} className={style.option}>
+                                <Option value={'Spotify'} className={style.option}>
                                     <div className={style.selectItem}>
                                         <img src={spotify} alt="/" />
                                         <p>Spotify</p>
                                     </div>
                                 </Option>
-                                <Option value={JSON.stringify({ service: 'Netflix', image: netflix })} className={style.option}>
+                                <Option value={'Netflix'} className={style.option}>
                                     <div className={style.selectItem}>
                                         <img src={netflix} alt="/" />
                                         <p>Netflix</p>

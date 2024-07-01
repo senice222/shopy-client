@@ -10,7 +10,8 @@ interface UserMessageModal {
 export const UserMessageModal : FC<UserMessageModal> = ({isOpen, setOpen}) => {
     return (
         <AdminModal isOpened={isOpen} setOpen={setOpen}>
-            <div></div>
+            <h2>Отправить сообщение клиенту</h2>
+            <p>Введите сообщение</p>
         </AdminModal>
     )
 }

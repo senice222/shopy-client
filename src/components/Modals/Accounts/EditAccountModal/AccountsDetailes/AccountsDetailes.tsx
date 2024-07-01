@@ -13,7 +13,7 @@ interface DetailesProps extends EditAccountModalProps {
     setIsEdit: Dispatch<SetStateAction<boolean>>;
 }
 
-const AccountsDetailes: FC<DetailesProps> = ({setIsEdit, onClose, email, setIsDelete}) => {
+const AccountsDetailes: FC<DetailesProps> = ({account, setIsEdit, onClose, email, setIsDelete}) => {
     const [copied, setCopied] = useState(false);
 
     const copyToClipboard = () => {
@@ -75,7 +75,7 @@ const AccountsDetailes: FC<DetailesProps> = ({setIsEdit, onClose, email, setIsDe
                 <div className={style.item}>
                     <p className={style.title}>Пароль</p>
                     <div>
-                        <Input className={style.input} value={"****"} readOnly/>
+                        <Input className={style.input} value={account.password} readOnly/>
                         <img src={copy} alt={'/'}/>
                     </div>
                 </div>
