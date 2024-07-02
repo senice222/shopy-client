@@ -11,10 +11,11 @@ interface UserMessageModal {
 }
 interface Btns {
     text : string
-    id: string
+    id: string,
+    link: string,
 }
 interface IsEditingI {
-    isEditing: boolean,
+    // isEditing: boolean,
     id: string | null,
 }
 
@@ -23,8 +24,11 @@ export const UserMessageModal: FC<UserMessageModal> = ({ isOpen, setOpen }) => {
     const [selectionStart, setSelectionStart] = useState<number | null>(null);
     const [selectionEnd, setSelectionEnd] = useState<number | null>(null);
     const [btns, setBtns] = useState<Btns[]>([])
-    const [isEditing, setEditing] = useState<IsEditingI>()
+    const [isEditing, setEditing] = useState<string>()
     const [isCreating, setCreating] = useState<boolean>(false)
+    const [btnText, setBtnText] = useState('')
+    const [btnLink, setBtnLink] = useState('')
+
 
     const handleClose = () => {
         setOpen();
@@ -32,23 +36,39 @@ export const UserMessageModal: FC<UserMessageModal> = ({ isOpen, setOpen }) => {
         setBtns([])
     }
     const addButton = () => {
-        // if (btns.length < 4) {
-        //     let btnsCopied = btns.concat()
-        //     btnsCopied.push({
-        //         text: 'Новая кнопка',
-        //         id: String(btns.length + Math.floor(Math.random()))
-        //     })
-        //     setBtns(btnsCopied)
-        // }
+        if (btns.length < 4) {
+            let btnsCopied = btns.concat()
+            btnsCopied.push({
+                text: btnText,
+                id: String(btns.length + Math.floor(Math.random())),
+                link: btnLink
+            })
+            setBtns(btnsCopied)
+            setBtnText('')
+            setBtnLink('')
+            setCreating(false)
+        }
+    }
+    const handleChange = ({id, text, link} : {id : string, text: string, link : string}) => {
+        setEditing(id)
+        setBtnText(text)
+        setBtnLink(link)
         setCreating(true)
     }
-    const handleChange = ({id, text} : {id : string, text: string}) => {
+    const updateData = () => {
+        const id = isEditing
+
         const copiedArr = btns.concat()
 
         let foundBtn = copiedArr.find((item) => item.id === id)
         if (foundBtn) {
-            foundBtn.text = text
+            foundBtn.text = btnText
+            foundBtn.link = btnLink
             setBtns(copiedArr)
+            setBtnText('')
+            setBtnLink('')
+            setCreating(false)
+            setEditing('')
         }
     }
     const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -119,18 +139,22 @@ export const UserMessageModal: FC<UserMessageModal> = ({ isOpen, setOpen }) => {
             {isCreating ? <div className={s.creatingDiv}>
                 <div className={s.block}>
                     <h3>Название кнопки</h3>
-                    <input placeholder={'Название'}/>
+                    <input value={btnText} onChange={(e) => setBtnText(e.target.value)} placeholder={'Название'}/>
                 </div>
                 <div className={s.block}>
                     <h3>Ссылка</h3>
-                    <input placeholder={'https://'}/>
+                    <input value={btnLink} onChange={(e) => setBtnLink(e.target.value)} placeholder={'https://'}/>
+                </div>
+                <div className={s.createBtns}>
+                    <button onClick={() => setCreating(false)}>Отмена</button>
+                    <button onClick={isEditing ? updateData : addButton}>{isEditing ? "Сохранить" : "Добавить"}</button>
                 </div>
             </div> : <div className={s.addDiv}>
-                <h1 onClick={addButton}>+ Добавить кнопки</h1>
+                <h1 onClick={() => setCreating(true)}>+ Добавить кнопки</h1>
                 <div className={s.createdBtns}>
                     {btns.map((item) => <div key={item.id} className={s.flex}>
                         {/*<button onClick={() => deleteOne(item.id)}><Cross /></button>*/}
-                        <button onClick={() => setEditing({id: item.id, isEditing: true})}>{item.text} <Pencil /></button>
+                        <button onClick={() => handleChange({id: item.id, text: item.text, link : item.link})}>{item.text} <Pencil /></button>
                     </div>)}
                 </div>
             </div>}

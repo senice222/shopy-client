@@ -88,8 +88,8 @@
   margin-top: 35px;
   button {
     height: 50px;
-    font-size: 14px;
-    font-weight: 500;
+    font-size: 16px;
+    font-weight: 600;
     width: 49%;
 
     border-radius: 8px;
@@ -139,8 +139,27 @@
     font-size: 16px;
   }
   .block {
-    &:last-child {
       margin-top: 20px;
+  }
+}
+.createBtns {
+  margin-top: 20px;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  button {
+    border: 1px solid #D0D5DD;
+    height: 50px;
+    width: 48%;
+    border-radius: 8px;
+    color: #344054;
+    background: transparent;
+    font-size: 16px;
+    letter-spacing: 0.6px;
+    font-weight: 600;
+    &:last-child {
+      border: 1px solid #7CC5FD;
+      color: #0157A3;
     }
   }
 }

@@ -4,6 +4,12 @@ import React, { useState, FC, useRef, ChangeEvent, FocusEvent, FormEvent } from 
 import BootstrapModal from "../BootstrapModal/BootstrapModal";
 import {RequestSent} from "../RequestSent/RequestSent";
 import Button from "../../Button/Button";
+import {useSWRConfig} from "swr";
+import {fetcher, url} from "../../../core/fetch";
+import {useTelegram} from "../../../hooks/useTelegram";
+import axios from "axios";
+import {FieldValues, SubmitHandler} from "react-hook-form";
+
 interface DoDepModalI {
     isOpen: boolean,
     onClose: () => void,
@@ -15,6 +21,8 @@ export const DoDepModal : FC<DoDepModalI> = ({isOpen, onClose, setBurger}) => {
     const [topUpBalance, setTopUpBalance] = useState<number>(0);
     const [isModal, setModal] = useState(false)
     const inputRef = useRef<HTMLInputElement>(null);
+    const {mutate} = useSWRConfig()
+    const {id} = useTelegram()
 
     const setFormattedValue = (event: ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value.replace(/\D/g, '');
@@ -31,12 +39,17 @@ export const DoDepModal : FC<DoDepModalI> = ({isOpen, onClose, setBurger}) => {
         setDisplayValue(displayValue.replace(/\s/g, ''));
     };
 
-    const handleSubmit = (event: FormEvent) => {
+    const handleSubmit = async (event: FormEvent) => {
         event.preventDefault();
+        const {data} = await axios.get(`${url}/api/payment/create-link?amount=${displayValue}&invoiceId=${id}&description=Пополнение баланса на сумму ${displayValue}`)
+        if (!data) return null;
+        window.location.href = data.paymentLink;
     };
+
     const allGood = () => {
         setModal(true)
     }
+
     return (
        <>
            <RequestSent isOpen={isModal} onClose={() => setModal((prev) => !prev)} switchDialog={onClose} setBurger={setBurger} type={'balance'}/>
@@ -82,7 +95,9 @@ export const DoDepModal : FC<DoDepModalI> = ({isOpen, onClose, setBurger}) => {
                        <span className="title">Итого к оплате</span>
                        <span className={"balance"}>{topUpBalance}₽</span>
                    </div>
-                   <Button text={"Перейти к оплате"} letterSpacing={"0.5px"} height={"44px"} width={"100%"}/>
+                   <div style={{width: "100%"}} onClick={handleSubmit}>
+                       <Button text={"Перейти к оплате"} letterSpacing={"0.5px"} height={"44px"} width={"100%"}/>
+                   </div>
                </BootstrapModal>
            </div></>
     );

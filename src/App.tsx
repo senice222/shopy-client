@@ -91,12 +91,20 @@ function App() {
             <Route path="/panel" element={<Panel />}/>
             <Route path="/panel/users" element={<Users />}/>
             <Route path="/panel/users/:username" element={<DetailedUser />}/>
-            <Route path="/successful-payment" element={
+            <Route path="/success" element={
                 <Payment
                     title={"Оплата прошла успешно!"}
                     descr={"Не забудьте активировать аккаунт, чтобы пользоваться подпиской."}
                     btnText={"Активировать аккаунт"}
                     type={"success"}
+                />
+            }/>
+            <Route path="/fail" element={
+                <Payment
+                    title={"Оплата не прошла!"}
+                    descr={"Возможно Вы ввели неверные реквизиты карты или на карте недостаточно средств. Попробуйте еще раз."}
+                    btnText={"Повторить заказ"}
+                    type={"rejected"}
                 />
             }/>
             <Route path="/rejected-payment" element={
