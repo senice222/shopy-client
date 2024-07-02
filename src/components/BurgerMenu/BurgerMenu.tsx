@@ -20,7 +20,7 @@ const BurgerMenu: FC<BurgerMenuI> = ({isOpened, setOpened}) => {
     const [cashback, setCashback] = useState<boolean>(false)
     const navigate = useNavigate()
     const {id} = useTelegram()
-    const {data} = useSWR(`${url}/api/user/878990615`, fetcher)
+    const {data} = useSWR(`${url}/api/user/${id}`, fetcher)
 
 
     useEffect(() => {
