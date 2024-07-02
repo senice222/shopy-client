@@ -6,6 +6,7 @@ import cross from "../../assets/svg/Featured icon (2).svg";
 import Layout from "../../layouts/Layout";
 import React, {FC} from "react";
 import Button from "../../components/Button/Button";
+import {useNavigate} from "react-router-dom";
 
 interface Payment {
     title: string;
@@ -16,6 +17,7 @@ interface Payment {
 }
 
 const SuccessfulPayment: FC<Payment> = ({title, descr, btnText, type, without}) => {
+    const navigate = useNavigate()
     let img;
 
     switch (type) {
@@ -71,7 +73,9 @@ const SuccessfulPayment: FC<Payment> = ({title, descr, btnText, type, without}) 
                         </div>
                         <div className={style.anotherBtns}>
                             <button className={style.supportBtn}>Поддержка</button>
-                            <Button width={"47%"} height={"44px"} text={"На главную"}/>
+                            <div onClick={() => navigate('/')}>
+                                <Button width={"47%"} height={"44px"} text={"На главную"}/>
+                            </div>
                         </div>
                     </div>
                 </div>
