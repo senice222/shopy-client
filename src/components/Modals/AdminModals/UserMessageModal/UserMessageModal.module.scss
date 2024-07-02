@@ -23,6 +23,7 @@
     padding: 10px;
     height: 120px;
     border-radius: 8px;
+    font-family: Inter, sans-serif;
     color: #667085;
     font-weight: 400 !important;
     font-size: 16px;
@@ -123,4 +124,23 @@
   //    }
   //  }
   //}
+}
+.creatingDiv {
+  margin-top: 10px;
+  input {
+    margin-top: 10px;
+    width: 100%;
+    border: 1px solid #D0D5DD;
+    padding: 10px;
+    border-radius: 8px;
+    color: #667085;
+    font-family: Inter, sans-serif;
+    font-weight: 500 !important;
+    font-size: 16px;
+  }
+  .block {
+    &:last-child {
+      margin-top: 20px;
+    }
+  }
 }

@@ -13,11 +13,18 @@ interface Btns {
     text : string
     id: string
 }
+interface IsEditingI {
+    isEditing: boolean,
+    id: string | null,
+}
+
 export const UserMessageModal: FC<UserMessageModal> = ({ isOpen, setOpen }) => {
     const [text, setText] = useState<string>('');
     const [selectionStart, setSelectionStart] = useState<number | null>(null);
     const [selectionEnd, setSelectionEnd] = useState<number | null>(null);
     const [btns, setBtns] = useState<Btns[]>([])
+    const [isEditing, setEditing] = useState<IsEditingI>()
+    const [isCreating, setCreating] = useState<boolean>(false)
 
     const handleClose = () => {
         setOpen();
@@ -25,14 +32,15 @@ export const UserMessageModal: FC<UserMessageModal> = ({ isOpen, setOpen }) => {
         setBtns([])
     }
     const addButton = () => {
-        if (btns.length < 4) {
-            let btnsCopied = btns.concat()
-            btnsCopied.push({
-                text: 'Новая кнопка',
-                id: String(btns.length + Math.floor(Math.random()))
-            })
-            setBtns(btnsCopied)
-        }
+        // if (btns.length < 4) {
+        //     let btnsCopied = btns.concat()
+        //     btnsCopied.push({
+        //         text: 'Новая кнопка',
+        //         id: String(btns.length + Math.floor(Math.random()))
+        //     })
+        //     setBtns(btnsCopied)
+        // }
+        setCreating(true)
     }
     const handleChange = ({id, text} : {id : string, text: string}) => {
         const copiedArr = btns.concat()
@@ -108,15 +116,24 @@ export const UserMessageModal: FC<UserMessageModal> = ({ isOpen, setOpen }) => {
                 <div className={s.line}></div>
             </div>
 
-            <div className={s.addDiv}>
+            {isCreating ? <div className={s.creatingDiv}>
+                <div className={s.block}>
+                    <h3>Название кнопки</h3>
+                    <input placeholder={'Название'}/>
+                </div>
+                <div className={s.block}>
+                    <h3>Ссылка</h3>
+                    <input placeholder={'https://'}/>
+                </div>
+            </div> : <div className={s.addDiv}>
                 <h1 onClick={addButton}>+ Добавить кнопки</h1>
                 <div className={s.createdBtns}>
                     {btns.map((item) => <div key={item.id} className={s.flex}>
                         {/*<button onClick={() => deleteOne(item.id)}><Cross /></button>*/}
-                        <button>{item.text} <Pencil /></button>
+                        <button onClick={() => setEditing({id: item.id, isEditing: true})}>{item.text} <Pencil /></button>
                     </div>)}
                 </div>
-            </div>
+            </div>}
 
             <div className={s.lastbtns}>
                 <button onClick={handleClose} className={s.grayBtn}>Закрыть</button>
