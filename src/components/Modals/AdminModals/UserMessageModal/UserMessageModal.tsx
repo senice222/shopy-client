@@ -1,7 +1,9 @@
 import React, { FC, useState } from "react";
 import s from './UserMessageModal.module.scss';
 import { AdminModal } from "../../AdminModal/AdminModal";
-import { Bold, Italic, LinkSvg } from "./Svgs";
+import {Bold, Italic, LinkSvg, Pencil} from "./Svgs";
+import {set} from "react-hook-form";
+import {Cross} from "../../AdminModal/Svgs";
 
 interface UserMessageModal {
     isOpen: boolean,
@@ -18,17 +20,27 @@ export const UserMessageModal: FC<UserMessageModal> = ({ isOpen, setOpen }) => {
     const [btns, setBtns] = useState<Btns[]>([])
 
     const handleClose = () => {
-        setText('');
         setOpen();
+        setText('');
+        setBtns([])
     }
     const addButton = () => {
         if (btns.length < 4) {
             let btnsCopied = btns.concat()
             btnsCopied.push({
-                text: 'New button',
-                id: String(btns.length + 1)
+                text: 'Новая кнопка',
+                id: String(btns.length + Math.floor(Math.random()))
             })
             setBtns(btnsCopied)
+        }
+    }
+    const handleChange = ({id, text} : {id : string, text: string}) => {
+        const copiedArr = btns.concat()
+
+        let foundBtn = copiedArr.find((item) => item.id === id)
+        if (foundBtn) {
+            foundBtn.text = text
+            setBtns(copiedArr)
         }
     }
     const handleTextChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -36,7 +48,10 @@ export const UserMessageModal: FC<UserMessageModal> = ({ isOpen, setOpen }) => {
         setSelectionStart(e.target.selectionStart);
         setSelectionEnd(e.target.selectionEnd);
     }
-
+    const deleteOne = (id : string) => {
+        const copiedArr = btns.filter((item) => item.id !== id)
+        setBtns(copiedArr)
+    }
     const formatText = (formatType: string) => {
         if (selectionStart === null || selectionEnd === null) return;
 
@@ -96,7 +111,10 @@ export const UserMessageModal: FC<UserMessageModal> = ({ isOpen, setOpen }) => {
             <div className={s.addDiv}>
                 <h1 onClick={addButton}>+ Добавить кнопки</h1>
                 <div className={s.createdBtns}>
-                    {btns.map((item) => <input value={item.text}/>)}
+                    {btns.map((item) => <div key={item.id} className={s.flex}>
+                        {/*<button onClick={() => deleteOne(item.id)}><Cross /></button>*/}
+                        <button>{item.text} <Pencil /></button>
+                    </div>)}
                 </div>
             </div>
 

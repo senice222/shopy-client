@@ -1,14 +1,31 @@
 import style from './DeleteAccount.module.scss'
 import deleteIcon from '../../../../../assets/deleteIcon.png'
-import React, {Dispatch, FC, SetStateAction} from "react";
-import {EditAccountModalProps} from "../EditAccountModal";
+import React, {FC} from "react";
+import {useSWRConfig} from "swr";
+import {fetcher, url} from "../../../../../core/fetch";
+import {notification} from "antd";
+import {useTelegram} from "../../../../../hooks/useTelegram";
+import {DetailsProps} from "../../../../../interfaces/AccountsProps";
 
-interface DetailsProps extends EditAccountModalProps {
-    setIsDelete: Dispatch<SetStateAction<boolean>>;
-}
 
-const DeleteAccount:FC<DetailsProps> = ({onClose, setIsDelete}) => {
+const DeleteAccount:FC<DetailsProps> = ({account, onClose, setIsDelete}) => {
+    const {mutate} = useSWRConfig()
+    const {id} = useTelegram()
 
+    const handleDelete = () => {
+        mutate(`${url}/api/user/account/${id}`, fetcher(`${url}/api/user/account/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ id: account.id })
+        }));
+        onClose()
+        notification.success({
+            message: "Вы успешно удалили аккаунт",
+            duration: 2
+        })
+    }
 
     return (
         <div className={style.deleteAccount}>
@@ -41,7 +58,7 @@ const DeleteAccount:FC<DetailsProps> = ({onClose, setIsDelete}) => {
                 <h2>Удалить данные аккаунта Spotify?</h2>
                 <p>Вы уверены, что хотите удалить данные от аккаунта? </p>
                 <div className={style.btnWrapp}>
-                    <button className={style.deleteBtn}>Удалить</button>
+                    <button className={style.deleteBtn} onClick={handleDelete}>Удалить</button>
                     <button className={style.cancelBtn} onClick={() => {
                         setIsDelete(false)
                     }}>Отмена</button>

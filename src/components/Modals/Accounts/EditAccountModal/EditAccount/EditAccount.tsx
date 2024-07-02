@@ -11,6 +11,7 @@ import {fetcher, url} from "../../../../../core/fetch";
 import {useTelegram} from "../../../../../hooks/useTelegram";
 import {Controller, FieldValues, SubmitHandler, useForm} from "react-hook-form";
 import {imgs} from "../../../../../utils/imgs";
+import SuccessModal from "../../../SuccessModal/SuccessModal";
 
 const {Option} = Select;
 
@@ -28,6 +29,7 @@ interface EditAccountProps {
 }
 
 const EditAccount:FC<EditAccountProps> = ({account, onClose, setIsEdit}) => {
+    const [editSuccess, setEditSuccess] = useState<boolean>(false)
     const [selected, setSelected] = useState<string>(account.service);
     const { handleSubmit, formState: { errors }, control } = useForm();
     const {mutate} = useSWRConfig()
@@ -45,7 +47,7 @@ const EditAccount:FC<EditAccountProps> = ({account, onClose, setIsEdit}) => {
             image: imgs[selected]
         }
 
-        mutate(`${url}/api/user/account/6527850384`, fetcher(`${url}/api/user/account/6527850384`, {
+        mutate(`${url}/api/user/account/${id}`, fetcher(`${url}/api/user/account/${id}`, {
             method: "PUT",
             body: JSON.stringify(withImg),
             headers: {
@@ -54,13 +56,14 @@ const EditAccount:FC<EditAccountProps> = ({account, onClose, setIsEdit}) => {
         }))
         notification.success({
             message: "Вы успешно изменили свой аккаунт.",
-            duration: 2
+            duration: 20
         })
         onClose()
     }
 
     return (
         <>
+            <SuccessModal isOpen={editSuccess} setOpen={setEditSuccess} message={"Вы успешно изменили данные."} />
             <div className={style.modalWinPopupHead}>
                 <h3>Изменить данные</h3>
                 <svg

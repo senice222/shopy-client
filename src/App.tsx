@@ -36,7 +36,7 @@ function App() {
     const [isAdd, setIsAdd] = useState<boolean>(false)
     const dispatch = useAppDispatch()
     const state = useAppSelector(state => state.favorite.items)
-    const {tg, id} = useTelegram();
+    const { tg, id, isDarkTheme } = useTelegram();
     const { data, error } = useSWR(`${url}/api/user/cart/${id}`, fetcher);
 
     useEffect(() => {
@@ -64,12 +64,13 @@ function App() {
         }, 2500)
     }
 
+
     useEffect(() => {
         document.documentElement.setAttribute(
             "data-theme",
-            darkTheme ? "dark" : "light"
+            isDarkTheme ? "dark" : "light"
         );
-    }, [darkTheme]);
+    }, [isDarkTheme]);
 
 
     return (

@@ -26,7 +26,6 @@
   border: 0;
   //user-select: none;
   box-sizing: border-box;
-  color: var(--default-text);
   font-family: Graphik LCG;
 }
 body::-webkit-scrollbar {
@@ -36,6 +35,9 @@ body::-webkit-scrollbar {
 
 body::-webkit-scrollbar-thumb {
   background-color: #c9c9c9;
+}
+body {
+  color: var(--default-text);
 }
 
 img {

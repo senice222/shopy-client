@@ -1,26 +1,11 @@
-import React, {Dispatch, FC, SetStateAction, useState} from 'react';
+import React, {FC, useState} from 'react';
 import style from "../EditAccountModal.module.scss";
-import spotify from "../../../../../assets/spotify48x48.png";
 import lock from "../../../../../assets/lock-02.png";
 import {Input, message} from "antd";
 import copy from "../../../../../assets/copy-01.png";
 import BlueButton from "../../../../Button/Button";
-import {EditAccountModalProps} from "../EditAccountModal";
-import BootstrapModal from "../../../BootstrapModal/BootstrapModal";
+import {DetailesProps} from "../../../../../interfaces/AccountsProps";
 
-interface DetailesProps {
-    setIsDelete: Dispatch<SetStateAction<boolean>>;
-    setIsEdit: Dispatch<SetStateAction<boolean>>;
-    onClose: () => void;
-    editAccount: boolean;
-    account: {
-        id: string;
-        service: string;
-        email: string;
-        password: string;
-        image: string;
-    }
-}
 
 const AccountsDetailes: FC<DetailesProps> = ({account, setIsEdit, onClose, setIsDelete}) => {
     const [copied, setCopied] = useState(false);

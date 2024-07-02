@@ -3,19 +3,7 @@ import {FC, useState} from "react";
 import AccountsDetailes from "./AccountsDetailes/AccountsDetailes";
 import DeleteAccount from "./DeleteAccount/DeleteAccount";
 import EditAccount from "./EditAccount/EditAccount";
-
-export interface EditAccountModalProps {
-    active: boolean;
-    onClose: () => void;
-    selectedAccountId?: string;
-    account: Array<{
-        id: string;
-        service: string;
-        email: string;
-        password: string;
-        image: string;
-    }>
-}
+import {EditAccountModalProps} from "../../../../interfaces/AccountsProps";
 
 
 const EditAccountModal: FC<EditAccountModalProps> = ({selectedAccountId, account, active, onClose}) => {
@@ -47,8 +35,7 @@ const EditAccountModal: FC<EditAccountModalProps> = ({selectedAccountId, account
                     />
                 ) : isDelete ? (
                     <DeleteAccount
-                        account={account}
-                        active={active}
+                        account={currentAccount}
                         onClose={handleClose}
                         setIsDelete={setIsDelete}
                     />
