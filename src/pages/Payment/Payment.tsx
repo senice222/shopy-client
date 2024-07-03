@@ -73,7 +73,7 @@ const SuccessfulPayment: FC<Payment> = ({title, descr, btnText, type, without}) 
                         </div>
                         <div className={style.anotherBtns}>
                             <button className={style.supportBtn}>Поддержка</button>
-                            <div onClick={() => navigate('/')}>
+                            <div onClick={() => navigate('/')} style={{width: "100%"}}>
                                 <Button width={"47%"} height={"44px"} text={"На главную"}/>
                             </div>
                         </div>
