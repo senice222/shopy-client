@@ -14,7 +14,6 @@ import axios from "axios";
 const Basket = () => {
     const navigate = useNavigate()
     const items = useAppSelector((state: any) => state.cart.items);
-
     const totalAmount = items?.reduce((acc: number, curr: any) => acc += curr.main.price ,0)
     const {id} = useTelegram()
     const {data} = useSWR(`${url}/api/user/${id}`, fetcher)
@@ -34,6 +33,7 @@ const Basket = () => {
             navigate("/proceed-payment")
             const {data} = await axios.get(`${url}/api/payment/create-link?amount=${totalAmount}&invoiceId=${id}&description=Пополнение баланса на сумму ${totalAmount}`)
             if (!data) return null;
+            window.scrollTo({ top: 0});
             window.location.href = data.paymentLink;
         }
     }

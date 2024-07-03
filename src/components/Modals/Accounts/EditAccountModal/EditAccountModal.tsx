@@ -21,13 +21,13 @@ const EditAccountModal: FC<EditAccountModalProps> = ({selectedAccountId, account
         }, 300);
     };
 
-    if (!currentAccount) return null;
+    // if (!currentAccount) return null;
 
     return (
         <BootstrapModal active={active} onClose={handleClose}>
             <div>
             {
-                !isDelete && !isEdit ? (
+                currentAccount ? !isDelete && !isEdit ? (
                     <AccountsDetailes
                         editAccount={active}
                         account={currentAccount}
@@ -48,7 +48,7 @@ const EditAccountModal: FC<EditAccountModalProps> = ({selectedAccountId, account
                         setIsEdit={setIsEdit}
                         onClose={handleClose}
                     />
-                )
+                ) : null
             }
             </div>
         </BootstrapModal>
