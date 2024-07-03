@@ -43,12 +43,12 @@ const BurgerMenu: FC<BurgerMenuI> = ({isOpened, setOpened}) => {
                 <div className={s.content}>
                     <div className={s.headerDiv}>
                         <div className={s.svg}><Emoji/></div>
-                        <h3>Доброе утро, {data.username}!</h3>
+                        <h3>Доброе утро, {data?.username}!</h3>
                     </div>
                     <div className={s.popolnit}>
                         <div className={s.leftDiv}>
                             <p>Баланс</p>
-                            <h3>{data.balance} ₽</h3>
+                            <h3>{data?.balance} ₽</h3>
                         </div>
                         <button onClick={() => setTopUp(true)}>+ Пополнить</button>
                     </div>

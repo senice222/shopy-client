@@ -4,6 +4,7 @@ import AccountsDetailes from "./AccountsDetailes/AccountsDetailes";
 import DeleteAccount from "./DeleteAccount/DeleteAccount";
 import EditAccount from "./EditAccount/EditAccount";
 import {EditAccountModalProps} from "../../../../interfaces/AccountsProps";
+import s from "../../SelectAccount/SelectAccount.module.scss";
 
 
 const EditAccountModal: FC<EditAccountModalProps> = ({selectedAccountId, account, active, onClose}) => {
@@ -24,6 +25,7 @@ const EditAccountModal: FC<EditAccountModalProps> = ({selectedAccountId, account
 
     return (
         <BootstrapModal active={active} onClose={handleClose}>
+            <div>
             {
                 !isDelete && !isEdit ? (
                     <AccountsDetailes
@@ -48,6 +50,7 @@ const EditAccountModal: FC<EditAccountModalProps> = ({selectedAccountId, account
                     />
                 )
             }
+            </div>
         </BootstrapModal>
     );
 };
