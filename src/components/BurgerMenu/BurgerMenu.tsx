@@ -22,7 +22,6 @@ const BurgerMenu: FC<BurgerMenuI> = ({isOpened, setOpened}) => {
     const {id} = useTelegram()
     const {data} = useSWR(`${url}/api/user/${id}`, fetcher)
 
-
     useEffect(() => {
         if (isOpened) {
             document.body.style.overflow = 'hidden';
