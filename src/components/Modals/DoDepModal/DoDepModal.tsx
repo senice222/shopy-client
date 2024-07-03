@@ -39,7 +39,7 @@ export const DoDepModal: FC<DoDepModalI> = ({isOpen, onClose, setBurger}) => {
         event.preventDefault();
         try {
             const {data} = await axios.get(
-                `${url}/api/payment/create-link?amount=${displayValue}&invoiceId=${id}&description=Пополнение баланса на сумму ${displayValue}`
+                `${url}/api/payment/create-link?amount=${displayValue}&invoiceId=${id}&description=Оплата заказа №123456`
             );
             console.log('Payment link created successfully:', data);
         } catch (error) {
