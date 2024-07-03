@@ -41,7 +41,8 @@ export const DoDepModal: FC<DoDepModalI> = ({isOpen, onClose, setBurger}) => {
             const {data} = await axios.get(
                 `${url}/api/payment/create-link?amount=${displayValue}&invoiceId=${id}&description=Пополение баланса на ${displayValue}`
             );
-            console.log('Payment link created successfully:', data);
+            if (!data) return null;
+            window.location.href = data.paymentLink;
         } catch (error) {
             console.error('Error:', error);
         }
