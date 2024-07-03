@@ -8,8 +8,8 @@ export interface OptionalItem {
 export interface CartItem {
   id: string;
   main: {
-    name: string;
-    price: number;
+    name?: string;
+    price?: number;
   };
   optional: OptionalItem[];
 }

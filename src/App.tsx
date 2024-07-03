@@ -37,7 +37,7 @@ function App() {
     const dispatch = useAppDispatch()
     const state = useAppSelector(state => state.favorite.items)
     const {tg, id} = useTelegram();
-    const { data, error } = useSWR(`${url}/api/user/cart/${id}`, fetcher);
+    const { data } = useSWR(`${url}/api/user/cart/${id}`, fetcher);
 
     useEffect(() => {
         tg.ready();

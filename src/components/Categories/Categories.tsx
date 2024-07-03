@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import styles from './Categories.module.scss'
 import {useNavigate} from "react-router-dom";
+import {motion} from 'framer-motion'
 
 const Categories = () => {
     const navigate = useNavigate()
@@ -44,29 +45,51 @@ const Categories = () => {
         },
     ]
 
-    const handleClick = () => {
+    const handleClick = (item: string) => {
         navigate("/category/music")
-        // window.scrollTo({
-        //     top: 0,
-        //     // behavior: 'smooth'
-        // });
     };
+
+    const containerVariants = {
+        hidden: { opacity: 1 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.2,
+            },
+        },
+    };
+
+    const itemVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0 },
+    };
+
 
     return (
         <div className={styles.category}>
             <div className={`${styles.category__content} ${styles.container}`}>
                 <h1 className={`${styles['category-title']} ${styles.title}`}>Категории</h1>
-                <div className={styles['categories-body']}>
+                <motion.div
+                    className={styles['categories-body']}
+                    variants={containerVariants}
+                    initial="hidden"
+                    animate="visible"
+                >
                     {categories.map((item, i) => (
-                        <div onClick={handleClick} key={i} className={styles['category-card']}>
+                        <motion.div
+                            onClick={() => handleClick(item.title)}
+                            key={i}
+                            className={styles['category-card']}
+                            variants={itemVariants}
+                        >
                             <img
                                 src={require(`../../assets/svg/${item.img}.svg`)}
                                 alt={item.title}
                             />
                             <h1 className={styles['card-title']}>{item.title}</h1>
-                        </div>
+                        </motion.div>
                     ))}
-                </div>
+                </motion.div>
             </div>
         </div>
     );

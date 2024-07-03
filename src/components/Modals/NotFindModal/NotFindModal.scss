@@ -5,37 +5,7 @@
     flex-direction: column;
 
   }
-  .type {
-    width: 100%;
-    margin-bottom: 25px;
-    .items {
-      display: flex;
-      width: 100%;
-      border: 1px solid var(--border-burger);
-      height: 50px;
-      justify-content: space-between;
-      border-radius: 10px;
-      background: transparent;
-      padding: 5px;
-      .active {
-        background-color: var(--button-color);
-        color: var(--default-text);
-      }
-      div {
-        cursor: pointer;
-        font-size: 14px;
-        color: var(--gray-text-second);
-        width: 49.4%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        border-radius: 6px;
-        box-shadow: 0px 1px 3px 0px #1018281A;
 
-      }
-    }
-  }
   .BlueBtn {
     background-color: rgb(0, 112, 204);
     color: rgb(255, 255, 255);
@@ -256,4 +226,35 @@
 }
 @media (max-width: 400px) {
 
+}
+.type {
+  width: 100%;
+  margin-bottom: 25px;
+  .items {
+    display: flex;
+    width: 100%;
+    border: 1px solid var(--border-burger);
+    height: 50px;
+    justify-content: space-between;
+    border-radius: 10px;
+    background: transparent;
+    padding: 5px;
+    .active {
+      background-color: var(--button-color);
+      color: var(--default-text);
+    }
+    div {
+      cursor: pointer;
+      font-size: 14px;
+      color: var(--gray-text-second);
+      width: 49.4%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 6px;
+      box-shadow: 0px 1px 3px 0px #1018281A;
+
+    }
+  }
 }

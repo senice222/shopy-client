@@ -3,7 +3,7 @@ import Layout from "../../layouts/Layout";
 import prdct from '../../assets/detailed.png'
 import percent from '../../assets/svg/percent-03.svg'
 import Button from "../../components/Button/Button";
-import { useNavigate } from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 import { FC, useCallback, useEffect, useState } from "react";
 import { ModalAndFavorite } from "../../interfaces/ModalAndFavorite";
 import { AddedToFav } from "../../components/AddedToFav/AddedToFav";
@@ -12,19 +12,28 @@ import { useTelegram } from "../../hooks/useTelegram";
 import { CartItem, addToCart, removeFromCart } from '../../store/features/cartSlice';
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { v4 as uuidv4 } from 'uuid';
+import {items} from "../../utils/dummy_data";
 
 export const DetailedProduct: FC<ModalAndFavorite> = ({ setAddedFunc, isAdd, added, setAdded }) => {
     const dispatch = useAppDispatch();
     const { tg } = useTelegram();
+    const {id} = useParams()
     const navigate = useNavigate();
     const cartItems = useAppSelector((state: any) => state.cart.items);
     const [favouriteStatus, setFavouriteStatus] = useState(false);
-    
+
+    const redirect = useCallback(() => {
+        navigate('/basket');
+        tg.MainButton.hide();
+    }, [navigate, tg]);
+
+    const currentItem = items.find(item => String(item.id) === id)
+
     const newItem: CartItem = {
         id: uuidv4(),
         main: {
-            name: 'Spotify',
-            price: 2000,
+            name: currentItem?.name,
+            price: currentItem?.price,
         },
         optional: [
             { name: 'План', value: 'Индивидульный' },
@@ -42,11 +51,6 @@ export const DetailedProduct: FC<ModalAndFavorite> = ({ setAddedFunc, isAdd, add
             dispatch(addToCart(newItem));
         }
     };
-
-    const redirect = useCallback(() => {
-        navigate('/basket');
-        tg.MainButton.hide();
-    }, [navigate, tg]);
 
     useEffect(() => {
         tg.onEvent('mainButtonClicked', redirect);
@@ -79,9 +83,9 @@ export const DetailedProduct: FC<ModalAndFavorite> = ({ setAddedFunc, isAdd, add
                     </div>
                     <div className={style.wrappInfo}>
                         <div className={style.info}>
-                            <h2>Spotify Premium</h2>
+                            <h2>{currentItem?.name}</h2>
                             <div>
-                                <h1>399₽</h1>
+                                <h1>{currentItem?.price}₽</h1>
                                 <h3>798₽</h3>
                                 <div className={style.skidka}>
                                     -50%

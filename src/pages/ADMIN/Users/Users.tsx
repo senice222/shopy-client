@@ -4,9 +4,11 @@ import style from './Users.module.scss'
 import BackTick from "../../../components/ADMIN/BackTick/BackTick";
 import {AdminModal} from "../../../components/Modals/AdminModal/AdminModal";
 import {UserMessageModal} from "../../../components/Modals/AdminModals/UserMessageModal/UserMessageModal";
+import {AddBalance} from "../../../components/Modals/AdminModals/AddBalance/AddBalance";
 
 const Users = () => {
     const [active, setActive] = useState(false)
+    const [isAddBalance, setAddBalance] = useState(false)
     const [users, setUsers] = useState([
         { id: 3066, name: 'Иван', nick: '@shopymg', status: 'Неактивен', balance: 399, statusClass: 'inactive' },
         { id: 3065, name: 'Иван', nick: '@shopymg', status: 'Активен', balance: 399, statusClass: 'active' },
@@ -24,6 +26,7 @@ const Users = () => {
         <AdminLayout>
             <div className={style.users}>
                 <UserMessageModal isOpen={active} setOpen={() => setActive((prev) => !prev)}/>
+                <AddBalance setOpen={() => setAddBalance((prev) => !prev)} isOpened={isAddBalance} />
                 {/*<SendMessage promoActive={active} onClose={() => setActive(!active)} />*/}
                 <BackTick title={"Пользователи"} to={"/panel"} />
                 <h2 className={style.title}>Пользователи</h2>
@@ -68,7 +71,7 @@ const Users = () => {
                                 <td>
                                     <span className={style.icon}>👤</span>
                                     <span onClick={() => setActive(true)} className={style.icon}>💬</span>
-                                    <span className={style.icon}>➕</span>
+                                    <span onClick={() => setAddBalance(true)} className={style.icon}>➕</span>
                                     <span className={style.icon}>🔒</span>
                                 </td>
                             </tr>

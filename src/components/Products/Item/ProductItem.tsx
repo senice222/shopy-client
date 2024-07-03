@@ -15,8 +15,8 @@ const ProductItem : FC<ProductItemI> = ({toFav, img, price, name, id}) => {
     const [favouriteStatus, setFavouriteStatus] = useState(false);
     const navigate = useNavigate()
 
-    const handleClick = () => {
-        navigate('/product/1');
+    const handleClick = (id: number) => {
+        navigate(`/product/${id}`);
 
         window.scrollTo({
             top: 0
@@ -34,7 +34,6 @@ const ProductItem : FC<ProductItemI> = ({toFav, img, price, name, id}) => {
                                 height={20}
                                 viewBox="0 0 20 20"
                                 fill="none"
-                                // className={favouriteStatus ? styles.heartFilled : styles.svg}
                                 onClick={() => {
                                     setFavouriteStatus(!favouriteStatus)
                                     toFav(false, {id: String(id), name, price, img})
@@ -66,15 +65,14 @@ const ProductItem : FC<ProductItemI> = ({toFav, img, price, name, id}) => {
                         </svg>
                     )}
                 </div>
-                <img style={{width: '165px', height: '165px'}} src={img} alt="Spotify Premium Image" onClick={handleClick}/>
+                <img style={{width: '165px', height: '165px'}} src={img} alt="Spotify Premium Image" onClick={() => handleClick(id)}/>
             </div>
-            <div className={styles.productCardBottom} onClick={handleClick}>
+            <div className={styles.productCardBottom} onClick={() => handleClick(id)}>
                 <h3 className={styles.cardTitle}>{name}</h3>
                 <span className={styles.price}>от {price}₽</span>
             </div>
         </div>
     )
-        ;
 };
 
 export default ProductItem;

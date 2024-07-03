@@ -1,14 +1,11 @@
 import './DoDepModal.scss'
-
-import React, { useState, FC, useRef, ChangeEvent, FocusEvent, FormEvent } from 'react';
+import React, { useState, FC, useRef, ChangeEvent, FormEvent } from 'react';
 import BootstrapModal from "../BootstrapModal/BootstrapModal";
 import {RequestSent} from "../RequestSent/RequestSent";
 import Button from "../../Button/Button";
-import {useSWRConfig} from "swr";
-import {fetcher, url} from "../../../core/fetch";
+import {url} from "../../../core/fetch";
 import {useTelegram} from "../../../hooks/useTelegram";
 import axios from "axios";
-import {FieldValues, SubmitHandler} from "react-hook-form";
 
 interface DoDepModalI {
     isOpen: boolean,
@@ -21,7 +18,6 @@ export const DoDepModal : FC<DoDepModalI> = ({isOpen, onClose, setBurger}) => {
     const [topUpBalance, setTopUpBalance] = useState<number>(0);
     const [isModal, setModal] = useState(false)
     const inputRef = useRef<HTMLInputElement>(null);
-    const {mutate} = useSWRConfig()
     const {id} = useTelegram()
 
     const setFormattedValue = (event: ChangeEvent<HTMLInputElement>) => {
