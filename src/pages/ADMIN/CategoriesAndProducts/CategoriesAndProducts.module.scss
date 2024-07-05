@@ -181,7 +181,7 @@
   }
 
   .icon {
-    margin-right: 10px;
+    margin-right: 20px;
     cursor: pointer;
   }
   tbody {
@@ -216,4 +216,7 @@
     box-shadow: 0px 1px 2px 0px #1018280D;
     border-radius: 5px;
   }
+}
+.icon {
+  //margin: 0px 25px
 }

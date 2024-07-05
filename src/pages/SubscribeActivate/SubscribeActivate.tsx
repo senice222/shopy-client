@@ -34,7 +34,7 @@ export const SubscribeActivate = () => {
     const [isSave, setIsSave] = useState(false)
     const [isOpened, setOpened] = useState(false)
     const [step, setStep] = useState(1)
-    const {register, handleSubmit, watch, formState: {errors}} = useForm();
+    const {register, handleSubmit, formState: {errors}} = useForm();
     const navigate = useNavigate()
 
     const cartItems = useAppSelector((state) => state.cart.items);
@@ -43,14 +43,17 @@ export const SubscribeActivate = () => {
     const {data} = useSWR(`${url}/api/user/${id}`, fetcher)
 
     const onSubmit: SubmitHandler<FieldValues> = async (values) => {
-        const {email, password} = values
+        const {email, password, additionalInfo} = values
         if (data.balance >= totalAmount) {
             const body = {
                 customerId: id,
                 email,
                 password,
+                totalAmount,
                 items: cartItems,
-                status: "payed"
+                status: "payed",
+                existedAcc: selected,
+                additionalInfo
             }
             const {data} = await axios.post(`${url}/api/order/create`, body)
             if (data) {

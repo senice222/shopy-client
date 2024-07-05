@@ -68,8 +68,8 @@ export const Arrow2 = () => {
     return (
         <svg
             xmlns="http://www.w3.org/2000/svg"
-            width={12}
-            height={16}
+            width={20}
+            height={20}
             viewBox="0 0 12 16"
             fill="none"
         >

@@ -1,6 +1,6 @@
 import AdminLayout from "../../../layouts/AdminLayout";
 import s from './CategoriesAndProducts.module.scss';
-import { Arrow } from "./Svg";
+import {Arrow, Arrow2, Copy, Eye, Pencil} from "./Svg";
 import React, { FC, useState } from "react";
 import style from "../Users/Users.module.scss";
 import avatar from '../../../assets/Avatar.png'
@@ -232,10 +232,11 @@ const CategoriesAndProducts = () => {
                                         <td>{item.name}</td>
                                         <td>{highestPrice(item.variants.items)}</td>
                                         <td>
-                                            <span className={style.icon}>👤</span>
-                                            <span onClick={() => null} className={style.icon}>💬</span>
-                                            <span onClick={() => null} className={style.icon}>➕</span>
-                                            <span className={style.icon}>🔒</span>
+                                            <span className={s.icon}><Eye /></span>
+                                            <span onClick={() => null} className={s.icon}><Copy /></span>
+                                            <span onClick={() => null} className={s.icon}><Pencil /></span>
+                                            <span className={s.icon}><Arrow2 /></span>
+                                            <span className={s.icon}><Arrow2 /></span>
                                         </td>
                                     </tr>
                                 ))}
