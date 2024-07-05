@@ -28,6 +28,7 @@ import DetailedUser from "./pages/ADMIN/Users/DetailedUser/DetailedUser";
 import {useTelegram} from "./hooks/useTelegram";
 import useSWR from "swr";
 import {fetcher, url} from "./core/fetch";
+import CategoriesAndProducts from "./pages/ADMIN/CategoriesAndProducts/CategoriesAndProducts";
 
 function App() {
     const location = useLocation()
@@ -90,6 +91,7 @@ function App() {
             <Route path="/login" element={<Login />}/>
             <Route path="/panel" element={<Panel />}/>
             <Route path="/panel/users" element={<Users />}/>
+            <Route path="/panel/categoriesAndProducts" element={<CategoriesAndProducts />}/>
             <Route path="/panel/users/:username" element={<DetailedUser />}/>
             <Route path="/success" element={
                 <Payment

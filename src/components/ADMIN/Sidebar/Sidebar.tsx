@@ -8,24 +8,25 @@ import orders from '../../../assets/receipt.png'
 import rassylka from '../../../assets/message-text-square-01.png'
 import settings from '../../../assets/settings-01.png'
 import logout from '../../../assets/log-out-01.png'
+import {useNavigate} from "react-router-dom";
 
 
 const Sidebar = () => {
-
+    const navigate = useNavigate()
     return (
         <div className={style.sidebar}>
             <div>
                 <img src={logo} alt="/"/>
                 <div className={style.items}>
-                    <div className={style.item}>
+                    <div onClick={() => navigate('/panel')} className={style.item}>
                         <img src={home} alt="/"/>
                         <h2>Панель управления</h2>
                     </div>
-                    <div className={style.itemNotActive}>
+                    <div onClick={() => navigate('/panel/users')} className={style.itemNotActive}>
                         <img src={users} alt="/"/>
                         <h2>Пользователи</h2>
                     </div>
-                    <div className={style.itemNotActive}>
+                    <div onClick={() => navigate('/panel/categoriesAndProducts')} className={style.itemNotActive}>
                         <img src={bag} alt="/"/>
                         <h2>Категории и товары</h2>
                     </div>
