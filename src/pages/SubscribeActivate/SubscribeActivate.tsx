@@ -129,7 +129,7 @@ export const SubscribeActivate = () => {
                         <form onSubmit={handleSubmit(onSubmit)}>
                             <div className={s.loginBlock}>
                                 <p className={s.headingText}>Логин для входа в необходимый сервис</p>
-                                <input {...register('email', { required: true })} placeholder="olivia@untitledui.com" />
+                                <input {...register('email', { required: true })} type={'text'} placeholder="olivia@untitledui.com" />
                                 {errors.email && <p className={s.error}>Почта обязательна</p>}
                                 <p className={s.descr}>
                                     Введите почту, на которую зарегистрирован / необходимо зарегистрировать
