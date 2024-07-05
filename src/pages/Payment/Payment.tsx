@@ -18,6 +18,7 @@ interface Payment {
 
 const SuccessfulPayment: FC<Payment> = ({title, descr, btnText, type, without}) => {
     const navigate = useNavigate()
+    const isActivate = btnText === "Активировать аккаунт"
     let img;
 
     switch (type) {
@@ -69,7 +70,7 @@ const SuccessfulPayment: FC<Payment> = ({title, descr, btnText, type, without}) 
                     </div>
                     <div className={style.btnsDiv}>
                         <div className={style.firstBtn}>
-                            <button>{btnText}</button>
+                            <button onClick={() => isActivate && navigate('/activation')}>{btnText}</button>
                         </div>
                         <div className={style.anotherBtns}>
                             <button className={style.supportBtn}>Поддержка</button>

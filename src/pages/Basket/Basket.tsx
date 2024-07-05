@@ -19,23 +19,24 @@ const Basket = () => {
     const {data} = useSWR(`${url}/api/user/${id}`, fetcher)
 
     const handlePayment = async () => {
-        if (data.balance >= totalAmount) {
-            const body = {
-                customerId: id,
-                items,
-                status: "payed"
-            }
-            const {data} = await axios.post(`${url}/api/order/create`, body)
-            if (data) {
-                navigate('/success')
-            }
-        } else {
-            navigate("/proceed-payment")
-            const {data} = await axios.get(`${url}/api/payment/create-link?amount=${totalAmount}&invoiceId=${id}&description=Пополнение баланса на сумму ${totalAmount}`)
-            if (!data) return null;
-            window.scrollTo({ top: 0});
-            window.location.href = data.paymentLink;
-        }
+        // if (data.balance >= totalAmount) {
+        //     const body = {
+        //         customerId: id,
+        //         items,
+        //         status: "payed"
+        //     }
+        //     const {data} = await axios.post(`${url}/api/order/create`, body)
+        //     if (data) {
+        //         navigate('/success')
+        //     }
+        // } else {
+        //     navigate("/proceed-payment")
+        //     const {data} = await axios.get(`${url}/api/payment/create-link?amount=${totalAmount}&invoiceId=${id}&description=Пополнение баланса на сумму ${totalAmount}`)
+        //     if (!data) return null;
+        //     window.scrollTo({ top: 0});
+        //     window.location.href = data.paymentLink;
+        // }
+        navigate('/activation')
     }
 
     return (

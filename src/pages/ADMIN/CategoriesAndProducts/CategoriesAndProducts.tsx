@@ -3,12 +3,142 @@ import s from './CategoriesAndProducts.module.scss';
 import { Arrow } from "./Svg";
 import React, { FC, useState } from "react";
 import style from "../Users/Users.module.scss";
+import avatar from '../../../assets/Avatar.png'
 
 interface CategoryItemI  {
     main: string;
     sub: string[];
 }
+// {
+    // price: Number,
+    //     oldPrice: Number, properties: [String], count: Number, visible: Boolean, banner: {
+    // title: String,
+    //     description: String},}
+const ProductList = [
+    {
+        id: 1,
+        name: 'Product12',
+        img: avatar,
+        variants: {
+            items: [
+                {
+                    price: 300,
+                    properties: [],
+                    count: 3,
+                    visible: true,
+                    description: 'dasdsadasdas'
+                },
+                {
+                    price: 100,
+                    properties: [],
+                    count: 3,
+                    visible: true,
+                    description: 'dasdsadasdas'
+                },
+                {
+                    price: 500,
+                    properties: [],
+                    count: 3,
+                    visible: true,
+                    description: 'dasdsadasdas'
+                }
+            ]
+        }
+    },
+    {
+        id: 2,
+        name: 'Product12',
+        img: avatar,
+        variants: {
+            items: [
+                {
+                    price: 300,
+                    properties: [],
+                    count: 3,
+                    visible: true,
+                    description: 'dasdsadasdas'
+                },
+                {
+                    price: 500,
+                    properties: [],
+                    count: 3,
+                    visible: true,
+                    description: 'dasdsadasdas'
+                }
+            ]
+        }
+    },
+    {
+        id: 3,
+        name: 'Product12',
+        img: avatar,
+        variants: {
+            items: [
+                {
+                    price: 300,
+                    properties: [],
+                    count: 3,
+                    visible: true,
+                    description: 'dasdsadasdas'
+                },
+                {
+                    price: 500,
+                    properties: [],
+                    count: 3,
+                    visible: true,
+                    description: 'dasdsadasdas'
+                }
+            ]
+        }
+    },
+    {
+        id: 3,
+        name: 'Product12',
+        img: avatar,
+        variants: {
+            items: [
+                {
+                    price: 500,
+                    properties: [],
+                    count: 3,
+                    visible: true,
+                    description: 'dasdsadasdas'
+                },
+                {
+                    price: 500,
+                    properties: [],
+                    count: 3,
+                    visible: true,
+                    description: 'dasdsadasdas'
+                }
+            ]
+        }
+    },
+    {
+        id: 3,
+        name: 'Product12',
+        img: avatar,
+        variants: {
+            items: [
+                {
+                    price: 500,
+                    properties: [],
+                    count: 3,
+                    visible: true,
+                    description: 'dasdsadasdas'
+                },
+            ]
+        }
+    }
 
+]
+interface Item {
+    price: number,
+    properties: never[],
+    count: number,
+    visible: boolean,
+    description: string
+}
 const CategoryItem: FC<CategoryItemI> = ({ main, sub }) => {
     const [opened, setOpened] = useState(false);
     return (
@@ -30,7 +160,30 @@ const CategoryItem: FC<CategoryItemI> = ({ main, sub }) => {
         </div>
     );
 };
+const highestPrice = (items : Item[]) => {
+    let itemsCopied = items.concat()
+    itemsCopied.sort(function (a, b) {
+        if (a.price > b.price) {
+            return 1;
+        }
+        if (a.price < b.price) {
+            return -1;
+        }
+        // a должно быть равным b
+        return 0;
+    });
+    const lowest = itemsCopied[0].price
+    const highest = itemsCopied[itemsCopied.length - 1].price
 
+    if (lowest === highest) {
+        return <div>{lowest}₽</div>
+    } else {
+        return <div>
+            {lowest}₽ - {highest}₽
+        </div>
+    }
+
+}
 const CategoriesAndProducts = () => {
     return (
         <AdminLayout>
@@ -73,19 +226,19 @@ const CategoriesAndProducts = () => {
                                 </tr>
                                 </thead>
                                 <tbody>
-                                {/*{users.map(user => (*/}
-                                {/*    <tr key={user.id}>*/}
-                                {/*        <td>#{user.id}</td>*/}
-                                {/*        <td>{user.name} <br /> <p>{user.nick}</p></td>*/}
-                                {/*        <td><span className={style[user.statusClass]}>{user.status}</span></td>*/}
-                                {/*        <td>*/}
-                                {/*            <span className={style.icon}>👤</span>*/}
-                                {/*            <span onClick={() => null} className={style.icon}>💬</span>*/}
-                                {/*            <span onClick={() => null} className={style.icon}>➕</span>*/}
-                                {/*            <span className={style.icon}>🔒</span>*/}
-                                {/*        </td>*/}
-                                {/*    </tr>*/}
-                                {/*))}*/}
+                                {ProductList.map(item => (
+                                    <tr key={item.id}>
+                                        <td><img src={item.img} alt={""}/></td>
+                                        <td>{item.name}</td>
+                                        <td>{highestPrice(item.variants.items)}</td>
+                                        <td>
+                                            <span className={style.icon}>👤</span>
+                                            <span onClick={() => null} className={style.icon}>💬</span>
+                                            <span onClick={() => null} className={style.icon}>➕</span>
+                                            <span className={style.icon}>🔒</span>
+                                        </td>
+                                    </tr>
+                                ))}
                                 </tbody>
                             </table>
                         </div>
