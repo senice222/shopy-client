@@ -69,9 +69,13 @@ const SuccessfulPayment: FC<Payment> = ({title, descr, btnText, type, without}) 
                         <p>{descr}</p>
                     </div>
                     <div className={style.btnsDiv}>
-                        <div className={style.firstBtn}>
-                            <button onClick={() => isActivate && navigate('/activation')}>{btnText}</button>
-                        </div>
+                        {
+                            btnText && (
+                                <div className={style.firstBtn}>
+                                    <button onClick={() => isActivate && navigate('/activation')}>{btnText}</button>
+                                </div>
+                            )
+                        }
                         <div className={style.anotherBtns}>
                             <button className={style.supportBtn}>Поддержка</button>
                             <div onClick={() => navigate('/')} style={{width: "50%"}}>

@@ -101,6 +101,14 @@ function App() {
                     type={"success"}
                 />
             }/>
+            <Route path="/success-actived" element={
+                <Payment
+                    title={"Вы успешно активировали аккаунт!"}
+                    descr={"Ожидайте активации."}
+                    btnText={""}
+                    type={"success"}
+                />
+            }/>
             <Route path="/fail" element={
                 <Payment
                     title={"Оплата не прошла!"}

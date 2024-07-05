@@ -57,7 +57,7 @@ export const SubscribeActivate = () => {
             }
             const {data} = await axios.post(`${url}/api/order/create`, body)
             if (data) {
-                navigate('/success')
+                navigate('/success-actived')
             }
         } else {
             navigate("/proceed-payment")
