@@ -4,6 +4,7 @@ import {Arrow, Arrow2, Copy, Eye, Pencil} from "./Svg";
 import React, { FC, useState } from "react";
 import style from "../Users/Users.module.scss";
 import avatar from '../../../assets/Avatar.png'
+import Pagination from "../../../components/Pagination/Pagination";
 
 interface CategoryItemI  {
     main: string;
@@ -185,6 +186,12 @@ const highestPrice = (items : Item[]) => {
 
 }
 const CategoriesAndProducts = () => {
+    const [currentPage, setCurrentPage] = useState<number>(1);
+    const totalPages: number = 10; // Общее количество страниц
+
+    const handlePageChange = (page: number) => {
+        setCurrentPage(page);
+    };
     return (
         <AdminLayout>
             <div className={s.content}>
@@ -216,32 +223,42 @@ const CategoriesAndProducts = () => {
                                     <input type="text" placeholder="Поиск товаров" />
                                 </div>
                             </div>
-                            <table className={s.usersTable}>
-                                <thead>
-                                <tr>
-                                    <th>Фото</th>
-                                    <th>Заголовок</th>
-                                    <th>Цена</th>
-                                    <th>Действия</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                {ProductList.map(item => (
-                                    <tr key={item.id}>
-                                        <td><img src={item.img} alt={""}/></td>
-                                        <td>{item.name}</td>
-                                        <td>{highestPrice(item.variants.items)}</td>
-                                        <td>
-                                            <span className={s.icon}><Eye /></span>
-                                            <span onClick={() => null} className={s.icon}><Copy /></span>
-                                            <span onClick={() => null} className={s.icon}><Pencil /></span>
-                                            <span className={s.icon}><Arrow2 /></span>
-                                            <span className={s.icon}><Arrow2 /></span>
-                                        </td>
+                            <div className={s.tableDiv}>
+                                <table className={s.usersTable}>
+                                    <thead>
+                                    <tr>
+                                        <th>Фото</th>
+                                        <th>Заголовок</th>
+                                        <th>Цена</th>
+                                        <th>Действия</th>
                                     </tr>
-                                ))}
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                    {ProductList.map(item => (
+                                        <tr key={item.id}>
+                                            <td><img src={item.img} alt={""}/></td>
+                                            <td>{item.name}</td>
+                                            <td>{highestPrice(item.variants.items)}</td>
+                                            <td>
+                                                <span className={s.icon}><Eye /></span>
+                                                <span onClick={() => null} className={s.icon}><Copy /></span>
+                                                <span onClick={() => null} className={s.icon}><Pencil /></span>
+                                                <span className={s.icon}><Arrow2 /></span>
+                                                <span className={s.icon + " " + s.translate1}><Arrow2 /></span>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                    </tbody>
+                                </table>
+                                <div className={s.paginationContainer}>
+                                    <Pagination
+                                        totalPages={totalPages}
+                                        currentPage={currentPage}
+                                        onPageChange={handlePageChange}
+                                    />
+
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

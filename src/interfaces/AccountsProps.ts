@@ -26,6 +26,14 @@ export interface DetailesProps {
     }
 }
 
+export interface Account {
+    id: string;
+    service: string;
+    email: string;
+    password: string;
+    image: string
+}
+
 export interface EditAccountModalProps {
     active: boolean;
     onClose: () => void;

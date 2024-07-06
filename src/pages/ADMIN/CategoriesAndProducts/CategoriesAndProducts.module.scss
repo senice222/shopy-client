@@ -181,7 +181,7 @@
   }
 
   .icon {
-    margin-right: 20px;
+    margin-right: 25px;
     cursor: pointer;
   }
   tbody {
@@ -219,4 +219,18 @@
 }
 .icon {
   //margin: 0px 25px
+}
+.translate1 {
+  svg {
+    transform: rotateZ(180deg);
+  }
+}
+.paginationContainer {
+
+}
+.tableDiv {
+  display: flex;
+  flex-direction: column;
+  height: 90%;
+  justify-content: space-between;
 }

@@ -1,0 +1,60 @@
+.pagination {
+  display: flex;
+  list-style: none;
+}
+
+.button {
+  margin: 0 5px;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  color: #475467;
+  font-size: 14px;
+  background-color: transparent;
+  cursor: pointer;
+
+  &.active {
+    background-color: #F9FAFB;
+    color: #182230;
+  }
+
+  &:disabled {
+    cursor: default;
+    background-color: transparent;
+  }
+}
+.paginationWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.butt2 {
+  padding: 10px;
+  color: #344054;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  background-color: transparent;
+  border-radius: 8px;
+  border: 1px solid #D0D5DD;
+  svg {
+    //width: 13px;
+    //height: 13px;
+  }
+}
+.prev {
+  svg {
+    margin-right: 10px;
+    transform: rotateZ(-90deg);
+  }
+}
+.next {
+  svg {
+    margin-left: 10px;
+    transform: rotateZ(90deg);
+  }
+}

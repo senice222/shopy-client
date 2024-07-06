@@ -1,17 +1,19 @@
 import '../PromoModal/PromoModal.scss'
 import {ChangeEvent, FC, useState} from "react";
 import BootstrapModal from "../BootstrapModal/BootstrapModal";
-import {RequestSent} from "../RequestSent/RequestSent";
 import s from './SelectAccount.module.scss'
 import {Spotify} from "../../../pages/SubscribeActivate/Svgs";
 import {AccountSelect} from "../../AccountSelect/AccountSelect";
+import {Account} from "../../../interfaces/AccountsProps";
 
 
 export interface SelectAccountI {
     promoActive: boolean,
     onClose: () => void,
-    nextStep: () => void
+    nextStep: () => void,
+    matchingAccounts: Account[]
 }
+
 const accounts = [
     {
         img: <Spotify />,
@@ -34,7 +36,7 @@ const accounts = [
         email: "spotifyuser3@example.com"
     }
 ];
-export const SelectAccount: FC<SelectAccountI> = ({promoActive, onClose, nextStep}) => {
+export const SelectAccount: FC<SelectAccountI> = ({promoActive, onClose, nextStep, matchingAccounts}) => {
 
     const [errorStatus, setErrorStatus] = useState(false);
     const [isModal, setModal] = useState(false)
@@ -80,7 +82,7 @@ export const SelectAccount: FC<SelectAccountI> = ({promoActive, onClose, nextSte
                         />
                     </svg>
                 </div>
-                <AccountSelect items={accounts} setSelected={setSelected} />
+                <AccountSelect items={matchingAccounts} setSelected={setSelected} />
                 {/*{errorStatus ? <span style={{color: 'red', marginTop: '5px'}}>*/}
                 {/*      Такого промокода не существует*/}
                 {/*    </span> : null}*/}

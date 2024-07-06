@@ -1,6 +1,6 @@
 import s from './SubscribeActivate.module.scss'
 import Layout from "../../layouts/Layout";
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {OwnSelect} from "../../components/OwnSelect/OwnSelect";
 import {CheckBox} from "../../components/CheckBox/CheckBox";
 import Button from "../../components/Button/Button";
@@ -12,7 +12,9 @@ import useSWR from "swr";
 import {fetcher, url} from "../../core/fetch";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
-import {useAppSelector} from "../../hooks/redux-hooks";
+import {useAppDispatch, useAppSelector} from "../../hooks/redux-hooks";
+import {Account} from "../../interfaces/AccountsProps";
+import {chooseAccount} from "../../store/features/accountSlice";
 
 const items = [
     {
@@ -36,43 +38,75 @@ export const SubscribeActivate = () => {
     const [step, setStep] = useState(1)
     const {register, handleSubmit, formState: {errors}} = useForm();
     const navigate = useNavigate()
-
-    const cartItems = useAppSelector((state) => state.cart.items);
-    const totalAmount = cartItems?.reduce((acc: number, curr: any) => acc += curr.main.price, 0)
     const {id} = useTelegram()
     const {data} = useSWR(`${url}/api/user/${id}`, fetcher)
 
+    const dispatch = useAppDispatch()
+    const cartItems = useAppSelector((state) => state.cart.items);
+    const currentAccount = useAppSelector(state => state.account.account)
+    const isAccountIncomplete = !currentAccount.service || !currentAccount.email || !currentAccount.password;
+
+    const totalAmount = cartItems?.reduce((acc: number, curr: any) => acc += curr.main.price, 0)
+    const cartItem = cartItems[0].main.name
+    const [showAccountBlock, setShowAccountBlock] = useState(false);
+
+    useEffect(() => {
+        if (data?.savedAccounts) {
+            setShowAccountBlock(data?.savedAccounts.some((item: Account) => item.service === cartItem))
+        }
+    }, [data, cartItem]);
+
+    const matchingAccounts = data?.savedAccounts.filter((item: Account) => item.service === cartItem) || []
+
     const onSubmit: SubmitHandler<FieldValues> = async (values) => {
-        const {email, password, additionalInfo} = values
-        if (data.balance >= totalAmount) {
-            const body = {
-                customerId: id,
-                email,
-                password,
-                totalAmount,
-                items: cartItems,
-                status: "payed",
-                existedAcc: selected,
-                additionalInfo
+        const { email, password } = values;
+
+        let additionalInfo = values.additionalInfo;
+
+        if (!values.additionalInfo && data.additionalInfo) {
+            additionalInfo = data.additionalInfo;
+        }
+
+        try {
+            if (data.balance >= totalAmount) {
+                const body = {
+                    customerId: id,
+                    email: email || currentAccount.email,
+                    password: password || currentAccount.password,
+                    totalAmount,
+                    items: cartItems,
+                    status: "payed",
+                    existedAcc: selected,
+                    additionalInfo
+                };
+
+                const { data: orderData } = await axios.post(`${url}/api/order/create`, body);
+
+                if (orderData) {
+                    navigate('/success-actived');
+                }
+            } else {
+                const { data: paymentData } = await axios.get(`${url}/api/payment/create-link?amount=${totalAmount}&invoiceId=${id}&description=Пополнение баланса на сумму ${totalAmount}`);
+
+                if (paymentData && paymentData.paymentLink) {
+                    navigate('/proceed-payment');
+                    window.scrollTo({top: 0});
+                    window.location.href = paymentData.paymentLink;
+                } else {
+                    console.error('Failed to fetch payment link.');
+                }
             }
-            const {data} = await axios.post(`${url}/api/order/create`, body)
-            if (data) {
-                navigate('/success-actived')
-            }
-        } else {
-            navigate("/proceed-payment")
-            const {data} = await axios.get(`${url}/api/payment/create-link?amount=${totalAmount}&invoiceId=${id}&description=Пополнение баланса на сумму ${totalAmount}`)
-            if (!data) return null;
-            window.scrollTo({ top: 0});
-            window.location.href = data.paymentLink;
+        } catch (error) {
+            console.error('Error processing order or payment:', error);
         }
     };
-
+    console.log(currentAccount)
     return (
         <>
             <SelectAccount
                 nextStep={() => setStep(2)}
                 promoActive={isOpened}
+                matchingAccounts={matchingAccounts}
                 onClose={() => setOpened((prev) => !prev)}
             />
             <div className={s.background}>
@@ -106,22 +140,41 @@ export const SubscribeActivate = () => {
                                 <p>Все данные надёжно защищены</p>
                             </div>
                         </div>
-
-                        <div className={s.haveAccBlock}>
-                            <Spotify/>
-                            <div className={s.rightDiv}>
-                                <p className={s.headingText}>
-                                    Активировать подписку на сохранённый аккаунт?
-                                </p>
-                                <p className={s.descr}>
-                                    mail@mshopy.ru
-                                </p>
-                                <div className={s.variants}>
-                                    {step === 2 ? null : <p className={s.blue}>Да</p>}
-                                    <p onClick={() => setOpened(true)}>Выбрать другой</p>
+                        {showAccountBlock && (
+                            <div className={s.haveAccBlock}>
+                                <img
+                                    src={`${url}/api/uploads/${matchingAccounts[0].image}`}
+                                    style={{ width: '30px', height: '30px' }}
+                                    alt='/'
+                                />
+                                <div className={s.rightDiv}>
+                                    <p className={s.headingText}>
+                                        Активировать подписку на сохранённый аккаунт?
+                                    </p>
+                                    <p className={s.descr}>
+                                        {matchingAccounts[0].email}
+                                    </p>
+                                    <div className={s.variants}>
+                                        {step !== 2 && (
+                                            <p
+                                                className={s.blue}
+                                                onClick={() => {
+                                                    dispatch(chooseAccount({
+                                                        service: matchingAccounts[0].service,
+                                                        email: matchingAccounts[0].email,
+                                                        password: matchingAccounts[0].password
+                                                    }));
+                                                    setShowAccountBlock(false);
+                                                }}
+                                            >
+                                                Да
+                                            </p>
+                                        )}
+                                        <p onClick={() => setOpened(true)}>Выбрать другой</p>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        )}
                         <div className={s.selectBlock}>
                             <p className={s.headingText}>У Вас есть существующий аккаунт от необходимого
                                 сервиса или его требуется зарегистрировать?</p>
@@ -130,30 +183,42 @@ export const SubscribeActivate = () => {
                             </div>
                         </div>
                         <form onSubmit={handleSubmit(onSubmit)}>
-                            <div className={s.loginBlock}>
-                                <p className={s.headingText}>Логин для входа в необходимый сервис</p>
-                                <input {...register('email', { required: true })} type={'text'} placeholder="olivia@untitledui.com" />
-                                {errors.email && <p className={s.error}>Почта обязательна</p>}
-                                <p className={s.descr}>
-                                    Введите почту, на которую зарегистрирован / необходимо зарегистрировать
-                                    аккаунт в необходимом сервисе.
-                                </p>
-                            </div>
-                            <div className={s.loginBlock}>
-                                <p className={s.headingText}>Пароль для входа в необходимый сервис</p>
-                                <input {...register('password', { required: true })} type="password" placeholder="****" />
-                                {errors.password && <p className={s.error}>Пароль обязателен</p>}
-                                <p className={s.descr}>
-                                    Введите пароль от аккаунта / для регистрации аккаунта в необходимом
-                                    сервисе.
-                                </p>
-                            </div>
+                            {isAccountIncomplete && (
+                                <>
+                                    <div className={s.loginBlock}>
+                                        <p className={s.headingText}>Логин для входа в необходимый сервис</p>
+                                        <input
+                                            {...register('email', { required: true })}
+                                            type="text"
+                                            placeholder="olivia@untitledui.com"
+                                        />
+                                        {errors.email && <p className={s.error}>Почта обязательна</p>}
+                                        <p className={s.descr}>
+                                            Введите почту, на которую зарегистрирован / необходимо зарегистрировать
+                                            аккаунт в необходимом сервисе.
+                                        </p>
+                                    </div>
+                                    <div className={s.loginBlock}>
+                                        <p className={s.headingText}>Пароль для входа в необходимый сервис</p>
+                                        <input
+                                            {...register('password', { required: true })}
+                                            type="password"
+                                            placeholder="****"
+                                        />
+                                        {errors.password && <p className={s.error}>Пароль обязателен</p>}
+                                        <p className={s.descr}>
+                                            Введите пароль от аккаунта / для регистрации аккаунта в необходимом
+                                            сервисе.
+                                        </p>
+                                    </div>
+                                </>
+                            )}
                             <div className={s.loginBlock}>
                                 <p className={s.headingText}>
                                     Укажите дополнительную информацию, которая нам может быть необходима для
                                     активации подписки
                                 </p>
-                                <input {...register('additionalInfo')} placeholder="Вход через Apple, Google и т.д." />
+                                <input {...register('additionalInfo')} placeholder="Вход через Apple, Google и т.д."/>
                                 <p className={s.descr}>
                                     К примеру, вход в аккаунт сервиса выполняется через определённую соц.сеть.
                                     Если же доп.информация не нужна, оставьте поле пустым.
@@ -161,7 +226,7 @@ export const SubscribeActivate = () => {
                             </div>
                             <div className={s.saveDataBlock}>
                                 <div className={s.topDiv}>
-                                    <CheckBox setChecked={setIsSave} />
+                                    <CheckBox setChecked={setIsSave}/>
                                     <h3>Cохранить данные</h3>
                                 </div>
                                 <p>Мы сохраним эти данные в вашем профиле, чтобы в следующий раз вам не
@@ -169,7 +234,7 @@ export const SubscribeActivate = () => {
                                 </p>
                             </div>
                             <div className={s.saveDataBlock}>
-                                <Button text="Активировать аккаунт" width="100%" height="40px" />
+                                <Button text="Активировать аккаунт" width="100%" height="40px"/>
                             </div>
                         </form>
                     </div>

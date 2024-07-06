@@ -21,7 +21,7 @@ export const OwnSelect : FC<SelectI> = ({items, setSelected}) => {
 
     return (
         <div className={s.select}>
-            {items.map((item) => <div onClick={() => setActiveItem(item.value)} className={`${s.item} ${activeItem === item.value ? s.active : ''}`}>
+            {items.map((item, i) => <div key={i} onClick={() => setActiveItem(item.value)} className={`${s.item} ${activeItem === item.value ? s.active : ''}`}>
                 <div className={s.circle}>
                     <div className={s.checked}></div>
                 </div>
