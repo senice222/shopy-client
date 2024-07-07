@@ -22,7 +22,7 @@ const Referral = () => {
 
     return (
         <div className={style.bg}>
-            <Layout isRightArrow={true}>
+            <Layout>
                 <div className={style.wrapper}>
                     <div className={style.refDiv}>
                         <h2>Реферальная система</h2>

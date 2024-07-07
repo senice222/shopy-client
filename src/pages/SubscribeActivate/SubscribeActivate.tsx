@@ -119,7 +119,7 @@ export const SubscribeActivate = () => {
                 onClose={() => setOpened((prev) => !prev)}
             />
             <div className={s.background}>
-                <Layout isRightArrow={true}>
+                <Layout>
                     <div className={s.activationWrapper}>
                         <div className={s.firstBlock}>
                             <h2>Активация подписки</h2>

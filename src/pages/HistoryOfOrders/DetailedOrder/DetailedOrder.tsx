@@ -20,7 +20,7 @@ const DetailedOrder = () => {
 
     return (
         <div className={style.historyWrapp}>
-            <Layout isRightArrow={true}>
+            <Layout>
                 <div className={style.wrappedOrder}>
                     <div className={style.historyTitle}>
                         <h2>Заказ №212343456</h2>

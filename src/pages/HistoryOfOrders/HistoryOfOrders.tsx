@@ -21,7 +21,7 @@ const HistoryOfOrders = () => {
 
     return (
         <div className={style.historyWrapp}>
-            <Layout isRightArrow={true}>
+            <Layout>
                 <div className={style.wrapperOfHistory}>
                     <div className={style.historyTitle}>
                         <h2>История заказов</h2>

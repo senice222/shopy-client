@@ -21,7 +21,7 @@ const ChangeData = () => {
 
     return (
         <div className={s.background}>
-            <Layout isRightArrow={true}>
+            <Layout>
                 <div className={s.wrapper}>
                     <div className={s.content}>
                         <div className={s.firstBlock}>

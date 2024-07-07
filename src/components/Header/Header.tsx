@@ -8,11 +8,10 @@ import {Logo} from "./Logo";
 
 interface HeaderI {
     setOpened: () => void;
-    isRightArrow?: boolean,
     isCross?: boolean
 }
 
-const Header : FC<HeaderI> = ({setOpened, isRightArrow, isCross}) => {
+const Header : FC<HeaderI> = ({setOpened, isCross}) => {
     const navigate = useNavigate()
     const { darkTheme, toggleTheme } = useContext(ThemeContext);
     const [opened, setOpened1] = useState(false)
@@ -38,9 +37,6 @@ const Header : FC<HeaderI> = ({setOpened, isRightArrow, isCross}) => {
         <nav className={`${styles.navbar} ${styles.navbarSidebar}`}>
             <div className={styles.container}>
                 <div className={styles.wrapp}>
-                    {
-                          isRightArrow && <img className={styles.rghtImg} onClick={() => navigate('/')} src={rightArrow} alt={"/"}/>
-                    }
                     <Link to="/" className={styles.navbarBrand}>
                         <Logo />
                     </Link>

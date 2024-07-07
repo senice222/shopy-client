@@ -34,7 +34,7 @@ const Basket = () => {
 
     return (
         <div className={style.wrapp}>
-            <Layout isRightArrow={true}>
+            <Layout>
                 <div className={style.basketContainer}>
                     <TopItem text={"Корзина"}/>
                     <div className={style.items}>
