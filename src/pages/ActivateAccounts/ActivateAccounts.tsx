@@ -20,17 +20,16 @@ const ActivateAccounts = () => {
     const {id} = useTelegram()
     const [selectedAccountId, setSelectedAccountId] = useState<string>('');
     const {data, error} = useSWR(`${url}/api/user/account/6527850384`, fetcher)
-    const { showBackButton, hideBackButton, onBackButtonClick } = useTelegram();
+    const { onBackButtonClick } = useTelegram();
     const navigate = useNavigate()
 
     useEffect(() => {
-        showBackButton();
         onBackButtonClick(() => navigate('/'));
 
         return () => {
-            hideBackButton();
+            onBackButtonClick(null);
         };
-    }, [showBackButton, hideBackButton, onBackButtonClick]);
+    }, [onBackButtonClick, navigate]);
 
 
     return (

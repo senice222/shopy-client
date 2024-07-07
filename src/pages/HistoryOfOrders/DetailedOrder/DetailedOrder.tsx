@@ -8,16 +8,15 @@ import {useTelegram} from "../../../hooks/useTelegram";
 
 const DetailedOrder = () => {
     const navigate = useNavigate()
-    const { showBackButton, hideBackButton, onBackButtonClick } = useTelegram();
+    const { onBackButtonClick } = useTelegram();
 
     useEffect(() => {
-        showBackButton();
         onBackButtonClick(() => navigate('/'));
 
         return () => {
-            hideBackButton();
+            onBackButtonClick(null);
         };
-    }, [showBackButton, hideBackButton, onBackButtonClick]);
+    }, [onBackButtonClick, navigate]);
 
     return (
         <div className={style.historyWrapp}>

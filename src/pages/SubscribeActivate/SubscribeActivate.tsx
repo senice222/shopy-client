@@ -39,7 +39,7 @@ export const SubscribeActivate = () => {
     const {register, handleSubmit, formState: {errors}} = useForm();
     const navigate = useNavigate()
 
-    const {id, showBackButton, hideBackButton, onBackButtonClick} = useTelegram()
+    const {id, onBackButtonClick} = useTelegram()
     const {data} = useSWR(`${url}/api/user/${id}`, fetcher)
 
     const dispatch = useAppDispatch()
@@ -52,13 +52,12 @@ export const SubscribeActivate = () => {
     const [showAccountBlock, setShowAccountBlock] = useState(false);
 
     useEffect(() => {
-        showBackButton();
         onBackButtonClick(() => navigate('/'));
 
         return () => {
-            hideBackButton();
+            onBackButtonClick(null);
         };
-    }, [showBackButton, hideBackButton, onBackButtonClick]);
+    }, [onBackButtonClick, navigate]);
 
     useEffect(() => {
         if (data?.savedAccounts) {

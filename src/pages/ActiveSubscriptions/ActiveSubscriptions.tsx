@@ -8,17 +8,16 @@ import {useTelegram} from "../../hooks/useTelegram";
 import {useNavigate} from "react-router-dom";
 
 const ActiveSubscriptions = () => {
-    const { showBackButton, hideBackButton, onBackButtonClick } = useTelegram();
+    const { onBackButtonClick } = useTelegram();
     const navigate = useNavigate()
 
     useEffect(() => {
-        showBackButton();
         onBackButtonClick(() => navigate('/'));
 
         return () => {
-            hideBackButton();
+            onBackButtonClick(null);
         };
-    }, [showBackButton, hideBackButton, onBackButtonClick]);
+    }, [onBackButtonClick, navigate]);
     
     return (
         <div className={style.historyWrapp}>

@@ -1,3 +1,6 @@
+import {useEffect} from "react";
+import {useLocation} from "react-router-dom";
+
 const tg = window.Telegram.WebApp;
 tg.expand();
 tg.MainButton.color = "#0f73d5"
@@ -29,6 +32,16 @@ export function useTelegram() {
     const onBackButtonClick = (callback: string) => {
         tg.BackButton.onClick(callback);
     };
+
+    const {pathname} = useLocation();
+
+    useEffect(() => {
+        if (pathname !== '/') {
+            showBackButton();
+        } else {
+            hideBackButton();
+        }
+    }, [pathname]);
 
     return {
         onClose,

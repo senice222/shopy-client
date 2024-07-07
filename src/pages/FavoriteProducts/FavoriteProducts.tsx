@@ -12,16 +12,15 @@ import {useTelegram} from "../../hooks/useTelegram";
 const FavoriteProducts: FC<ModalAndFavorite> = ({setAddedFunc, isAdd, added, setAdded}) => {
     const state = useAppSelector(state => state.favorite.items)
     const navigate = useNavigate()
-    const { showBackButton, hideBackButton, onBackButtonClick } = useTelegram();
+    const { onBackButtonClick } = useTelegram();
 
     useEffect(() => {
-        showBackButton();
         onBackButtonClick(() => navigate('/'));
 
         return () => {
-            hideBackButton();
+            onBackButtonClick(null);
         };
-    }, [showBackButton, hideBackButton, onBackButtonClick]);
+    }, [onBackButtonClick, navigate]);
 
 
     const handleClick = () => {

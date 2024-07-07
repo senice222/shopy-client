@@ -77,19 +77,18 @@ const Category = () => {
     const { category } = useParams()
     const [added, setAdded] = useState(false)
     const [isAdd, setIsAdd] = useState(false)
-    const { showBackButton, hideBackButton, onBackButtonClick } = useTelegram();
+    const { onBackButtonClick } = useTelegram();
     const dispatch = useAppDispatch()
     const state = useAppSelector(state => state.favorite.items)
     const navigate = useNavigate()
 
     useEffect(() => {
-        showBackButton();
         onBackButtonClick(() => navigate('/'));
 
         return () => {
-            hideBackButton();
+            onBackButtonClick(null);
         };
-    }, [showBackButton, hideBackButton, onBackButtonClick]);
+    }, [onBackButtonClick, navigate]);
 
     const setAddedFunc = (isAdd: boolean, item: FavoriteItem) => {
         setIsAdd(isAdd)

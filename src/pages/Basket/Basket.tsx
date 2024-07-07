@@ -17,17 +17,16 @@ const Basket = () => {
     const totalAmount = items?.reduce((acc: number, curr: any) => acc += curr.main.price ,0)
     const {id} = useTelegram()
     const {data} = useSWR(`${url}/api/user/${id}`, fetcher)
-    const { showBackButton, hideBackButton, onBackButtonClick } = useTelegram();
+    const { onBackButtonClick } = useTelegram();
     const navigate = useNavigate()
 
     useEffect(() => {
-        showBackButton();
         onBackButtonClick(() => navigate('/'));
 
         return () => {
-            hideBackButton();
+            onBackButtonClick(null);
         };
-    }, [showBackButton, hideBackButton, onBackButtonClick]);
+    }, [onBackButtonClick, navigate]);
 
     const handlePayment = async () => {
         navigate('/activation')
