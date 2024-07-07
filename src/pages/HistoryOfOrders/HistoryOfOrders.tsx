@@ -1,13 +1,24 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import style from './HistoryOfOrders.module.scss'
 import Layout from '../../layouts/Layout'
 import spotify64 from '../../assets/spotify64x64.png'
 import featured from '../../assets/featured.png'
 import Button from "../../components/Button/Button";
 import {useNavigate} from "react-router-dom";
+import {useTelegram} from "../../hooks/useTelegram";
 
 const HistoryOfOrders = () => {
     const navigate = useNavigate()
+    const { showBackButton, hideBackButton, onBackButtonClick } = useTelegram();
+
+    useEffect(() => {
+        showBackButton();
+        onBackButtonClick(() => navigate('/'));
+
+        return () => {
+            hideBackButton();
+        };
+    }, [showBackButton, hideBackButton, onBackButtonClick]);
 
     return (
         <div className={style.historyWrapp}>

@@ -2,11 +2,23 @@ import style from './ActiveSubscriptions.module.scss'
 import featured from "../../assets/featured.png";
 import spotify64 from "../../assets/spotify64x64.png";
 import Button from "../../components/Button/Button";
-import React from "react";
+import React, {useEffect} from "react";
 import Layout from "../../layouts/Layout";
+import {useTelegram} from "../../hooks/useTelegram";
+import {useNavigate} from "react-router-dom";
 
 const ActiveSubscriptions = () => {
+    const { showBackButton, hideBackButton, onBackButtonClick } = useTelegram();
+    const navigate = useNavigate()
 
+    useEffect(() => {
+        showBackButton();
+        onBackButtonClick(() => navigate('/'));
+
+        return () => {
+            hideBackButton();
+        };
+    }, [showBackButton, hideBackButton, onBackButtonClick]);
     
     return (
         <div className={style.historyWrapp}>

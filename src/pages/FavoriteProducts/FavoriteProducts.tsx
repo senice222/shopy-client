@@ -1,16 +1,28 @@
 import styles from './FavoriteProducts.module.scss'
 import Layout from "../../layouts/Layout";
 import {useAppSelector} from "../../hooks/redux-hooks";
-import React, {FC, Fragment} from "react";
+import React, {FC, Fragment, useEffect} from "react";
 import {useNavigate} from "react-router-dom";
 import {AddedToFav} from "../../components/AddedToFav/AddedToFav";
 import {ModalAndFavorite} from "../../interfaces/ModalAndFavorite";
 import nothing from '../../assets/Illustrationnothing.png'
 import BlueButton from "../../components/Button/Button";
+import {useTelegram} from "../../hooks/useTelegram";
 
 const FavoriteProducts: FC<ModalAndFavorite> = ({setAddedFunc, isAdd, added, setAdded}) => {
     const state = useAppSelector(state => state.favorite.items)
     const navigate = useNavigate()
+    const { showBackButton, hideBackButton, onBackButtonClick } = useTelegram();
+
+    useEffect(() => {
+        showBackButton();
+        onBackButtonClick(() => navigate('/'));
+
+        return () => {
+            hideBackButton();
+        };
+    }, [showBackButton, hideBackButton, onBackButtonClick]);
+
 
     const handleClick = () => {
         navigate('/product/1');

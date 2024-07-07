@@ -39,7 +39,7 @@ export const SubscribeActivate = () => {
     const {register, handleSubmit, formState: {errors}} = useForm();
     const navigate = useNavigate()
 
-    const {id} = useTelegram()
+    const {id, showBackButton, hideBackButton, onBackButtonClick} = useTelegram()
     const {data} = useSWR(`${url}/api/user/${id}`, fetcher)
 
     const dispatch = useAppDispatch()
@@ -50,6 +50,15 @@ export const SubscribeActivate = () => {
     const totalAmount = cartItems?.reduce((acc: number, curr: any) => acc += curr.main.price, 0)
     const cartItem = cartItems[0].main.name
     const [showAccountBlock, setShowAccountBlock] = useState(false);
+
+    useEffect(() => {
+        showBackButton();
+        onBackButtonClick(() => navigate('/'));
+
+        return () => {
+            hideBackButton();
+        };
+    }, [showBackButton, hideBackButton, onBackButtonClick]);
 
     useEffect(() => {
         if (data?.savedAccounts) {
@@ -101,7 +110,7 @@ export const SubscribeActivate = () => {
             console.error('Error processing order or payment:', error);
         }
     };
-    console.log(currentAccount)
+
     return (
         <>
             <SelectAccount

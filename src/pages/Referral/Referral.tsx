@@ -2,11 +2,24 @@ import style from './Referral.module.scss'
 import Layout from "../../layouts/Layout";
 import {Input} from "antd";
 import copy from "../../assets/copy-01.png";
-import React from "react";
+import React, {useEffect} from "react";
 import nothing from "../../assets/Illustrationnothing.png";
 import Button from "../../components/Button/Button";
+import {useNavigate} from "react-router-dom";
+import {useTelegram} from "../../hooks/useTelegram";
 
 const Referral = () => {
+    const navigate = useNavigate()
+    const {showBackButton, hideBackButton, onBackButtonClick} = useTelegram()
+
+    useEffect(() => {
+        showBackButton();
+        onBackButtonClick(() => navigate('/'));
+
+        return () => {
+            hideBackButton();
+        };
+    }, [showBackButton, hideBackButton, onBackButtonClick]);
 
     return (
         <div className={style.bg}>

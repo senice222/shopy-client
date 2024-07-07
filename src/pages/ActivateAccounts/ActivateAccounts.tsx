@@ -5,12 +5,13 @@ import nothing from '../../assets/Illustrationnothing.png'
 import spotify48 from '../../assets/spotify48x48.png'
 import dots from '../../assets/dots-vertical.png'
 import Button from "../../components/Button/Button";
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import AddAccountModal from "../../components/Modals/Accounts/AddAccountModal/AddAccountModal";
 import EditAccountModal from "../../components/Modals/Accounts/EditAccountModal/EditAccountModal";
 import useSWR from "swr";
 import {fetcher, url} from "../../core/fetch";
 import {useTelegram} from "../../hooks/useTelegram";
+import {useNavigate} from "react-router-dom";
 
 const ActivateAccounts = () => {
     const [addAccount, setAddAccount] = useState<boolean>(false)
@@ -19,6 +20,18 @@ const ActivateAccounts = () => {
     const {id} = useTelegram()
     const [selectedAccountId, setSelectedAccountId] = useState<string>('');
     const {data, error} = useSWR(`${url}/api/user/account/6527850384`, fetcher)
+    const { showBackButton, hideBackButton, onBackButtonClick } = useTelegram();
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        showBackButton();
+        onBackButtonClick(() => navigate('/'));
+
+        return () => {
+            hideBackButton();
+        };
+    }, [showBackButton, hideBackButton, onBackButtonClick]);
+
 
     return (
         <div className={style.wrapp}>

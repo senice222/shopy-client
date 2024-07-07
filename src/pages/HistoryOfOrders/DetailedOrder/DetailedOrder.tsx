@@ -1,12 +1,23 @@
 import style from './DetailedOrder.module.scss'
 import Layout from "../../../layouts/Layout";
-import React from "react";
+import React, {useEffect} from "react";
 import spotify from "../../../assets/svg/Spotify.svg";
 import Button from "../../../components/Button/Button";
 import { useNavigate } from 'react-router-dom';
+import {useTelegram} from "../../../hooks/useTelegram";
 
 const DetailedOrder = () => {
     const navigate = useNavigate()
+    const { showBackButton, hideBackButton, onBackButtonClick } = useTelegram();
+
+    useEffect(() => {
+        showBackButton();
+        onBackButtonClick(() => navigate('/'));
+
+        return () => {
+            hideBackButton();
+        };
+    }, [showBackButton, hideBackButton, onBackButtonClick]);
 
     return (
         <div className={style.historyWrapp}>

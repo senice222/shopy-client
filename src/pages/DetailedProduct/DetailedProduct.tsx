@@ -16,11 +16,20 @@ import {items} from "../../utils/dummy_data";
 
 export const DetailedProduct: FC<ModalAndFavorite> = ({ setAddedFunc, isAdd, added, setAdded }) => {
     const dispatch = useAppDispatch();
-    const { tg } = useTelegram();
+    const { tg, showBackButton, hideBackButton, onBackButtonClick } = useTelegram();
     const {id} = useParams()
-    const navigate = useNavigate();
     const cartItems = useAppSelector((state: any) => state.cart.items);
     const [favouriteStatus, setFavouriteStatus] = useState(false);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        showBackButton();
+        onBackButtonClick(() => navigate('/'));
+
+        return () => {
+            hideBackButton();
+        };
+    }, [showBackButton, hideBackButton, onBackButtonClick]);
 
     const redirect = useCallback(() => {
         navigate('/basket');

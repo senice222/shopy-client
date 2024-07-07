@@ -3,8 +3,22 @@ import Layout from '../../layouts/Layout'
 import BlueButton from '../../components/Button/Button'
 import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
 import {Input} from "antd";
+import {useNavigate} from "react-router-dom";
+import {useTelegram} from "../../hooks/useTelegram";
+import {useEffect} from "react";
 
 const ChangeData = () => {
+    const navigate = useNavigate()
+    const { showBackButton, hideBackButton, onBackButtonClick } = useTelegram();
+
+    useEffect(() => {
+        showBackButton();
+        onBackButtonClick(() => navigate('/'));
+
+        return () => {
+            hideBackButton();
+        };
+    }, [showBackButton, hideBackButton, onBackButtonClick]);
 
     return (
         <div className={s.background}>
