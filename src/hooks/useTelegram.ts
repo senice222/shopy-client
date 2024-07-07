@@ -18,14 +18,29 @@ export function useTelegram() {
         }
     }
 
+    const showBackButton = () => {
+        tg.BackButton.show();
+    };
+
+    const hideBackButton = () => {
+        tg.BackButton.hide();
+    };
+
+    const onBackButtonClick = (callback: string) => {
+        tg.BackButton.onClick(callback);
+    };
+
     return {
         onClose,
         onToggleButton,
+        showBackButton,
+        hideBackButton,
+        onBackButtonClick,
         tg,
         user: tg.initDataUnsafe?.user,
         id: tg.initDataUnsafe?.user?.id,
         queryId: tg.initDataUnsafe?.query_id,
         isDarkTheme,
         themeParams
-    } as any
+    } as any;
 }

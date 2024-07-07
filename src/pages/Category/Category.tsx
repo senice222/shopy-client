@@ -1,15 +1,16 @@
 import Layout from "../../layouts/Layout";
-import { useParams } from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import style from "./Category.module.scss";
 import ProductItem from "../../components/Products/Item/ProductItem";
 import styles from "../../components/Categories/Categories.module.scss";
-import { useState } from "react";
+import {useEffect, useState} from "react";
 import LeftArrow from "../../components/LeftArrow/LeftArrow";
 import Slider from "../../components/Slider/Slider";
 import { AddedToFav } from "../../components/AddedToFav/AddedToFav";
 import Search from "../../components/Search/Search";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux-hooks";
 import {addToFavorite, deleteFromFavorite, FavoriteItem} from "../../store/features/favoriteSlice";
+import {useTelegram} from "../../hooks/useTelegram";
 let items = [
     {
         id: 1,
@@ -76,9 +77,19 @@ const Category = () => {
     const { category } = useParams()
     const [added, setAdded] = useState(false)
     const [isAdd, setIsAdd] = useState(false)
-
+    const { showBackButton, hideBackButton, onBackButtonClick } = useTelegram();
     const dispatch = useAppDispatch()
     const state = useAppSelector(state => state.favorite.items)
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        showBackButton();
+        onBackButtonClick(() => navigate('/'));
+
+        return () => {
+            hideBackButton();
+        };
+    }, [showBackButton, hideBackButton, onBackButtonClick]);
 
     const setAddedFunc = (isAdd: boolean, item: FavoriteItem) => {
         setIsAdd(isAdd)

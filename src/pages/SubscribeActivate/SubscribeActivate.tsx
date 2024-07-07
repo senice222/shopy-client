@@ -38,6 +38,7 @@ export const SubscribeActivate = () => {
     const [step, setStep] = useState(1)
     const {register, handleSubmit, formState: {errors}} = useForm();
     const navigate = useNavigate()
+
     const {id} = useTelegram()
     const {data} = useSWR(`${url}/api/user/${id}`, fetcher)
 

@@ -1,5 +1,6 @@
 
 interface TelegramWebApp {
+    BackButton: any;
     ThemeParams: any;
     close(): void;
     MainButton: {
