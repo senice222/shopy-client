@@ -15,6 +15,7 @@ import {useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux-hooks";
 import {Account} from "../../interfaces/AccountsProps";
 import {chooseAccount} from "../../store/features/accountSlice";
+import {clearCart} from "../../store/features/cartSlice";
 
 const items = [
     {
@@ -93,6 +94,7 @@ export const SubscribeActivate = () => {
 
                 if (orderData) {
                     navigate('/success-actived');
+                    dispatch(clearCart())
                 }
             } else {
                 const { data: paymentData } = await axios.get(`${url}/api/payment/create-link?amount=${totalAmount}&invoiceId=${id}&description=Пополнение баланса на сумму ${totalAmount}`);
