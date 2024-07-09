@@ -1,11 +1,11 @@
-.wrapp {
+ .wrapp {
   background: var(--burger-bg);
 }
 
 .favoriteContainer {
   margin: 0px 15px;
-  margin-top: 35px;
-
+  //margin-top: 35px;
+  padding-top: 35px;
   .titleHeader {
     padding-bottom: 10px;
     border-bottom: 1px solid #D0D5DD;

@@ -38,7 +38,7 @@ function App() {
     const dispatch = useAppDispatch()
     const state = useAppSelector(state => state.favorite.items)
     const {tg, id} = useTelegram();
-    const { data } = useSWR(`${url}/api/user/878990615`, fetcher);
+    const { data } = useSWR(`${url}/api/user/${id}`, fetcher);
 
     useEffect(() => {
         tg.ready();
@@ -85,7 +85,7 @@ function App() {
             <Route path="/product/:id" element={<DetailedProduct setAddedFunc={setAddedFunc} isAdd={isAdd} added={added} setAdded={setAdded} />}/>
             <Route path="/change-data" element={<ChangeData/>}/>
             <Route path="/history-of-orders" element={<HistoryOfOrders user={data}/>}/>
-            <Route path="/history-of-orders/:id" element={<DetailedOrder  />}/>
+            <Route path="/history-of-orders/:id" element={<DetailedOrder />}/>
             <Route path="/activation" element={<SubscribeActivate/>}/>
             <Route path="/referral" element={<Referral />}/>
             <Route path="/login" element={<Login />}/>

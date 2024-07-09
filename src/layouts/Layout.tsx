@@ -12,7 +12,7 @@ const Layout = ({children, notAnimated}: LayoutProps) => {
     return (
         <div>
             <BurgerMenu isOpened={isOpened} setOpened={() => setOpened(!isOpened)}/>
-            <Header isCross={isOpened} setOpened={() => setOpened(true)} />
+            <Header isCross={isOpened} setOpened={setOpened} />
             {
                 notAnimated ? (
                     <>

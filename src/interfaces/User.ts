@@ -35,6 +35,7 @@ export interface Order {
     email: string;
     existedAcc: string;
     items: OrderItem[];
+    totalAmount: number;
     password: string;
     status: 'payed' | 'in work' | 'cancelled' | 'refund';
     _id: string;
@@ -42,17 +43,7 @@ export interface Order {
 }
 
 export interface OrderProps {
-    order: {
-        customerId: string;
-        date: string;
-        email: string;
-        existedAcc: string;
-        items: OrderItem[];
-        password: string;
-        status: 'payed' | 'in work' | 'cancelled' | 'refund';
-        _id: string;
-        __v: number;
-    }
+    order: Order
 }
 
 export interface UserProps {

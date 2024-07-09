@@ -18,8 +18,6 @@ const HistoryOfOrders: FC<UserProps> = ({ user }) => {
         };
     }, [onBackButtonClick, navigate]);
 
-    console.log(user);
-    
     return (    
         <div className={style.historyWrapp}>
             <Layout>

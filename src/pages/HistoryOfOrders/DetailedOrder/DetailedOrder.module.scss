@@ -42,7 +42,96 @@
       text-align: left;
     }
 
-    .status {
+    .payedStatus {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+
+      p {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+        text-align: left;
+        font-family: "Graphik LCG Regular", sans-serif;
+      }
+      div {
+        border: 1px solid var(--border-burger);
+        background-color: var(--block-bg);
+        border-radius: 20px;
+        padding: 2px 8px 2px 8px;
+        margin-left: 5px;
+
+        p {
+          font-size: 12px;
+          font-weight: 500;
+          line-height: 18px;
+          text-align: center;
+          color: var(--modal-color);
+        }
+      }
+    }
+
+    .successStatus {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+
+      p {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+        text-align: left;
+        color: var(--pending-text);
+        font-family: "Graphik LCG Regular", sans-serif;
+      }
+      div {
+        border: 1px solid var(--green-border);
+        background-color: var(--green-bg);
+        border-radius: 20px;
+        padding: 2px 8px 2px 8px;
+        margin-left: 5px;
+
+        p {
+          font-size: 12px;
+          font-weight: 500;
+          line-height: 18px;
+          text-align: center;
+          color: var(--green-color);
+        }
+      }
+    }
+
+    .cancelledStatus {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+
+      p {
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+        text-align: left;
+        color: var(--pending-text);
+        font-family: "Graphik LCG Regular", sans-serif;
+      }
+      div {
+        border: 1px solid var(--border-bg);
+        background-color: var(--cancel-bg);
+        border-radius: 20px;
+        padding: 2px 8px 2px 8px;
+        margin-left: 5px;
+
+        p {
+          font-size: 12px;
+          font-weight: 500;
+          line-height: 18px;
+          text-align: center;
+          color: var(--cancel-color);
+        }
+      }
+    }
+
+    .pendingStatus {
       margin-top: 10px;
       display: flex;
       align-items: center;
