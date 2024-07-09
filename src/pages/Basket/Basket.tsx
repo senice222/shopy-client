@@ -5,18 +5,15 @@ import PromoInput from "../../components/PromoInput/PromoInput";
 import Button from "../../components/Button/Button";
 import TopItem from "../../components/TopItem/TopItem";
 import {useNavigate} from "react-router-dom";
-import { useAppSelector } from '../../hooks/redux-hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import {useTelegram} from "../../hooks/useTelegram";
-import useSWR from "swr";
-import {fetcher, url} from "../../core/fetch";
-import axios from "axios";
 import {useEffect} from "react";
+import { clearCart } from '../../store/features/cartSlice';
 
 const Basket = () => {
     const items = useAppSelector((state: any) => state.cart.items);
-    const totalAmount = items?.reduce((acc: number, curr: any) => acc += curr.main.price ,0)
-    const {id} = useTelegram()
-    const {data} = useSWR(`${url}/api/user/${id}`, fetcher)
+    const totalAmount = items?.reduce((acc: number, curr: any) => acc += curr.main.price, 0)
+    const dispatch = useAppDispatch()
     const { onBackButtonClick } = useTelegram();
     const navigate = useNavigate()
 
@@ -30,6 +27,7 @@ const Basket = () => {
 
     const handlePayment = async () => {
         navigate('/activation')
+        dispatch(clearCart())
     }
 
     return (

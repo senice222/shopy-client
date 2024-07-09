@@ -4,7 +4,6 @@
     padding: 0 15px;
   }
   &-title {
-    font-family: Graphik LCG SemiBold, sans-serif;
     margin-bottom: 16px;
     font-size: 18px;
     line-height: 28px
@@ -31,8 +30,7 @@
       line-height: 12px;
       color: var(--default-text);
       text-align: center;
-      font-family: Graphik LCG SemiBold, sans-serif;
-
+      font-weight: 500;
     }
   }
 }

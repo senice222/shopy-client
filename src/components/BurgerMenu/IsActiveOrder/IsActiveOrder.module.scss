@@ -1,0 +1,36 @@
+.activeOrder {
+    margin-top: 15px;
+    background: var(--background-color);
+    border: 1px solid var(--border-burger);
+    padding: 16px;
+    border-radius: 8px;
+    width: 100%;
+    .block {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        img {
+            width: 54px;
+            height: 54px;
+        }
+    }
+    .inWork {
+        margin-top: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 22px;
+        width: 69px;
+        background-color: var(--pending-bg);
+        border: 1px solid var(--pending-border);
+        border-radius: 10px;
+
+        p {
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 18px;
+            text-align: center;
+            color: var(--pending-text);
+        }
+    }
+}

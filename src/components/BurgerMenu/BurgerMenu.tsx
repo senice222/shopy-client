@@ -12,6 +12,7 @@ import {Emoji, Sale, Bookmark, Calendar, Clock, Users, HelpCircle, Message, Sear
 import useSWR from "swr";
 import {useTelegram} from "../../hooks/useTelegram";
 import {fetcher, url} from "../../core/fetch";
+import IsActiveOrder from "./IsActiveOrder/IsActiveOrder";
 
 const BurgerMenu: FC<BurgerMenuI> = ({isOpened, setOpened}) => {
     const [isPromo, setPromo] = useState<boolean>(false)
@@ -45,6 +46,7 @@ const BurgerMenu: FC<BurgerMenuI> = ({isOpened, setOpened}) => {
                         <div className={s.svg}><Emoji/></div>
                         <h3>Доброе утро, {data?.username}!</h3>
                     </div>
+                    <IsActiveOrder />
                     <div className={s.popolnit}>
                         <div className={s.leftDiv}>
                             <p>Баланс</p>

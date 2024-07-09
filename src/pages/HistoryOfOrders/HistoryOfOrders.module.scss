@@ -65,6 +65,20 @@
                         text-align: center;
                     }
                 }
+                .statusDivWork {
+                    border-radius: 10px;
+                    padding: 2px 8px 2px 8px;
+                    background-color: var(--pending-bg);
+                    border: 1px solid var(--pending-border);
+            
+                    p {
+                        font-size: 12px;
+                        font-weight: 500;
+                        line-height: 18px;
+                        text-align: center;
+                        color: var(--pending-text);
+                    }
+                }
                 .statusDivCancel {
                     padding: 2px 8px 2px 8px;
                     border-radius: 20px;
