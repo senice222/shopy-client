@@ -20,9 +20,10 @@ export const DoDepModal: FC<DoDepModalI> = ({isOpen, onClose, setBurger}) => {
     const [isModal, setModal] = useState(false)
     const inputRef = useRef<HTMLInputElement>(null);
     const {id} = useTelegram()
-    const [isFocused, setIsFocused] = useState(false);
+    const [isFocused, setIsFocused] = useState<boolean>(false);
     const md = new MobileDetect(window.navigator.userAgent);
     const isMobileDevice = md.mobile();
+    const [loading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
         const handleFocus = () => {
@@ -66,10 +67,12 @@ export const DoDepModal: FC<DoDepModalI> = ({isOpen, onClose, setBurger}) => {
     const handleSubmit = async (event: FormEvent) => {
         event.preventDefault();
         try {
+            setLoading(true)
             const {data} = await axios.get(
                 `${url}/api/payment/create-link?amount=${displayValue}&invoiceId=${id}&description=Пополение баланса на ${displayValue}`
             );
             if (!data) return null;
+            setLoading(false)
             window.location.href = data.paymentLink;
         } catch (error) {
             console.error('Error:', error);
@@ -127,7 +130,7 @@ export const DoDepModal: FC<DoDepModalI> = ({isOpen, onClose, setBurger}) => {
                         <span className={"balance"}>{topUpBalance}₽</span>
                     </div>
                     <div style={{width: "100%"}} onClick={handleSubmit}>
-                        <Button text={"Перейти к оплате"} letterSpacing={"0.5px"} height={"44px"} width={"100%"}/>
+                        <Button text={"Перейти к оплате"} loading={loading} letterSpacing={"0.5px"} height={"44px"} width={"100%"}/>
                     </div>
                 </BootstrapModal>
             </div>
