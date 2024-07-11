@@ -8,14 +8,14 @@ import {Logo} from "./Logo";
 import s from './Header2.module.scss'
 
 interface HeaderI {
-    setOpened: (bol : boolean) => void;
+    setOpened: (bol: boolean) => void;
     isCross?: boolean,
     // opened:
 }
 
-const Header : FC<HeaderI> = ({setOpened, isCross}) => {
+const Header: FC<HeaderI> = ({setOpened, isCross}) => {
     const navigate = useNavigate()
-    const { darkTheme, toggleTheme } = useContext(ThemeContext);
+    const {darkTheme, toggleTheme} = useContext(ThemeContext);
     const [opened, setOpened1] = useState(false)
     const {pathname} = useLocation()
     const isBasket = pathname === "/basket" && !isCross && styles.basketActive
@@ -44,25 +44,30 @@ const Header : FC<HeaderI> = ({setOpened, isCross}) => {
                 navigate('/')
 
             }} className={`${s.item} ${isHome ? s.active : ""}`}>
-                <Home />
+                <Home/>
                 Главная
             </div>
             <div onClick={() => {
                 setOpened(false)
                 navigate('/favorite-products')
             }} className={`${s.item} ${isFavorite ? s.active : ""}`}>
-                <SVGHeart />
+                <SVGHeart/>
                 Избранное
             </div>
             <div onClick={() => {
                 setOpened(false)
                 navigate('/basket')
             }} className={`${s.item} ${isBasket ? s.active : ""}`}>
-                <Cart />
+                <Cart/>
                 Корзина
             </div>
-            <div onClick={() => setOpened(true)}  className={`${s.item} ${isCross ? s.active : ""}`}>
-                <Profile />
+            <div onClick={() => {
+                setOpened(true)
+                window.scrollTo({
+                    top: 0
+                });
+            }} className={`${s.item} ${isCross ? s.active : ""}`}>
+                <Profile/>
                 Профиль
             </div>
         </div>

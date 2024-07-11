@@ -2,6 +2,8 @@ import AdminLayout from "../../../layouts/AdminLayout";
 import s from './CategoriesAndProducts.module.scss';
 import {Arrow, Arrow2, Copy, Eye, Pencil} from "./Svg";
 import React, { FC, useState } from "react";
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import style from "../Users/Users.module.scss";
 import avatar from '../../../assets/Avatar.png'
 import Pagination from "../../../components/Pagination/Pagination";
