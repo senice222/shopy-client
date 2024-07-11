@@ -1,14 +1,43 @@
 import './PromoModal.scss'
-import {ChangeEvent, FC, useState} from "react";
+import {ChangeEvent, FC, useEffect, useRef, useState} from "react";
 import {PromoModalI} from "../../../interfaces/PromoModalI";
 import BootstrapModal from "../BootstrapModal/BootstrapModal";
 import {RequestSent} from "../RequestSent/RequestSent";
+import MobileDetect from "mobile-detect";
 
 
 export const PromoModal: FC<PromoModalI> = ({promoActive, onClose, setBurger}) => {
     const [promoInputValue, setPromoInputValue] = useState('');
     const [errorStatus, setErrorStatus] = useState(false);
     const [isModal, setModal] = useState(false)
+    const [isFocused, setIsFocused] = useState(false);
+    const md = new MobileDetect(window.navigator.userAgent);
+    const isMobileDevice = md.mobile();
+    const inputRef = useRef<HTMLInputElement>(null);
+
+    useEffect(() => {
+        const handleFocus = () => {
+            setIsFocused(true);
+        };
+
+        const handleBlur = () => {
+            setIsFocused(false);
+        };
+
+        const inputElement = inputRef.current;
+
+        if (inputElement && isMobileDevice) {
+            inputElement.addEventListener('focus', handleFocus);
+            inputElement.addEventListener('blur', handleBlur);
+        }
+
+        return () => {
+            if (inputElement && isMobileDevice) {
+                inputElement.removeEventListener('focus', handleFocus);
+                inputElement.removeEventListener('blur', handleBlur);
+            }
+        };
+    }, [inputRef]);
 
     const checkingPromo = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
@@ -24,8 +53,9 @@ export const PromoModal: FC<PromoModalI> = ({promoActive, onClose, setBurger}) =
 
     return (
         <>
-            <RequestSent setBurger={setBurger} isOpen={isModal} onClose={() => setModal((prev: boolean) => !prev)} switchDialog={onClose} type={'promo'} />
-            <BootstrapModal active={promoActive} onClose={onClose}>
+            <RequestSent setBurger={setBurger} isOpen={isModal} onClose={() => setModal((prev: boolean) => !prev)}
+                         switchDialog={onClose} type={'promo'}/>
+            <BootstrapModal isFocused={isFocused} active={promoActive} onClose={onClose}>
                 <div className="modal-win__popup-head">
                     <div className="rounded-border">
                         <svg
@@ -66,6 +96,7 @@ export const PromoModal: FC<PromoModalI> = ({promoActive, onClose, setBurger}) =
                 <h3 className="title promo-title">Введите промокод</h3>
                 <div className="input">
                     <input
+                        ref={inputRef}
                         onInput={checkingPromo}
                         value={promoInputValue}
                         onChange={(e) => setPromoInputValue(e.target.value)}
