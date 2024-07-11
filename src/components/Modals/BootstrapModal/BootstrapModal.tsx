@@ -6,9 +6,10 @@ interface ActiveProps {
     children: React.ReactNode;
     onClose?: () => void;
     bottom?: boolean;
+    isFocused?: boolean
 }
 
-const BootstrapModal = ({active, children, onClose, bottom}: ActiveProps) => {
+const BootstrapModal = ({active, children, onClose, bottom, isFocused}: ActiveProps) => {
     const [height, setHeight] = useState(600);
     const ref = useRef<HTMLDivElement>(null);
 
@@ -29,11 +30,15 @@ const BootstrapModal = ({active, children, onClose, bottom}: ActiveProps) => {
                 }
             }}
         >
-            <div ref={ref} className={`modal-win__popup promo__popup ${active ? "activeCont" : ''}`}
-                 style={!active ? {bottom : `-${height+60}px`} : {bottom: 0}}
-                 onClick={onClose}
+            <div
+                ref={ref}
+                className={`modal-win__popup promo__popup ${active ? 'activeCont' : ''} ${isFocused ? 'focused' : ''}`}
+                onClick={e => e.stopPropagation()}
             >
-                <div className="modal-win__popup-body" onClick={e => e.stopPropagation()}>
+                <div
+                    className={`modal-win__popup-body`}
+                    onClick={e => e.stopPropagation()}
+                >
                     {children}
                 </div>
             </div>

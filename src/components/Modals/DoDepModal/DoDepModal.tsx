@@ -1,11 +1,12 @@
 import './DoDepModal.scss'
-import React, {useState, FC, useRef, ChangeEvent, FormEvent} from 'react';
+import React, {useState, FC, useRef, ChangeEvent, FormEvent, useEffect} from 'react';
 import BootstrapModal from "../BootstrapModal/BootstrapModal";
 import {RequestSent} from "../RequestSent/RequestSent";
 import Button from "../../Button/Button";
 import {url} from "../../../core/fetch";
 import {useTelegram} from "../../../hooks/useTelegram";
 import axios from "axios";
+import MobileDetect from 'mobile-detect';
 
 interface DoDepModalI {
     isOpen: boolean,
@@ -14,11 +15,38 @@ interface DoDepModalI {
 }
 
 export const DoDepModal: FC<DoDepModalI> = ({isOpen, onClose, setBurger}) => {
-    const [displayValue, setDisplayValue] = useState<string>('');
+    const [displayValue, setDisplayValue] = useState<string>('0');
     const [topUpBalance, setTopUpBalance] = useState<number>(0);
     const [isModal, setModal] = useState(false)
     const inputRef = useRef<HTMLInputElement>(null);
     const {id} = useTelegram()
+    const [isFocused, setIsFocused] = useState(false);
+    const md = new MobileDetect(window.navigator.userAgent);
+    const isMobileDevice = md.mobile();
+
+    useEffect(() => {
+        const handleFocus = () => {
+            setIsFocused(true);
+        };
+
+        const handleBlur = () => {
+            setIsFocused(false);
+        };
+
+        const inputElement = inputRef.current;
+
+        if (inputElement && isMobileDevice) {
+            inputElement.addEventListener('focus', handleFocus);
+            inputElement.addEventListener('blur', handleBlur);
+        }
+
+        return () => {
+            if (inputElement && isMobileDevice) {
+                inputElement.removeEventListener('focus', handleFocus);
+                inputElement.removeEventListener('blur', handleBlur);
+            }
+        };
+    }, [inputRef]);
 
     const setFormattedValue = (event: ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value.replace(/\D/g, '');
@@ -57,7 +85,7 @@ export const DoDepModal: FC<DoDepModalI> = ({isOpen, onClose, setBurger}) => {
             <RequestSent isOpen={isModal} onClose={() => setModal((prev) => !prev)} switchDialog={onClose}
                          setBurger={setBurger} type={'balance'}/>
             <div className={`Dep ${isOpen ? 'active' : ''}`} onClick={onClose}>
-                <BootstrapModal bottom={true} active={isOpen}>
+                <BootstrapModal isFocused={isFocused} bottom={true} active={isOpen}>
                     <div className="modal-win__popup-head">
                         <div className="head-text">
                             <h3 className="title">Пополнить баланс</h3>
