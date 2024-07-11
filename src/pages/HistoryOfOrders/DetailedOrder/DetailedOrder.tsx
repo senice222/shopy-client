@@ -8,7 +8,6 @@ import {useTelegram} from "../../../hooks/useTelegram";
 import useSWR from "swr";
 import {fetcher, url} from "../../../core/fetch";
 import {format} from 'date-fns';
-import {ClipLoader} from "react-spinners";
 import Loader from "../../../components/Loader/Loader";
 
 const DetailedOrder = () => {
@@ -47,7 +46,7 @@ const DetailedOrder = () => {
     const currentStatus = statuses[data?.status]
 
     if (!data) return <Loader/>
-    console.log(data)
+
     return (
         <div className={style.historyWrapp}>
             <Layout>

@@ -4,7 +4,6 @@ import React, {useEffect, useState} from "react";
 import {OwnSelect} from "../../components/OwnSelect/OwnSelect";
 import {CheckBox} from "../../components/CheckBox/CheckBox";
 import Button from "../../components/Button/Button";
-import {Spotify} from "./Svgs";
 import {SelectAccount} from "../../components/Modals/SelectAccount/SelectAccount";
 import {FieldValues, SubmitHandler, useForm} from "react-hook-form";
 import {useTelegram} from "../../hooks/useTelegram";
@@ -16,6 +15,7 @@ import {useAppDispatch, useAppSelector} from "../../hooks/redux-hooks";
 import {Account} from "../../interfaces/AccountsProps";
 import {chooseAccount} from "../../store/features/accountSlice";
 import {clearCart} from "../../store/features/cartSlice";
+import {getServiceImage} from "../../utils/imgs";
 
 const items = [
     {
@@ -39,6 +39,7 @@ export const SubscribeActivate = () => {
     const [step, setStep] = useState(1)
     const {register, handleSubmit, formState: {errors}} = useForm();
     const navigate = useNavigate()
+    const [showAccountBlock, setShowAccountBlock] = useState(false);
 
     const {id, onBackButtonClick} = useTelegram()
     const {data} = useSWR(`${url}/api/user/${id}`, fetcher)
@@ -50,7 +51,6 @@ export const SubscribeActivate = () => {
 
     const totalAmount = cartItems?.reduce((acc: number, curr: any) => acc += curr.main.price, 0)
     const cartItem = cartItems[0].main.name
-    const [showAccountBlock, setShowAccountBlock] = useState(false);
 
     useEffect(() => {
         onBackButtonClick(() => navigate('/'));
@@ -95,6 +95,17 @@ export const SubscribeActivate = () => {
                 if (orderData) {
                     navigate('/success-actived');
                     dispatch(clearCart())
+                }
+                if (isSave) {
+                    const serviceImage = getServiceImage(cartItems[0].main.name);
+
+                    const accountBody = {
+                        service: cartItems[0].main.name,
+                        email,
+                        password,
+                        image:serviceImage
+                    }
+                    await axios.post(`${url}/api/user/account/${id}`, accountBody);
                 }
             } else {
                 const { data: paymentData } = await axios.get(`${url}/api/payment/create-link?amount=${totalAmount}&invoiceId=${id}&description=Пополнение баланса на сумму ${totalAmount}`);

@@ -38,7 +38,7 @@ function App() {
     const dispatch = useAppDispatch()
     const state = useAppSelector(state => state.favorite.items)
     const {tg, id} = useTelegram();
-    const { data } = useSWR(`${url}/api/user/${id}`, fetcher);
+    const { data } = useSWR(`${url}/api/user/878990615`, fetcher);
 
     useEffect(() => {
         tg.ready();
@@ -79,7 +79,7 @@ function App() {
             <Route path="/category/:category" element={<Category/>}/>
             <Route path="/basket" element={<Basket />}/>
             <Route path="/active-accounts" element={<ActivateAccounts />}/>
-            <Route path="/active-subscriptions" element={<ActiveSubscriptions />}/>
+            <Route path="/active-subscriptions" element={<ActiveSubscriptions user={data} />}/>
             <Route path="/favorite-products" element={<FavoriteProducts setAddedFunc={setAddedFunc} isAdd={isAdd} added={added} setAdded={setAdded}/>}/>
             <Route path="/proceed-payment" element={<ProceedToPayment/>}/>
             <Route path="/product/:id" element={<DetailedProduct setAddedFunc={setAddedFunc} isAdd={isAdd} added={added} setAdded={setAdded} />}/>

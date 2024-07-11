@@ -93,13 +93,8 @@ const Category = () => {
     const setAddedFunc = (isAdd: boolean, item: FavoriteItem) => {
         setIsAdd(isAdd)
         dispatch(deleteFromFavorite(item.id))
-        const product = state.find((el) => {
-            console.log(el.id,1)
-            console.log(item.id,2)
-            return (
-                el.id === item.id
-            )
-        })
+
+        const product = state.find((el) => el.id === item.id)
 
         if (!product) {
             setIsAdd(true)
@@ -111,6 +106,7 @@ const Category = () => {
             setAdded(true)
         }
     }
+
     return (
         <Layout notAnimated={true}>
             <Slider />
