@@ -17,10 +17,9 @@ const ActivateAccounts = () => {
     const [addAccount, setAddAccount] = useState<boolean>(false)
     const [editAccount, setEditAccount] = useState<boolean>(false)
     const [isOpen, setIsOpen] = useState<boolean>(false)
-    const {id} = useTelegram()
+    const {id, onBackButtonClick} = useTelegram()
     const [selectedAccountId, setSelectedAccountId] = useState<string>('');
-    const {data, error} = useSWR(`${url}/api/user/account/6527850384`, fetcher)
-    const { onBackButtonClick } = useTelegram();
+    const {data} = useSWR(`${url}/api/user/account/${id}`, fetcher)
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -55,7 +54,7 @@ const ActivateAccounts = () => {
                                         setEditAccount(true)
                                     }} key={item.id}>
                                         <div className={style.itemInfo}>
-                                            <img src={item.image} alt=""/>
+                                            <img src={`${url}/api/uploads/${item.image}`} alt=""/>
                                             <div>
                                                 <h2>{item.service}</h2>
                                                 <p>{item.email}</p>

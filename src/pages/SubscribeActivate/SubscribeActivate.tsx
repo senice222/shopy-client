@@ -103,7 +103,7 @@ export const SubscribeActivate = () => {
                         service: cartItems[0].main.name,
                         email,
                         password,
-                        image:serviceImage
+                        image: serviceImage
                     }
                     await axios.post(`${url}/api/user/account/${id}`, accountBody);
                 }
