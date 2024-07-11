@@ -1,38 +1,14 @@
+import React, { FC, useState } from "react";
 import AdminLayout from "../../../layouts/AdminLayout";
 import s from './CategoriesAndProducts.module.scss';
-import { Arrow, Arrow2, Copy, Eye, Pencil } from "./Svg";
-import React, { FC, useState, useRef } from "react";
-import style from "../Users/Users.module.scss";
-import avatar from '../../../assets/Avatar.png';
+import CategoryItem from "./CategoryItem";
+import ProductList from "./ProductList";
+import { Product } from "./ProductTypes";
 import Pagination from "../../../components/Pagination/Pagination";
-import { DndProvider, useDrag, useDrop } from 'react-dnd';
+import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-
-interface CategoryItemI {
-    main: string;
-    sub: string[];
-}
-
-const ItemTypes = {
-    PRODUCT: 'product',
-};
-
-interface ProductVariant {
-    price: number;
-    properties: never[];
-    count: number;
-    visible: boolean;
-    description: string;
-}
-
-interface Product {
-    id: number;
-    name: string;
-    img: string;
-    variants: {
-        items: ProductVariant[];
-    };
-}
+import avatar from '../../../assets/Avatar.png';
+import {AddCategory} from "../../../components/Modals/AdminModals/AddCategory/AddCategory";
 
 const initialProductList: Product[] = [
     {
@@ -107,119 +83,11 @@ const initialProductList: Product[] = [
     // Additional products here...
 ];
 
-interface Item {
-    price: number;
-    properties: never[];
-    count: number;
-    visible: boolean;
-    description: string;
-}
-
-const CategoryItem: FC<CategoryItemI> = ({ main, sub }) => {
-    const [opened, setOpened] = useState(false);
-    return (
-        <div className={`${s.item} ${opened ? s.active : ""}`}>
-            <div className={s.topDiv} onClick={() => setOpened(prev => !prev)}>
-                <h2>{main}</h2>
-                <Arrow />
-            </div>
-            <div className={s.subCategories}>
-                <div className={s.sub}>
-                    Суб-категория
-                </div>
-                {sub.map((item, index) => (
-                    <div key={index} className={s.sub}>
-                        {item}
-                    </div>
-                ))}
-            </div>
-        </div>
-    );
-};
-
-const highestPrice = (items: Item[]) => {
-    const itemsCopied = [...items].sort((a, b) => a.price - b.price);
-    const lowest = itemsCopied[0].price;
-    const highest = itemsCopied[itemsCopied.length - 1].price;
-    return lowest === highest ? <div>{lowest}₽</div> : <div>{lowest}₽ - {highest}₽</div>;
-};
-
-interface DraggableProductItemProps {
-    item: Product;
-    index: number;
-    moveItem: (fromIndex: number, toIndex: number) => void;
-}
-
-const DraggableProductItem: FC<DraggableProductItemProps> = ({ item, index, moveItem }) => {
-    const ref = useRef<HTMLTableRowElement>(null);
-
-    const [, drop] = useDrop({
-        accept: ItemTypes.PRODUCT,
-        hover: (draggedItem: { index: number }) => {
-            if (draggedItem.index !== index) {
-                moveItem(draggedItem.index, index);
-                draggedItem.index = index;
-            }
-        },
-    });
-
-    const [{ isDragging }, drag] = useDrag({
-        type: ItemTypes.PRODUCT,
-        item: { type: ItemTypes.PRODUCT, index },
-        collect: (monitor) => ({
-            isDragging: monitor.isDragging(),
-        }),
-    });
-
-    drag(drop(ref));
-
-    return (
-        <tr ref={ref} style={{ opacity: isDragging ? 0.5 : 1 }}>
-            <td><img src={item.img} alt={item.name} /></td>
-            <td>{item.name}</td>
-            <td>{highestPrice(item.variants.items)}</td>
-            <td>
-                <span className={s.icon}><Eye /></span>
-                <span onClick={() => null} className={s.icon}><Copy /></span>
-                <span onClick={() => null} className={s.icon}><Pencil /></span>
-                <span className={s.icon}><Arrow2 /></span>
-                <span className={`${s.icon} ${s.translate1}`}><Arrow2 /></span>
-            </td>
-        </tr>
-    );
-};
-
-interface ProductListProps {
-    items: Product[];
-    setItems: React.Dispatch<React.SetStateAction<Product[]>>;
-}
-
-const ProductList: FC<ProductListProps> = ({ items, setItems }) => {
-    const moveItem = (fromIndex: number, toIndex: number) => {
-        const updatedItems = [...items];
-        const [movedItem] = updatedItems.splice(fromIndex, 1);
-        updatedItems.splice(toIndex, 0, movedItem);
-        setItems(updatedItems);
-    };
-
-    return (
-        <tbody>
-        {items.map((item, index) => (
-            <DraggableProductItem
-                key={item.id}
-                index={index}
-                item={item}
-                moveItem={moveItem}
-            />
-        ))}
-        </tbody>
-    );
-};
-
 const CategoriesAndProducts: FC = () => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const totalPages: number = 10; // Общее количество страниц
     const [productList, setProductList] = useState<Product[]>(initialProductList);
+    const [addCategory, setAddCategory] = useState(false)
 
     const handlePageChange = (page: number) => {
         setCurrentPage(page);
@@ -227,12 +95,13 @@ const CategoriesAndProducts: FC = () => {
 
     return (
         <DndProvider backend={HTML5Backend}>
+            <AddCategory active={addCategory} setOpen={() => setAddCategory((prev) => !prev)}/>
             <AdminLayout>
                 <div className={s.content}>
                     <div className={s.title}>
                         <h1>Категории и товары</h1>
                         <div className={s.btns}>
-                            <button className={s.gray}>Разделы каталога</button>
+                            <button onClick={() => setAddCategory(true)} className={s.gray}>Разделы каталога</button>
                             <button className={s.blue}>Добавить товар</button>
                         </div>
                     </div>

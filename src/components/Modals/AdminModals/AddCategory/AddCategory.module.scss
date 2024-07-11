@@ -1,0 +1,43 @@
+.blocks {
+  margin-top: 10px;
+  input {
+    margin-top: 10px;
+    width: 100%;
+    border: 1px solid #D0D5DD;
+    padding: 10px;
+    border-radius: 8px;
+    color: #667085;
+    height: 40px;
+    font-family: Inter, sans-serif;
+    font-weight: 500 !important;
+    font-size: 16px;
+  }
+  .block {
+    margin-top: 20px;
+  }
+}
+
+.lastbtns {
+   width: 100%;
+   display: flex;
+   justify-content: space-between;
+   margin-top: 25px;
+   button {
+     height: 50px;
+     font-size: 16px;
+     font-weight: 500;
+     width: 49%;
+
+     border-radius: 8px;
+     letter-spacing: .6px;
+   }
+   .grayBtn {
+     background-color: transparent;
+     border: 1px solid #D0D5DD;
+     color: #344054;
+   }
+   .blueBtn {
+     background-color: #0070CC;
+     color: white;
+   }
+ }

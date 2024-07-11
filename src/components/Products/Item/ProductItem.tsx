@@ -2,6 +2,7 @@ import React, {FC, useState} from 'react';
 import styles from './ProductItem.module.scss';
 import {useNavigate} from "react-router-dom";
 import {FavoriteItem} from "../../../store/features/favoriteSlice";
+import { motion } from 'framer-motion';
 
 interface ProductItemI {
     toFav: (isAdd : boolean, item: FavoriteItem) => void,
@@ -23,8 +24,21 @@ const ProductItem : FC<ProductItemI> = ({toFav, img, price, name, id}) => {
         });
     };
 
+    const itemVariants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.6 }
+        },
+    };
     return (
-        <div className={styles.productCard}>
+        <motion.div
+            variants={itemVariants}
+            initial="hidden"
+            animate="visible"
+            className={styles.productCard}
+        >
             <div className={styles.productCardTop}>
                 <div className={styles.icon}>
                     {favouriteStatus ? (
@@ -71,7 +85,7 @@ const ProductItem : FC<ProductItemI> = ({toFav, img, price, name, id}) => {
                 <h3 className={styles.cardTitle}>{name}</h3>
                 <span className={styles.price}>от {price}₽</span>
             </div>
-        </div>
+        </motion.div>
     )
 };
 

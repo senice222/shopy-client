@@ -11,6 +11,9 @@ import Search from "../../components/Search/Search";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux-hooks";
 import {addToFavorite, deleteFromFavorite, FavoriteItem} from "../../store/features/favoriteSlice";
 import {useTelegram} from "../../hooks/useTelegram";
+import {motion} from "framer-motion";
+import Loader from "../../components/Loader/Loader";
+
 let items = [
     {
         id: 1,
@@ -73,6 +76,7 @@ let items = [
         img: "https://picsum.photos/200/300?random=10"
     }
 ];
+
 const Category = () => {
     const { category } = useParams()
     const [added, setAdded] = useState(false)
@@ -107,6 +111,20 @@ const Category = () => {
         }
     }
 
+    const containerVariants = {
+        hidden: { opacity: 1 },
+        visible: {
+            opacity: 1,
+            transition: {
+                staggerChildren: 0.125,
+            },
+        },
+    };
+
+    if (!items) {
+        return <Loader />
+    }
+
     return (
         <Layout notAnimated={true}>
             <Slider />
@@ -118,9 +136,12 @@ const Category = () => {
                         <LeftArrow isCategory={true} title={"Музыка"} marginLeft={"0px"} />
                     </div>
                     <div className={style.products}>
-                        <div className={`${style.container} ${style.productsContainer}`}>
+                        <motion.div
+                            variants={containerVariants}
+                            className={`${style.container} ${style.productsContainer}`}
+                        >
                             {items.map((item) => <ProductItem toFav={setAddedFunc} name={item.name} price={item.price} img={item.img} id={item.id}/> )}
-                        </div>
+                        </motion.div>
                     </div>
                 </div>
             </div>
