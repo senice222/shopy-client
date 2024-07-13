@@ -36,7 +36,6 @@ const Home: FC<ModalAndFavorite> = ({setAddedFunc, isAdd, added, setAdded}) => {
     return (
         <Layout notAnimated={true}>
             <Slider/>
-            <Search/>
             <Categories/>
             <ProductsList setAddedFunc={setAddedFunc} isAdd={isAdd} added={added} setAdded={setAdded}/>
             <AnimatePresence>
