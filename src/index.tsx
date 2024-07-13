@@ -6,6 +6,7 @@ import ThemeProvider from "./context/ThemeContext";
 import { Provider } from 'react-redux'
 import {store, persistor } from "./store/store";
 import { PersistGate } from 'redux-persist/integration/react';
+import {UserProvider} from "./context/UserContext";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -14,9 +15,11 @@ root.render(
         <BrowserRouter>
             <PersistGate loading={null} persistor={persistor}>
             <Provider store={store}>
-                <ThemeProvider>
-                    <App/>
-                </ThemeProvider>
+                <UserProvider>
+                    <ThemeProvider>
+                        <App/>
+                    </ThemeProvider>
+                </UserProvider>
             </Provider>
             </PersistGate>
         </BrowserRouter>

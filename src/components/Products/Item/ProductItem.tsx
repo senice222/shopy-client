@@ -32,6 +32,7 @@ const ProductItem : FC<ProductItemI> = ({toFav, img, price, name, id}) => {
             transition: { duration: 0.6 }
         },
     };
+
     return (
         <motion.div
             variants={itemVariants}

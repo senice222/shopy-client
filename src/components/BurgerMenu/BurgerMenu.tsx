@@ -1,6 +1,6 @@
 import {FC, useEffect, useState} from "react";
 import s from './BurgerMenu.module.scss'
-import Header from "../Header/Header";
+import Header from "../Navbar/Navbar";
 import {BurgerMenuI} from "../../interfaces/BurgerI";
 import Footer from "../Footer/Footer";
 import {PromoModal} from "../Modals/PromoModal/PromoModal";
@@ -9,10 +9,13 @@ import {NotFindModal} from "../Modals/NotFindModal/NotFindModal";
 import {useNavigate} from "react-router-dom";
 import CashBackModal from "../Modals/CashBackModal/CashBackModal";
 import {Emoji, Sale, Bookmark, Calendar, Clock, Users, HelpCircle, Message, Search} from "./Svgs";
-import useSWR from "swr";
 import {useTelegram} from "../../hooks/useTelegram";
-import {fetcher, url} from "../../core/fetch";
 import IsActiveOrder from "./IsActiveOrder/IsActiveOrder";
+import {useCurrentUser} from "../../context/UserContext";
+import Loader from "../Loader/Loader";
+import useSWR from "swr";
+import {fetcher, url} from "../../core/fetch";
+import {Order} from "../../interfaces/User";
 
 const BurgerMenu: FC<BurgerMenuI> = ({isOpened, setOpened}) => {
     const [isPromo, setPromo] = useState<boolean>(false)
@@ -21,8 +24,9 @@ const BurgerMenu: FC<BurgerMenuI> = ({isOpened, setOpened}) => {
     const [cashback, setCashback] = useState<boolean>(false)
     const navigate = useNavigate()
     const {id} = useTelegram()
-    const {data} = useSWR(`${url}/api/user/${id}`, fetcher)
-    console.log(data)
+    const currentUser = useCurrentUser() as any;
+    const {data} = useSWR(`${url}/api/active-orders/878990615`, fetcher)
+
     useEffect(() => {
         if (isOpened) {
             document.body.style.overflow = 'hidden';
@@ -30,6 +34,9 @@ const BurgerMenu: FC<BurgerMenuI> = ({isOpened, setOpened}) => {
             document.body.style.overflow = 'auto';
         }
     }, [isOpened]);
+
+    if (!currentUser || !data) return <Loader />
+    const activeAccounts = data.filter((item: Order) => item.status === "in work")
 
     return (
         isOpened ? <div className={`${s.burger} 'openned`}>
@@ -44,13 +51,13 @@ const BurgerMenu: FC<BurgerMenuI> = ({isOpened, setOpened}) => {
                 <div className={s.content}>
                     <div className={s.headerDiv}>
                         <div className={s.svg}><Emoji/></div>
-                        <h3>Доброе утро, {data?.username}!</h3>
+                        <h3>Доброе утро, {currentUser?.username}!</h3>
                     </div>
-                    <IsActiveOrder />
+                    {activeAccounts[0] && <IsActiveOrder order={activeAccounts[0]} />}
                     <div className={s.popolnit}>
                         <div className={s.leftDiv}>
                             <p>Баланс</p>
-                            <h3>{data?.balance} ₽</h3>
+                            <h3>{currentUser?.balance} ₽</h3>
                         </div>
                         <button onClick={() => setTopUp(true)}>+ Пополнить</button>
                     </div>

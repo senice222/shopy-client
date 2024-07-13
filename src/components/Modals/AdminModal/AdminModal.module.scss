@@ -7,7 +7,7 @@
   backdrop-filter: blur(7px);
   display: flex;
   justify-content: center;
-  z-index: 10;
+  z-index: 35;
   align-items: center;
   background-color: rgba(12, 17, 29, 0.7);
   opacity: 0;
@@ -24,7 +24,7 @@
   background-position: left top;
   background-size: 300px;
   width: 400px;
-  min-height: 400px;
+  min-height: 320px;
   position: relative;
   padding: 15px;
   background-color: white;

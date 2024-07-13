@@ -18,9 +18,9 @@ interface Optional {
 }
 
 const ActiveSubscriptions: FC<UserProps> = ({user}) => {
-    const {onBackButtonClick} = useTelegram();
+    const {onBackButtonClick, id} = useTelegram();
     const navigate = useNavigate()
-    const {data} = useSWR(`${url}/api/active-orders/878990615`, fetcher)
+    const {data} = useSWR(`${url}/api/active-orders/${id}`, fetcher)
 
     useEffect(() => {
         onBackButtonClick(() => navigate('/'));

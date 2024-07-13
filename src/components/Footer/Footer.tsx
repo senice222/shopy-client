@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Footer.module.scss';
-import {Logo} from "../Header/Logo";
+import {Logo} from "../Navbar/Logo";
 
 const Footer = () => {
     const footerMenu = [

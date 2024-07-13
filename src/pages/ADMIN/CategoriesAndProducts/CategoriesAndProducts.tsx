@@ -9,6 +9,7 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import avatar from '../../../assets/Avatar.png';
 import {AddCategory} from "../../../components/Modals/AdminModals/AddCategory/AddCategory";
+import {CategoriesBurger} from "../../../components/CategoriesBurger/CategoriesBurger";
 
 const initialProductList: Product[] = [
     {
@@ -87,7 +88,7 @@ const CategoriesAndProducts: FC = () => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const totalPages: number = 10; // Общее количество страниц
     const [productList, setProductList] = useState<Product[]>(initialProductList);
-    const [addCategory, setAddCategory] = useState(false)
+    const [burger, setBurger] = useState<boolean>(false)
 
     const handlePageChange = (page: number) => {
         setCurrentPage(page);
@@ -95,13 +96,14 @@ const CategoriesAndProducts: FC = () => {
 
     return (
         <DndProvider backend={HTML5Backend}>
-            <AddCategory active={addCategory} setOpen={() => setAddCategory((prev) => !prev)}/>
+            <CategoriesBurger isOpened={burger} setOpened={() => setBurger((prev) => !prev)} />
+
             <AdminLayout>
                 <div className={s.content}>
                     <div className={s.title}>
                         <h1>Категории и товары</h1>
                         <div className={s.btns}>
-                            <button onClick={() => setAddCategory(true)} className={s.gray}>Разделы каталога</button>
+                            <button onClick={() => setBurger(true)} className={s.gray}>Разделы каталога</button>
                             <button className={s.blue}>Добавить товар</button>
                         </div>
                     </div>

@@ -24,8 +24,8 @@ export const AddCategory : FC<AddCategoryI> = ({active, setOpen}) => {
                 </div>
             </div>
             <div className={s.lastbtns}>
-                <button onClick={handleClose} className={s.grayBtn}>Отмена</button>
-                <button className={s.blueBtn}>Изменить</button>
+                <button onClick={handleClose} className={s.grayBtn}>Закрыть</button>
+                <button className={s.blueBtn}>Добавить</button>
             </div>
         </AdminModal>
     )

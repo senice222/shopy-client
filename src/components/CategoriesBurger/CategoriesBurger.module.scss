@@ -1,0 +1,181 @@
+.burgerBg {
+  background-color: rgba(12, 17, 29, 0.7);
+  backdrop-filter: blur(7px);
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  z-index: 15;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: .3s all;
+}
+.activeBg {
+  pointer-events: all;
+  opacity: 1;
+}
+.content {
+  position: absolute;
+  width: 700px;
+  height: 100vh;
+  background-color: white;
+  opacity: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: .3s all;
+  left: -700px;
+  pointer-events: none;
+}
+.activeContent {
+  left: 0;
+  opacity: 1;
+  pointer-events: all;
+}
+.topDiv {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 25px;
+  padding: 0 25px;
+  .titleDiv {
+    display: flex;
+    .plusDiv {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      align-items: center;
+      border: 1px solid #EAECF0;
+      border-radius: 8px;
+    }
+    .textd {
+      margin-left: 15px;
+    }
+    h2 {
+      margin-top: 3px;
+      font-size: 20px;
+      font-weight: 600;
+      color: #101828;
+    }
+    p {
+      margin-top: 10px;
+      color: #475467;
+      font-size: 14px;
+      font-weight: 400;
+      margin-bottom: 15px;
+    }
+  }
+  border-bottom: 1px solid #EAECF0;
+}
+.crossBtn {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.btns {
+  button {
+    padding: 10px 14px;
+    background-color: #0070CC;
+    color: white;
+    font-size: 16px;
+    border-radius: 8px;
+    &:last-child {
+      margin-left: 15px;
+    }
+  }
+}
+
+.content2 {
+  margin-top: 40px;
+  width: 90%;
+  min-height: 77%;
+}
+.categoriesDiv {
+  margin-top: 35px;
+  h2 {
+    font-weight: 500;
+    font-size: 16px;
+    color: #344054;
+  }
+  .title {
+    margin-bottom: 15px;
+  }
+  .item {
+    user-select: none;
+    margin-top: 5px;
+    overflow-y: hidden;
+    min-height: 40px;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+
+    .topDiv {
+      width: 100%;
+      display: flex;
+      height: 40px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .subCategories {
+      margin-top: 5px;
+      margin-left: 15px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+      opacity: 0;
+
+      .sub {
+        height: 40px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    &.active .subCategories {
+      max-height: 600px; // Set this to a value that can accommodate all subcategories
+      opacity: 1;
+    }
+  }
+  //.active {
+  //  max-height: 100% !important;
+  //}
+
+  .categories {
+    margin-left: 5px;
+  }
+}
+.avba {
+  height: 100%;
+}
+.lastBtns {
+  padding: 20px 0;
+  border-top: 1px solid #EAECF0;
+  display: flex;
+  justify-content: flex-end;
+  button {
+    padding: 10px 14px;
+    font-size: 16px;
+    border-radius: 8px;
+    &:last-child {
+      margin-left: 15px;
+    }
+  }
+  .blue {
+    background-color: #0070CC;
+    color: white;
+  }
+  .gray {
+    color: #344054;
+    background-color: transparent;
+    border: 1px solid #D0D5DD;
+  }
+}

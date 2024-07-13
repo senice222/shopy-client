@@ -1,149 +1,38 @@
-
-.wrapp {
+.headerTop {
   display: flex;
-  align-items: center;
-  .rghtImg {
-    margin-right: 10px;
-    cursor: pointer;
-    color: var(--default-text);
-  }
-}
-.burgerButton {
-  position: relative;
-  width: 30px;
-  height: 30px;
-  cursor: pointer;
-  z-index: 11;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-.basketActive {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  width: 40px;
-  background: #0070CC !important;
-  height: 40px;
-  svg {
-    path {
-      fill: white;
-    }
-  }
-}
-.favoriteActive {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  width: 40px;
-  background: #D92D20 !important;
-  height: 40px;
-  svg {
-    path {
-      fill: white;
-    }
-  }
-}
-.line {
-  position: absolute;
-  top: 0px;
-  left: 1px;
-  width: 15px;
-  height: 2px;
-  background-color: #000;
-  transition: 0.3s ease-in-out;
-}
 
-.line1 {
-  top: 8px;
-}
-
-.line2 {
-  top: 14px;
-  transition: .3s;
-}
-
-.line3 {
-  top: 20px;
-}
-
-.line1Active {
-  transform: rotate(45deg) translate(10px, 10px);
-  top: 0 !important;
-}
-
-.line2Active {
-  opacity: 0;
-}
-
-.line3Active {
-  transform: rotate(-45deg) translate(10px, -10px);
-  top: 28px;
-}
-.navbar {
-  padding-top: .5rem;
-  padding-bottom: .5rem;
-  padding: 0 15px;
-  .container {
+  .wrapper {
     display: flex;
-    flex-wrap: inherit;
-    align-items: center;
     justify-content: space-between;
+    padding: 18px 15px;
+    width: 100vw;
+  }
+}
 
-    .navbarRight {
-      display: flex;
-      gap: 8px;
-      .roundedBorder {
-        padding: 10px;
-        border-radius: 10px;
-        border: 1px solid var(--border);
-        box-shadow: 0 1px 2px 0 rgba(16, 24, 40, 0.05);
-      }
-      .navbarButton {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        cursor: pointer;
-        width: 40px;
-        background: var(--header-btn);
-        height: 40px;
-      }
-      .navbarToggler {
-        color: var(--default-text);
-        border-color: var(--border);
-        cursor: pointer;
+.searchBody {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--input-border);
+  width: 85%;
 
-        svg {
-          path {
-            font-size: 20px;
-            font-weight: 900;
-            fill: var(--default-text);
-            height: 10px;
-          }
-        }
-      }
-    }
+  .searchInput {
+    background-color: transparent;
+    font-weight: 400;
+    font-family: "Graphik LCG Regular", sans-serif;
+    color: #667085;
+    font-size: 16px;
+    width: 100%;
+    line-height: 24px;
+  }
+}
 
-    .navbarBrand {
-      padding-top: .3125rem;
-      padding-bottom: .3125rem;
-      margin-right: 1rem;
-      font-size: 1.25rem;
-      text-decoration: none;
-      white-space: nowrap;
-      svg {
-        fill: white !important;
-        path {
-          fill: var(--default-text)
-        }
-
-
-      }
-    }
-    a, a:visited {
-      text-decoration: none;
+.label {
+  svg {
+    path {
+      fill: #667085
     }
   }
 }

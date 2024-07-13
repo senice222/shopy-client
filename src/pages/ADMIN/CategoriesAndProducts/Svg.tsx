@@ -83,3 +83,22 @@ export const Arrow2 = () => {
         </svg>
     )
 }
+export const Plus = () => {
+    return (
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width={14}
+            height={14}
+            viewBox="0 0 14 14"
+            fill="none"
+        >
+            <path
+                d="M7.00002 1.16699V12.8337M1.16669 7.00033H12.8334"
+                stroke="#344054"
+                strokeWidth="1.66667"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+            />
+        </svg>
+    )
+}

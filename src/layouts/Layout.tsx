@@ -1,9 +1,10 @@
 import React, {useState} from 'react'
 import BurgerMenu from "../components/BurgerMenu/BurgerMenu";
-import Header from "../components/Header/Header";
+import Navbar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer/Footer";
 import {LayoutProps} from "../interfaces/Layout";
 import AnimatedPage from "../pages/AnimatedPage/AnimatedPage";
+import Header from "../components/Header/Header";
 
 
 const Layout = ({children, notAnimated}: LayoutProps) => {
@@ -12,7 +13,8 @@ const Layout = ({children, notAnimated}: LayoutProps) => {
     return (
         <div>
             <BurgerMenu isOpened={isOpened} setOpened={() => setOpened(!isOpened)}/>
-            <Header isCross={isOpened} setOpened={setOpened} />
+            <Navbar isCross={isOpened} setOpened={setOpened} />
+            <Header />
             {
                 notAnimated ? (
                     <>

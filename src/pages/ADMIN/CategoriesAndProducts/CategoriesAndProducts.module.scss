@@ -40,44 +40,7 @@
   .title {
     margin-bottom: 15px;
   }
-  .item {
-    user-select: none;
-    margin-top: 5px;
-    overflow-y: hidden;
-    min-height: 40px;
-    display: flex;
-    flex-direction: column;
-    cursor: pointer;
 
-    .topDiv {
-      width: 100%;
-      display: flex;
-      height: 40px;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .subCategories {
-      margin-top: 5px;
-      margin-left: 15px;
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
-      opacity: 0;
-
-      .sub {
-        height: 40px;
-        width: 100%;
-        display: flex;
-        align-items: center;
-      }
-    }
-
-    &.active .subCategories {
-      max-height: 600px; // Set this to a value that can accommodate all subcategories
-      opacity: 1;
-    }
-  }
   //.active {
   //  max-height: 100% !important;
   //}
@@ -233,4 +196,42 @@
   flex-direction: column;
   height: 90%;
   justify-content: space-between;
+}
+.item {
+  user-select: none;
+  margin-top: 5px;
+  overflow-y: hidden;
+  min-height: 40px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+
+  .topDiv {
+    width: 100%;
+    display: flex;
+    height: 40px;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .subCategories {
+    margin-top: 5px;
+    margin-left: 15px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    opacity: 0;
+
+    .sub {
+      height: 40px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  &.active .subCategories {
+    max-height: 600px; // Set this to a value that can accommodate all subcategories
+    opacity: 1;
+  }
 }

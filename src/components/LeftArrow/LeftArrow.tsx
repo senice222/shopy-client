@@ -13,14 +13,10 @@ interface TitleArrow {
 
 const LeftArrow: FC<TitleArrow> = ({title, isCategory, marginLeft}) => {
     const navigate = useNavigate()
+
     const titleVariants = {
         hidden: { opacity: 0, x: -20 },
         visible: { opacity: 1, x: 0, transition: { duration: 0.5 } },
-    };
-
-    const arrowVariants = {
-        hidden: { opacity: 0, rotate: -180 },
-        visible: { opacity: 1, rotate: 0, transition: { duration: 0.5 } },
     };
 
     return (

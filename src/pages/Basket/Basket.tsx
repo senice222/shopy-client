@@ -7,7 +7,10 @@ import TopItem from "../../components/TopItem/TopItem";
 import {useNavigate} from "react-router-dom";
 import { useAppSelector } from '../../hooks/redux-hooks';
 import {useTelegram} from "../../hooks/useTelegram";
-import {useEffect} from "react";
+import React, {useEffect} from "react";
+import styles from "../FavoriteProducts/FavoriteProducts.module.scss";
+import nothing from "../../assets/Illustrationnothing.png";
+import BlueButton from "../../components/Button/Button";
 
 const Basket = () => {
     const items = useAppSelector((state: any) => state.cart.items);
@@ -43,7 +46,14 @@ const Basket = () => {
                                 />
                             ))
                         ) : (
-                            <div>pusto</div>
+                            <div className={styles.nothingYet}>
+                                <img src={nothing} alt="/"/>
+                                <h2>Пока что тут ничего нет</h2>
+                                <p>Нажимайте на кнопку "Добавить в корзину" в товаре. Он отобразится здесь.</p>
+                                <div>
+                                    <BlueButton text={"Перейти в каталог"} height={"48px"} width={"100%"} />
+                                </div>
+                            </div>
                         )}
                     </div>
                     {

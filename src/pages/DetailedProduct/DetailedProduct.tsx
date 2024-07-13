@@ -13,6 +13,7 @@ import { CartItem, addToCart, removeFromCart } from '../../store/features/cartSl
 import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
 import { v4 as uuidv4 } from 'uuid';
 import {items} from "../../utils/dummy_data";
+import FAQ from "./FAQ/FAQ";
 
 export const DetailedProduct: FC<ModalAndFavorite> = ({ setAddedFunc, isAdd, added, setAdded }) => {
     const dispatch = useAppDispatch();
@@ -173,28 +174,7 @@ export const DetailedProduct: FC<ModalAndFavorite> = ({ setAddedFunc, isAdd, add
                                 />
                             </div>
                         </div>
-                        <div className={style.productDescription}>
-                            <div className={style.characteristicDiv}>
-                                <p>Характеристика</p>
-                                <h3>Ответ</h3>
-                            </div>
-                            <div className={style.characteristicDiv}>
-                                <p>Характеристика</p>
-                                <h3>Ответ</h3>
-                            </div>
-                            <div className={style.characteristicDiv}>
-                                <p>Характеристика</p>
-                                <h3>Ответ</h3>
-                            </div>
-                            <div className={style.characteristicDiv}>
-                                <p>Характеристика</p>
-                                <h3>Ответ</h3>
-                            </div>
-                            <div className={style.descrDiv}>
-                                <h2>Описание</h2>
-                                <p>lorem ipsum и что то там дальше</p>
-                            </div>
-                        </div>
+                        <FAQ />
                     </div>
                 </div>
             </Layout>
