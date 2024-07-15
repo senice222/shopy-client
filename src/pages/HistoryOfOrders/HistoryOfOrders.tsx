@@ -5,6 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { useTelegram } from "../../hooks/useTelegram";
 import { UserProps } from '../../interfaces/User'
 import HistoryItem from './HistoryItem'
+import styles from "../FavoriteProducts/FavoriteProducts.module.scss";
+import nothing from "../../assets/Illustrationnothing.png";
+import BlueButton from "../../components/Button/Button";
 
 const HistoryOfOrders: FC<UserProps> = ({ user }) => {
     const navigate = useNavigate()
@@ -32,7 +35,14 @@ const HistoryOfOrders: FC<UserProps> = ({ user }) => {
                                 <HistoryItem key={i} order={order} />
                             ))
                         ) : (
-                            <p>No orders found.</p>
+                            <div className={style.nothingYet}>
+                                <img src={nothing} alt="/"/>
+                                <h2>Пока что тут ничего нет</h2>
+                                <p>Как только вы оформите заказ, он отобразится здесь. Если заказ не отобразился, обратитесь в поддержку.</p>
+                                <div>
+                                    <BlueButton text={"Написать в поддержку"} height={"48px"} width={"100%"} />
+                                </div>
+                            </div>
                         )}
                     </div>
 

@@ -1,9 +1,10 @@
 import './NotFindModal.scss'
-import {FC, useState} from "react";
+import {FC, useEffect, useRef, useState} from "react";
 import {RequestSent} from "../RequestSent/RequestSent";
 import BootstrapModal from "../BootstrapModal/BootstrapModal";
 import Button from "../../Button/Button";
 import { motion } from 'framer-motion';
+import MobileDetect from "mobile-detect";
 
 interface NotFoundDialogProps {
     isOpen: boolean;
@@ -15,11 +16,53 @@ interface NotFoundDialogProps {
 export const NotFindModal: FC<NotFoundDialogProps> = ({isOpen, onClose, setBurger}) => {
     const [isOk, setOk] = useState(false)
     const [type, setType] = useState('digital')
+    const inputRef = useRef<HTMLFormElement | null>(null);
     const [form, setForm] = useState({
         description: '',
         link: '',
         phone: '',
     });
+    const [isFocused, setIsFocused] = useState<boolean>(false);
+    const md = new MobileDetect(window.navigator.userAgent);
+    const isMobileDevice = md.mobile();
+
+    useEffect(() => {
+        const handleFocus = () => {
+            setIsFocused(true);
+        };
+
+        const handleBlur = () => {
+            setIsFocused(false);
+        };
+
+        const formElement = inputRef.current;
+
+        if (formElement && isMobileDevice) {
+            const inputs = formElement.querySelectorAll<HTMLInputElement>('input');
+            const textareas = formElement.querySelectorAll<HTMLTextAreaElement>('textarea');
+
+            textareas.forEach((textarea) => {
+                textarea.addEventListener('focus', handleFocus);
+                textarea.addEventListener('blur', handleBlur);
+            });
+            inputs.forEach((input) => {
+                input.addEventListener('focus', handleFocus);
+                input.addEventListener('blur', handleBlur);
+            });
+
+            return () => {
+                inputs.forEach((input) => {
+                    input.removeEventListener('focus', handleFocus);
+                    input.removeEventListener('blur', handleBlur);
+                });
+
+                textareas.forEach((textarea) => {
+                    textarea.removeEventListener('focus', handleFocus);
+                    textarea.removeEventListener('blur', handleBlur);
+                });
+            };
+        }
+    }, [inputRef, isMobileDevice]);
 
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         const {name, value} = e.target;
@@ -40,7 +83,7 @@ export const NotFindModal: FC<NotFoundDialogProps> = ({isOpen, onClose, setBurge
         <>
             <RequestSent setBurger={setBurger} isOpen={isOk} onClose={() => setOk(!isOk)} switchDialog={onClose}/>
             <div className={`NotFind ${isOpen ? 'active' : ''}`} onClick={onClose}>
-                <BootstrapModal active={isOpen}>
+                <BootstrapModal isFocused={isFocused} active={isOpen} Y={-56}>
                     <div className="modal-win__popup-head">
                         <h3 className="title">Не нашли то, что искали?</h3>
                         <svg
@@ -66,7 +109,7 @@ export const NotFindModal: FC<NotFoundDialogProps> = ({isOpen, onClose, setBurge
                         Заполните заявку на оплату. Мы проверим <br/>
                             возможность оплаты и свяжемся с вами.
                         </span>
-                    <form onSubmit={handleSubmit} className="new-product__form">
+                    <form onSubmit={handleSubmit} className="new-product__form" ref={inputRef}>
                         <div className={'type'}>
                             <h3 className={'title'}>Тип товара</h3>
                             <div className="items">

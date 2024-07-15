@@ -20,10 +20,10 @@ export const DoDepModal: FC<DoDepModalI> = ({isOpen, onClose, setBurger}) => {
     const [isModal, setModal] = useState(false)
     const inputRef = useRef<HTMLInputElement>(null);
     const {id} = useTelegram()
+    const [loading, setLoading] = useState<boolean>(false);
     const [isFocused, setIsFocused] = useState<boolean>(false);
     const md = new MobileDetect(window.navigator.userAgent);
     const isMobileDevice = md.mobile();
-    const [loading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
         const handleFocus = () => {

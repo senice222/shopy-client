@@ -7,6 +7,8 @@ import nothing from "../../assets/Illustrationnothing.png";
 import Button from "../../components/Button/Button";
 import {useNavigate} from "react-router-dom";
 import {useTelegram} from "../../hooks/useTelegram";
+import LeftArrow from "../../components/LeftArrow/LeftArrow";
+import RightArrow from "../../components/RightArrow/RightArrow";
 
 const Referral = () => {
     const navigate = useNavigate()
@@ -19,6 +21,13 @@ const Referral = () => {
             onBackButtonClick(null);
         };
     }, [onBackButtonClick, navigate]);
+
+    const data = [
+        { date: '20.03', name: 'Иван', username: '@username', orders: '0 (0Р)', earnings: '0Р' },
+        { date: '20.03', name: 'Иван', username: '@username', orders: '0 (0Р)', earnings: '0Р' },
+        { date: '20.03', name: 'Иван', username: '@username', orders: '0 (0Р)', earnings: '0Р' },
+        { date: '20.03', name: 'Иван', username: '@username', orders: '0 (0Р)', earnings: '0Р' },
+    ];
 
     return (
         <div className={style.bg}>
@@ -45,12 +54,41 @@ const Referral = () => {
                         <h2>Ваши рефералы</h2>
                         <p>Приглашайте друзей в Shopy и получайте 5% с каждой их покупки</p>
                     </div>
-                    <div className={style.nothing}>
-                        <img src={nothing} alt="/"/>
-                        <h2>Пока что тут ничего нет</h2>
-                        <p>Как только реферал войдёт в бота, он отобразится здесь. Если реферал не отобразился, обратитесь в поддержку.</p>
-                        <div>
-                            <Button text={"Написать в поддержку"} height={"48px"} width={"100%"}/>
+                    {/*<div className={style.nothing}>*/}
+                    {/*    <img src={nothing} alt="/"/>*/}
+                    {/*    <h2>Пока что тут ничего нет</h2>*/}
+                    {/*    <p>Как только реферал войдёт в бота, он отобразится здесь. Если реферал не отобразился, обратитесь в поддержку.</p>*/}
+                    {/*    <div>*/}
+                    {/*        <Button text={"Написать в поддержку"} height={"48px"} width={"100%"}/>*/}
+                    {/*    </div>*/}
+                    {/*</div>*/}
+                </div>
+                <div className={style.tableContainer}>
+                    <table>
+                        <thead>
+                        <tr>
+                            <th>Company</th>
+                            <th>Ник реферала</th>
+                            <th>Количество и сумма заказов</th>
+                            <th>Вы заработали</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {data.map((row, index) => (
+                            <tr key={index}>
+                                <td>{row.date}</td>
+                                <td>{row.name}<br/>{row.username}</td>
+                                <td>{row.orders}</td>
+                                <td>{row.earnings}</td>
+                            </tr>
+                        ))}
+                        </tbody>
+                    </table>
+                    <div className={style.paginationDiv}>
+                        <LeftArrow bg={"white"} isCategory={false} />
+                        <p>Страница 1 из 10</p>
+                        <div style={{marginRight: "10px"}}>
+                            <RightArrow bg={"white"}/>
                         </div>
                     </div>
                 </div>

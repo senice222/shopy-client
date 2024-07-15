@@ -9,9 +9,10 @@ interface TitleArrow {
     title?: string,
     isCategory: boolean;
     marginLeft?: string;
+    bg?: string;
 }
 
-const LeftArrow: FC<TitleArrow> = ({title, isCategory, marginLeft}) => {
+const LeftArrow: FC<TitleArrow> = ({title, isCategory, marginLeft, bg}) => {
     const navigate = useNavigate()
 
     const titleVariants = {
@@ -21,7 +22,7 @@ const LeftArrow: FC<TitleArrow> = ({title, isCategory, marginLeft}) => {
 
     return (
         <div className={style.titleCategory} style={{ marginLeft }}>
-            <div className={style.backHome} onClick={() => navigate('/')}>
+            <div className={style.backHome} style={{backgroundColor: bg}} onClick={() => navigate('/')}>
                 <motion.img
                     src={back}
                     alt="/"

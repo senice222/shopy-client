@@ -1,4 +1,4 @@
-import React, {Dispatch, SetStateAction, useEffect, useRef, useState} from 'react'
+import React, {Dispatch, FC, SetStateAction, useEffect, useRef, useState} from 'react'
 import './BootstrapModal.scss'
 
 interface ActiveProps {
@@ -6,10 +6,11 @@ interface ActiveProps {
     children: React.ReactNode;
     onClose?: () => void;
     bottom?: boolean;
-    isFocused?: boolean
+    isFocused?: boolean;
+    Y?: number
 }
 
-const BootstrapModal = ({active, children, onClose, bottom, isFocused}: ActiveProps) => {
+const BootstrapModal:FC<ActiveProps> = ({active, children, onClose, bottom, isFocused, Y}) => {
     const [height, setHeight] = useState(600);
     const ref = useRef<HTMLDivElement>(null);
 
@@ -32,7 +33,11 @@ const BootstrapModal = ({active, children, onClose, bottom, isFocused}: ActivePr
         >
             <div
                 ref={ref}
-                className={`modal-win__popup promo__popup ${active ? 'activeCont' : ''} ${isFocused ? 'focused' : ''}`}
+                className={`modal-win__popup promo__popup ${active ? 'activeCont' : ''}`}
+                style={{
+                    transform: isFocused ? `translateY(${Y ? Y : -90}%)` : '',
+                    transition: isFocused ? 'transform 0.3s ease-in-out' : '',
+                }}
                 onClick={e => e.stopPropagation()}
             >
                 <div

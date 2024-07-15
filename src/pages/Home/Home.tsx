@@ -7,6 +7,7 @@ import ProductsList from "../../components/Products/ProductsList";
 import {ModalAndFavorite} from "../../interfaces/ModalAndFavorite";
 import { motion, AnimatePresence  } from 'framer-motion';
 import styles from './Home.module.scss'
+import Footer from "../../components/Footer/Footer";
 
 const Home: FC<ModalAndFavorite> = ({setAddedFunc, isAdd, added, setAdded}) => {
     const [isVisible, setIsVisible] = useState(false);
@@ -52,6 +53,7 @@ const Home: FC<ModalAndFavorite> = ({setAddedFunc, isAdd, added, setAdded}) => {
                     </motion.div>
                 )}
             </AnimatePresence>
+            <Footer />
         </Layout>
     );
 };

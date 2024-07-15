@@ -16,14 +16,6 @@ const DetailedOrder = () => {
     const {id} = useParams()
     const {data} = useSWR(`${url}/api/order/${id}`, fetcher)
 
-    useEffect(() => {
-        onBackButtonClick(() => navigate('/'));
-
-        return () => {
-            onBackButtonClick(null);
-        };
-    }, [onBackButtonClick, navigate]);
-
     const statuses: any = {
         "payed": {
             style: style.payedStatus,
@@ -42,6 +34,15 @@ const DetailedOrder = () => {
             text: "Возврат"
         }
     }
+
+    useEffect(() => {
+        onBackButtonClick(() => navigate('/'));
+
+        return () => {
+            onBackButtonClick(null);
+        };
+    }, [onBackButtonClick, navigate]);
+
     const formattedDate = data?.date ? format(new Date(data.date), "'Создан' dd.MM.yyyy 'в' HH:mm") : 'Дата загружается.'
     const currentStatus = statuses[data?.status]
 

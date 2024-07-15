@@ -8,7 +8,7 @@ const UserContext = createContext(null);
 
 export const UserProvider:FC<Children> = ({ children }) => {
     const {id} = useTelegram()
-    const { data } = useSWR(`${url}/api/user/878990615`, fetcher);
+    const { data } = useSWR(`${url}/api/user/${id}`, fetcher);
 
     return (
         <UserContext.Provider value={data}>

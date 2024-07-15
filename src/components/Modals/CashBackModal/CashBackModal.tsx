@@ -8,6 +8,8 @@ interface CashbackModalI {
 }
 
 const CashBackModal: FC<CashbackModalI> = ({cashback, onClose}) => {
+
+
     return (
         <BootstrapModal active={cashback} onClose={onClose}>
             <div className={style.modalWinPopupHead}>

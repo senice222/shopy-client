@@ -19,13 +19,13 @@ const Layout = ({children, notAnimated}: LayoutProps) => {
                 notAnimated ? (
                     <>
                         {children}
-                        <Footer/>
+                        {/*<Footer/>*/}
                     </>
                 ) : (
                     <>
                         <AnimatedPage>
                             {children}
-                            <Footer/>
+                            {/*<Footer/>*/}
                         </AnimatedPage>
                     </>
                 )
