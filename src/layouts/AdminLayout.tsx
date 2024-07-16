@@ -6,12 +6,12 @@ import Sidebar from "../components/ADMIN/Sidebar/Sidebar";
 const AdminLayout = ({children}: LayoutProps) => {
 
     return (
-        <AnimatedPage>
+        // <AnimatedPage>
             <div style={{display: "flex"}}>
                 <Sidebar />
                 {children}
             </div>
-        </AnimatedPage>
+        // {/*</AnimatedPage>*/}
     )
 }
 

@@ -30,11 +30,11 @@ const Sidebar = () => {
                         <img src={bag} alt="/"/>
                         <h2>Категории и товары</h2>
                     </div>
-                    <div className={style.itemNotActive}>
+                    <div className={style.itemNotActive} onClick={() => navigate('/panel/orders')}>
                         <img src={orders} alt="/"/>
                         <h2>Заказы</h2>
                     </div>
-                    <div className={style.itemNotActive}>
+                    <div className={style.itemNotActive} onClick={() => navigate('/panel/newsletter')}>
                         <img src={rassylka} alt="/"/>
                         <h2>Рассылка</h2>
                     </div>

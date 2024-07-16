@@ -33,14 +33,31 @@
         text-align: left;
       }
 
-      h2 {
-        color: #101828;
-        font-size: 30px;
-        font-weight: 600;
-        line-height: 38px;
-        text-align: left;
+      .wrapp {
+        display: flex;
+        align-items: flex-end;
 
+        h2 {
+          color: #101828;
+          font-size: 30px;
+          font-weight: 600;
+          line-height: 38px;
+          text-align: left;
+
+        }
+
+        .amount {
+          margin-left: 5px;
+          font-family: Graphik LCG;
+          font-size: 18px;
+          font-weight: 500;
+          line-height: 28px;
+          text-align: left;
+          color: #667085;
+        }
       }
+
+
     }
   }
 }
@@ -55,11 +72,16 @@
   margin-top: 20px;
   height: 650px;
   overflow-y: auto;
-  &::-webkit-scrollbar { width: 0; }
+
+  &::-webkit-scrollbar {
+    width: 0;
+  }
+
   .topWrapper {
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     h2 {
       font-size: 18px;
       font-weight: 500;
@@ -72,7 +94,7 @@
 
 .searchBar {
   margin-bottom: 20px;
-
+  width: 30%;
   input {
     font-family: "Graphik LCG Regular", sans-serif;
     font-size: 16px;
@@ -156,6 +178,7 @@
     margin-right: 10px;
     cursor: pointer;
   }
+
   tbody {
 
   }

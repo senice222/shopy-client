@@ -22,6 +22,7 @@ export const NotFindModal: FC<NotFoundDialogProps> = ({isOpen, onClose, setBurge
         link: '',
         phone: '',
     });
+
     const [isFocused, setIsFocused] = useState<boolean>(false);
     const md = new MobileDetect(window.navigator.userAgent);
     const isMobileDevice = md.mobile();

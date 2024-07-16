@@ -12,17 +12,17 @@ const FastMoves = () => {
         <div className={style.fastMoves}>
             <h2 className={style.title}>Быстрые действия</h2>
             <div className={style.items}>
-                <div className={style.item}>
+                <div className={style.item} onClick={() => navigate('/panel/users')}>
                     <div className={style.icon}>
                         <img src={users} alt="/"/>
                     </div>
-                    <div className={style.users} onClick={() => navigate('/panel/users')}>
+                    <div className={style.users}>
                         <h2>Пользователи</h2>
                         <p>Список и управление пользователями</p>
                     </div>
                 </div>
                 {/*/*/}
-                <div className={style.item}>
+                <div className={style.item} onClick={() => navigate('/panel/categoriesAndProducts')}>
                     <div className={style.icon}>
                         <img src={bag} alt="/"/>
                     </div>
@@ -32,7 +32,7 @@ const FastMoves = () => {
                     </div>
                 </div>
                 {/*/*/}
-                <div className={style.item}>
+                <div className={style.item} onClick={() => navigate('/panel/orders')}>
                     <div className={style.icon}>
                         <img src={orders} alt="/"/>
                     </div>
@@ -42,7 +42,7 @@ const FastMoves = () => {
                     </div>
                 </div>
                 {/*/*/}
-                <div className={style.item}>
+                <div className={style.item} onClick={() => navigate('/panel/newsletter')}>
                     <div className={style.icon}>
                         <img src={rassylka} alt="/"/>
                     </div>

@@ -2,14 +2,12 @@ import React, { FC, useState } from "react";
 import s from './UserMessageModal.module.scss';
 import { AdminModal } from "../../AdminModal/AdminModal";
 import {Bold, Italic, LinkSvg, Pencil} from "./Svgs";
-import {set} from "react-hook-form";
-import {Cross} from "../../AdminModal/Svgs";
 
 interface UserMessageModal {
     isOpen: boolean,
     setOpen: () => void
 }
-interface Btns {
+export interface Btns {
     text : string
     id: string,
     link: string,
@@ -55,6 +53,7 @@ export const UserMessageModal: FC<UserMessageModal> = ({ isOpen, setOpen }) => {
         setBtnLink(link)
         setCreating(true)
     }
+
     const updateData = () => {
         const id = isEditing
 
@@ -153,7 +152,6 @@ export const UserMessageModal: FC<UserMessageModal> = ({ isOpen, setOpen }) => {
                 <h1 onClick={() => setCreating(true)}>+ Добавить кнопки</h1>
                 <div className={s.createdBtns}>
                     {btns.map((item) => <div key={item.id} className={s.flex}>
-                        {/*<button onClick={() => deleteOne(item.id)}><Cross /></button>*/}
                         <button onClick={() => handleChange({id: item.id, text: item.text, link : item.link})}>{item.text} <Pencil /></button>
                     </div>)}
                 </div>

@@ -1,6 +1,6 @@
 import s from './SubscribeActivate.module.scss'
 import Layout from "../../layouts/Layout";
-import React, {useEffect, useState} from "react";
+import React, {FC, useEffect, useState} from "react";
 import {OwnSelect} from "../../components/OwnSelect/OwnSelect";
 import {CheckBox} from "../../components/CheckBox/CheckBox";
 import Button from "../../components/Button/Button";
@@ -16,6 +16,8 @@ import {Account} from "../../interfaces/AccountsProps";
 import {chooseAccount} from "../../store/features/accountSlice";
 import {clearCart} from "../../store/features/cartSlice";
 import {getServiceImage} from "../../utils/imgs";
+import {UserProps} from "../../interfaces/User";
+import Loader from "../../components/Loader/Loader";
 
 const items = [
     {
@@ -32,96 +34,96 @@ const items = [
     }
 ]
 
-export const SubscribeActivate = () => {
-    const [selected, setSelected] = useState('')
-    const [isSave, setIsSave] = useState(false)
-    const [isOpened, setOpened] = useState(false)
-    const [step, setStep] = useState(1)
-    const {register, handleSubmit, formState: {errors}} = useForm();
-    const navigate = useNavigate()
+export const SubscribeActivate: FC<UserProps> = ({user}) => {
+    const [selected, setSelected] = useState('');
+    const [isSave, setIsSave] = useState(false);
+    const [isOpened, setOpened] = useState(false);
+    const [step, setStep] = useState(1);
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const navigate = useNavigate();
     const [showAccountBlock, setShowAccountBlock] = useState(false);
+    const { id, onBackButtonClick } = useTelegram();
+    const { data } = useSWR(`${url}/api/user/${id}`, fetcher);
 
-    const {id, onBackButtonClick} = useTelegram()
-    const {data} = useSWR(`${url}/api/user/${id}`, fetcher)
-
-    const dispatch = useAppDispatch()
+    const dispatch = useAppDispatch();
     const cartItems = useAppSelector((state) => state.cart.items);
-    const currentAccount = useAppSelector(state => state.account.account)
+    const currentAccount = useAppSelector(state => state.account.account);
     const isAccountIncomplete = !currentAccount.service || !currentAccount.email || !currentAccount.password;
 
-    const totalAmount = cartItems?.reduce((acc: number, curr: any) => acc += curr.main.price, 0)
-    const cartItem = cartItems[0].main.name
+    const totalAmount = cartItems?.reduce((acc: number, curr: any) => acc + curr.main.price, 0);
+    const cartItem = cartItems[0].main.name;
 
     useEffect(() => {
         onBackButtonClick(() => navigate('/'));
-
-        return () => {
-            onBackButtonClick(null);
-        };
+        return () => onBackButtonClick(null);
     }, [onBackButtonClick, navigate]);
 
     useEffect(() => {
         if (data?.savedAccounts) {
-            setShowAccountBlock(data?.savedAccounts.some((item: Account) => item.service === cartItem))
+            setShowAccountBlock(data.savedAccounts.some((item: Account) => item.service === cartItem));
         }
     }, [data, cartItem]);
 
-    const matchingAccounts = data?.savedAccounts.filter((item: Account) => item.service === cartItem) || []
+    const matchingAccounts = data?.savedAccounts.filter((item: Account) => item.service === cartItem) || [];
 
     const onSubmit: SubmitHandler<FieldValues> = async (values) => {
-        const { email, password } = values;
+        const { email, password, additionalInfo: formAdditionalInfo } = values;
+        const additionalInfo = formAdditionalInfo || data?.additionalInfo;
 
-        let additionalInfo = values.additionalInfo;
-
-        if (!values.additionalInfo && data.additionalInfo) {
-            additionalInfo = data.additionalInfo;
-        }
-
-        try {
-            if (data.balance >= totalAmount) {
-                const body = {
-                    customerId: id,
-                    email: email || currentAccount.email,
-                    password: password || currentAccount.password,
-                    totalAmount,
-                    items: cartItems,
-                    status: "payed",
-                    existedAcc: selected,
-                    additionalInfo
-                };
-
-                const { data: orderData } = await axios.post(`${url}/api/order/create`, body);
-
-                if (orderData) {
-                    navigate('/success-actived');
-                    dispatch(clearCart())
-                }
-                if (isSave) {
-                    const serviceImage = getServiceImage(cartItems[0].main.name);
-
-                    const accountBody = {
-                        service: cartItems[0].main.name,
-                        email,
-                        password,
-                        image: serviceImage
-                    }
-                    await axios.post(`${url}/api/user/account/${id}`, accountBody);
-                }
-            } else {
-                const { data: paymentData } = await axios.get(`${url}/api/payment/create-link?amount=${totalAmount}&invoiceId=${id}&description=Пополнение баланса на сумму ${totalAmount}`);
-
-                if (paymentData && paymentData.paymentLink) {
-                    navigate('/proceed-payment');
-                    window.scrollTo({top: 0});
-                    window.location.href = paymentData.paymentLink;
-                } else {
-                    console.error('Failed to fetch payment link.');
-                }
-            }
-        } catch (error) {
-            console.error('Error processing order or payment:', error);
+        if (data.balance >= totalAmount) {
+            await handleOrder(email, password, additionalInfo);
+        } else {
+            await handlePayment(totalAmount);
         }
     };
+
+    const handleOrder = async (email: string, password: string, additionalInfo: string) => {
+        const orderData = {
+            customerId: id,
+            email: email || currentAccount.email,
+            password: password || currentAccount.password,
+            totalAmount,
+            items: cartItems,
+            status: "payed",
+            existedAcc: selected,
+            additionalInfo
+        };
+
+        try {
+            const { data: response } = await axios.post(`${url}/api/order/create`, orderData);
+            if (response) {
+                navigate('/success-actived');
+                dispatch(clearCart());
+            }
+
+            if (isSave) {
+                const accountData = {
+                    service: cartItems[0].main.name,
+                    email,
+                    password,
+                    image: getServiceImage(cartItems[0].main.name)
+                };
+                await axios.post(`${url}/api/user/account/${id}`, accountData);
+            }
+        } catch (error) {
+            console.error('Error processing order:', error);
+        }
+    };
+
+    const handlePayment = async (amount: number) => {
+        try {
+            const { data: paymentData } = await axios.get(`${url}/api/payment/create-link?amount=${amount}&invoiceId=${id}&description=Пополнение баланса на сумму ${amount}`);
+            if (paymentData?.paymentLink) {
+                navigate('/proceed-payment');
+                window.scrollTo({ top: 0 });
+                window.location.href = paymentData.paymentLink;
+            }
+        } catch (error) {
+            console.error('Failed to fetch payment link:', error);
+        }
+    };
+
+    if (!data) return <Loader />
 
     return (
         <>
