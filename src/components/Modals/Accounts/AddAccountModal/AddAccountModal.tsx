@@ -5,7 +5,7 @@ import spotify from '../../../../assets/spotify.png'
 import yt from '../../../../assets/youtube.png'
 import netflix from '../../../../assets/netflix.png'
 import {Input, Select} from "antd";
-import {useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import BlueButton from "../../../Button/Button";
 import lock from "../../../../assets/lock-02.png";
 import {useForm, Controller, SubmitHandler, FieldValues} from 'react-hook-form';
@@ -13,6 +13,7 @@ import {useSWRConfig} from "swr";
 import {fetcher, url} from "../../../../core/fetch";
 import {useTelegram} from "../../../../hooks/useTelegram";
 import {imgs} from "../../../../utils/imgs";
+import MobileDetect from "mobile-detect";
 
 interface AccountProps {
     addAccount: boolean;
@@ -26,6 +27,39 @@ const AddAccountModal = ({addAccount, onClose}: AccountProps) => {
     const { control, handleSubmit, formState: { errors } } = useForm();
     const {mutate} = useSWRConfig()
     const {id} = useTelegram()
+    const [isFocused, setIsFocused] = useState<boolean>(false);
+    const md = new MobileDetect(window.navigator.userAgent);
+    const inputRef = useRef<HTMLFormElement | null>(null);
+    const isMobileDevice = md.mobile();
+
+    useEffect(() => {
+        const handleFocus = () => {
+            setIsFocused(true);
+        };
+
+        const handleBlur = () => {
+            setIsFocused(false);
+        };
+
+        const formElement = inputRef.current;
+
+        if (formElement && isMobileDevice) {
+            const inputs = formElement.querySelectorAll<HTMLInputElement>('input');
+
+            inputs.forEach((input) => {
+                input.addEventListener('focus', handleFocus);
+                input.addEventListener('blur', handleBlur);
+            });
+
+            return () => {
+                inputs.forEach((input) => {
+                    input.removeEventListener('focus', handleFocus);
+                    input.removeEventListener('blur', handleBlur);
+                });
+            };
+        }
+    }, [inputRef, isMobileDevice]);
+
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         const img = imgs[data.service]
@@ -51,7 +85,7 @@ const AddAccountModal = ({addAccount, onClose}: AccountProps) => {
     };
 
     return (
-        <BootstrapModal onClose={onClose} active={addAccount}>
+        <BootstrapModal isFocused={isFocused} onClose={onClose} active={addAccount}>
             <div className={style.modalWinPopupHead}>
                 <h3>Добавить аккаунт</h3>
                 <svg
@@ -72,7 +106,7 @@ const AddAccountModal = ({addAccount, onClose}: AccountProps) => {
                     />
                 </svg>
             </div>
-            <form className={style.form} onSubmit={handleSubmit(onSubmit)}>
+            <form className={style.form} onSubmit={handleSubmit(onSubmit)} ref={inputRef}>
                 <div className={style.item}>
                     <p className={style.title}>Сервис</p>
                     <Controller

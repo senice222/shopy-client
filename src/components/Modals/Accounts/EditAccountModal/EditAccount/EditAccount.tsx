@@ -19,6 +19,7 @@ interface EditAccountProps {
     emailInput: string;
     setIsEdit: Dispatch<SetStateAction<boolean>>;
     onClose: () => void;
+    inputRef: any;
     account: {
         id: string;
         service: string;
@@ -28,7 +29,7 @@ interface EditAccountProps {
     }
 }
 
-const EditAccount:FC<EditAccountProps> = ({account, onClose, setIsEdit}) => {
+const EditAccount:FC<EditAccountProps> = ({inputRef, account, onClose, setIsEdit}) => {
     const [editSuccess, setEditSuccess] = useState<boolean>(false)
     const [selected, setSelected] = useState<string>(account.service);
     const { handleSubmit, formState: { errors }, control } = useForm();
@@ -91,7 +92,7 @@ const EditAccount:FC<EditAccountProps> = ({account, onClose, setIsEdit}) => {
                 </div>
             </div>
             <div className={style.form}>
-                <form onSubmit={handleSubmit(onSubmit)}>
+                <form onSubmit={handleSubmit(onSubmit)} ref={inputRef}>
                     <div className={style.item}>
                         <p className={style.title}>Сервис</p>
                         <Select
