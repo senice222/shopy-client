@@ -85,7 +85,7 @@ const AddAccountModal = ({addAccount, onClose}: AccountProps) => {
     };
 
     return (
-        <BootstrapModal Y={-70} isFocused={isFocused} onClose={onClose} active={addAccount}>
+        <BootstrapModal isFocused={isFocused} onClose={onClose} active={addAccount}>
             <div className={style.modalWinPopupHead}>
                 <h3>Добавить аккаунт</h3>
                 <svg
