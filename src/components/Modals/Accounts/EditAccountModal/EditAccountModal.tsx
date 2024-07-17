@@ -29,8 +29,8 @@ const EditAccountModal: FC<EditAccountModalProps> = ({selectedAccountId, account
         const formElement = inputRef.current;
 
         if (formElement && isMobileDevice) {
-            const inputs = formElement.querySelectorAll<HTMLInputElement>('.EditAccount_input__l7SOQ');
-            const spans = document.querySelectorAll<HTMLSpanElement>('.EditAccount_inputPass__FdQta');
+            const inputs = formElement.querySelectorAll<HTMLInputElement>('.EditAccount_input__isv5p');
+            const spans = document.querySelectorAll<HTMLSpanElement>('.EditAccount_inputPass__9-VtL');
 
             inputs.forEach((input) => {
                 input.addEventListener('focus', handleFocus);
