@@ -1,13 +1,13 @@
 import BootstrapModal from "../../BootstrapModal/BootstrapModal";
-import {FC, useEffect, useRef, useState} from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import AccountsDetailes from "./AccountsDetailes/AccountsDetailes";
 import DeleteAccount from "./DeleteAccount/DeleteAccount";
 import EditAccount from "./EditAccount/EditAccount";
-import {EditAccountModalProps} from "../../../../interfaces/AccountsProps";
+import { EditAccountModalProps } from "../../../../interfaces/AccountsProps";
 import MobileDetect from "mobile-detect";
 
 
-const EditAccountModal: FC<EditAccountModalProps> = ({selectedAccountId, account, active, onClose}) => {
+const EditAccountModal: FC<EditAccountModalProps> = ({ selectedAccountId, account, active, onClose }) => {
     const [isDelete, setIsDelete] = useState<boolean>(false)
     const [isEdit, setIsEdit] = useState<boolean>(false)
     const currentAccount = Array.isArray(account) ? account.find(item => item.id === selectedAccountId) : undefined;
@@ -38,7 +38,7 @@ const EditAccountModal: FC<EditAccountModalProps> = ({selectedAccountId, account
             });
             spans.forEach(span => {
                 const input = span.querySelector<HTMLInputElement>('input');
-            
+
                 if (input) {
                     input.addEventListener('focus', handleFocus);
                     input.addEventListener('blur', handleBlur);
@@ -62,35 +62,39 @@ const EditAccountModal: FC<EditAccountModalProps> = ({selectedAccountId, account
     };
 
     return (
-        <BootstrapModal Y={-80} isFocused={isFocused} active={active} onClose={handleClose}>
-            <div>
+        <div>
             {
                 currentAccount ? !isDelete && !isEdit ? (
-                    <AccountsDetailes
-                        editAccount={active}
-                        account={currentAccount}
-                        setIsDelete={setIsDelete}
-                        setIsEdit={setIsEdit}
-                        onClose={handleClose}
-                    />
+                    <BootstrapModal active={active} onClose={handleClose}>
+                        <AccountsDetailes
+                            editAccount={active}
+                            account={currentAccount}
+                            setIsDelete={setIsDelete}
+                            setIsEdit={setIsEdit}
+                            onClose={handleClose}
+                        />
+                    </BootstrapModal>
                 ) : isDelete ? (
-                    <DeleteAccount
-                        account={currentAccount}
-                        onClose={handleClose}
-                        setIsDelete={setIsDelete}
-                    />
+                    <BootstrapModal active={active} onClose={handleClose}>
+                        <DeleteAccount
+                            account={currentAccount}
+                            onClose={handleClose}
+                            setIsDelete={setIsDelete}
+                        />
+                    </BootstrapModal>
                 ) : (
-                    <EditAccount
-                        inputRef={inputRef}
-                        account={currentAccount}
-                        emailInput={emailInput}
-                        setIsEdit={setIsEdit}
-                        onClose={handleClose}
-                    />
+                    <BootstrapModal Y={-90} isFocused={isFocused} active={active} onClose={handleClose}>
+                        <EditAccount
+                            inputRef={inputRef}
+                            account={currentAccount}
+                            emailInput={emailInput}
+                            setIsEdit={setIsEdit}
+                            onClose={handleClose}
+                        />
+                    </BootstrapModal>
                 ) : null
             }
-            </div>
-        </BootstrapModal>
+        </div>
     );
 };
 
