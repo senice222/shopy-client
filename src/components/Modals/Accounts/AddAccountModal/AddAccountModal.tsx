@@ -14,6 +14,7 @@ import {fetcher, url} from "../../../../core/fetch";
 import {useTelegram} from "../../../../hooks/useTelegram";
 import {imgs} from "../../../../utils/imgs";
 import MobileDetect from "mobile-detect";
+import useFocusAnimation from '../../../../hooks/useFocusAnimation';
 
 interface AccountProps {
     addAccount: boolean;
@@ -31,35 +32,7 @@ const AddAccountModal = ({addAccount, onClose}: AccountProps) => {
     const md = new MobileDetect(window.navigator.userAgent);
     const inputRef = useRef<HTMLFormElement | null>(null);
     const isMobileDevice = md.mobile();
-
-    useEffect(() => {
-        const handleFocus = () => {
-            setIsFocused(true);
-        };
-
-        const handleBlur = () => {
-            setIsFocused(false);
-        };
-
-        const formElement = inputRef.current;
-
-        if (formElement && isMobileDevice) {
-            const inputs = formElement.querySelectorAll<HTMLInputElement>('.AddAccountModal_input__s1CqQ');
-            
-            inputs.forEach((input) => {
-                input.addEventListener('focus', handleFocus);
-                input.addEventListener('blur', handleBlur);
-            });
-
-            return () => {
-                inputs.forEach((input) => {
-                    input.removeEventListener('focus', handleFocus);
-                    input.removeEventListener('blur', handleBlur);
-                });
-            };
-        }
-    }, [inputRef, isMobileDevice]);
-
+    useFocusAnimation(inputRef, ".AddAccountModal_input__s1CqQ", isMobileDevice, setIsFocused)
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         const img = imgs[data.service]

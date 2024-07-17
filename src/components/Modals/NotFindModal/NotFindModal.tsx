@@ -5,6 +5,7 @@ import BootstrapModal from "../BootstrapModal/BootstrapModal";
 import Button from "../../Button/Button";
 import { motion } from 'framer-motion';
 import MobileDetect from "mobile-detect";
+import useFormElementFocus from '../../../hooks/useFormElementFocus';
 
 interface NotFoundDialogProps {
     isOpen: boolean;
@@ -26,44 +27,7 @@ export const NotFindModal: FC<NotFoundDialogProps> = ({isOpen, onClose, setBurge
     const [isFocused, setIsFocused] = useState<boolean>(false);
     const md = new MobileDetect(window.navigator.userAgent);
     const isMobileDevice = md.mobile();
-
-    useEffect(() => {
-        const handleFocus = () => {
-            setIsFocused(true);
-        };
-
-        const handleBlur = () => {
-            setIsFocused(false);
-        };
-
-        const formElement = inputRef.current;
-
-        if (formElement && isMobileDevice) {
-            const inputs = formElement.querySelectorAll<HTMLInputElement>('input');
-            const textareas = formElement.querySelectorAll<HTMLTextAreaElement>('textarea');
-
-            textareas.forEach((textarea) => {
-                textarea.addEventListener('focus', handleFocus);
-                textarea.addEventListener('blur', handleBlur);
-            });
-            inputs.forEach((input) => {
-                input.addEventListener('focus', handleFocus);
-                input.addEventListener('blur', handleBlur);
-            });
-
-            return () => {
-                inputs.forEach((input) => {
-                    input.removeEventListener('focus', handleFocus);
-                    input.removeEventListener('blur', handleBlur);
-                });
-
-                textareas.forEach((textarea) => {
-                    textarea.removeEventListener('focus', handleFocus);
-                    textarea.removeEventListener('blur', handleBlur);
-                });
-            };
-        }
-    }, [inputRef, isMobileDevice]);
+    useFormElementFocus(inputRef, isMobileDevice, setIsFocused)
 
     const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
         const {name, value} = e.target;

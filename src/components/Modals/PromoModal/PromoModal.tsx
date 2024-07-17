@@ -4,6 +4,7 @@ import {PromoModalI} from "../../../interfaces/PromoModalI";
 import BootstrapModal from "../BootstrapModal/BootstrapModal";
 import {RequestSent} from "../RequestSent/RequestSent";
 import MobileDetect from "mobile-detect";
+import useElementFocus from '../../../hooks/useElementFocus';
 
 
 export const PromoModal: FC<PromoModalI> = ({promoActive, onClose, setBurger}) => {
@@ -14,31 +15,8 @@ export const PromoModal: FC<PromoModalI> = ({promoActive, onClose, setBurger}) =
     const md = new MobileDetect(window.navigator.userAgent);
     const isMobileDevice = md.mobile();
     const inputRef = useRef<HTMLInputElement>(null);
-
-    useEffect(() => {
-        const handleFocus = () => {
-            setIsFocused(true);
-        };
-
-        const handleBlur = () => {
-            setIsFocused(false);
-        };
-
-        const inputElement = inputRef.current;
-
-        if (inputElement && isMobileDevice) {
-            inputElement.addEventListener('focus', handleFocus);
-            inputElement.addEventListener('blur', handleBlur);
-        }
-
-        return () => {
-            if (inputElement && isMobileDevice) {
-                inputElement.removeEventListener('focus', handleFocus);
-                inputElement.removeEventListener('blur', handleBlur);
-            }
-        };
-    }, [inputRef]);
-
+    useElementFocus(inputRef, isMobileDevice, setIsFocused)
+    
     const checkingPromo = (e: ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setPromoInputValue(value);
