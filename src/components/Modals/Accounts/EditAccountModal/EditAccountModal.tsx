@@ -62,7 +62,7 @@ const EditAccountModal: FC<EditAccountModalProps> = ({selectedAccountId, account
     };
 
     return (
-        <BootstrapModal Y={-50} isFocused={isFocused} active={active} onClose={handleClose}>
+        <BootstrapModal Y={-80} isFocused={isFocused} active={active} onClose={handleClose}>
             <div>
             {
                 currentAccount ? !isDelete && !isEdit ? (
