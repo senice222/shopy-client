@@ -44,7 +44,7 @@ const Panel = () => {
     ];
 
     return (
-        <AdminLayout>
+
             <div className={style.panelWrapper}>
                 <div className={style.header}>
                     <h2>Панель управления</h2>
@@ -155,7 +155,6 @@ const Panel = () => {
                     </div>
                 </div>
             </div>
-        </AdminLayout>
     );
 };
 

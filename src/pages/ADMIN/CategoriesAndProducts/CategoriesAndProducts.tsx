@@ -98,7 +98,7 @@ const CategoriesAndProducts: FC = () => {
         <DndProvider backend={HTML5Backend}>
             <CategoriesBurger isOpened={burger} setOpened={() => setBurger((prev) => !prev)} />
 
-            <AdminLayout>
+
                 <div className={s.content}>
                     <div className={s.title}>
                         <h1>Категории и товары</h1>
@@ -151,7 +151,6 @@ const CategoriesAndProducts: FC = () => {
                         </div>
                     </div>
                 </div>
-            </AdminLayout>
         </DndProvider>
     );
 };

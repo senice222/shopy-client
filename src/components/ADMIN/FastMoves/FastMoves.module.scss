@@ -76,11 +76,14 @@
     margin-left: 100px !important;
   }
 }
-@media (max-width: 500px) {
+@media (max-width: 1050px) {
   .fastMoves {
     margin-left: 0px !important;
     .items {
       flex-direction: column;
     }
+  }
+  .item {
+    width: 100% !important;
   }
 }

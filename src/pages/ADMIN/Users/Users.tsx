@@ -23,7 +23,7 @@ const Users = () => {
     ]);
 
     return (
-        <AdminLayout>
+
             <div className={style.users}>
                 <UserMessageModal isOpen={active} setOpen={() => setActive((prev) => !prev)}/>
                 <AddBalance setOpen={() => setAddBalance((prev) => !prev)} isOpened={isAddBalance} />
@@ -80,7 +80,7 @@ const Users = () => {
                     </table>
                 </div>
             </div>
-        </AdminLayout>
+
     );
 };
 

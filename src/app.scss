@@ -24,7 +24,6 @@
   padding: 0;
   margin: 0;
   border: 0;
-  //user-select: none;
   box-sizing: border-box;
   font-family: Inter Semi Bold;
 }
@@ -38,6 +37,7 @@ body::-webkit-scrollbar-thumb {
 }
 body {
   color: var(--default-text);
+  overflow-x: hidden !important;
 }
 
 img {

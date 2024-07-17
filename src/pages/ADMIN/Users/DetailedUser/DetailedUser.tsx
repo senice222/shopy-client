@@ -32,7 +32,7 @@ const DetailedUser = () => {
     ];
 
     return (
-        <AdminLayout>
+
             <div className={style.wrapper}>
                 <BackTick title={"Пользователи"} to={"/panel"} nestedTitle={"@sasha"} nestedTo={"/panel/users/@sasha"} />
                 <div className={style.userHeader}>
@@ -116,7 +116,7 @@ const DetailedUser = () => {
                     </div>
                 </div>
             </div>
-        </AdminLayout>
+
     );
 };
 

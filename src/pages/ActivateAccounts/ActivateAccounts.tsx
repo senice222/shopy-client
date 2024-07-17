@@ -5,13 +5,14 @@ import nothing from '../../assets/Illustrationnothing.png'
 import spotify48 from '../../assets/spotify48x48.png'
 import dots from '../../assets/dots-vertical.png'
 import Button from "../../components/Button/Button";
-import {useEffect, useState} from "react";
+import {FC, useEffect, useState} from "react";
 import AddAccountModal from "../../components/Modals/Accounts/AddAccountModal/AddAccountModal";
 import EditAccountModal from "../../components/Modals/Accounts/EditAccountModal/EditAccountModal";
 import useSWR from "swr";
 import {fetcher, url} from "../../core/fetch";
 import {useTelegram} from "../../hooks/useTelegram";
 import {useNavigate} from "react-router-dom";
+import {User, UserProps} from "../../interfaces/User";
 
 const ActivateAccounts = () => {
     const [addAccount, setAddAccount] = useState<boolean>(false)
@@ -19,7 +20,7 @@ const ActivateAccounts = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false)
     const {id, onBackButtonClick} = useTelegram()
     const [selectedAccountId, setSelectedAccountId] = useState<string>('');
-    const {data} = useSWR(`${url}/api/user/account/${id}`, fetcher)
+    const {data} = useSWR(`${url}/api/user/account/878990615`, fetcher)
     const navigate = useNavigate()
 
     useEffect(() => {

@@ -4,7 +4,6 @@ import AccountsDetailes from "./AccountsDetailes/AccountsDetailes";
 import DeleteAccount from "./DeleteAccount/DeleteAccount";
 import EditAccount from "./EditAccount/EditAccount";
 import {EditAccountModalProps} from "../../../../interfaces/AccountsProps";
-import s from "../../SelectAccount/SelectAccount.module.scss";
 import MobileDetect from "mobile-detect";
 
 
@@ -13,7 +12,6 @@ const EditAccountModal: FC<EditAccountModalProps> = ({selectedAccountId, account
     const [isEdit, setIsEdit] = useState<boolean>(false)
     const currentAccount = Array.isArray(account) ? account.find(item => item.id === selectedAccountId) : undefined;
     const [emailInput, setEmailInput] = useState<string>(currentAccount?.email || '');
-
     const [isFocused, setIsFocused] = useState<boolean>(false);
     const md = new MobileDetect(window.navigator.userAgent);
     const inputRef = useRef<HTMLFormElement | null>(null);

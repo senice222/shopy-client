@@ -59,7 +59,6 @@ const Newsletter = () => {
     }
 
     return (
-        <AdminLayout>
             <div className={style.wrapper}>
                 <div className={style.firstBlock}>
                     <h1 className={style.title}>Рассылка</h1>
@@ -118,7 +117,6 @@ const Newsletter = () => {
                     </div>
                 </div>
             </div>
-        </AdminLayout>
     );
 };
 

@@ -27,6 +27,7 @@ import Users from "./pages/ADMIN/Users/Users";
 import DetailedUser from "./pages/ADMIN/Users/DetailedUser/DetailedUser";
 import {useTelegram} from "./hooks/useTelegram";
 import useSWR from "swr";
+import AdminLayout from "./layouts/AdminLayout";
 import {fetcher, url} from "./core/fetch";
 import CategoriesAndProducts from "./pages/ADMIN/CategoriesAndProducts/CategoriesAndProducts";
 import Newsletter from "./pages/ADMIN/Newsletter/Newsletter";
@@ -37,11 +38,12 @@ function App() {
     const { darkTheme } = useContext(ThemeContext);
     const [added, setAdded] = useState<boolean>(false)
     const [isAdd, setIsAdd] = useState<boolean>(false)
+    const [active, setActive] = useState(false)
     const dispatch = useAppDispatch()
     const state = useAppSelector(state => state.favorite.items)
     const {tg, id} = useTelegram();
-    const { data } = useSWR(`${url}/api/user/${id}`, fetcher);
-    
+    const { data } = useSWR(`${url}/api/user/878990615`, fetcher);
+
     useEffect(() => {
         tg.ready();
     }, [])
@@ -91,12 +93,15 @@ function App() {
             <Route path="/activation" element={<SubscribeActivate user={data} />}/>
             <Route path="/referral" element={<Referral />}/>
             <Route path="/login" element={<Login />}/>
-            <Route path="/panel" element={<Panel />}/>
-            <Route path="/panel/users" element={<Users />}/>
-            <Route path="/panel/orders" element={<Orders />}/>
-            <Route path="/panel/newsletter" element={<Newsletter />}/>
-            <Route path="/panel/categoriesAndProducts" element={<CategoriesAndProducts />}/>
-            <Route path="/panel/users/:username" element={<DetailedUser />}/>
+            <Route path={'/panel'} element={<AdminLayout/>}>
+                <Route path="" element={<Panel />}/>
+                <Route path="users" element={<Users />}/>
+                <Route path="orders" element={<Orders />}/>
+                <Route path="newsletter" element={<Newsletter />}/>
+                <Route path="categoriesAndProducts" element={<CategoriesAndProducts />}/>
+                <Route path="users/:username" element={<DetailedUser />}/>
+            </Route>
+
             <Route path="/success" element={
                 <Payment
                     title={"Оплата прошла успешно!"}

@@ -23,7 +23,7 @@ const Orders = () => {
     ]);
 
     return (
-        <AdminLayout>
+
             <div className={style.users}>
                 <UserMessageModal isOpen={active} setOpen={() => setActive((prev) => !prev)}/>
                 <AddBalance setOpen={() => setAddBalance((prev) => !prev)} isOpened={isAddBalance}/>
@@ -91,7 +91,7 @@ const Orders = () => {
                     </table>
                 </div>
             </div>
-        </AdminLayout>
+
     );
 };
 
