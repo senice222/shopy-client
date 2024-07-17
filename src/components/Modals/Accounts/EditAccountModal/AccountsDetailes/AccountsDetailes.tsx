@@ -34,7 +34,7 @@ const AccountsDetailes: FC<DetailesProps> = ({account, setIsEdit, onClose, setIs
     return (
         <>
             <div className={style.modalWinPopupHead}>
-                <img src={account.image} alt="/"/>
+                <img src={`https://shopy-server-five.vercel.app/api/uploads/${account.image}`} alt="/"/>
                 <svg
                     onClick={onClose}
                     width="24"

@@ -49,3 +49,6 @@ export interface OrderProps {
 export interface UserProps {
     user: User
 }
+export interface UserDataProps {
+    data: User
+}

@@ -42,7 +42,11 @@ const BurgerMenu: FC<BurgerMenuI> = ({isOpened, setOpened}) => {
         isOpened ? <div className={`${s.burger} 'openned`}>
             <NotFindModal setBurger={setOpened} isOpen={notFind} onClose={() => setNotFind(false)}/>
             <DoDepModal setBurger={setOpened} isOpen={topUp} onClose={() => setTopUp(false)}/>
-            <PromoModal setBurger={setOpened} promoActive={isPromo} onClose={() => setPromo(false)}/>
+            <PromoModal setBurger={setOpened} promoActive={isPromo} onClose={
+                () => {
+                    setPromo(false)
+                }
+            }/>
             <CashBackModal cashback={cashback} onClose={() => setCashback(!cashback)}/>
             <div className={s.header1Div}>
                 <Header isCross={isOpened} setOpened={setOpened}/>

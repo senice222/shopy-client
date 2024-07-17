@@ -47,7 +47,9 @@ export const PromoModal: FC<PromoModalI> = ({promoActive, onClose, setBurger}) =
 
     const setConfirmDialog = () => {
         if (!errorStatus) {
+            onClose()
             setModal(true)
+
         }
     };
 

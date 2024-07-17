@@ -90,11 +90,11 @@ function App() {
             <Route path="/change-data" element={<ChangeData/>}/>
             <Route path="/history-of-orders" element={<HistoryOfOrders user={data}/>}/>
             <Route path="/history-of-orders/:id" element={<DetailedOrder />}/>
-            <Route path="/activation" element={<SubscribeActivate user={data} />}/>
+            <Route path="/activation" element={<SubscribeActivate data={data} />}/>
             <Route path="/referral" element={<Referral />}/>
             <Route path="/login" element={<Login />}/>
             <Route path={'/panel'} element={<AdminLayout/>}>
-                <Route path="" element={<Panel />}/>
+                <Route index path="" element={<Panel />}/>
                 <Route path="users" element={<Users />}/>
                 <Route path="orders" element={<Orders />}/>
                 <Route path="newsletter" element={<Newsletter />}/>

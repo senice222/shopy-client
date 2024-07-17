@@ -13,6 +13,7 @@ interface NotFoundSubmitFormDialogProps {
 
 export const RequestSent: FC<NotFoundSubmitFormDialogProps> = ({isOpen, onClose, switchDialog, type, setBurger}) => {
     const navigate = useNavigate()
+
     return (
         <div className={`Req ${isOpen ? 'active' : ''}`}>
             <div className={`modal-win__popup promo__popup ${isOpen ? 'activeCont' : ''}`}
@@ -64,7 +65,7 @@ export const RequestSent: FC<NotFoundSubmitFormDialogProps> = ({isOpen, onClose,
                     {
                         type !== 'balance' ? <span>
                         {!type ? 'Мы все проверим и свяжемся с вами в ближайщее время' : type === "promo" ? 'Он автоматически применится в корзине. Приятных покупок!' : ''}
-          </span> : null}
+                                        </span> : null}
                     {
                         type && <button
                             className="BlueBtn"
@@ -78,7 +79,6 @@ export const RequestSent: FC<NotFoundSubmitFormDialogProps> = ({isOpen, onClose,
                     }
                     <button
                         onClick={() => {
-                            switchDialog()
                             onClose()
                         }}
                         className={'btn1'}

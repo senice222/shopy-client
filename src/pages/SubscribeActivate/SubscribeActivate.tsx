@@ -16,7 +16,7 @@ import {Account} from "../../interfaces/AccountsProps";
 import {chooseAccount} from "../../store/features/accountSlice";
 import {clearCart} from "../../store/features/cartSlice";
 import {getServiceImage} from "../../utils/imgs";
-import {UserProps} from "../../interfaces/User";
+import {UserDataProps, UserProps} from "../../interfaces/User";
 import Loader from "../../components/Loader/Loader";
 
 const items = [
@@ -34,7 +34,7 @@ const items = [
     }
 ]
 
-export const SubscribeActivate: FC<UserProps> = ({user}) => {
+export const SubscribeActivate: FC<UserDataProps> = ({data}) => {
     const [selected, setSelected] = useState('');
     const [isSave, setIsSave] = useState(false);
     const [isOpened, setOpened] = useState(false);
@@ -43,7 +43,7 @@ export const SubscribeActivate: FC<UserProps> = ({user}) => {
     const navigate = useNavigate();
     const [showAccountBlock, setShowAccountBlock] = useState(false);
     const { id, onBackButtonClick } = useTelegram();
-    const { data } = useSWR(`${url}/api/user/${id}`, fetcher);
+    const [loading, setLoading] = useState<boolean>(false)
 
     const dispatch = useAppDispatch();
     const cartItems = useAppSelector((state) => state.cart.items);
@@ -67,11 +67,10 @@ export const SubscribeActivate: FC<UserProps> = ({user}) => {
     const matchingAccounts = data?.savedAccounts.filter((item: Account) => item.service === cartItem) || [];
 
     const onSubmit: SubmitHandler<FieldValues> = async (values) => {
-        const { email, password, additionalInfo: formAdditionalInfo } = values;
-        const additionalInfo = formAdditionalInfo || data?.additionalInfo;
+        const { email, password, additionalInfo: formAdditionalInfo } = values
 
         if (data.balance >= totalAmount) {
-            await handleOrder(email, password, additionalInfo);
+            await handleOrder(email, password, formAdditionalInfo);
         } else {
             await handlePayment(totalAmount);
         }
@@ -112,18 +111,22 @@ export const SubscribeActivate: FC<UserProps> = ({user}) => {
 
     const handlePayment = async (amount: number) => {
         try {
+            setLoading(true)
             const { data: paymentData } = await axios.get(`${url}/api/payment/create-link?amount=${amount}&invoiceId=${id}&description=Пополнение баланса на сумму ${amount}`);
             if (paymentData?.paymentLink) {
-                navigate('/proceed-payment');
-                window.scrollTo({ top: 0 });
-                window.location.href = paymentData.paymentLink;
+                navigate('/proceed-payment')
+                setLoading(false)
+                window.scrollTo({ top: 0 })
+                window.location.href = paymentData.paymentLink
             }
         } catch (error) {
-            console.error('Failed to fetch payment link:', error);
+            console.error('Failed to fetch payment link:', error)
+        } finally {
+            setLoading(false)
         }
     };
 
-    if (!data) return <Loader />
+    if (!data || loading) return <Loader />
 
     return (
         <>

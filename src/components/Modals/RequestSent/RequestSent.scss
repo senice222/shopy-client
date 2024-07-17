@@ -114,7 +114,8 @@
     }
   }
   .activeCont {
-    transform: scale(1) !important;
+    transform: translateY(-20%);
+    transition: transform 0.4s ease-out !important;
   }
   .active {
     opacity: 1 !important;
