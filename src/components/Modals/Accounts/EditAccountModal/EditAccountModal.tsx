@@ -29,13 +29,21 @@ const EditAccountModal: FC<EditAccountModalProps> = ({selectedAccountId, account
         const formElement = inputRef.current;
 
         if (formElement && isMobileDevice) {
-            const inputs = formElement.querySelectorAll<HTMLInputElement>('input');
+            const inputs = formElement.querySelectorAll<HTMLInputElement>('.EditAccount_input__l7SOQ');
+            const spans = document.querySelectorAll<HTMLSpanElement>('.EditAccount_inputPass__FdQta');
 
             inputs.forEach((input) => {
                 input.addEventListener('focus', handleFocus);
                 input.addEventListener('blur', handleBlur);
             });
-
+            spans.forEach(span => {
+                const input = span.querySelector<HTMLInputElement>('input');
+            
+                if (input) {
+                    input.addEventListener('focus', handleFocus);
+                    input.addEventListener('blur', handleBlur);
+                }
+            });
             return () => {
                 inputs.forEach((input) => {
                     input.removeEventListener('focus', handleFocus);
@@ -43,7 +51,7 @@ const EditAccountModal: FC<EditAccountModalProps> = ({selectedAccountId, account
                 });
             };
         }
-    }, [inputRef, isMobileDevice]);
+    }, [inputRef, isMobileDevice, isEdit]);
 
     const handleClose = () => {
         onClose();
@@ -53,10 +61,8 @@ const EditAccountModal: FC<EditAccountModalProps> = ({selectedAccountId, account
         }, 300);
     };
 
-    // if (!currentAccount) return null;
-
     return (
-        <BootstrapModal isFocused={isFocused} active={active} onClose={handleClose}>
+        <BootstrapModal Y={-50} isFocused={isFocused} active={active} onClose={handleClose}>
             <div>
             {
                 currentAccount ? !isDelete && !isEdit ? (

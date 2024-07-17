@@ -44,8 +44,8 @@ const AddAccountModal = ({addAccount, onClose}: AccountProps) => {
         const formElement = inputRef.current;
 
         if (formElement && isMobileDevice) {
-            const inputs = formElement.querySelectorAll<HTMLInputElement>('input');
-
+            const inputs = formElement.querySelectorAll<HTMLInputElement>('.AddAccountModal_input__s1CqQ');
+            
             inputs.forEach((input) => {
                 input.addEventListener('focus', handleFocus);
                 input.addEventListener('blur', handleBlur);
@@ -85,7 +85,7 @@ const AddAccountModal = ({addAccount, onClose}: AccountProps) => {
     };
 
     return (
-        <BootstrapModal isFocused={isFocused} onClose={onClose} active={addAccount}>
+        <BootstrapModal Y={-70} isFocused={isFocused} onClose={onClose} active={addAccount}>
             <div className={style.modalWinPopupHead}>
                 <h3>Добавить аккаунт</h3>
                 <svg

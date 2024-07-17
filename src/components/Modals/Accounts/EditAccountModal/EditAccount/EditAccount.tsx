@@ -140,7 +140,7 @@ const EditAccount:FC<EditAccountProps> = ({inputRef, account, onClose, setIsEdit
                             defaultValue={account.password}
                             render={({ field }) => (
                                 <Input.Password
-                                    className={style.input}
+                                    className={style.inputPass}
                                     {...field}
                                     placeholder="****"
                                     iconRender={(visible) => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
