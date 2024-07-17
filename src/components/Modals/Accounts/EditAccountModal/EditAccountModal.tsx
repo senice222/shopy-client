@@ -83,7 +83,7 @@ const EditAccountModal: FC<EditAccountModalProps> = ({ selectedAccountId, accoun
                         />
                     </BootstrapModal>
                 ) : (
-                    <BootstrapModal Y={-90} isFocused={isFocused} active={active} onClose={handleClose}>
+                    <BootstrapModal Y={-160} isFocused={isFocused} active={active} onClose={handleClose}>
                         <EditAccount
                             inputRef={inputRef}
                             account={currentAccount}
