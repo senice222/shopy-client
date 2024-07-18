@@ -32,6 +32,7 @@ import {fetcher, url} from "./core/fetch";
 import CategoriesAndProducts from "./pages/ADMIN/CategoriesAndProducts/CategoriesAndProducts";
 import Newsletter from "./pages/ADMIN/Newsletter/Newsletter";
 import Orders from "./pages/ADMIN/Orders/Orders";
+import useTelegramTheme from "./hooks/useTelegramTheme";
 
 function App() {
     const location = useLocation()
@@ -43,6 +44,7 @@ function App() {
     const state = useAppSelector(state => state.favorite.items)
     const {tg, id} = useTelegram();
     const { data } = useSWR(`${url}/api/user/878990615`, fetcher);
+    useTelegramTheme();
 
     useEffect(() => {
         tg.ready();
