@@ -1,6 +1,6 @@
 import s from './SubscribeActivate.module.scss'
 import Layout from "../../layouts/Layout";
-import React, {FC, useEffect, useState} from "react";
+import React, {FC, useCallback, useEffect, useMemo, useState} from "react";
 import {OwnSelect} from "../../components/OwnSelect/OwnSelect";
 import {CheckBox} from "../../components/CheckBox/CheckBox";
 import Button from "../../components/Button/Button";
@@ -43,15 +43,15 @@ export const SubscribeActivate: FC<UserDataProps> = ({data}) => {
     const navigate = useNavigate();
     const [showAccountBlock, setShowAccountBlock] = useState(false);
     const { id, onBackButtonClick } = useTelegram();
-    const [loading, setLoading] = useState<boolean>(false)
+    const [loading, setLoading] = useState<boolean>(false);
 
     const dispatch = useAppDispatch();
     const cartItems = useAppSelector((state) => state.cart.items);
     const currentAccount = useAppSelector(state => state.account.account);
-    const isAccountIncomplete = !currentAccount.service || !currentAccount.email || !currentAccount.password;
 
-    const totalAmount = cartItems?.reduce((acc: number, curr: any) => acc + curr.main.price, 0);
-    const cartItem = cartItems[0].main.name;
+    const isAccountIncomplete = useMemo(() => !currentAccount.service || !currentAccount.email || !currentAccount.password, [currentAccount]);
+    const totalAmount = useMemo(() => cartItems.reduce((acc, curr) => acc + (curr.main?.price || 0), 0), [cartItems]);
+    const cartItem = useMemo(() => cartItems[0]?.main?.name, [cartItems]);
 
     useEffect(() => {
         onBackButtonClick(() => navigate('/'));
@@ -64,19 +64,9 @@ export const SubscribeActivate: FC<UserDataProps> = ({data}) => {
         }
     }, [data, cartItem]);
 
-    const matchingAccounts = data?.savedAccounts.filter((item: Account) => item.service === cartItem) || [];
+    const matchingAccounts = useMemo(() => data?.savedAccounts.filter((item: Account) => item.service === cartItem) || [], [data, cartItem]);
 
-    const onSubmit: SubmitHandler<FieldValues> = async (values) => {
-        const { email, password, additionalInfo: formAdditionalInfo } = values
-
-        if (data.balance >= totalAmount) {
-            await handleOrder(email, password, formAdditionalInfo);
-        } else {
-            await handlePayment(totalAmount);
-        }
-    };
-
-    const handleOrder = async (email: string, password: string, additionalInfo: string) => {
+    const handleOrder = useCallback(async (email: string, password: string, additionalInfo: string) => {
         const orderData = {
             customerId: id,
             email: email || currentAccount.email,
@@ -107,26 +97,35 @@ export const SubscribeActivate: FC<UserDataProps> = ({data}) => {
         } catch (error) {
             console.error('Error processing order:', error);
         }
-    };
+    }, [id, currentAccount, totalAmount, cartItems, selected, isSave, navigate, dispatch]);
 
-    const handlePayment = async (amount: number) => {
+    const handlePayment = useCallback(async (amount: number) => {
         try {
-            setLoading(true)
+            setLoading(true);
             const { data: paymentData } = await axios.get(`${url}/api/payment/create-link?amount=${amount}&invoiceId=${id}&description=Пополнение баланса на сумму ${amount}`);
             if (paymentData?.paymentLink) {
-                navigate('/proceed-payment')
-                setLoading(false)
-                window.scrollTo({ top: 0 })
-                window.location.href = paymentData.paymentLink
+                navigate('/proceed-payment');
+                window.scrollTo({ top: 0 });
+                window.location.href = paymentData.paymentLink;
             }
         } catch (error) {
-            console.error('Failed to fetch payment link:', error)
+            console.error('Failed to fetch payment link:', error);
         } finally {
-            setLoading(false)
+            setLoading(false);
         }
-    };
+    }, [id, navigate]);
 
-    if (!data || loading) return <Loader />
+    const onSubmit: SubmitHandler<FieldValues> = useCallback(async (values) => {
+        const { email, password, additionalInfo: formAdditionalInfo } = values;
+
+        if (data.balance >= totalAmount) {
+            await handleOrder(email, password, formAdditionalInfo);
+        } else {
+            await handlePayment(totalAmount);
+        }
+    }, [data.balance, totalAmount, handleOrder, handlePayment]);
+
+    if (!data || loading) return <Loader />;
 
     return (
         <>

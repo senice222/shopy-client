@@ -20,8 +20,7 @@ const useCartManagement = (currentItem: MainItem | undefined, redirect: () => vo
             { name: 'Длительность', value: '1 месяц' },
         ],
     };
-
-    const isCart = cartItems.some((item: CartItem) => item.main.name === newItem.main.name);
+    const isCart = cartItems.some((item: any) => item.main.name === newItem.main.name);
 
     const handleAddOrRemoveFromCart = () => {
         const existingItem = cartItems.find((item: CartItem) => item.main.name === newItem.main.name);
