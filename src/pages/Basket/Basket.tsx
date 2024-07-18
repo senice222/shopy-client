@@ -19,7 +19,12 @@ const Basket = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        onBackButtonClick(() => navigate('/'));
+        onBackButtonClick(() => {
+            navigate('/')
+            window.scrollTo({
+                top: 0
+            })
+        });
 
         return () => {
             onBackButtonClick(null);

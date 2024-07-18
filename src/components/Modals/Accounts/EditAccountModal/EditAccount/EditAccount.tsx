@@ -113,7 +113,7 @@ const EditAccount:FC<EditAccountProps> = ({inputRef, account, onClose, setIsEdit
                                 </div>
                             </Option>
                         </Select>
-                        {errors.service && <span className={style.error}>{(errors.service.message as string)}</span>}
+                        {errors.service && <div className={style.error}>{(errors.service.message as string)}</div>}
                     </div>
                     <div className={style.item}>
                         <p className={style.title}>Почта или логин</p>
@@ -129,7 +129,7 @@ const EditAccount:FC<EditAccountProps> = ({inputRef, account, onClose, setIsEdit
                                 />
                             )}
                         />
-                        {errors.email && <span className={style.error}>{(errors.email.message as string)}</span>}
+                        {errors.email && <div className={style.error}>{(errors.email.message as string)}</div>}
                     </div>
                     <div className={style.item}>
                         <p className={style.title}>Пароль</p>

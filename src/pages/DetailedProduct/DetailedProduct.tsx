@@ -9,78 +9,37 @@ import { ModalAndFavorite } from "../../interfaces/ModalAndFavorite";
 import { AddedToFav } from "../../components/AddedToFav/AddedToFav";
 import redHeart from '../../assets/heart.png'
 import { useTelegram } from "../../hooks/useTelegram";
-import { CartItem, addToCart, removeFromCart } from '../../store/features/cartSlice';
-import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
-import { v4 as uuidv4 } from 'uuid';
 import {items} from "../../utils/dummy_data";
 import FAQ from "./FAQ/FAQ";
+import useCartManagement from "../../hooks/useCartManagement";
+import Loader from "../../components/Loader/Loader";
 
 export const DetailedProduct: FC<ModalAndFavorite> = ({ setAddedFunc, isAdd, added, setAdded }) => {
-    const dispatch = useAppDispatch();
     const { tg, onBackButtonClick } = useTelegram();
     const {id} = useParams()
-    const cartItems = useAppSelector((state: any) => state.cart.items);
     const [favouriteStatus, setFavouriteStatus] = useState(false);
     const navigate = useNavigate();
+    const currentItem = items.find(item => String(item.id) === id)
+
+    const redirect = useCallback(() => {
+        navigate('/basket');
+        window.scrollTo({
+            top: 0
+        })
+        tg.MainButton.hide();
+    }, [navigate, tg]);
+
+    const { handleAddOrRemoveFromCart, isCart } = useCartManagement(currentItem, redirect);
 
     useEffect(() => {
-        onBackButtonClick(() => navigate('/'));
+        onBackButtonClick(() => navigate('/'))
 
         return () => {
             onBackButtonClick(null);
         };
     }, [onBackButtonClick, navigate]);
 
-    const redirect = useCallback(() => {
-        navigate('/basket');
-        tg.MainButton.hide();
-    }, [navigate, tg]);
-
-    const currentItem = items.find(item => String(item.id) === id)
-
-    const newItem: CartItem = {
-        id: uuidv4(),
-        main: {
-            name: currentItem?.name,
-            price: currentItem?.price,
-        },
-        optional: [
-            { name: 'План', value: 'Индивидульный' },
-            { name: 'Длительность', value: '1 месяц' },
-        ],
-    };
-    const isCart = cartItems.some((item: CartItem) => item.main.name === newItem.main.name)
-
-    const handleAddOrRemoveFromCart = () => {
-        const existingItem = cartItems.find((item: CartItem) => item.main.name === newItem.main.name);
-
-        if (existingItem) {
-            dispatch(removeFromCart(existingItem.id));
-        } else {
-            dispatch(addToCart(newItem));
-        }
-    };
-
-    useEffect(() => {
-        tg.onEvent('mainButtonClicked', redirect);
-        return () => {
-            tg.offEvent('mainButtonClicked', redirect);
-        };
-    }, [redirect, tg]);
-
-    useEffect(() => {
-        tg.MainButton.setParams({
-            text: `Корзина (${cartItems.length})`
-        });
-    }, [cartItems, tg]);
-
-    useEffect(() => {
-        if (cartItems.length > 0) {
-            tg.MainButton.show();
-        } else {
-            tg.MainButton.hide();
-        }
-    }, [cartItems, tg]);
+    if (!currentItem) return <Loader />
 
     return (
         <div className={style.background}>

@@ -1,5 +1,12 @@
 import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
+export interface MainItem {
+    img: string;
+    price: number;
+    name: string;
+    id: number
+}
+
 export interface OptionalItem {
     name: string;
     value: string;

@@ -13,19 +13,19 @@ const Layout = ({children, notAnimated}: LayoutProps) => {
     return (
         <div>
             <BurgerMenu isOpened={isOpened} setOpened={() => setOpened(!isOpened)}/>
-            <Navbar isCross={isOpened} setOpened={setOpened} />
-            <Header />
+            <Navbar isCross={isOpened} setOpened={setOpened}/>
+            <Header/>
             {
                 notAnimated ? (
                     <>
                         {children}
-                        {/*<Footer/>*/}
+                        <Footer/>
                     </>
                 ) : (
                     <>
                         <AnimatedPage>
                             {children}
-                            {/*<Footer/>*/}
+                            <Footer/>
                         </AnimatedPage>
                     </>
                 )

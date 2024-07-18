@@ -99,25 +99,37 @@ const BurgerMenu: FC<BurgerMenuI> = ({isOpened, setOpened}) => {
                         <h2>Личный кабинет</h2>
                     </div>
 
-                    <div className={s.block} onClick={() => navigate("/active-accounts")}>
+                    <div className={s.block} onClick={() => {
+                        navigate("/active-accounts")
+                        setOpened()
+                    }}>
                         <div className={s.icon}>
                             <div className={s.svg1}><Bookmark/></div>
                         </div>
                         <p>Сохраненные аккаунты</p>
                     </div>
-                    <div className={s.block} onClick={() => navigate("/active-subscriptions")}>
+                    <div className={s.block} onClick={() => {
+                        navigate("/active-subscriptions")
+                        setOpened()
+                    }}>
                         <div className={s.icon}>
                             <div className={s.svg1}><Calendar/></div>
                         </div>
                         <p>Активные подписки</p>
                     </div>
-                    <div className={s.block} onClick={() => navigate("/history-of-orders")}>
+                    <div className={s.block} onClick={() => {
+                        navigate("/history-of-orders")
+                        setOpened()
+                    }}>
                         <div className={s.icon}>
                             <div className={s.svg1}><Clock/></div>
                         </div>
                         <p >История заказов</p>
                     </div>
-                    <div className={s.block} onClick={() => navigate("/referral")}>
+                    <div className={s.block} onClick={() => {
+                        navigate("/referral")
+                        setOpened()
+                    }}>
                         <div className={s.icon}>
                             <div className={s.svg1}><Users/></div>
                         </div>
