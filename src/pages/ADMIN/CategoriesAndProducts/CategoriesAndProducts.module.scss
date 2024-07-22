@@ -24,6 +24,16 @@
     background-color: #0070CC;
     color: #FFFFFF;
   }
+  @media (max-width: 994px) {
+    .btns {
+      margin-top: 15px;
+      width: 100%;
+      button {
+        width: 46%;
+      }
+    }
+    flex-direction: column;
+  }
 }
 .content {
   width: 100%;
@@ -53,6 +63,9 @@
   display: flex;
   width: 100%;
   //margin-top: 30px;
+  @media (max-width: 1190px) {
+    flex-direction: column;
+  }
 }
 .hr {
   margin-top: 20px;
@@ -75,7 +88,11 @@
   height: 650px;
   overflow-y: auto;
   &::-webkit-scrollbar { width: 0; }
-
+  @media (max-width: 1190px) {
+    margin-left: 0;
+    width: 100%;
+    max-width: none;
+  }
 }
 
 
@@ -154,6 +171,17 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  @media (max-width: 500px) {
+    flex-direction: column;
+    align-items: flex-start;
+    .searchBar {
+      width:100%;
+      margin-top: 10px;
+      input {
+        width: 100%;
+      }
+    }
+  }
 .title2 {
     font-size: 18px !important;
     font-weight: 500 !important;
@@ -234,4 +262,13 @@
     max-height: 600px; // Set this to a value that can accommodate all subcategories
     opacity: 1;
   }
+}
+.name {
+  min-width: 80px;
+}
+.price {
+  min-width: 140px;
+}
+.lastTd {
+  min-width: 160px;
 }

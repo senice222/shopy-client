@@ -68,7 +68,7 @@ const Users = () => {
                                 <td>{user.name} <br /> <p>{user.nick}</p></td>
                                 <td><span className={style[user.statusClass]}>{user.status}</span></td>
                                 <td>{user.balance}₽</td>
-                                <td>
+                                <td className={style.lastTd}>
                                     <span className={style.icon}>👤</span>
                                     <span onClick={() => setActive(true)} className={style.icon}>💬</span>
                                     <span onClick={() => setAddBalance(true)} className={style.icon}>➕</span>

@@ -3,6 +3,7 @@ import TopItem from "../../components/TopItem/TopItem";
 import success from "../../assets/svg/Featured icon (1).svg";
 import clock from "../../assets/svg/Featured icon.svg";
 import cross from "../../assets/svg/Featured icon (2).svg";
+import check from "../../assets/svg/check.svg";
 import Layout from "../../layouts/Layout";
 import React, {FC} from "react";
 import Button from "../../components/Button/Button";
@@ -63,7 +64,9 @@ const SuccessfulPayment: FC<Payment> = ({title, descr, btnText, type, without}) 
             <div className={style.proceedContainer}>
                 <TopItem text={"Оформление заказа"}/>
                 <div className={style.textDiv}>
-                    <img src={img} alt={'/'}/>
+                    <div className={style.checkDiv}>
+                        <img src={check} alt={'/'}/>
+                    </div>
                     <div className={style.wrapp}>
                         <h2>{title}</h2>
                         <p>{descr}</p>

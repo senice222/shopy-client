@@ -22,3 +22,36 @@
     padding-left: 10px;
   }
 }
+.custom1 {
+  .ant-select-selector {
+    margin-top: 10px;
+    border: 1px solid var(--input-border) !important;
+    border-radius: 6px !important;
+    height: 40px !important;
+    &::after {
+      display: none;
+    }
+  }
+  .ant-select-arrow {
+    display: none;
+  }
+  .ant-select-selection-item {
+    height: 40px !important;
+    padding: 0px !important;
+  }
+
+  .ant-select-dropdown {
+    position: fixed;
+    background-color: var(--background-color) !important;
+  }
+
+  [aria-selected="true"] {
+    background: white;
+  }
+
+  .ant-select-item-option-content {
+    div {
+      padding-left: 10px;
+    }
+  }
+}

@@ -59,6 +59,12 @@
 
 
     }
+    @media (max-width: 600px) {
+      flex-direction: column;
+      div {
+        margin: 10px 0;
+      }
+    }
   }
 }
 
@@ -88,6 +94,20 @@
       line-height: 28px;
       text-align: left;
       color: #101828;
+    }
+    @media (max-width: 600px) {
+      flex-direction: column;
+      align-items: flex-start;
+      h2 {
+        margin-bottom: 10px;
+
+      }
+      .searchBar {
+        width: 100%;
+        input {
+          width: 100%;
+        }
+      }
     }
   }
 }
@@ -177,9 +197,14 @@
   .icon {
     margin-right: 10px;
     cursor: pointer;
+    margin-top: 3px;
   }
 
   tbody {
 
   }
+}
+.lastTd {
+  min-width: 90px;
+
 }

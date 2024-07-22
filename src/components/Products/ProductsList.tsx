@@ -3,18 +3,40 @@ import ProductItem from "./Item/ProductItem";
 import LeftArrow from "../LeftArrow/LeftArrow";
 import RightArrow from "../RightArrow/RightArrow";
 import { AddedToFav } from "../AddedToFav/AddedToFav";
-import {items} from "../../utils/dummy_data";
 import {FC} from "react";
 import {ModalAndFavorite} from "../../interfaces/ModalAndFavorite";
+import useSWR from "swr";
+import {fetcher, url} from "../../core/fetch";
+import {Product} from "../../interfaces/Product";
+import Loader from "../Loader/Loader";
+import {getMinPrice} from "../../utils/getMinPrice";
 
 const ProductsList:FC<ModalAndFavorite> = ({setAddedFunc, isAdd, added, setAdded}) => {
-    
+    const {data} = useSWR(`http://localhost:4000/api/products`, fetcher)
+
+    if (!data) return <Loader />
+
     return (
         <>
             <AddedToFav isAdd={isAdd} isOpen={added} setOpen={() => setAdded(false)} />
             <div className={style.products}>
                 <div className={`${style.container} ${style.productsContainer}`}>
-                    {items.map((item) => <ProductItem toFav={setAddedFunc} name={item.name} price={item.price} img={item.img} id={item.id}/> )}
+                    {
+                        data ? (
+                            data.products.map((item: Product) => {
+                                const minPrice = getMinPrice(item.variants);
+                                return (
+                                    <ProductItem
+                                        toFav={setAddedFunc}
+                                        name={item.name}
+                                        price={minPrice}
+                                        img={item.img}
+                                        id={item._id}
+                                    />
+                                );
+                            } )
+                        ) : <p>laoding.</p>
+                    }
                 </div>
                 <div className={style.paginationDiv}>
                     <LeftArrow isCategory={false} />

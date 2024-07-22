@@ -14,7 +14,7 @@ import BlueButton from "../../components/Button/Button";
 
 const Basket = () => {
     const items = useAppSelector((state: any) => state.cart.items);
-    const totalAmount = items?.reduce((acc: number, curr: any) => acc += curr.main.price, 0)
+    const totalAmount = items?.reduce((acc: number, curr: any) => acc += curr.main?.price, 0)
     const { onBackButtonClick } = useTelegram();
     const navigate = useNavigate()
 

@@ -27,6 +27,10 @@
   transition: .3s all;
   left: -700px;
   pointer-events: none;
+  @media (max-width: 700px) {
+    left: -100vw;
+    width: 100vw;
+  }
 }
 .activeContent {
   left: 0;
@@ -80,6 +84,7 @@
   cursor: pointer;
 }
 .btns {
+  display: flex;
   button {
     padding: 10px 14px;
     background-color: #0070CC;
@@ -88,6 +93,16 @@
     border-radius: 8px;
     &:last-child {
       margin-left: 15px;
+      @media (max-width: 700px) {
+        margin-top: 10px;
+        margin-left: 0;
+      }
+    }
+  }
+  @media (max-width: 700px) {
+    flex-direction: column;
+    button {
+      height: 44px;
     }
   }
 }

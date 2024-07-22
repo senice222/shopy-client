@@ -14,10 +14,16 @@ import {Cross} from "../../Modals/AdminModal/Svgs";
 
 interface AdminBurgerI {
     isActive: boolean,
-    setActive: () => void
+    setActive1: (bool : boolean) => void
 }
-const AdminBurger : FC<AdminBurgerI> = ({isActive, setActive}) => {
+const AdminBurger : FC<AdminBurgerI> = ({isActive, setActive1}) => {
     const navigate = useNavigate()
+    const setActive = () => {
+        const timeOut = setTimeout(() => {
+            setActive1(false)
+            clearTimeout(timeOut)
+        }, 100)
+    }
     return (
         <>
             <div onClick={setActive} className={`${style.bg} ${isActive ? style.bgActive : ""}`}>

@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { useTelegram } from "../../hooks/useTelegram";
 import { UserProps } from '../../interfaces/User'
 import HistoryItem from './HistoryItem'
-import styles from "../FavoriteProducts/FavoriteProducts.module.scss";
 import nothing from "../../assets/Illustrationnothing.png";
 import BlueButton from "../../components/Button/Button";
 

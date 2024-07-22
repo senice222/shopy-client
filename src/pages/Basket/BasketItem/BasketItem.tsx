@@ -30,17 +30,17 @@ const BasketItem: FC<BasketProps> = ({ main, optional, id }) => {
             <img src={spotify} alt="/" />
             <div className={style.container}>
                 <div className={style.infoWrapper}>
-                    <h2>{main.name}</h2>
+                    <h2>{main?.name}</h2>
                     <div>
                         {
-                            optional.map((item, i) => (
+                            optional?.map((item, i) => (
                                 <>
                                     <p>{item.name}: {item.value}</p>
                                 </>
                             ))
                         }
                     </div>
-                    <h2>{main.price}₽</h2>
+                    <h2>{main?.price}₽</h2>
                 </div>
                 <div className={style.cross}>
                     <img onClick={() => handleDelete(id)} src={cross} alt="/" />

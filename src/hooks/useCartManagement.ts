@@ -1,35 +1,48 @@
-import { useCallback, useEffect } from 'react';
+import { useEffect, useMemo, useCallback } from 'react';
 import { useTelegram } from './useTelegram';
 import { v4 as uuidv4 } from 'uuid';
-import {useAppDispatch, useAppSelector} from "./redux-hooks";
-import {addToCart, CartItem, MainItem, removeFromCart} from "../store/features/cartSlice";
+import { useAppDispatch, useAppSelector } from "./redux-hooks";
+import { addToCart, CartItem, MainItem, removeFromCart } from "../store/features/cartSlice";
 
-const useCartManagement = (currentItem: MainItem | undefined, redirect: () => void) => {
+const useCartManagement = (
+    currentItem: MainItem,
+    id: string,
+    selectedVariants: any,
+    price: number | undefined,
+    redirect: () => void
+) => {
     const dispatch = useAppDispatch();
     const { tg } = useTelegram();
     const cartItems = useAppSelector((state: any) => state.cart.items);
 
-    const newItem: CartItem = {
+    const transformSelectedVariantsToOptional = useCallback(() => {
+        const select = selectedVariants[id];
+        if (!select) return [];
+        return Object.values(select).map((variant: any) => ({
+            name: variant.label,
+            value: variant.value
+        }));
+    }, [selectedVariants, id]);
+
+    const newItem: CartItem = useMemo(() => ({
         id: uuidv4(),
         main: {
             name: currentItem?.name,
-            price: currentItem?.price,
+            price,
         },
-        optional: [
-            { name: 'План', value: 'Индивидуальный' },
-            { name: 'Длительность', value: '1 месяц' },
-        ],
-    };
-    const isCart = cartItems.some((item: any) => item.main.name === newItem.main.name);
+        optional: transformSelectedVariantsToOptional()
+    }), [currentItem, price, transformSelectedVariantsToOptional]);
 
-    const handleAddOrRemoveFromCart = () => {
+    const isCart = useMemo(() => cartItems.some((item: any) => item?.main?.name === newItem.main.name), [cartItems, newItem.main.name]);
+
+    const handleAddOrRemoveFromCart = useCallback(() => {
         const existingItem = cartItems.find((item: CartItem) => item.main.name === newItem.main.name);
         if (existingItem) {
             dispatch(removeFromCart(existingItem.id));
         } else {
             dispatch(addToCart(newItem));
         }
-    };
+    }, [cartItems, dispatch, newItem]);
 
     useEffect(() => {
         tg.onEvent('mainButtonClicked', redirect);

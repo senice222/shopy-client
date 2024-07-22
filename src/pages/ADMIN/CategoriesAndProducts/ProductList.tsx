@@ -22,6 +22,7 @@ const ProductList: FC<ProductListProps> = ({ items, setItems }) => {
                 key={item.id}
                 index={index}
                 item={item}
+                length={items.length}
                 moveItem={moveItem}
             />
         ))}

@@ -3,20 +3,21 @@ import styles from './ProductItem.module.scss';
 import {useNavigate} from "react-router-dom";
 import {FavoriteItem} from "../../../store/features/favoriteSlice";
 import { motion } from 'framer-motion';
+import {url} from "../../../core/fetch";
 
 interface ProductItemI {
     toFav: (isAdd : boolean, item: FavoriteItem) => void,
     name: string,
     price: number,
     img: string,
-    id: number
+    id: string,
 }
 
-const ProductItem : FC<ProductItemI> = ({toFav, img, price, name, id}) => {
+const ProductItem : FC<any> = ({toFav, img, price, name, id}) => {
     const [favouriteStatus, setFavouriteStatus] = useState(false);
     const navigate = useNavigate()
 
-    const handleClick = (id: number) => {
+    const handleClick = (id: string) => {
         navigate(`/product/${id}`);
 
         window.scrollTo({
@@ -80,7 +81,7 @@ const ProductItem : FC<ProductItemI> = ({toFav, img, price, name, id}) => {
                         </svg>
                     )}
                 </div>
-                <img style={{width: '165px', height: '165px'}} src={img} alt="Spotify Premium Image" onClick={() => handleClick(id)}/>
+                <img style={{width: '165px', height: '165px'}} src={`${url}/api/uploads/${img}`} alt="Spotify Premium Image" onClick={() => handleClick(id)}/>
             </div>
             <div className={styles.productCardBottom} onClick={() => handleClick(id)}>
                 <h3 className={styles.cardTitle}>{name}</h3>

@@ -3,9 +3,9 @@
   width: 100%;
   max-width: 600px;
   margin: auto;
-  background-color: white;
+  background-color: var(--repeat-btn-bg);
   padding: 20px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--input-border);
   border-radius: 8px;
   margin-top: 30px;
 
@@ -16,7 +16,7 @@
   font-style: normal;
   font-weight: 500;
   line-height: 28px;
-  color: #101828;
+  color: var(--burger-title-color);
 }
 
 .faqItem {
@@ -39,7 +39,7 @@
     font-style: normal;
     font-weight: 500;
     line-height: 20px;
-    color: #101828;
+    color: var(--modal-color);
   }
 
   .icon {
@@ -60,5 +60,5 @@
   font-style: normal;
   font-weight: 400;
   line-height: 20px;
-  color: #475467;
+  color: var(--modal-color);
 }

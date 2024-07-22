@@ -8,10 +8,23 @@ interface DraggableProductItemProps {
     item: Product;
     index: number;
     moveItem: (fromIndex: number, toIndex: number) => void;
+    length: number
 }
 
-const DraggableProductItem: FC<DraggableProductItemProps> = ({ item, index, moveItem }) => {
+const DraggableProductItem: FC<DraggableProductItemProps> = ({ item, index, moveItem, length }) => {
     const ref = useRef<HTMLTableRowElement>(null);
+
+    const moveLeft = () => {
+        if (index > 0) {
+            moveItem(index, index - 1);
+        }
+    };
+
+    const moveRight = () => {
+        if (index < length - 1) {
+            moveItem(index, index + 1);
+        }
+    };
 
     const [, drop] = useDrop({
         accept: ItemTypes.PRODUCT,
@@ -36,14 +49,14 @@ const DraggableProductItem: FC<DraggableProductItemProps> = ({ item, index, move
     return (
         <tr ref={ref} style={{ opacity: isDragging ? 0.5 : 1 }}>
             <td><img src={item.img} alt={item.name} /></td>
-            <td>{item.name}</td>
-            <td>{highestPrice(item.variants.items)}</td>
-            <td>
+            <td className={s.name}>{item.name}</td>
+            <td className={s.price}>{highestPrice(item.variants.items)}</td>
+            <td className={s.lastTd}>
                 <span className={s.icon}><Eye /></span>
                 <span onClick={() => null} className={s.icon}><Copy /></span>
                 <span onClick={() => null} className={s.icon}><Pencil /></span>
-                <span className={s.icon}><Arrow2 /></span>
-                <span className={`${s.icon} ${s.translate1}`}><Arrow2 /></span>
+                <span className={s.icon} onClick={moveLeft}><Arrow2 /></span>
+                <span className={`${s.icon} ${s.translate1}`} onClick={moveRight}><Arrow2 /></span>
             </td>
         </tr>
     );

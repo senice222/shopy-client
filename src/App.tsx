@@ -95,7 +95,7 @@ function App() {
             <Route path="/activation" element={<SubscribeActivate data={data} />}/>
             <Route path="/referral" element={<Referral />}/>
             <Route path="/login" element={<Login />}/>
-            <Route path={'/panel'} element={<AdminLayout/>}>
+            <Route path={'/panel'} element={<AdminLayout active={active} setActive={setActive}/>}>
                 <Route index path="" element={<Panel />}/>
                 <Route path="users" element={<Users />}/>
                 <Route path="orders" element={<Orders />}/>
