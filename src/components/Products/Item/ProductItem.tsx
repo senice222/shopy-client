@@ -10,14 +10,14 @@ interface ProductItemI {
     name: string,
     price: number,
     img: string,
-    id: string,
+    id: string | number,
 }
 
-const ProductItem : FC<any> = ({toFav, img, price, name, id}) => {
+const ProductItem : FC<ProductItemI> = ({toFav, img, price, name, id}) => {
     const [favouriteStatus, setFavouriteStatus] = useState(false);
     const navigate = useNavigate()
 
-    const handleClick = (id: string) => {
+    const handleClick = (id: string | number) => {
         navigate(`/product/${id}`);
 
         window.scrollTo({

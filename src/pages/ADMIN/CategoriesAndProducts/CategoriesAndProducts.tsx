@@ -10,85 +10,15 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import avatar from '../../../assets/Avatar.png';
 import {AddCategory} from "../../../components/Modals/AdminModals/AddCategory/AddCategory";
 import {CategoriesBurger} from "../../../components/CategoriesBurger/CategoriesBurger";
-
-const initialProductList: Product[] = [
-    {
-        id: 1,
-        name: 'Product1',
-        img: avatar,
-        variants: {
-            items: [
-                { price: 300, properties: [], count: 3, visible: true, description: 'description' },
-                { price: 100, properties: [], count: 3, visible: true, description: 'description' },
-                { price: 500, properties: [], count: 3, visible: true, description: 'description' }
-            ]
-        }
-    },
-    {
-        id: 2,
-        name: 'Product2',
-        img: avatar,
-        variants: {
-            items: [
-                { price: 300, properties: [], count: 3, visible: true, description: 'description' },
-                { price: 500, properties: [], count: 3, visible: true, description: 'description' }
-            ]
-        }
-    },
-    {
-        id: 3,
-        name: 'Product1',
-        img: avatar,
-        variants: {
-            items: [
-                { price: 300, properties: [], count: 3, visible: true, description: 'description' },
-                { price: 100, properties: [], count: 3, visible: true, description: 'description' },
-                { price: 500, properties: [], count: 3, visible: true, description: 'description' }
-            ]
-        }
-    },
-    {
-        id: 4,
-        name: 'Product2',
-        img: avatar,
-        variants: {
-            items: [
-                { price: 300, properties: [], count: 3, visible: true, description: 'description' },
-                { price: 500, properties: [], count: 3, visible: true, description: 'description' }
-            ]
-        }
-    },
-    {
-        id: 5,
-        name: 'Product1',
-        img: avatar,
-        variants: {
-            items: [
-                { price: 300, properties: [], count: 3, visible: true, description: 'description' },
-                { price: 100, properties: [], count: 3, visible: true, description: 'description' },
-                { price: 500, properties: [], count: 3, visible: true, description: 'description' }
-            ]
-        }
-    },
-    {
-        id: 6,
-        name: 'Product2',
-        img: avatar,
-        variants: {
-            items: [
-                { price: 300, properties: [], count: 3, visible: true, description: 'description' },
-                { price: 500, properties: [], count: 3, visible: true, description: 'description' }
-            ]
-        }
-    },
-    // Additional products here...
-];
+import {CreateProductBurger} from "../../../components/ADMIN/CreateProductBurger/CreateProductBurger";
+import {initialProductList} from "../../../utils/dummy_data";
 
 const CategoriesAndProducts: FC = () => {
     const [currentPage, setCurrentPage] = useState<number>(1);
     const totalPages: number = 10; // Общее количество страниц
     const [productList, setProductList] = useState<Product[]>(initialProductList);
     const [burger, setBurger] = useState<boolean>(false)
+    const [creating, setCreating] = useState<boolean>(false)
 
     const handlePageChange = (page: number) => {
         setCurrentPage(page);
@@ -96,15 +26,14 @@ const CategoriesAndProducts: FC = () => {
 
     return (
         <DndProvider backend={HTML5Backend}>
+            <CreateProductBurger isOpened={creating} setOpened={() => setCreating((prev) => !prev)}/>
             <CategoriesBurger isOpened={burger} setOpened={() => setBurger((prev) => !prev)} />
-
-
                 <div className={s.content}>
                     <div className={s.title}>
                         <h1>Категории и товары</h1>
                         <div className={s.btns}>
                             <button onClick={() => setBurger(true)} className={s.gray}>Разделы каталога</button>
-                            <button className={s.blue}>Добавить товар</button>
+                            <button onClick={() => setCreating(true)} className={s.blue}>Добавить товар</button>
                         </div>
                     </div>
                     <div className={s.hr}></div>

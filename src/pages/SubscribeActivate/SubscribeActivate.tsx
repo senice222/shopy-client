@@ -123,7 +123,7 @@ export const SubscribeActivate: FC<UserDataProps> = ({data}) => {
         } else {
             await handlePayment(totalAmount);
         }
-    }, [data.balance, totalAmount, handleOrder, handlePayment]);
+    }, [totalAmount, handleOrder, handlePayment]);
 
     if (!data || loading) return <Loader />;
 

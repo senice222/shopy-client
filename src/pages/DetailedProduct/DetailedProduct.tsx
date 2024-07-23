@@ -3,55 +3,54 @@ import Layout from "../../layouts/Layout";
 import prdct from '../../assets/detailed.png';
 import percent from '../../assets/svg/percent-03.svg';
 import Button from "../../components/Button/Button";
-import { useNavigate, useParams } from 'react-router-dom';
-import { FC, useCallback, useEffect, useState, useMemo } from "react";
-import { ModalAndFavorite } from "../../interfaces/ModalAndFavorite";
-import { AddedToFav } from "../../components/AddedToFav/AddedToFav";
+import {useNavigate, useParams} from 'react-router-dom';
+import {FC, useCallback, useEffect, useState, useMemo} from "react";
+import {ModalAndFavorite} from "../../interfaces/ModalAndFavorite";
+import {AddedToFav} from "../../components/AddedToFav/AddedToFav";
 import redHeart from '../../assets/heart.png';
-import { useTelegram } from "../../hooks/useTelegram";
+import {useTelegram} from "../../hooks/useTelegram";
 import FAQ from "./FAQ/FAQ";
 import useCartManagement from "../../hooks/useCartManagement";
 import Loader from "../../components/Loader/Loader";
 import useSWR from "swr";
-import { fetcher, url } from "../../core/fetch";
-import { Variant, VariantItem } from "../../interfaces/Product";
-import { getMinPrice } from "../../utils/getMinPrice";
+import {fetcher, url} from "../../core/fetch";
+import {Variant, VariantItem, SelectedVariants, Properties, Product} from "../../interfaces/Product";
+import {useCompare} from "../../hooks/product/useCompare";
+import VariantSelector from "./VariantSelector/VariantSelector";
+import {useInitializeSelectedVariants} from "../../hooks/product/useInitializeSelectedVariants";
 
-export const DetailedProduct: FC<ModalAndFavorite> = ({ setAddedFunc, isAdd, added, setAdded }) => {
-    const { tg, onBackButtonClick } = useTelegram();
-    const { id } = useParams<{ id: string }>();
+export const DetailedProduct: FC<ModalAndFavorite> = ({setAddedFunc, isAdd, added, setAdded}) => {
     const [favouriteStatus, setFavouriteStatus] = useState(false);
+    const {id} = useParams<{ id: string }>();
     const navigate = useNavigate();
-    const { data } = useSWR(`http://localhost:4000/api/product/${id}`, fetcher);
-    const [selectedVariants, setSelectedVariants] = useState<any>({});
-
-    const calculatePrice = useCallback((productId: string, variants: any) => {
-        let total = 0;
-        const selected = selectedVariants[productId] || {};
-        Object.keys(selected).forEach(variantIndex => {
-            const option = selected[variantIndex];
-            total += option.price;
-        });
-        return total || getMinPrice(variants);
-    }, [selectedVariants]);
-
-    const currentPrice = useMemo(() => {
-        return data ? calculatePrice(data._id, data.variants) : 0;
-    }, [data, selectedVariants, calculatePrice]);
+    const {tg, onBackButtonClick} = useTelegram();
+    const {data} = useSWR(`${url}/api/product/${id}`, fetcher);
+    const [selectedVariants, setSelectedVariants] = useState<SelectedVariants>({});
+    const [price, setPrice] = useState()
 
     const redirect = useCallback(() => {
         navigate('/basket');
-        window.scrollTo({ top: 0 });
+        window.scrollTo({top: 0});
         tg.MainButton.hide();
     }, [navigate, tg]);
 
     const { handleAddOrRemoveFromCart, isCart } = useCartManagement(
         data,
-        id || "",
+        id ? id : "669fb3e3d647bea888e5aa11",
         selectedVariants,
-        currentPrice,
+        price,
         redirect
     );
+
+    const compare = useCompare(data, selectedVariants, id);
+    useInitializeSelectedVariants(data, setSelectedVariants);
+
+    useEffect(() => {
+        const product = compare();
+        if (product && product.length > 0) {
+            setPrice(product[0].price);
+        }
+    }, [id, selectedVariants, compare]);
 
     useEffect(() => {
         onBackButtonClick(() => navigate('/'));
@@ -60,31 +59,31 @@ export const DetailedProduct: FC<ModalAndFavorite> = ({ setAddedFunc, isAdd, add
         };
     }, [onBackButtonClick, navigate]);
 
-    const handleVariantChange = useCallback((productId: string, variantIndex: number, option: VariantItem) => {
+    const handleVariantChange = (propertyId: string, dataId: string, option: any) => {
         setSelectedVariants((prevState: any) => ({
             ...prevState,
-            [productId]: {
-                ...prevState[productId],
-                [variantIndex]: option
+            [dataId]: {
+                ...prevState[dataId],
+                [propertyId]: option
             }
         }));
-    }, []);
+    };
 
-    if (!data) return <Loader />;
+    if (!data) return <Loader/>;
 
     return (
         <div className={style.background}>
-            <AddedToFav isAdd={isAdd} isOpen={added} setOpen={() => setAdded(false)} />
+            <AddedToFav isAdd={isAdd} isOpen={added} setOpen={() => setAdded(false)}/>
             <Layout>
                 <div className={style.productContainer}>
                     <div className={style.imgCont}>
-                        <img src={prdct} alt="Product" />
+                        <img src={prdct} alt="Product"/>
                     </div>
                     <div className={style.wrappInfo}>
                         <div className={style.info}>
                             <h2>{data.name}</h2>
                             <div>
-                                <h1>{currentPrice}₽</h1>
+                                <h1>{price}₽</h1>
                                 <h3>798₽</h3>
                                 <div className={style.skidka}>-50%</div>
                             </div>
@@ -92,29 +91,20 @@ export const DetailedProduct: FC<ModalAndFavorite> = ({ setAddedFunc, isAdd, add
                         </div>
                         <div className={style.promotionDiv}>
                             <div className={style.promotionImg}>
-                                <img src={percent} alt="Promotion" />
+                                <img src={percent} alt="Promotion"/>
                             </div>
                             <div className={style.promotionText}>
                                 <h2>Два месяца по цене одного!</h2>
                                 <p>Действует для новых клиентов Shopy при регистрации нового аккаунта.</p>
                             </div>
                         </div>
-                        {data.variants.map((variant: Variant, variantIndex: number) => (
-                            <div key={variantIndex} className={style.plan}>
-                                <h3>{variant.label}</h3>
-                                <div className={style.btns}>
-                                    {variant.items.map((option, optionIndex) => (
-                                        <button
-                                            key={optionIndex}
-                                            className={selectedVariants[data._id]?.[variantIndex] === option ? style.active : ''}
-                                            onClick={() => handleVariantChange(data._id, variantIndex, option)}
-                                        >
-                                            {option.value}
-                                        </button>
-                                    ))}
-                                </div>
-                            </div>
-                        ))}
+                        {data && (
+                            <VariantSelector
+                                data={data}
+                                selectedVariants={selectedVariants}
+                                handleVariantChange={handleVariantChange}
+                            />
+                        )}
                         <div className={style.btnAddToCart}>
                             <div className={style.heart}>
                                 {favouriteStatus ? (
@@ -126,7 +116,7 @@ export const DetailedProduct: FC<ModalAndFavorite> = ({ setAddedFunc, isAdd, add
                                             setAddedFunc(true, {
                                                 id: String(data._id),
                                                 name: data.name,
-                                                price: currentPrice || 350,
+                                                price: 350,
                                                 img: `${url}/api/uploads/${data.img}`
                                             });
                                         }}
@@ -143,7 +133,7 @@ export const DetailedProduct: FC<ModalAndFavorite> = ({ setAddedFunc, isAdd, add
                                             setAddedFunc(true, {
                                                 id: String(data._id),
                                                 name: data.name,
-                                                price: currentPrice || 350,
+                                                price: 350,
                                                 img: `${url}/api/uploads/${data.img}`
                                             });
                                         }}
@@ -169,10 +159,12 @@ export const DetailedProduct: FC<ModalAndFavorite> = ({ setAddedFunc, isAdd, add
                                 />
                             </div>
                         </div>
-                        <FAQ />
+                        <FAQ/>
                     </div>
                 </div>
             </Layout>
         </div>
     );
 };
+
+// handleAddOrRemoveFromCart

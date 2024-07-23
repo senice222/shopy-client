@@ -1,3 +1,6 @@
+import {Product} from "../pages/ADMIN/CategoriesAndProducts/ProductTypes";
+import avatar from "../assets/Avatar.png";
+
 export const items = [
     {
         id: 1,
@@ -12,6 +15,119 @@ export const items = [
         img: "https://picsum.photos/200/300?random=2"
     }
 ];
+
+export const initialProductList: Product[] = [
+    {
+        id: 1,
+        name: 'Product1',
+        img: avatar,
+        variants: {
+            items: [
+                {price: 300, properties: [], count: 3, visible: true, description: 'description'},
+                {price: 100, properties: [], count: 3, visible: true, description: 'description'},
+                {price: 500, properties: [], count: 3, visible: true, description: 'description'}
+            ]
+        }
+    },
+    {
+        id: 2,
+        name: 'Product2',
+        img: avatar,
+        variants: {
+            items: [
+                {price: 300, properties: [], count: 3, visible: true, description: 'description'},
+                {price: 500, properties: [], count: 3, visible: true, description: 'description'}
+            ]
+        }
+    },
+    {
+        id: 3,
+        name: 'Product1',
+        img: avatar,
+        variants: {
+            items: [
+                {price: 300, properties: [], count: 3, visible: true, description: 'description'},
+                {price: 100, properties: [], count: 3, visible: true, description: 'description'},
+                {price: 500, properties: [], count: 3, visible: true, description: 'description'}
+            ]
+        }
+    },
+    {
+        id: 4,
+        name: 'Product2',
+        img: avatar,
+        variants: {
+            items: [
+                {price: 300, properties: [], count: 3, visible: true, description: 'description'},
+                {price: 500, properties: [], count: 3, visible: true, description: 'description'}
+            ]
+        }
+    },
+    {
+        id: 5,
+        name: 'Product1',
+        img: avatar,
+        variants: {
+            items: [
+                {price: 300, properties: [], count: 3, visible: true, description: 'description'},
+                {price: 100, properties: [], count: 3, visible: true, description: 'description'},
+                {price: 500, properties: [], count: 3, visible: true, description: 'description'}
+            ]
+        }
+    },
+    {
+        id: 6,
+        name: 'Product2',
+        img: avatar,
+        variants: {
+            items: [
+                {price: 300, properties: [], count: 3, visible: true, description: 'description'},
+                {price: 500, properties: [], count: 3, visible: true, description: 'description'}
+            ]
+        }
+    },
+    // Additional products here...
+];
+
+export const tableData = [
+    {
+        id: 1,
+        price: "399₽",
+        oldPrice: "399₽",
+        property1: "Название",
+        property2: "Название",
+        quantity: 0,
+        actions: ["✏️", "👁️", "📄", "🗑️", "💬", "🚫", "⬆️", "⬇️"]
+    },
+    {
+        id: 2,
+        price: "399₽",
+        oldPrice: "399₽",
+        property1: "Название",
+        property2: "Название",
+        quantity: 0,
+        actions: ["✏️", "👁️", "📄", "🗑️", "💬", "🚫", "⬆️", "⬇️"]
+    },
+    {
+        id: 3,
+        price: "399₽",
+        oldPrice: "399₽",
+        property1: "Название",
+        property2: "Название",
+        quantity: 0,
+        actions: ["✏️", "👁️", "📄", "🗑️", "💬", "🚫", "⬆️", "⬇️"]
+    },
+    {
+        id: 4,
+        price: "399₽",
+        oldPrice: "399₽",
+        property1: "Название",
+        property2: "Название",
+        quantity: 0,
+        actions: ["✏️", "👁️", "📄", "🗑️", "💬", "🚫", "⬆️", "⬇️"]
+    }
+];
+
 
 export const faq = [
     {

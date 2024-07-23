@@ -3,18 +3,22 @@ export interface Product {
     img: string
     description: string
     category: Category
-    variants: Variant[]
+    variants: Variant
     features: Features
     _id: string
     __v: number
 }
 
-export interface VariantItem {
-    price: number;
-    oldPrice: number;
-    visible: boolean;
-    value: string;
-    label?: string;
+export interface SelectedVariants {
+    [productId: string]: {
+        [variantIndex: string]: VariantItem;
+    };
+}
+
+export interface Properties {
+    id: string;
+    text: string;
+    _id: string;
 }
 
 export interface Category {
@@ -22,9 +26,29 @@ export interface Category {
     subcategory: string
 }
 
+export interface TableRow {
+    price: string;
+    oldPrice: string;
+    property1: string;
+    property2: string;
+    quantity: number;
+    actions: string[];
+}
+
+export interface VariantItem {
+    price: number;
+    oldPrice: number;
+    visible: boolean;
+    quantity: number,
+    attachedId: string,
+    values : [{id: string, value: string}]
+}
+
 export interface Variant {
-    label: string
-    items: Item[]
+    // label: string
+    // items: Item[]
+    properties: Properties[],
+    items: VariantItem[]
 }
 
 export interface Item {

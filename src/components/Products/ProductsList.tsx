@@ -6,14 +6,14 @@ import { AddedToFav } from "../AddedToFav/AddedToFav";
 import {FC} from "react";
 import {ModalAndFavorite} from "../../interfaces/ModalAndFavorite";
 import useSWR from "swr";
-import {fetcher, url} from "../../core/fetch";
+import {fetcher} from "../../core/fetch";
 import {Product} from "../../interfaces/Product";
 import Loader from "../Loader/Loader";
-import {getMinPrice} from "../../utils/getMinPrice";
+import {getMinPrice} from "../../utils/utils";
 
 const ProductsList:FC<ModalAndFavorite> = ({setAddedFunc, isAdd, added, setAdded}) => {
     const {data} = useSWR(`http://localhost:4000/api/products`, fetcher)
-
+    console.log(data)
     if (!data) return <Loader />
 
     return (
@@ -24,12 +24,12 @@ const ProductsList:FC<ModalAndFavorite> = ({setAddedFunc, isAdd, added, setAdded
                     {
                         data ? (
                             data.products.map((item: Product) => {
-                                const minPrice = getMinPrice(item.variants);
+                                // const minPrice = getMinPrice(item.variants);
                                 return (
                                     <ProductItem
                                         toFav={setAddedFunc}
                                         name={item.name}
-                                        price={minPrice}
+                                        price={9}
                                         img={item.img}
                                         id={item._id}
                                     />

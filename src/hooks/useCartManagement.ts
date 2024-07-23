@@ -15,6 +15,7 @@ const useCartManagement = (
     const { tg } = useTelegram();
     const cartItems = useAppSelector((state: any) => state.cart.items);
 
+
     const transformSelectedVariantsToOptional = useCallback(() => {
         const select = selectedVariants[id];
         if (!select) return [];

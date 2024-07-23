@@ -16,6 +16,10 @@ const UploadButton: React.FC = () => {
         fileInputRef.current?.click();
     };
 
+    const handleDeleteFile = (index: number) => {
+        setUploads((prevUploads) => prevUploads.filter((_, i) => i !== index));
+    };
+
     const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
         const files = event.target.files;
         if (files) {
@@ -96,13 +100,18 @@ const UploadButton: React.FC = () => {
                         <div className={styles.fileInfo}>
                             <div className={styles.fileName}>
                                 <h2>{upload.file.name}</h2>
-                                <p className={styles.descr}>{formatBytes(upload.file.size)} - {upload.progress}% uploaded</p>
+                                <p className={styles.descr}>
+                                    {formatBytes(upload.file.size)} - {upload.progress}% uploaded
+                                </p>
                             </div>
                             <div className={styles.fileStatus}>
                                 {upload.uploaded ? (
-                                    <span className={styles.checkMark}>✔️</span>
+                                    <div>
+                                        <span className={styles.checkMark}>✔️</span>
+                                        <span className={styles.checkMark} onClick={() => handleDeleteFile(index)}>❌</span>
+                                    </div>
                                 ) : (
-                                    <ClipLoader size={15} color={"#123abc"} loading={true}/>
+                                    <ClipLoader size={15} color={"#123abc"} loading={true} />
                                 )}
                             </div>
                         </div>

@@ -1,0 +1,17 @@
+{
+  "properties": [{
+    "id": "String",
+    "text" : "String"
+  }],
+  "items": [{
+    "name": "string",
+    "price" : "number",
+    "oldPrice": "number",
+    "img": "string",
+    "quantity" : "number",
+    "values" : [{
+      "id": "string",
+      "value" : "string"
+    }]
+  }]
+}
