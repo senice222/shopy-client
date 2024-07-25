@@ -26,7 +26,9 @@ export const DetailedProduct: FC<ModalAndFavorite> = ({setAddedFunc, isAdd, adde
     const {tg, onBackButtonClick} = useTelegram();
     const {data} = useSWR(`${url}/api/product/${id}`, fetcher);
     const [selectedVariants, setSelectedVariants] = useState<SelectedVariants>({});
-    const [price, setPrice] = useState()
+    const [price, setPrice] = useState<number>()
+    const compare = useCompare(data, selectedVariants, id);
+    useInitializeSelectedVariants(data, setSelectedVariants);
 
     const redirect = useCallback(() => {
         navigate('/basket');
@@ -42,9 +44,6 @@ export const DetailedProduct: FC<ModalAndFavorite> = ({setAddedFunc, isAdd, adde
         redirect
     );
 
-    const compare = useCompare(data, selectedVariants, id);
-    useInitializeSelectedVariants(data, setSelectedVariants);
-
     useEffect(() => {
         const product = compare();
         if (product && product.length > 0) {
@@ -59,7 +58,7 @@ export const DetailedProduct: FC<ModalAndFavorite> = ({setAddedFunc, isAdd, adde
         };
     }, [onBackButtonClick, navigate]);
 
-    const handleVariantChange = (propertyId: string, dataId: string, option: any) => {
+    const handleVariantChange = (propertyId: string, dataId: string, option: string) => {
         setSelectedVariants((prevState: any) => ({
             ...prevState,
             [dataId]: {

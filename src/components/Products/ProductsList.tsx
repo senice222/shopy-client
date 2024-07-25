@@ -16,6 +16,7 @@ const ProductsList:FC<ModalAndFavorite> = ({setAddedFunc, isAdd, added, setAdded
 
     if (!data) return <Loader />
 
+
     return (
         <>
             <AddedToFav isAdd={isAdd} isOpen={added} setOpen={() => setAdded(false)} />
@@ -24,7 +25,6 @@ const ProductsList:FC<ModalAndFavorite> = ({setAddedFunc, isAdd, added, setAdded
                     {
                         data ? (
                             data.products.map((item: Product) => {
-                                // const minPrice = getMinPrice(item.variants);
                                 return (
                                     <ProductItem
                                         toFav={setAddedFunc}

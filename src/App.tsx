@@ -92,7 +92,7 @@ function App() {
             <Route path="/change-data" element={<ChangeData/>}/>
             <Route path="/history-of-orders" element={<HistoryOfOrders user={data}/>}/>
             <Route path="/history-of-orders/:id" element={<DetailedOrder />}/>
-            <Route path="/activation" element={<SubscribeActivate data={data} />}/>
+            <Route path="/activation/:id/:variant" element={<SubscribeActivate data={data} />}/>
             <Route path="/referral" element={<Referral />}/>
             <Route path="/login" element={<Login />}/>
             <Route path={'/panel'} element={<AdminLayout active={active} setActive={setActive}/>}>

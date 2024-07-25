@@ -1,18 +1,59 @@
 import s from './AddBalance.module.scss'
 import {AdminModal} from "../../AdminModal/AdminModal";
-import React, {FC, useState} from "react";
+import React, {FC, useEffect, useState} from "react";
 import {motion} from "framer-motion";
+import useSWR from "swr";
+import {fetcher, url} from "../../../../core/fetch";
+import Loader from "../../../Loader/Loader";
+import {useDebounce} from "../../../../hooks/useDebouce";
+import axios from "axios";
+import {notification} from "antd";
+
 interface AddBalanceI {
     setOpen: () => void,
-    isOpened: boolean
+    isOpened: boolean,
+    id?: number,
 }
-export const AddBalance : FC<AddBalanceI> = ({setOpen, isOpened}) => {
-    const [type, setType] = useState('digital')
-    const [value, setValue] = useState('')
-    const [balance, setBalance] = useState('')
-    const handleClose =() => {
 
+export const AddBalance : FC<AddBalanceI> = ({id, setOpen, isOpened}) => {
+    const [type, setType] = useState('increase')
+    const [value, setValue] = useState('')
+    const debouncedValue = useDebounce(value, 400)
+    const [balance, setBalance] = useState()
+    const {data: user} = useSWR(`http://localhost:4000/api/user/${id}`, fetcher)
+
+    useEffect(() => {
+        if (user) {
+            let newBalance = user.balance;
+            if (type === 'increase') {
+                newBalance += +debouncedValue;
+            } else if (type === 'decrease') {
+                newBalance -= +debouncedValue;
+            }
+            setBalance(newBalance);
+        }
+    }, [debouncedValue, type, user]);
+
+    const addBalance = async () => {
+        try {
+            const body = {
+                balance
+            }
+            await axios.put(`http://localhost:4000/api/user-balance/${id}`, body)
+            notification.success({
+                message: "Вы успешно изменили баланс.",
+                duration: 1.5
+            })
+            setOpen()
+        } catch (e) {
+            console.log(e)
+        }
     }
+
+    const handleClose = () => { }
+
+    if (!user) return <Loader />
+
     return (
         <AdminModal setOpen={setOpen} isOpened={isOpened}>
             <h2>Изменить баланс</h2>
@@ -46,12 +87,12 @@ export const AddBalance : FC<AddBalanceI> = ({setOpen, isOpened}) => {
                 </div>
                 <div className={s.block}>
                     <h3>Итоговый баланс клиента</h3>
-                    <input disabled={true} value={value} placeholder={'2000'}/>
+                    <input disabled={true} value={balance} placeholder={balance} />
                 </div>
             </div>
             <div className={s.lastbtns}>
                 <button onClick={handleClose} className={s.grayBtn}>Отмена</button>
-                <button className={s.blueBtn}>Изменить</button>
+                <button className={s.blueBtn} onClick={addBalance}>Изменить</button>
             </div>
         </AdminModal>
     )

@@ -1,14 +1,15 @@
-import { useCallback, useEffect } from 'react';
+import {Dispatch, SetStateAction, useCallback, useEffect} from 'react';
+import {Properties, SelectedVariants, VariantItem} from "../../interfaces/Product";
 
-export const useInitializeSelectedVariants = (data: any, setSelectedVariants: (value: any) => void) => {
+export const useInitializeSelectedVariants = (data: any, setSelectedVariants: Dispatch<SetStateAction<SelectedVariants>>) => {
     const initializeSelectedVariants = useCallback(() => {
-        let initialSelected: any = {};
+        let initialSelected: SelectedVariants = {};
 
         if (data) {
-            data.variants.properties.forEach((property: any) => {
+            data.variants.properties.forEach((property: Properties) => {
                 const firstValue = data.variants.items
-                    .flatMap((item: any) => item.values)
-                    .find((value: any) => value.id === property.id)?.value;
+                    .flatMap((item: VariantItem) => item.values)
+                    .find((value: {id: string}) => value.id === property.id)?.value;
 
                 if (firstValue) {
                     initialSelected[data._id] = {

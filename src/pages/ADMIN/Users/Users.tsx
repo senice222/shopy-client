@@ -1,39 +1,35 @@
 import React, {useState} from 'react';
-import AdminLayout from "../../../layouts/AdminLayout";
 import style from './Users.module.scss'
 import BackTick from "../../../components/ADMIN/BackTick/BackTick";
-import {AdminModal} from "../../../components/Modals/AdminModal/AdminModal";
-import {UserMessageModal} from "../../../components/Modals/AdminModals/UserMessageModal/UserMessageModal";
+import {UserMessageModal} from "../../../components/Modals/AdminModals/UserMessage/UserMessageModal";
 import {AddBalance} from "../../../components/Modals/AdminModals/AddBalance/AddBalance";
+import useSWR from "swr";
+import {fetcher, url} from "../../../core/fetch";
+import Loader from "../../../components/Loader/Loader";
+import {User} from "../../../interfaces/User";
+import {useNavigate} from "react-router-dom";
 
 const Users = () => {
     const [active, setActive] = useState(false)
     const [isAddBalance, setAddBalance] = useState(false)
-    const [users, setUsers] = useState([
-        { id: 3066, name: 'Иван', nick: '@shopymg', status: 'Неактивен', balance: 399, statusClass: 'inactive' },
-        { id: 3065, name: 'Иван', nick: '@shopymg', status: 'Активен', balance: 399, statusClass: 'active' },
-        { id: 3064, name: 'Иван', nick: '@shopymg', status: 'Активен', balance: 399, statusClass: 'active' },
-        { id: 3063, name: 'Иван', nick: '@shopymg', status: 'Активен', balance: 399, statusClass: 'active' },
-        { id: 3062, name: 'Иван', nick: '@shopymg', status: 'Заблокирован', balance: 399, statusClass: 'blocked' },
-        { id: 3061, name: 'Иван', nick: '@shopymg', status: 'Активен', balance: 399, statusClass: 'active' },
-        { id: 3061, name: 'Иван', nick: '@shopymg', status: 'Активен', balance: 399, statusClass: 'active' },
-        { id: 3061, name: 'Иван', nick: '@shopymg', status: 'Активен', balance: 399, statusClass: 'active' },
-        { id: 3061, name: 'Иван', nick: '@shopymg', status: 'Активен', balance: 399, statusClass: 'active' },
-        { id: 3061, name: 'Иван', nick: '@shopymg', status: 'Активен', balance: 399, statusClass: 'active' },
-    ]);
+    const {data: users} = useSWR(`${url}/api/users`, fetcher)
+    const [id, setId] = useState<number>()
+    const navigate = useNavigate()
+
+    if (!users) return <Loader />
 
     return (
 
             <div className={style.users}>
-                <UserMessageModal isOpen={active} setOpen={() => setActive((prev) => !prev)}/>
-                <AddBalance setOpen={() => setAddBalance((prev) => !prev)} isOpened={isAddBalance} />
+                {id && <UserMessageModal id={id} isOpen={active} setOpen={() => setActive((prev) => !prev)}/>}
+                {id && <AddBalance id={id} setOpen={() => setAddBalance((prev) => !prev)} isOpened={isAddBalance} />}
                 {/*<SendMessage promoActive={active} onClose={() => setActive(!active)} />*/}
                 <BackTick title={"Пользователи"} to={"/panel"} />
                 <h2 className={style.title}>Пользователи</h2>
                 <div className={style.listOfUsers}>
                     <div>
                         <p>Всего пользователей</p>
-                        <h2>4,862</h2>
+                        <h2>{users.length}</h2>
                     </div>
                     <div>
                         <p>Активных пользователей</p>
@@ -62,20 +58,30 @@ const Users = () => {
                         </tr>
                         </thead>
                         <tbody>
-                        {users.map(user => (
-                            <tr key={user.id}>
-                                <td>#{user.id}</td>
-                                <td>{user.name} <br /> <p>{user.nick}</p></td>
-                                <td><span className={style[user.statusClass]}>{user.status}</span></td>
-                                <td>{user.balance}₽</td>
-                                <td className={style.lastTd}>
-                                    <span className={style.icon}>👤</span>
-                                    <span onClick={() => setActive(true)} className={style.icon}>💬</span>
-                                    <span onClick={() => setAddBalance(true)} className={style.icon}>➕</span>
-                                    <span className={style.icon}>🔒</span>
-                                </td>
-                            </tr>
-                        ))}
+                        {!users ? (
+                            <Loader />
+                        ) : (
+                            users.map((user: User) => (
+                                <tr key={user.id}>
+                                    <td>{user.id}</td>
+                                    <td>{user.username}</td>
+                                    <td><span className={style[user.status]}>{user.status}</span></td>
+                                    <td>{user.balance}₽</td>
+                                    <td className={style.lastTd}>
+                                        <span className={style.icon} onClick={() => navigate(`/panel/users/${user.username}`)}>👤</span>
+                                        <span onClick={() => {
+                                            setId(user.id);
+                                            setActive(true);
+                                        }} className={style.icon}>💬</span>
+                                        <span onClick={() => {
+                                            setId(user.id);
+                                            setAddBalance(true);
+                                        }} className={style.icon}>➕</span>
+                                        <span className={style.icon}>🔒</span>
+                                    </td>
+                                </tr>
+                            ))
+                        )}
                         </tbody>
                     </table>
                 </div>

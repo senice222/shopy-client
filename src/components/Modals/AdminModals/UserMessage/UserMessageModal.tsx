@@ -2,22 +2,20 @@ import React, { FC, useState } from "react";
 import s from './UserMessageModal.module.scss';
 import { AdminModal } from "../../AdminModal/AdminModal";
 import {Bold, Italic, LinkSvg, Pencil} from "./Svgs";
+import {sendUserText} from "../../../../utils/sendUserText";
 
 interface UserMessageModal {
     isOpen: boolean,
-    setOpen: () => void
+    setOpen: () => void,
+    id?: number
 }
 export interface Btns {
     text : string
     id: string,
     link: string,
 }
-interface IsEditingI {
-    // isEditing: boolean,
-    id: string | null,
-}
 
-export const UserMessageModal: FC<UserMessageModal> = ({ isOpen, setOpen }) => {
+export const UserMessageModal: FC<UserMessageModal> = ({ id, isOpen, setOpen }) => {
     const [text, setText] = useState<string>('');
     const [selectionStart, setSelectionStart] = useState<number | null>(null);
     const [selectionEnd, setSelectionEnd] = useState<number | null>(null);
@@ -27,12 +25,12 @@ export const UserMessageModal: FC<UserMessageModal> = ({ isOpen, setOpen }) => {
     const [btnText, setBtnText] = useState('')
     const [btnLink, setBtnLink] = useState('')
 
-
     const handleClose = () => {
         setOpen();
         setText('');
         setBtns([])
     }
+
     const addButton = () => {
         if (btns.length < 4) {
             let btnsCopied = btns.concat()
@@ -75,10 +73,12 @@ export const UserMessageModal: FC<UserMessageModal> = ({ isOpen, setOpen }) => {
         setSelectionStart(e.target.selectionStart);
         setSelectionEnd(e.target.selectionEnd);
     }
+
     const deleteOne = (id : string) => {
         const copiedArr = btns.filter((item) => item.id !== id)
         setBtns(copiedArr)
     }
+
     const formatText = (formatType: string) => {
         if (selectionStart === null || selectionEnd === null) return;
 
@@ -159,7 +159,7 @@ export const UserMessageModal: FC<UserMessageModal> = ({ isOpen, setOpen }) => {
 
             <div className={s.lastbtns}>
                 <button onClick={handleClose} className={s.grayBtn}>Закрыть</button>
-                <button className={s.blueBtn}>Отправить</button>
+                <button className={s.blueBtn} onClick={() => sendUserText(id, text, btns, setBtns, setText, setOpen)}>Отправить</button>
             </div>
         </AdminModal>
     )

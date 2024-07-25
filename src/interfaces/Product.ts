@@ -21,6 +21,7 @@ export interface Properties {
     _id: string;
 }
 
+
 export interface Category {
     main: string
     subcategory: string
@@ -49,13 +50,6 @@ export interface Variant {
     // items: Item[]
     properties: Properties[],
     items: VariantItem[]
-}
-
-export interface Item {
-    price: number
-    oldPrice: number
-    visible: boolean
-    value: string
 }
 
 export interface Features {

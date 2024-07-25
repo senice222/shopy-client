@@ -1,6 +1,8 @@
 import { useCallback } from 'react';
+import {Product, SelectedVariants, VariantItem} from "../../interfaces/Product";
 
-export const useCompare = (data: any, selectedVariants: any, id: string | undefined) => {
+export const useCompare = (data: Product, selectedVariants: SelectedVariants, id: string | undefined) => {
+
     const compareArrayWithObject = (array: any[], comparisonObject: any): boolean => {
         if (!comparisonObject || array.length !== Object.keys(comparisonObject).length) {
             return false;
@@ -17,7 +19,7 @@ export const useCompare = (data: any, selectedVariants: any, id: string | undefi
 
     const compare = useCallback(() => {
         if (data && data.variants && id && selectedVariants[id]) {
-            return data.variants.items.filter((item: any) => compareArrayWithObject(item.values, selectedVariants[id]));
+            return data.variants.items.filter((item: VariantItem) => compareArrayWithObject(item.values, selectedVariants[id]));
         }
         return [];
     }, [data, id, selectedVariants]);

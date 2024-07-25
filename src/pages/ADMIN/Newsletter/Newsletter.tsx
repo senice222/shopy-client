@@ -2,9 +2,9 @@ import style from './Newsletter.module.scss'
 import AdminLayout from "../../../layouts/AdminLayout";
 import UploadButton from "../../../components/ADMIN/UploadButton/UploadButton";
 import React, {useState} from "react";
-import s from "../../../components/Modals/AdminModals/UserMessageModal/UserMessageModal.module.scss";
-import {Pencil} from "../../../components/Modals/AdminModals/UserMessageModal/Svgs";
-import {Btns} from "../../../components/Modals/AdminModals/UserMessageModal/UserMessageModal";
+import s from "../../../components/Modals/AdminModals/UserMessage/UserMessageModal.module.scss";
+import {Pencil} from "../../../components/Modals/AdminModals/UserMessage/Svgs";
+import {Btns} from "../../../components/Modals/AdminModals/UserMessage/UserMessageModal";
 import BlueButton from "../../../components/Button/Button";
 import { Switch } from 'antd';
 

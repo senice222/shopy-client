@@ -7,10 +7,10 @@ import Button from "../../components/Button/Button";
 import {SelectAccount} from "../../components/Modals/SelectAccount/SelectAccount";
 import {FieldValues, SubmitHandler, useForm} from "react-hook-form";
 import {useTelegram} from "../../hooks/useTelegram";
-import useSWR from "swr";
+import useSWR, {useSWRConfig} from "swr";
 import {fetcher, url} from "../../core/fetch";
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
+import {useLocation, useNavigate, useParams} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux-hooks";
 import {Account} from "../../interfaces/AccountsProps";
 import {chooseAccount} from "../../store/features/accountSlice";
@@ -18,6 +18,8 @@ import {clearCart} from "../../store/features/cartSlice";
 import {getServiceImage} from "../../utils/imgs";
 import {UserDataProps, UserProps} from "../../interfaces/User";
 import Loader from "../../components/Loader/Loader";
+import {a} from "react-spring";
+import {FeedbackBlock, FeedBackI} from "../../interfaces/Feedback";
 
 const items = [
     {
@@ -38,6 +40,7 @@ export const SubscribeActivate: FC<UserDataProps> = ({data}) => {
     const [selected, setSelected] = useState('');
     const [isSave, setIsSave] = useState(false);
     const [isOpened, setOpened] = useState(false);
+    const {id : product, variant} = useParams()
     const [step, setStep] = useState(1);
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
@@ -52,7 +55,23 @@ export const SubscribeActivate: FC<UserDataProps> = ({data}) => {
     const isAccountIncomplete = useMemo(() => !currentAccount.service || !currentAccount.email || !currentAccount.password, [currentAccount]);
     const totalAmount = useMemo(() => cartItems.reduce((acc, curr) => acc + (curr.main?.price || 0), 0), [cartItems]);
     const cartItem = useMemo(() => cartItems[0]?.main?.name, [cartItems]);
+    const [feedback, setFeedBack] = useState<FeedBackI | null>(null)
 
+    console.log(feedback)
+    // const {data: feedback} = useSWR(`${url}/api/feedback/${id}`, fetcher);
+    const getFeedBack = async () => {
+        try {
+            const {data} = await axios.get(`http://localhost:4000/api/feedback/${product}/${variant}`)
+
+            setFeedBack(data)
+
+        } catch (e) {
+            console.log(e)
+        }
+    }
+    useEffect(() => {
+        getFeedBack()
+    }, [])
     useEffect(() => {
         onBackButtonClick(() => navigate('/'));
         return () => onBackButtonClick(null);
@@ -125,7 +144,7 @@ export const SubscribeActivate: FC<UserDataProps> = ({data}) => {
         }
     }, [totalAmount, handleOrder, handlePayment]);
 
-    if (!data || loading) return <Loader />;
+    if (!data || loading || !feedback) return <Loader />;
 
     return (
         <>
@@ -201,55 +220,71 @@ export const SubscribeActivate: FC<UserDataProps> = ({data}) => {
                                 </div>
                             </div>
                         )}
-                        <div className={s.selectBlock}>
-                            <p className={s.headingText}>У Вас есть существующий аккаунт от необходимого
-                                сервиса или его требуется зарегистрировать?</p>
-                            <div className={s.select}>
-                                <OwnSelect items={items} setSelected={setSelected}/>
-                            </div>
-                        </div>
                         <form onSubmit={handleSubmit(onSubmit)}>
-                            {isAccountIncomplete && (
-                                <>
-                                    <div className={s.loginBlock}>
-                                        <p className={s.headingText}>Логин для входа в необходимый сервис</p>
-                                        <input
-                                            {...register('email', { required: true })}
-                                            type="text"
-                                            placeholder="olivia@untitledui.com"
-                                        />
-                                        {errors.email && <p className={s.error}>Почта обязательна</p>}
-                                        <p className={s.descr}>
-                                            Введите почту, на которую зарегистрирован / необходимо зарегистрировать
-                                            аккаунт в необходимом сервисе.
-                                        </p>
-                                    </div>
-                                    <div className={s.loginBlock}>
-                                        <p className={s.headingText}>Пароль для входа в необходимый сервис</p>
-                                        <input
-                                            {...register('password', { required: true })}
-                                            type="password"
-                                            placeholder="****"
-                                        />
-                                        {errors.password && <p className={s.error}>Пароль обязателен</p>}
-                                        <p className={s.descr}>
-                                            Введите пароль от аккаунта / для регистрации аккаунта в необходимом
-                                            сервисе.
-                                        </p>
-                                    </div>
-                                </>
-                            )}
-                            <div className={s.loginBlock}>
-                                <p className={s.headingText}>
-                                    Укажите дополнительную информацию, которая нам может быть необходима для
-                                    активации подписки
-                                </p>
-                                <input {...register('additionalInfo')} placeholder="Вход через Apple, Google и т.д."/>
-                                <p className={s.descr}>
-                                    К примеру, вход в аккаунт сервиса выполняется через определённую соц.сеть.
-                                    Если же доп.информация не нужна, оставьте поле пустым.
-                                </p>
-                            </div>
+                            {/*<div className={s.selectBlock}>*/}
+                            {/*    <p className={s.headingText}>У Вас есть существующий аккаунт от необходимого*/}
+                            {/*        сервиса или его требуется зарегистрировать?</p>*/}
+                            {/*    <div className={s.select}>*/}
+                            {/*        <OwnSelect items={items} setSelected={setSelected}/>*/}
+                            {/*    </div>*/}
+                            {/*</div>*/}
+
+                            {/*{isAccountIncomplete && (*/}
+                            {/*    <>*/}
+
+                            {/*        <div className={s.loginBlock}>*/}
+                            {/*            <p className={s.headingText}>Пароль для входа в необходимый сервис</p>*/}
+                            {/*            <input*/}
+                            {/*                {...register('password', { required: true })}*/}
+                            {/*                type="password"*/}
+                            {/*                placeholder="****"*/}
+                            {/*            />*/}
+                            {/*            {errors.password && <p className={s.error}>Пароль обязателен</p>}*/}
+                            {/*            <p className={s.descr}>*/}
+                            {/*                Введите пароль от аккаунта / для регистрации аккаунта в необходимом*/}
+                            {/*                сервисе.*/}
+                            {/*            </p>*/}
+                            {/*        </div>*/}
+                            {/*    </>*/}
+                            {/*)}*/}
+                            {/*<div className={s.loginBlock}>*/}
+                            {/*    <p className={s.headingText}>*/}
+                            {/*        Укажите дополнительную информацию, которая нам может быть необходима для*/}
+                            {/*        активации подписки*/}
+                            {/*    </p>*/}
+                            {/*    <input {...register('additionalInfo')} placeholder="Вход через Apple, Google и т.д."/>*/}
+                            {/*    <p className={s.descr}>*/}
+                            {/*        К примеру, вход в аккаунт сервиса выполняется через определённую соц.сеть.*/}
+                            {/*        Если же доп.информация не нужна, оставьте поле пустым.*/}
+                            {/*    </p>*/}
+                            {/*</div>*/}
+                            {feedback.blocks.map((item : FeedbackBlock) => {
+                                if (item.inputType === 'radio') {
+                                    return (
+                                        <div className={s.selectBlock}>
+                                            <p className={s.headingText}>{item.name}</p>
+                                            <div className={s.select}>
+                                                {item.variants ? <OwnSelect items={item.variants} setSelected={setSelected}/> : null}
+                                            </div>
+                                        </div>
+                                    )
+                                } else if (item.inputType === "input") {
+                                    return (
+                                        <div className={s.loginBlock}>
+                                            <p className={s.headingText}>{item.name}</p>
+                                            <input
+                                                {...register(item.name, { required: true })}
+                                                type="text"
+                                                placeholder={item.placeholder}
+                                                />
+                                            {errors.email && <p className={s.error}>Поле обязательно</p>}
+                                            <p className={s.descr}>
+                                                {item.description}
+                                            </p>
+                                        </div>
+                                    )
+                                }
+                            })}
                             <div className={s.saveDataBlock}>
                                 <div className={s.topDiv}>
                                     <CheckBox setChecked={setIsSave}/>

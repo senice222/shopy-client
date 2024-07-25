@@ -1,5 +1,6 @@
 import React from 'react';
 import style from '../DetailedProduct.module.scss';
+import {VariantItem} from "../../../interfaces/Product";
 
 interface VariantSelectorProps {
     data: any;
@@ -10,11 +11,11 @@ interface VariantSelectorProps {
 const VariantSelector: React.FC<VariantSelectorProps> = ({ data, selectedVariants, handleVariantChange }) => {
     const splitterByIds = () => {
         let obj: any = {};
-
         if (data) {
             const ids = data.variants.properties;
-            data.variants.items.forEach((item: any) => {
-                item.values.forEach((value: any) => {
+
+            data.variants.items.forEach((item: VariantItem) => {
+                item.values.forEach((value) => {
                     if (!obj[value.id]) {
                         obj[value.id] = [value.value];
                     } else {
