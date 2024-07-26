@@ -19,7 +19,6 @@ const Users = () => {
     if (!users) return <Loader />
 
     return (
-
             <div className={style.users}>
                 {id && <UserMessageModal id={id} isOpen={active} setOpen={() => setActive((prev) => !prev)}/>}
                 {id && <AddBalance id={id} setOpen={() => setAddBalance((prev) => !prev)} isOpened={isAddBalance} />}

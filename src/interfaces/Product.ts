@@ -10,10 +10,13 @@ export interface Product {
 }
 
 export interface SelectedVariants {
-    [productId: string]: {
-        [variantIndex: string]: VariantItem;
-    };
+    [dataId: string]: {
+        label: string;
+        option: string;
+    }[];
 }
+
+export interface ComparisonObject { label: string, option: string }
 
 export interface Properties {
     id: string;
@@ -21,6 +24,10 @@ export interface Properties {
     _id: string;
 }
 
+export interface ValuesItem {
+    id: string;
+    value: string;
+}
 
 export interface Category {
     main: string
@@ -39,6 +46,7 @@ export interface TableRow {
 export interface VariantItem {
     price: number;
     oldPrice: number;
+    _id: string;
     visible: boolean;
     quantity: number,
     attachedId: string,

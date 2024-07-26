@@ -4,7 +4,8 @@ export interface MainItem {
     img: string;
     price: number;
     name: string;
-    id: number
+    id: number;
+    _id: string;
 }
 
 export interface OptionalItem {
@@ -18,6 +19,7 @@ export interface CartItem {
     main: {
         name?: string;
         price?: number;
+        id: string
     };
     optional: OptionalItem[];
 }

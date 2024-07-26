@@ -33,43 +33,20 @@ import CategoriesAndProducts from "./pages/ADMIN/CategoriesAndProducts/Categorie
 import Newsletter from "./pages/ADMIN/Newsletter/Newsletter";
 import Orders from "./pages/ADMIN/Orders/Orders";
 import useTelegramTheme from "./hooks/useTelegramTheme";
+import useFavoriteManager from "./hooks/useFavoriteManager";
 
 function App() {
     const location = useLocation()
     const { darkTheme } = useContext(ThemeContext);
-    const [added, setAdded] = useState<boolean>(false)
-    const [isAdd, setIsAdd] = useState<boolean>(false)
-    const [active, setActive] = useState(false)
-    const dispatch = useAppDispatch()
-    const state = useAppSelector(state => state.favorite.items)
     const {tg, id} = useTelegram();
+    const [active, setActive] = useState<boolean>(false);
     const { data } = useSWR(`${url}/api/user/878990615`, fetcher);
+    const { setAddedFunc, isAdd, added, setAdded } = useFavoriteManager();
     useTelegramTheme();
 
     useEffect(() => {
         tg.ready();
-    }, [])
-
-    const setAddedFunc = (isAdd: boolean, item: FavoriteItem) => {
-        setIsAdd(isAdd)
-        dispatch(deleteFromFavorite(item.id))
-
-        const product = state.find((el) => el.id === item.id)
-
-        if (!product) {
-            setIsAdd(true)
-            setAdded(true)
-            dispatch(addToFavorite(item))
-        } else {
-            dispatch(deleteFromFavorite({id : item.id}))
-            setIsAdd(false)
-            setAdded(true)
-        }
-
-        setTimeout(() => {
-            setAdded(false)
-        }, 2500)
-    }
+    }, [tg]);
 
     useEffect(() => {
         document.documentElement.setAttribute(

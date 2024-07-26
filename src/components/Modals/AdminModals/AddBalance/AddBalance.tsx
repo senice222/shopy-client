@@ -2,7 +2,7 @@ import s from './AddBalance.module.scss'
 import {AdminModal} from "../../AdminModal/AdminModal";
 import React, {FC, useEffect, useState} from "react";
 import {motion} from "framer-motion";
-import useSWR from "swr";
+import useSWR, {useSWRConfig} from "swr";
 import {fetcher, url} from "../../../../core/fetch";
 import Loader from "../../../Loader/Loader";
 import {useDebounce} from "../../../../hooks/useDebouce";
@@ -20,7 +20,8 @@ export const AddBalance : FC<AddBalanceI> = ({id, setOpen, isOpened}) => {
     const [value, setValue] = useState('')
     const debouncedValue = useDebounce(value, 400)
     const [balance, setBalance] = useState()
-    const {data: user} = useSWR(`http://localhost:4000/api/user/${id}`, fetcher)
+    const {data: user} = useSWR(`${url}/api/user/${id}`, fetcher)
+    const {mutate} = useSWRConfig()
 
     useEffect(() => {
         if (user) {
@@ -39,7 +40,10 @@ export const AddBalance : FC<AddBalanceI> = ({id, setOpen, isOpened}) => {
             const body = {
                 balance
             }
-            await axios.put(`http://localhost:4000/api/user-balance/${id}`, body)
+            await axios.put(`${url}/api/user-balance/${id}`, body)
+            mutate(`${url}/api/user/${id}`)
+            mutate(`${url}/api/users`)
+
             notification.success({
                 message: "Вы успешно изменили баланс.",
                 duration: 1.5

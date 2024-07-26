@@ -17,7 +17,7 @@ const Basket = () => {
     const totalAmount = items?.reduce((acc: number, curr: any) => acc += curr.main?.price, 0)
     const { onBackButtonClick } = useTelegram();
     const navigate = useNavigate()
-
+    console.log(items)
     useEffect(() => {
         onBackButtonClick(() => {
             navigate('/')
@@ -32,7 +32,7 @@ const Basket = () => {
     }, [onBackButtonClick, navigate]);
 
     const handlePayment = async () => {
-        navigate('/activation')
+        navigate(`/activation/${items[0].main.id}/${items[0].variantId}`)
     }
 
     return (

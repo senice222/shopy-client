@@ -4,7 +4,7 @@ import prdct from '../../assets/detailed.png';
 import percent from '../../assets/svg/percent-03.svg';
 import Button from "../../components/Button/Button";
 import {useNavigate, useParams} from 'react-router-dom';
-import {FC, useCallback, useEffect, useState, useMemo} from "react";
+import {FC, useCallback, useEffect, useState} from "react";
 import {ModalAndFavorite} from "../../interfaces/ModalAndFavorite";
 import {AddedToFav} from "../../components/AddedToFav/AddedToFav";
 import redHeart from '../../assets/heart.png';
@@ -14,10 +14,11 @@ import useCartManagement from "../../hooks/useCartManagement";
 import Loader from "../../components/Loader/Loader";
 import useSWR from "swr";
 import {fetcher, url} from "../../core/fetch";
-import {Variant, VariantItem, SelectedVariants, Properties, Product} from "../../interfaces/Product";
+import {SelectedVariants, ComparisonObject} from "../../interfaces/Product";
 import {useCompare} from "../../hooks/product/useCompare";
 import VariantSelector from "./VariantSelector/VariantSelector";
 import {useInitializeSelectedVariants} from "../../hooks/product/useInitializeSelectedVariants";
+import {Heart} from "../ADMIN/CategoriesAndProducts/Svg";
 
 export const DetailedProduct: FC<ModalAndFavorite> = ({setAddedFunc, isAdd, added, setAdded}) => {
     const [favouriteStatus, setFavouriteStatus] = useState(false);
@@ -28,7 +29,10 @@ export const DetailedProduct: FC<ModalAndFavorite> = ({setAddedFunc, isAdd, adde
     const [selectedVariants, setSelectedVariants] = useState<SelectedVariants>({});
     const [price, setPrice] = useState<number>()
     const compare = useCompare(data, selectedVariants, id);
-    useInitializeSelectedVariants(data, setSelectedVariants);
+    const [variantId, setVariantId] = useState<string>('')
+    useInitializeSelectedVariants(data, setSelectedVariants)
+
+    if (!id) throw new Error("ID параметра не найден");
 
     const redirect = useCallback(() => {
         navigate('/basket');
@@ -36,19 +40,20 @@ export const DetailedProduct: FC<ModalAndFavorite> = ({setAddedFunc, isAdd, adde
         tg.MainButton.hide();
     }, [navigate, tg]);
 
-    const { handleAddOrRemoveFromCart, isCart } = useCartManagement(
+    const {handleAddOrRemoveFromCart, isCart} = useCartManagement(
         data,
-        id ? id : "669fb3e3d647bea888e5aa11",
+        id,
         selectedVariants,
         price,
         redirect,
-        // variantId:
+        variantId
     );
 
     useEffect(() => {
         const product = compare();
         if (product && product.length > 0) {
             setPrice(product[0].price);
+            setVariantId(product[0]._id)
         }
     }, [id, selectedVariants, compare]);
 
@@ -59,14 +64,24 @@ export const DetailedProduct: FC<ModalAndFavorite> = ({setAddedFunc, isAdd, adde
         };
     }, [onBackButtonClick, navigate]);
 
-    const handleVariantChange = (propertyId: string, dataId: string, option: string) => {
-        setSelectedVariants((prevState: any) => ({
-            ...prevState,
-            [dataId]: {
-                ...prevState[dataId],
-                [propertyId]: option
+    const handleVariantChange = (tariff: string, dataId: string, option: string) => {
+        setSelectedVariants((prevState: any) => {
+            const currentData = prevState[dataId] || [];
+            const updatedData = currentData.map((item: ComparisonObject) =>
+                item.label === tariff
+                    ? { ...item, option: option }
+                    : item
+            );
+
+            if (!currentData.some((item: ComparisonObject) => item.label === tariff)) {
+                updatedData.push({ label: tariff, option: option });
             }
-        }));
+
+            return {
+                ...prevState,
+                [dataId]: updatedData,
+            };
+        });
     };
 
     if (!data) return <Loader/>;
@@ -122,33 +137,18 @@ export const DetailedProduct: FC<ModalAndFavorite> = ({setAddedFunc, isAdd, adde
                                         }}
                                     />
                                 ) : (
-                                    <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        width="20"
-                                        height="20"
-                                        viewBox="0 0 20 20"
-                                        className={favouriteStatus ? style.heartFilled : style.svg}
-                                        onClick={() => {
-                                            setFavouriteStatus(!favouriteStatus);
-                                            setAddedFunc(true, {
-                                                id: String(data._id),
-                                                name: data.name,
-                                                price: 350,
-                                                img: `${url}/api/uploads/${data.img}`
-                                            });
-                                        }}
-                                        fill="none"
-                                    >
-                                        <path
-                                            fillRule="evenodd"
-                                            clipRule="evenodd"
-                                            d="M9.99428 4.27985C8.32816 2.332 5.54978 1.80804 3.46224 3.59168C1.37469 5.37532 1.0808 8.35748 2.72015 10.467C4.08317 12.2209 8.20813 15.9201 9.56007 17.1174C9.71133 17.2513 9.78695 17.3183 9.87517 17.3446C9.95216 17.3676 10.0364 17.3676 10.1134 17.3446C10.2016 17.3183 10.2772 17.2513 10.4285 17.1174C11.7804 15.9201 15.9054 12.2209 17.2684 10.467C18.9078 8.35748 18.6498 5.35656 16.5263 3.59168C14.4029 1.8268 11.6604 2.332 9.99428 4.27985Z"
-                                            stroke="#344054"
-                                            strokeWidth="1.66667"
-                                            strokeLinecap="round"
-                                            strokeLinejoin="round"
-                                        />
-                                    </svg>
+                                    <div onClick={() => {
+                                        setFavouriteStatus(!favouriteStatus);
+                                        setAddedFunc(true, {
+                                            id: String(data._id),
+                                            name: data.name,
+                                            price: 350,
+                                            img: `${url}/api/uploads/${data.img}`
+                                        })
+                                    }}>
+                                        <Heart favouriteStatus={favouriteStatus}/>
+                                    </div>
+
                                 )}
                             </div>
                             <div className={style.divBtn} onClick={handleAddOrRemoveFromCart}>

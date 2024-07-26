@@ -10,26 +10,28 @@ const useCartManagement = (
     selectedVariants: any,
     price: number | undefined,
     redirect: () => void,
-    // variantId: string
+    variantId: string
 ) => {
+    console.log(currentItem)
     const dispatch = useAppDispatch();
     const { tg } = useTelegram();
     const cartItems = useAppSelector((state: any) => state.cart.items);
 
-
     const transformSelectedVariantsToOptional = useCallback(() => {
         const select = selectedVariants[id];
         if (!select) return [];
+
         return Object.values(select).map((variant: any) => ({
             name: variant.label,
-            value: variant.value
+            value: variant.option
         }));
     }, [selectedVariants, id]);
 
     const newItem: CartItem = useMemo(() => ({
         id: uuidv4(),
-        // variantId: variantId,
+        variantId,
         main: {
+            id: currentItem?._id,
             name: currentItem?.name,
             price,
         },

@@ -20,12 +20,12 @@ const VariantSelector: React.FC<VariantSelectorProps> = ({ data, selectedVariant
                         obj[value.id] = [value.value];
                     } else {
                         obj[value.id] = [...obj[value.id], value.value];
+
                     }
                 });
             });
             obj.ids = ids;
         }
-
         return obj.ids.map((property: any) => {
             const uniqueArray = Array.from(new Set(obj[property.id]));
             return (
@@ -33,13 +33,13 @@ const VariantSelector: React.FC<VariantSelectorProps> = ({ data, selectedVariant
                     <h3>{property.text}</h3>
                     <div className={style.btns}>
                         {uniqueArray.map((value: any, index: number) => {
-                            const isActive = selectedVariants[data._id]?.[property.id] === value;
+                            const isActive = selectedVariants[data._id]?.some((item: any) => item.option === value);
 
                             return (
                                 <button
                                     key={`${property.id}-${index}`}
                                     className={isActive ? style.active : ''}
-                                    onClick={() => handleVariantChange(property.id, data._id, value)}
+                                    onClick={() => handleVariantChange(property.text, data._id, value)}
                                 >
                                     {value}
                                 </button>

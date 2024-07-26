@@ -25,6 +25,7 @@ export interface User {
 }
 
 interface OrderItem {
+    main: any;
     productId: string;
     quantity: number;
 }
