@@ -7,18 +7,16 @@ import Button from "../../components/Button/Button";
 import {SelectAccount} from "../../components/Modals/SelectAccount/SelectAccount";
 import {FieldValues, SubmitHandler, useForm} from "react-hook-form";
 import {useTelegram} from "../../hooks/useTelegram";
-import useSWR, {useSWRConfig} from "swr";
-import {fetcher, url} from "../../core/fetch";
+import {url} from "../../core/fetch";
 import axios from "axios";
-import {useLocation, useNavigate, useParams} from "react-router-dom";
+import {useNavigate, useParams} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../hooks/redux-hooks";
 import {Account} from "../../interfaces/AccountsProps";
 import {chooseAccount} from "../../store/features/accountSlice";
 import {clearCart} from "../../store/features/cartSlice";
 import {getServiceImage} from "../../utils/imgs";
-import {UserDataProps, UserProps} from "../../interfaces/User";
+import {UserDataProps} from "../../interfaces/User";
 import Loader from "../../components/Loader/Loader";
-import {a} from "react-spring";
 import {FeedbackBlock, FeedBackI} from "../../interfaces/Feedback";
 
 const items = [
@@ -85,7 +83,7 @@ export const SubscribeActivate: FC<UserDataProps> = ({data}) => {
 
     const matchingAccounts = useMemo(() => data?.savedAccounts.filter((item: Account) => item.service === cartItem) || [], [data, cartItem]);
 
-    const handleOrder = useCallback(async (email: string, password: string, additionalInfo: string) => {
+    const handleOrder = async (email: string, password: string, additionalInfo: string) => {
         const orderData = {
             customerId: id,
             email: email || currentAccount.email,
@@ -116,7 +114,7 @@ export const SubscribeActivate: FC<UserDataProps> = ({data}) => {
         } catch (error) {
             console.error('Error processing order:', error);
         }
-    }, [id, currentAccount, totalAmount, cartItems, selected, isSave, navigate, dispatch]);
+    }
 
     const handlePayment = useCallback(async (amount: number) => {
         try {
@@ -277,6 +275,20 @@ export const SubscribeActivate: FC<UserDataProps> = ({data}) => {
                                                 type="text"
                                                 placeholder={item.placeholder}
                                                 />
+                                            {errors.email && <p className={s.error}>Поле обязательно</p>}
+                                            <p className={s.descr}>
+                                                {item.description}
+                                            </p>
+                                        </div>
+                                    )
+                                } else if (item.inputType === "textarea") {
+                                    return (
+                                        <div className={s.loginBlock}>
+                                            <p className={s.headingText}>{item.name}</p>
+                                            <textarea
+                                                {...register(item.name, { required: true })}
+                                                placeholder={item.placeholder}
+                                            />
                                             {errors.email && <p className={s.error}>Поле обязательно</p>}
                                             <p className={s.descr}>
                                                 {item.description}

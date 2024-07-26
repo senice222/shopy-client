@@ -14,6 +14,7 @@ export interface OptionalItem {
 
 export interface CartItem {
     id: string;
+    variantId: string
     main: {
         name?: string;
         price?: number;

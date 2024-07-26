@@ -97,6 +97,18 @@
     border: 1px solid var(--input-border);
     border-radius: 8px;
   }
+  textarea {
+    margin-top: 5px;
+    height: 80px;
+    width: 100%;
+    padding: 4px 8px;
+    resize: none;
+    font-size: 16px;
+    background-color: var(--background-color);
+    color: var(--default-text);
+    border: 1px solid var(--input-border);
+    border-radius: 8px;
+  }
   input::placeholder {
     font-family: "Graphik LCG Regular", sans-serif;
   }

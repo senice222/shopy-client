@@ -9,7 +9,8 @@ const useCartManagement = (
     id: string,
     selectedVariants: any,
     price: number | undefined,
-    redirect: () => void
+    redirect: () => void,
+    // variantId: string
 ) => {
     const dispatch = useAppDispatch();
     const { tg } = useTelegram();
@@ -27,6 +28,7 @@ const useCartManagement = (
 
     const newItem: CartItem = useMemo(() => ({
         id: uuidv4(),
+        // variantId: variantId,
         main: {
             name: currentItem?.name,
             price,

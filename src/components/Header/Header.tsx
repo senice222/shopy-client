@@ -7,7 +7,7 @@ import {useNavigate} from "react-router-dom";
 import {LOGO} from "../BurgerMenu/Svgs";
 
 const Header = () => {
-    const navigate = useNavigate()
+    // const navigate = useNavigate()
 
     return (
         <div className={style.headerTop}>

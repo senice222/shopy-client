@@ -41,7 +41,8 @@ export const DetailedProduct: FC<ModalAndFavorite> = ({setAddedFunc, isAdd, adde
         id ? id : "669fb3e3d647bea888e5aa11",
         selectedVariants,
         price,
-        redirect
+        redirect,
+        // variantId:
     );
 
     useEffect(() => {
