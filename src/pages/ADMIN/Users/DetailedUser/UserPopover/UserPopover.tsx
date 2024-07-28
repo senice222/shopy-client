@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Popover, List, Button } from 'antd';
 import style from '../DetailedUser.module.scss';
+import {statusStyles} from "../../../../../utils/getCurrentStatus";
 
 const statuses = ["payed", "in work", "cancelled", "refund"] as const;
 
@@ -35,6 +36,8 @@ const UserStatusPopover: React.FC<UserStatusPopoverProps> = ({ status, onStatusC
         />
     );
 
+    const currentStatus = status ? statusStyles[status] : statusStyles["payed"]
+
     return (
         <Popover
             visible={visible}
@@ -44,7 +47,7 @@ const UserStatusPopover: React.FC<UserStatusPopoverProps> = ({ status, onStatusC
             trigger="click"
         >
             <div className={style.wrapperPaid}>
-                <div className={style.paid}>{status}</div>
+                <div className={currentStatus}>{status}</div>
             </div>
         </Popover>
     );

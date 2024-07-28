@@ -41,8 +41,8 @@ export const AddBalance : FC<AddBalanceI> = ({id, setOpen, isOpened}) => {
                 balance
             }
             await axios.put(`${url}/api/user-balance/${id}`, body)
-            mutate(`${url}/api/user/${id}`)
-            mutate(`${url}/api/users`)
+            await mutate(`${url}/api/user/${id}`)
+            await mutate(`${url}/api/users`)
 
             notification.success({
                 message: "Вы успешно изменили баланс.",

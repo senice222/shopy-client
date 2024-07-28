@@ -7,10 +7,13 @@ import edit from "../../../../../assets/edit-02.png";
 
 interface OrderTableProps {
     orders: Order[];
+    _id: string;
     onStatusChange: (orderId: string, newStatus: string) => void;
 }
 
-const OrderTable: React.FC<OrderTableProps> = ({ orders, onStatusChange }) => {
+const OrderTable: React.FC<OrderTableProps> = ({_id, orders, onStatusChange}) => {
+
+
     return (
         <div className={style.container}>
             <div className={style.scrollContainer}>
@@ -37,10 +40,10 @@ const OrderTable: React.FC<OrderTableProps> = ({ orders, onStatusChange }) => {
                             <td className={style.actions}>
                                 <div>
                                         <span className={style.info}>
-                                            <img src={info} alt="info" />
+                                            <img src={info} alt="info"/>
                                         </span>
                                     <span className={style.edit}>
-                                            <img src={edit} alt="edit" />
+                                            <img src={edit} alt="edit"/>
                                         </span>
                                 </div>
                             </td>

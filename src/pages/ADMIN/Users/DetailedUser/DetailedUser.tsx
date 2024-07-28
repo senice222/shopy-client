@@ -5,7 +5,7 @@ import lock from '../../../../assets/lock-01232.png';
 import BlueButton from "../../../../components/Button/Button";
 import UserInfo from "../../../../components/ADMIN/UserInfo/UserInfo";
 import { useParams } from "react-router-dom";
-import useSWR from "swr";
+import useSWR, {useSWRConfig} from "swr";
 import { fetcher, url } from "../../../../core/fetch";
 import Loader from "../../../../components/Loader/Loader";
 import { User } from "../../../../interfaces/User";
@@ -15,7 +15,7 @@ import ChangeCashbackModal from "../../../../components/Modals/AdminModals/Chang
 import ChangeReferralModal from "../../../../components/Modals/AdminModals/Change/ChangeReferralModal/ChangeReferralModal";
 import ProfileActions from "../../../../components/ADMIN/ProfileActions/ProfileActions";
 import OrderTable from "./OrderTable/OrderTable";
-import {Button} from "antd";
+import {Button, notification} from "antd";
 
 const DetailedUser: React.FC = () => {
     const [active, setActive] = useState<boolean>(false);
@@ -24,10 +24,30 @@ const DetailedUser: React.FC = () => {
     const [referral, setReferral] = useState<boolean>(false);
     const { username } = useParams<{ username: string }>();
     const { data: user } = useSWR<User>(`${url}/api/user/username/${username}`, fetcher);
-    const totalAmount = user ? user.orderIds.reduce((acc, curr) => acc += curr.totalAmount, 0) : 0;
+    const {mutate} = useSWRConfig()
+    // const totalAmount = user ? user.orderIds.reduce((acc, curr) => acc += curr.totalAmount, 0) : 0;
 
-    const handleStatusChange = (orderId: string, newStatus: string) => {
-        // Логика для изменения статуса заказа
+    const handleStatusChange = async (orderId: string, newStatus: string) => {
+        try {
+            await mutate(
+                `${url}/api/user/username/${username}`,
+                fetcher(`${url}/api/order/update/${orderId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        newStatus
+                    }),
+                })
+            )
+            notification.success({
+                message: "Вы успешно изменили статус.",
+                duration: 1.5
+            })
+        } catch (e) {
+            console.log(e)
+        }
     };
 
     if (!user) return <Loader />;
@@ -55,7 +75,6 @@ const DetailedUser: React.FC = () => {
                     </div>
                 </div>
             </div>
-            {/*<UserStats user={user} totalAmount={totalAmount} />*/}
             <UserInfo user={user} />
             <ProfileActions setMessage={setActive} setAddBalance={setAddBalance} setCashBack={setCashBack} setReferral={setReferral} />
             <div className={style.lastOrders}>
@@ -63,7 +82,7 @@ const DetailedUser: React.FC = () => {
                     <h2>Последние заказы</h2>
                     <Button style={{ height: "40px", width: "92px", fontSize: "14px" }}>Перейти</Button>
                 </div>
-                <OrderTable orders={user.orderIds} onStatusChange={handleStatusChange} />
+                <OrderTable _id={user._id} orders={user.orderIds} onStatusChange={handleStatusChange} />
             </div>
         </div>
     );

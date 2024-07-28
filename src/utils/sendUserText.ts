@@ -15,7 +15,7 @@ export const sendUserText = async (
             text,
             buttons: btns
         }
-        await axios.post(`http://localhost:4000/api/user/send-text/${id}`, body)
+        await axios.post(`${url}/api/user/send-text/${id}`, body)
         notification.success({
             message: "Успешно отправлено!",
             duration: 2

@@ -1,13 +1,16 @@
 import React, { FC, useState } from "react";
 import s from './CategoriesAndProducts.module.scss';
 import { Arrow } from "./Svg";
+import {SubCategoryI, SubCategoryIState} from "../../../interfaces/Category";
 
 interface CategoryItemI {
     main: string;
-    sub: string[];
+    sub: SubCategoryI[];
+    _id: string,
+    setCurrentCategory: (a : SubCategoryIState) => void
 }
 
-const CategoryItem: FC<CategoryItemI> = ({ main, sub }) => {
+const CategoryItem: FC<CategoryItemI> = ({ main, sub, _id, setCurrentCategory }) => {
     const [opened, setOpened] = useState(false);
     return (
         <div className={`${s.item} ${opened ? s.active : ""}`}>
@@ -16,12 +19,9 @@ const CategoryItem: FC<CategoryItemI> = ({ main, sub }) => {
                 <Arrow />
             </div>
             <div className={s.subCategories}>
-                <div className={s.sub}>
-                    Суб-категория
-                </div>
                 {sub.map((item, index) => (
-                    <div key={index} className={s.sub}>
-                        {item}
+                    <div onClick={() => setCurrentCategory({name: item.name, mainCategoryName: main, _id: item._id})} key={index} className={s.sub}>
+                        {item.name}
                     </div>
                 ))}
             </div>

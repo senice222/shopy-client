@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, {FC, useEffect, useState} from "react";
 import AdminLayout from "../../../layouts/AdminLayout";
 import s from './CategoriesAndProducts.module.scss';
 import CategoryItem from "./CategoryItem";
@@ -12,17 +12,30 @@ import {AddCategory} from "../../../components/Modals/AdminModals/AddCategory/Ad
 import {CategoriesBurger} from "../../../components/CategoriesBurger/CategoriesBurger";
 import {CreateProductBurger} from "../../../components/ADMIN/CreateProductBurger/CreateProductBurger";
 import {initialProductList} from "../../../utils/dummy_data";
+import useSWR from "swr";
+import {fetcher, url} from "../../../core/fetch";
+import {CategoryI, SubCategoryI, SubCategoryIState} from "../../../interfaces/Category";
 
 const CategoriesAndProducts: FC = () => {
     const [currentPage, setCurrentPage] = useState<number>(1);
-    const totalPages: number = 10; // Общее количество страниц
     const [productList, setProductList] = useState<Product[]>(initialProductList);
+    const [totalPages, setTotalPages] = useState<number | null>(null)
     const [burger, setBurger] = useState<boolean>(false)
     const [creating, setCreating] = useState<boolean>(false)
-
+    const [currentCategory, setCurrentCategory] = useState<SubCategoryIState | null>(null)
+    const {data : categories} = useSWR(`${url}/api/categories`, fetcher);
+    // const {data : products} = useSWR(`${url}/api/products/${currentCategory ? `category/${currentCategory.mainCategoryId}/${currentCategory._id}` : ''}`, fetcher);
+    const {data : products} = useSWR(`http://localhost:4000/api/products/${currentCategory ? `category/${currentCategory.mainCategoryName}/${currentCategory.name}` : 'null'}`, fetcher);
+    console.log(products)
     const handlePageChange = (page: number) => {
         setCurrentPage(page);
     };
+
+    useEffect(() => {
+        if (products) {
+            setTotalPages(products.totalPages)
+        }
+    }, [products])
 
     return (
         <DndProvider backend={HTML5Backend}>
@@ -41,13 +54,12 @@ const CategoriesAndProducts: FC = () => {
                         <div className={s.categoriesDiv}>
                             <h2 className={s.title}>Категории</h2>
                             <div className={s.categories}>
-                                <div className={s.item}>
+                                <div onClick={() => setCurrentCategory(null)} className={s.item}>
                                     <div className={s.topDiv}>
                                         <h2>Все товары</h2>
                                     </div>
                                 </div>
-                                <CategoryItem main={'Категория'} sub={['Суб-категория', 'Суб-категория', 'Суб-категория']} />
-                                <CategoryItem main={'Категория'} sub={['Суб-категория', 'Суб-категория', 'Суб-категория']} />
+                                {categories ? categories.map((item : CategoryI) => <CategoryItem setCurrentCategory={setCurrentCategory} _id={item._id} main={item.name} sub={item.subCategories} />) : null}
                             </div>
                         </div>
                         <div className={s.products}>
@@ -67,7 +79,7 @@ const CategoriesAndProducts: FC = () => {
                                         <th>Действия</th>
                                     </tr>
                                     </thead>
-                                    <ProductList items={productList} setItems={setProductList} />
+                                    <ProductList items={products?.products} setItems={setProductList} />
                                 </table>
                                 <div className={s.paginationContainer}>
                                     <Pagination

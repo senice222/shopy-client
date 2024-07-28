@@ -2,12 +2,10 @@ import style from './AddAccountModal.module.scss'
 import './antd.scss'
 import BootstrapModal from "../../BootstrapModal/BootstrapModal";
 import spotify from '../../../../assets/spotify.png'
-import yt from '../../../../assets/youtube.png'
 import netflix from '../../../../assets/netflix.png'
 import {Input, Select} from "antd";
-import {useEffect, useRef, useState} from "react";
+import {useRef, useState} from "react";
 import BlueButton from "../../../Button/Button";
-import lock from "../../../../assets/lock-02.png";
 import {useForm, Controller, SubmitHandler, FieldValues} from 'react-hook-form';
 import {useSWRConfig} from "swr";
 import {fetcher, url} from "../../../../core/fetch";
@@ -41,7 +39,7 @@ const AddAccountModal = ({addAccount, onClose}: AccountProps) => {
             image: img
         }
         try {
-            mutate(`${url}/api/user/account/${id}`, fetcher(`${url}/api/user/account/${id}`, {
+            await mutate(`${url}/api/user/account/${id}`, fetcher(`${url}/api/user/account/${id}`, {
                 method: "POST",
                 body: JSON.stringify(withImg),
                 headers: {

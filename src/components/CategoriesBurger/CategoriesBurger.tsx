@@ -5,6 +5,8 @@ import {Cross} from "../Modals/AdminModal/Svgs";
 import CategoryItem from "../../pages/ADMIN/CategoriesAndProducts/CategoryItem";
 import {AddCategory} from "../Modals/AdminModals/AddCategory/AddCategory";
 import {AddSubCategory} from "../Modals/AdminModals/AddSubCategory/AddSubCategory";
+import useSWR from "swr";
+import {fetcher, url} from "../../core/fetch";
 
 interface CategoriesBurger {
     isOpened: boolean,
@@ -14,6 +16,8 @@ interface CategoriesBurger {
 export const CategoriesBurger : FC<CategoriesBurger> = ({isOpened, setOpened}) => {
     const [addCategory, setAddCategory] = useState<boolean>(false)
     const [addSubCategory, setAddSubCategory] = useState<boolean>(false)
+
+    // console.log(data)
 
     return (
         <>
@@ -42,8 +46,8 @@ export const CategoriesBurger : FC<CategoriesBurger> = ({isOpened, setOpened}) =
                         <div className={s.categoriesDiv}>
                             <h2 className={s.title}>Категории</h2>
                             <div className={s.categories}>
-                                <CategoryItem main={'Категория'} sub={['Суб-категория', 'Суб-категория', 'Суб-категория']} />
-                                <CategoryItem main={'Категория'} sub={['Суб-категория', 'Суб-категория', 'Суб-категория']} />
+                                {/*<CategoryItem main={'Категория'} sub={['Суб-категория', 'Суб-категория', 'Суб-категория']} />*/}
+                                {/*<CategoryItem main={'Категория'} sub={['Суб-категория', 'Суб-категория', 'Суб-категория']} />*/}
                             </div>
                         </div>
                     </div>

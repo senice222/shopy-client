@@ -189,6 +189,30 @@
       color: #067647;
       border: 1px solid #ABEFC6;
     }
+    .pending {
+      background-color: #FFFAEB;
+      //width: 53px;
+      height: 20px;
+      border-radius: 15px;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 18px;
+      text-align: center;
+      color: #B54708;
+      border: 1px solid #FEDF89;
+    }
+    .cancelled {
+      background-color: #FEF3F2;
+      //width: 53px;
+      height: 20px;
+      border-radius: 15px;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 18px;
+      text-align: center;
+      color: #B42318;
+      border: 1px solid #FECDCA;
+    }
   }
 
 
