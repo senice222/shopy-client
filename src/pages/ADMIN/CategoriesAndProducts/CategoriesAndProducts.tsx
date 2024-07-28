@@ -25,7 +25,7 @@ const CategoriesAndProducts: FC = () => {
     const [currentCategory, setCurrentCategory] = useState<SubCategoryIState | null>(null)
     const {data : categories} = useSWR(`${url}/api/categories`, fetcher);
     // const {data : products} = useSWR(`${url}/api/products/${currentCategory ? `category/${currentCategory.mainCategoryId}/${currentCategory._id}` : ''}`, fetcher);
-    const {data : products} = useSWR(`http://localhost:4000/api/products/${currentCategory ? `category/${currentCategory.mainCategoryName}/${currentCategory.name}` : 'null'}`, fetcher);
+    const {data : products, mutate} = useSWR(`http://localhost:4000/api/products/${currentCategory ? `category/${currentCategory.mainCategoryName}/${currentCategory.name}` : ''}?page=${currentPage}&limit=10`, fetcher);
     console.log(products)
     const handlePageChange = (page: number) => {
         setCurrentPage(page);
@@ -36,6 +36,9 @@ const CategoriesAndProducts: FC = () => {
             setTotalPages(products.totalPages)
         }
     }, [products])
+    // useEffect(() => {
+    //     mutate()
+    // }, [currentPage])
 
     return (
         <DndProvider backend={HTML5Backend}>
