@@ -1,15 +1,16 @@
-import React, {useRef, useState} from 'react';
+import React, {Dispatch, SetStateAction, useRef, useState} from 'react';
 import styles from './UploadButton.module.scss'
 import {ClipLoader} from "react-spinners";
 
-interface FileUpload {
+export interface FileUpload {
     file: File;
     progress: number;
     uploaded: boolean;
 }
 
-const UploadButton: React.FC = () => {
-    const [uploads, setUploads] = useState<FileUpload[]>([]);
+const UploadButton: React.FC<
+    {uploads: FileUpload[], setUploads: Dispatch<SetStateAction<FileUpload[]>>}
+> = ({uploads, setUploads}) => {
     const fileInputRef = useRef<HTMLInputElement>(null);
 
     const handleContainerClick = () => {
@@ -95,7 +96,7 @@ const UploadButton: React.FC = () => {
                 </div>
             </div>
             <div className={styles.uploadList}>
-                {uploads.map((upload, index) => (
+                {uploads?.map((upload, index) => (
                     <div key={index} className={styles.uploadItem}>
                         <div className={styles.fileInfo}>
                             <div className={styles.fileName}>

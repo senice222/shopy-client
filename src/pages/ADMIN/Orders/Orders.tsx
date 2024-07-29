@@ -1,8 +1,6 @@
 import React, {useState} from 'react';
-import AdminLayout from "../../../layouts/AdminLayout";
 import style from '../Users/Users.module.scss'
 import BackTick from "../../../components/ADMIN/BackTick/BackTick";
-import {AdminModal} from "../../../components/Modals/AdminModal/AdminModal";
 import {UserMessageModal} from "../../../components/Modals/AdminModals/UserMessage/UserMessageModal";
 import {AddBalance} from "../../../components/Modals/AdminModals/AddBalance/AddBalance";
 import useSWR from "swr";

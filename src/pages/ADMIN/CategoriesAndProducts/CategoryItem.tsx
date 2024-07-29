@@ -20,7 +20,9 @@ const CategoryItem: FC<CategoryItemI> = ({ main, sub, _id, setCurrentCategory })
             </div>
             <div className={s.subCategories}>
                 {sub.map((item, index) => (
-                    <div onClick={() => setCurrentCategory({name: item.name, mainCategoryName: main, _id: item._id})} key={index} className={s.sub}>
+                    <div onClick={() => {
+                        setCurrentCategory({name: item.name, mainCategoryName: main, _id: item._id})
+                    }} key={index} className={s.sub}>
                         {item.name}
                     </div>
                 ))}

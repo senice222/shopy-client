@@ -1,28 +1,35 @@
 import s from './CategoriesBurger.module.scss'
 import React, {FC, useState} from "react";
-import {Plus} from "../../pages/ADMIN/CategoriesAndProducts/Svg";
+import {Arrow, Plus} from "../../pages/ADMIN/CategoriesAndProducts/Svg";
 import {Cross} from "../Modals/AdminModal/Svgs";
 import CategoryItem from "../../pages/ADMIN/CategoriesAndProducts/CategoryItem";
 import {AddCategory} from "../Modals/AdminModals/AddCategory/AddCategory";
 import {AddSubCategory} from "../Modals/AdminModals/AddSubCategory/AddSubCategory";
 import useSWR from "swr";
 import {fetcher, url} from "../../core/fetch";
+import {CategoryI, SubCategoryIState} from "../../interfaces/Category";
 
 interface CategoriesBurger {
     isOpened: boolean,
-    setOpened: () => void
+    setOpened: () => void,
+    categories: CategoryI[],
+    setCurrentCategory1: (el : SubCategoryIState | null) => void
 }
 
-export const CategoriesBurger : FC<CategoriesBurger> = ({isOpened, setOpened}) => {
+export const CategoriesBurger : FC<CategoriesBurger> = ({isOpened, setOpened, categories, setCurrentCategory1}) => {
     const [addCategory, setAddCategory] = useState<boolean>(false)
     const [addSubCategory, setAddSubCategory] = useState<boolean>(false)
 
     // console.log(data)
+    const setCurrentCategory = (a : SubCategoryIState | null) => {
+        setOpened()
+        setCurrentCategory1(a)
+    }
 
     return (
         <>
             <AddSubCategory isActive={addSubCategory} setActive={() => setAddSubCategory((prev) => !prev)}/>
-        <AddCategory active={addCategory} setOpen={() => setAddCategory((prev) => !prev)} />
+        <AddCategory categories={categories} active={addCategory} setOpen={() => setAddCategory((prev) => !prev)} />
         <div onClick={setOpened} className={`${s.burgerBg} ${isOpened ? s.activeBg : ""}`}>
             <div onClick={(e) => e.stopPropagation()} className={`${s.content} ${isOpened ? s.activeContent : ""}`}>
                 <div className={s.topDiv}>
@@ -46,8 +53,13 @@ export const CategoriesBurger : FC<CategoriesBurger> = ({isOpened, setOpened}) =
                         <div className={s.categoriesDiv}>
                             <h2 className={s.title}>Категории</h2>
                             <div className={s.categories}>
-                                {/*<CategoryItem main={'Категория'} sub={['Суб-категория', 'Суб-категория', 'Суб-категория']} />*/}
-                                {/*<CategoryItem main={'Категория'} sub={['Суб-категория', 'Суб-категория', 'Суб-категория']} />*/}
+                                {/*{categories ? categories}*/}
+                                <div onClick={() => setCurrentCategory(null)} className={`${s.item}`}>
+                                    <div className={s.topDiv}>
+                                        <h2>Все товары</h2>
+                                    </div>
+                                </div>
+                                {categories ? categories.map((item : CategoryI) => <CategoryItem setCurrentCategory={setCurrentCategory} _id={item._id} main={item.name} sub={item.subCategories} />) : null}                                {/*<CategoryItem main={'Категория'} sub={['Суб-категория', 'Суб-категория', 'Суб-категория']} />*/}
                             </div>
                         </div>
                     </div>

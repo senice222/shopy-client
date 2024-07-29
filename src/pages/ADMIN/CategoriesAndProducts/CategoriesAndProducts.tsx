@@ -43,7 +43,7 @@ const CategoriesAndProducts: FC = () => {
     return (
         <DndProvider backend={HTML5Backend}>
             <CreateProductBurger isOpened={creating} setOpened={() => setCreating((prev) => !prev)}/>
-            <CategoriesBurger isOpened={burger} setOpened={() => setBurger((prev) => !prev)} />
+            <CategoriesBurger setCurrentCategory1={setCurrentCategory} categories={categories} isOpened={burger} setOpened={() => setBurger((prev) => !prev)} />
                 <div className={s.content}>
                     <div className={s.title}>
                         <h1>Категории и товары</h1>

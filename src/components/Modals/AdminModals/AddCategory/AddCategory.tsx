@@ -1,10 +1,12 @@
 import {AdminModal} from "../../AdminModal/AdminModal";
 import React, {FC, useState} from "react";
 import s from './AddCategory.module.scss'
+import {CategoryI} from "../../../../interfaces/Category";
 
 interface AddCategoryI {
     active: boolean,
-    setOpen: () => void
+    setOpen: () => void,
+    categories: CategoryI[]
 }
 
 export const AddCategory : FC<AddCategoryI> = ({active, setOpen}) => {
@@ -13,6 +15,7 @@ export const AddCategory : FC<AddCategoryI> = ({active, setOpen}) => {
         setOpen()
         setValue('')
     }
+
     return (
         <AdminModal setOpen={setOpen} isOpened={active}>
             <h2>Добавить категорию</h2>

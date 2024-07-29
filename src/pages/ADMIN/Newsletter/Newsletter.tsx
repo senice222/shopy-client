@@ -1,19 +1,21 @@
 import style from './Newsletter.module.scss'
-import AdminLayout from "../../../layouts/AdminLayout";
-import UploadButton from "../../../components/ADMIN/UploadButton/UploadButton";
+import UploadButton, {FileUpload} from "../../../components/ADMIN/UploadButton/UploadButton";
 import React, {useState} from "react";
 import s from "../../../components/Modals/AdminModals/UserMessage/UserMessageModal.module.scss";
 import {Pencil} from "../../../components/Modals/AdminModals/UserMessage/Svgs";
 import {Btns} from "../../../components/Modals/AdminModals/UserMessage/UserMessageModal";
 import BlueButton from "../../../components/Button/Button";
 import { Switch } from 'antd';
+import {sendNewsletter} from "../../../utils/sendNewsletter";
 
 const Newsletter = () => {
     const [isCreating, setCreating] = useState<boolean>(false)
-    const [btnText, setBtnText] = useState('')
-    const [btnLink, setBtnLink] = useState('')
+    const [text, setText] = useState<string>('');
+    const [btnText, setBtnText] = useState<string>('')
+    const [btnLink, setBtnLink] = useState<string>('')
     const [isEditing, setEditing] = useState<string>()
     const [btns, setBtns] = useState<Btns[]>([])
+    const [uploads, setUploads] = useState<FileUpload[]>([]);
 
     const onChange = (checked: boolean) => {
         console.log(`switch to ${checked}`);
@@ -62,10 +64,10 @@ const Newsletter = () => {
             <div className={style.wrapper}>
                 <div className={style.firstBlock}>
                     <h1 className={style.title}>Рассылка</h1>
-                    <UploadButton  />
+                    <UploadButton uploads={uploads} setUploads={setUploads} />
                     <div className={style.textareaDiv}>
                         <h2>Сообщение</h2>
-                        <textarea placeholder={"Введите описание"} />
+                        <textarea value={text} onChange={(e) => setText(e.target.value)} placeholder={"Введите описание"} />
                         <p>Максимум - 4096 символов</p>
                     </div>
                     <div className={style.buttons}>
@@ -97,7 +99,7 @@ const Newsletter = () => {
                             </div>
                         </div>}
                     </div>
-                    <div className={style.newsletterBtn}>
+                    <div className={style.newsletterBtn} onClick={() => sendNewsletter(text, btns, uploads, setBtns)}>
                         <BlueButton text={"Отправить рассылку"} width={"202px"} height={"44px"} />
                     </div>
                 </div>

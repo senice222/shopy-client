@@ -4,7 +4,7 @@ import {Cross} from "../../Modals/AdminModal/Svgs";
 import React, {useState} from "react";
 import {Select} from "antd";
 import './Antd.scss'
-import UploadButton from "../UploadButton/UploadButton";
+import UploadButton, {FileUpload} from "../UploadButton/UploadButton";
 import VariantsTable from "./VariantsTable/VariantsTable";
 import QuestionsFAQ from "./FAQ/FAQ";
 
@@ -14,6 +14,7 @@ export const CreateProductBurger = ({isOpened, setOpened} : {isOpened: boolean, 
     const [title, setTitle] = useState<string>('')
     const [deskr, setDeskr] = useState<string>('')
     const [selectValue, setSelectValue] = useState<string>('')
+    const [uploads, setUploads] = useState<FileUpload[]>([]);
 
     return (
         <div onClick={setOpened} className={`${s.burgerBg} ${isOpened ? s.activeBg : ""}`}>
@@ -67,7 +68,7 @@ export const CreateProductBurger = ({isOpened, setOpened} : {isOpened: boolean, 
                     </div>
                     <div className={s.image}>
                         <h2>Изображения товара</h2>
-                        <UploadButton />
+                        <UploadButton uploads={uploads} setUploads={setUploads} />
                     </div>
                     <VariantsTable />
                     <QuestionsFAQ />
