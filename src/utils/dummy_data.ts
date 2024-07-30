@@ -16,78 +16,78 @@ export const items = [
     }
 ];
 
-export const initialProductList: Product[] = [
-    {
-        id: 1,
-        name: 'Product1',
-        img: avatar,
-        variants: {
-            items: [
-                {price: 300, properties: [], count: 3, visible: true, description: 'description'},
-                {price: 100, properties: [], count: 3, visible: true, description: 'description'},
-                {price: 500, properties: [], count: 3, visible: true, description: 'description'}
-            ]
-        }
-    },
-    {
-        id: 2,
-        name: 'Product2',
-        img: avatar,
-        variants: {
-            items: [
-                {price: 300, properties: [], count: 3, visible: true, description: 'description'},
-                {price: 500, properties: [], count: 3, visible: true, description: 'description'}
-            ]
-        }
-    },
-    {
-        id: 3,
-        name: 'Product1',
-        img: avatar,
-        variants: {
-            items: [
-                {price: 300, properties: [], count: 3, visible: true, description: 'description'},
-                {price: 100, properties: [], count: 3, visible: true, description: 'description'},
-                {price: 500, properties: [], count: 3, visible: true, description: 'description'}
-            ]
-        }
-    },
-    {
-        id: 4,
-        name: 'Product2',
-        img: avatar,
-        variants: {
-            items: [
-                {price: 300, properties: [], count: 3, visible: true, description: 'description'},
-                {price: 500, properties: [], count: 3, visible: true, description: 'description'}
-            ]
-        }
-    },
-    {
-        id: 5,
-        name: 'Product1',
-        img: avatar,
-        variants: {
-            items: [
-                {price: 300, properties: [], count: 3, visible: true, description: 'description'},
-                {price: 100, properties: [], count: 3, visible: true, description: 'description'},
-                {price: 500, properties: [], count: 3, visible: true, description: 'description'}
-            ]
-        }
-    },
-    {
-        id: 6,
-        name: 'Product2',
-        img: avatar,
-        variants: {
-            items: [
-                {price: 300, properties: [], count: 3, visible: true, description: 'description'},
-                {price: 500, properties: [], count: 3, visible: true, description: 'description'}
-            ]
-        }
-    },
-    // Additional products here...
-];
+// export const initialProductList: Product[] = [
+//     {
+//         id: 1,
+//         name: 'Product1',
+//         img: avatar,
+//         variants: {
+//             items: [
+//                 {price: 300, properties: [], count: 3, visible: true, description: 'description'},
+//                 {price: 100, properties: [], count: 3, visible: true, description: 'description'},
+//                 {price: 500, properties: [], count: 3, visible: true, description: 'description'}
+//             ]
+//         }
+//     },
+//     {
+//         id: 2,
+//         name: 'Product2',
+//         img: avatar,
+//         variants: {
+//             items: [
+//                 {price: 300, properties: [], count: 3, visible: true, description: 'description'},
+//                 {price: 500, properties: [], count: 3, visible: true, description: 'description'}
+//             ]
+//         }
+//     },
+//     {
+//         id: 3,
+//         name: 'Product1',
+//         img: avatar,
+//         variants: {
+//             items: [
+//                 {price: 300, properties: [], count: 3, visible: true, description: 'description'},
+//                 {price: 100, properties: [], count: 3, visible: true, description: 'description'},
+//                 {price: 500, properties: [], count: 3, visible: true, description: 'description'}
+//             ]
+//         }
+//     },
+//     {
+//         id: 4,
+//         name: 'Product2',
+//         img: avatar,
+//         variants: {
+//             items: [
+//                 {price: 300, properties: [], count: 3, visible: true, description: 'description'},
+//                 {price: 500, properties: [], count: 3, visible: true, description: 'description'}
+//             ]
+//         }
+//     },
+//     {
+//         id: 5,
+//         name: 'Product1',
+//         img: avatar,
+//         variants: {
+//             items: [
+//                 {price: 300, properties: [], count: 3, visible: true, description: 'description'},
+//                 {price: 100, properties: [], count: 3, visible: true, description: 'description'},
+//                 {price: 500, properties: [], count: 3, visible: true, description: 'description'}
+//             ]
+//         }
+//     },
+//     {
+//         id: 6,
+//         name: 'Product2',
+//         img: avatar,
+//         variants: {
+//             items: [
+//                 {price: 300, properties: [], count: 3, visible: true, description: 'description'},
+//                 {price: 500, properties: [], count: 3, visible: true, description: 'description'}
+//             ]
+//         }
+//     },
+//     // Additional products here...
+// ];
 
 export const tableData = [
     {

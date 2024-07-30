@@ -1,0 +1,70 @@
+.deleteAccount {
+  background-image: var(--delete-img) !important;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 270px;
+  background-position: -51px -64px;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .deleteText {
+    margin-top: 13px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 50%;
+    h2 {
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 28px;
+      color: var(--burger-title-color);
+      text-align: left;
+    }
+
+    p {
+      margin-top: 3px;
+      font-family: "Graphik LCG Regular", sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 20px;
+      text-align: left;
+      color: var(--gray-text-first);
+    }
+
+    .btnWrapp {
+      display: flex;
+      flex-direction: column;
+      margin-top: 15px;
+      .deleteBtn {
+        background-color: var(--delete-btn);
+        color: var(--repeat-btn-bg);
+        caret-color: rgb(255, 255, 255);
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 24px;
+        letter-spacing: 0.6px;
+        height: 44px;
+      }
+      .cancelBtn {
+        background-color: var(--repeat-btn-bg);
+        color: var(--order-text);
+        margin-top: 10px;
+        width: 100%;
+        caret-color: rgb(255, 255, 255);
+        border: 1px solid var(--input-border);
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 24px;
+        height: 44px;
+        letter-spacing: 0.6px;
+      }
+    }
+
+
+  }
+}

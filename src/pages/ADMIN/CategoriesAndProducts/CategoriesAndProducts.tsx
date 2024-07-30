@@ -11,21 +11,23 @@ import avatar from '../../../assets/Avatar.png';
 import {AddCategory} from "../../../components/Modals/AdminModals/AddCategory/AddCategory";
 import {CategoriesBurger} from "../../../components/CategoriesBurger/CategoriesBurger";
 import {CreateProductBurger} from "../../../components/ADMIN/CreateProductBurger/CreateProductBurger";
-import {initialProductList} from "../../../utils/dummy_data";
+// import {initialProductList} from "../../../utils/dummy_data";
 import useSWR from "swr";
 import {fetcher, url} from "../../../core/fetch";
 import {CategoryI, SubCategoryI, SubCategoryIState} from "../../../interfaces/Category";
 
 const CategoriesAndProducts: FC = () => {
     const [currentPage, setCurrentPage] = useState<number>(1);
-    const [productList, setProductList] = useState<Product[]>(initialProductList);
+    const [productList, setProductList] = useState<Product[]>();
+    const [searchQuery, setSearchQuery] = useState('');
     const [totalPages, setTotalPages] = useState<number | null>(null)
     const [burger, setBurger] = useState<boolean>(false)
     const [creating, setCreating] = useState<boolean>(false)
     const [currentCategory, setCurrentCategory] = useState<SubCategoryIState | null>(null)
     const {data : categories} = useSWR(`${url}/api/categories`, fetcher);
+    const currentUrl = `${url}/api/products/${currentCategory ? `category/${currentCategory.mainCategoryName}/${currentCategory.name}` : ''}?page=${currentPage}&limit=10`
     // const {data : products} = useSWR(`${url}/api/products/${currentCategory ? `category/${currentCategory.mainCategoryId}/${currentCategory._id}` : ''}`, fetcher);
-    const {data : products, mutate} = useSWR(`http://localhost:4000/api/products/${currentCategory ? `category/${currentCategory.mainCategoryName}/${currentCategory.name}` : ''}?page=${currentPage}&limit=10`, fetcher);
+    const {data : products, mutate} = useSWR(`${url}/api/products/${currentCategory ? `category/${currentCategory.mainCategoryName}/${currentCategory.name}` : ''}?page=${currentPage}&limit=10`, fetcher);
     console.log(products)
     const handlePageChange = (page: number) => {
         setCurrentPage(page);
@@ -39,7 +41,7 @@ const CategoriesAndProducts: FC = () => {
     // useEffect(() => {
     //     mutate()
     // }, [currentPage])
-
+    // const filteredProducts =
     return (
         <DndProvider backend={HTML5Backend}>
             <CreateProductBurger isOpened={creating} setOpened={() => setCreating((prev) => !prev)}/>
@@ -69,7 +71,7 @@ const CategoriesAndProducts: FC = () => {
                             <div className={s.topWrapper1}>
                                 <h2 className={s.title2}>Товары</h2>
                                 <div className={s.searchBar}>
-                                    <input type="text" placeholder="Поиск товаров" />
+                                    <input value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} type="text" placeholder="Поиск товаров" />
                                 </div>
                             </div>
                             <div className={s.tableDiv}>
@@ -82,7 +84,7 @@ const CategoriesAndProducts: FC = () => {
                                         <th>Действия</th>
                                     </tr>
                                     </thead>
-                                    <ProductList items={products?.products} setItems={setProductList} />
+                                    <ProductList url={currentUrl} items={products?.products} />
                                 </table>
                                 <div className={s.paginationContainer}>
                                     <Pagination

@@ -1,8 +1,6 @@
 import style from './ActiveSubscriptions.module.scss'
-import featured from "../../assets/featured.png";
-import spotify64 from "../../assets/spotify64x64.png";
 import Button from "../../components/Button/Button";
-import React, {FC, useEffect} from "react";
+import React, {FC, useEffect, useState} from "react";
 import Layout from "../../layouts/Layout";
 import {useTelegram} from "../../hooks/useTelegram";
 import {useNavigate} from "react-router-dom";
@@ -12,6 +10,9 @@ import {fetcher, url} from "../../core/fetch";
 import Loader from "../../components/Loader/Loader";
 import {format, addMonths, differenceInDays} from 'date-fns';
 import NothingYet from "../../components/NothingYet/NothingYet";
+import axios from "axios";
+import {notification} from "antd";
+import UnAvailableModal from "../../components/Modals/UnAvailableModal/UnAvailableModal";
 
 interface Optional {
     name: string;
@@ -22,6 +23,7 @@ const ActiveSubscriptions: FC<UserProps> = ({user}) => {
     const {onBackButtonClick, id} = useTelegram();
     const navigate = useNavigate()
     const {data} = useSWR(`${url}/api/active-orders/878990615`, fetcher)
+    const [open, setOpen] = useState<boolean>(false)
 
     useEffect(() => {
         onBackButtonClick(() => navigate('/'));
@@ -39,6 +41,18 @@ const ActiveSubscriptions: FC<UserProps> = ({user}) => {
         return differenceInDays(endDate, new Date());
     };
 
+    const handleExtend = async (name: string, orderId: string) => {
+        const {data: product} = await axios.get(`${url}/api/product/name/${name}`)
+        if (product.visible) {
+            const {data: order} = await axios.get(`${url}/api/order/${orderId}`)
+            if (user.balance >= order.totalAmount) {
+                await axios.post(`${url}/api/order/create`, order)
+                notification.success({ message: "Заказ успешно создан", duration: 1 })
+            }
+        } else {
+            setOpen(true)
+        }
+    }
 
     if (!data) {
         return <Loader/>
@@ -46,6 +60,7 @@ const ActiveSubscriptions: FC<UserProps> = ({user}) => {
 
     return (
         <div className={style.historyWrapp}>
+            <UnAvailableModal active={open} setOpen={setOpen} />
             <Layout isRightArrow={true}>
                 <div className={style.wrapperOfHistory}>
                     <div className={style.historyTitle}>
@@ -93,7 +108,9 @@ const ActiveSubscriptions: FC<UserProps> = ({user}) => {
                                                 <div className={style.data}>
                                                     <p>Действует до {formattedEndDate}</p>
                                                 </div>
-                                                <Button text={"Продлить"} height={"40px"} width={"100%"}/>
+                                                <div onClick={() => handleExtend(item.items[0].main.name, item._id)}>
+                                                    <Button text={"Продлить"} height={"40px"} width={"100%"}/>
+                                                </div>
                                             </div>
                                         </div>
                                     );

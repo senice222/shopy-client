@@ -7,10 +7,11 @@ interface ActiveProps {
     onClose?: () => void;
     bottom?: boolean;
     isFocused?: boolean;
-    Y?: number
+    Y?: number;
+    modalHeight?: string
 }
 
-const BootstrapModal:FC<ActiveProps> = ({active, children, onClose, bottom, isFocused, Y}) => {
+const BootstrapModal:FC<ActiveProps> = ({active, children, onClose, bottom, isFocused, Y, modalHeight}) => {
     const [height, setHeight] = useState(600);
     const ref = useRef<HTMLDivElement>(null);
 
@@ -37,6 +38,7 @@ const BootstrapModal:FC<ActiveProps> = ({active, children, onClose, bottom, isFo
                 style={{
                     transform: isFocused ? `translateY(${Y ? Y : -90}%)` : '',
                     transition: isFocused ? 'transform 0.3s ease-in-out' : '',
+                    height: modalHeight
                 }}
                 onClick={e => e.stopPropagation()}
             >

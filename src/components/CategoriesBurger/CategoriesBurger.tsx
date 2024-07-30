@@ -28,7 +28,7 @@ export const CategoriesBurger : FC<CategoriesBurger> = ({isOpened, setOpened, ca
 
     return (
         <>
-            <AddSubCategory isActive={addSubCategory} setActive={() => setAddSubCategory((prev) => !prev)}/>
+            <AddSubCategory categories={categories} isActive={addSubCategory} setActive={() => setAddSubCategory((prev) => !prev)}/>
         <AddCategory categories={categories} active={addCategory} setOpen={() => setAddCategory((prev) => !prev)} />
         <div onClick={setOpened} className={`${s.burgerBg} ${isOpened ? s.activeBg : ""}`}>
             <div onClick={(e) => e.stopPropagation()} className={`${s.content} ${isOpened ? s.activeContent : ""}`}>

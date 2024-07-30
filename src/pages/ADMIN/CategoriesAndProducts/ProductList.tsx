@@ -5,16 +5,17 @@ import Loader from "../../../components/Loader/Loader";
 
 interface ProductListProps {
     items: Product[] | undefined;
-    setItems: React.Dispatch<React.SetStateAction<Product[]>>;
+    url: string
+    // setItems: React.Dispatch<React.SetStateAction<Product[]>>;
 }
 
-const ProductList: FC<ProductListProps> = ({ items, setItems }) => {
+const ProductList: FC<ProductListProps> = ({ items,url }) => {
     const moveItem = (fromIndex: number, toIndex: number) => {
         if (items) {
             const updatedItems = [...items];
             const [movedItem] = updatedItems.splice(fromIndex, 1);
             updatedItems.splice(toIndex, 0, movedItem);
-            setItems(updatedItems);
+            // setItems(updatedItems);
         }
     };
 
@@ -22,7 +23,8 @@ const ProductList: FC<ProductListProps> = ({ items, setItems }) => {
         <tbody>
         {items ? items.map((item, index) => (
             <DraggableProductItem
-                key={item.id}
+                url1={url}
+                key={item._id}
                 index={index}
                 item={item}
                 length={items.length}

@@ -17,7 +17,7 @@ const Basket = () => {
     const totalAmount = items?.reduce((acc: number, curr: any) => acc += curr.main?.price, 0)
     const { onBackButtonClick } = useTelegram();
     const navigate = useNavigate()
-    console.log(items)
+
     useEffect(() => {
         onBackButtonClick(() => {
             navigate('/')

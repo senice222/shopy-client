@@ -17,7 +17,7 @@ export const sendNewsletter = async (
     uploads.forEach((image: any) => formData.append('images', image.file))
 
     try {
-        await axios.post(`http://localhost:4000/api/user/send-newsletter`, formData, {
+        await axios.post(`${url}/api/user/send-newsletter`, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data'
             }

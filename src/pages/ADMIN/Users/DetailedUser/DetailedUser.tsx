@@ -25,6 +25,7 @@ const DetailedUser: React.FC = () => {
     const { username } = useParams<{ username: string }>();
     const { data: user } = useSWR<User>(`${url}/api/user/username/${username}`, fetcher);
     const {mutate} = useSWRConfig()
+
     // const totalAmount = user ? user.orderIds.reduce((acc, curr) => acc += curr.totalAmount, 0) : 0;
 
     const handleStatusChange = async (orderId: string, newStatus: string) => {

@@ -2,6 +2,10 @@ import {AdminModal} from "../../AdminModal/AdminModal";
 import React, {FC, useState} from "react";
 import s from './AddCategory.module.scss'
 import {CategoryI} from "../../../../interfaces/Category";
+import axios from "axios";
+import {url} from "../../../../core/fetch";
+import {a} from "react-spring";
+import useSWR, {useSWRConfig} from "swr";
 
 interface AddCategoryI {
     active: boolean,
@@ -14,6 +18,30 @@ export const AddCategory : FC<AddCategoryI> = ({active, setOpen}) => {
     const handleClose = () => {
         setOpen()
         setValue('')
+    }
+    const {mutate} = useSWRConfig()
+
+    const addCategory = async () => {
+        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Njg5MTMwYTFjNmJlMDkwYjJiOTk5NWYiLCJpYXQiOjE3MjIzMjU1OTYsImV4cCI6MTcyMzYyMTU5Nn0.4eYfUtwwwZCd2hgioIzpIq4MHUVUnWQAXTcoCV6keQE'
+        try {
+            if (value) {
+                const {data} = await axios.post(`${url}/api/category/create`,
+                    {name: value},
+                    {
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        }
+                    }
+            )
+                if (data) {
+                    await mutate(`${url}/api/categories`)
+                    setOpen()
+                    setValue('')
+                }
+            }
+        } catch (e) {
+            console.log(e)
+        }
     }
 
     return (
@@ -28,7 +56,7 @@ export const AddCategory : FC<AddCategoryI> = ({active, setOpen}) => {
             </div>
             <div className={s.lastbtns}>
                 <button onClick={handleClose} className={s.grayBtn}>Закрыть</button>
-                <button className={s.blueBtn}>Добавить</button>
+                <button onClick={addCategory} className={s.blueBtn}>Добавить</button>
             </div>
         </AdminModal>
     )

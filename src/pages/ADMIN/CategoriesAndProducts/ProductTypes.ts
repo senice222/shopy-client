@@ -7,7 +7,7 @@ export interface ProductVariant {
 }
 
 export interface Product {
-    id: number;
+    _id: number;
     name: string;
     img: string;
     variants: {

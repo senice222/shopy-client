@@ -3,7 +3,7 @@ import { Popover, List, Button } from 'antd';
 import style from '../DetailedUser.module.scss';
 import {statusStyles} from "../../../../../utils/getCurrentStatus";
 
-const statuses = ["payed", "in work", "cancelled", "refund"] as const;
+const statuses = ["payed", "in work", "ready", "cancelled", "refund"] as const;
 
 type Status = typeof statuses[number];
 

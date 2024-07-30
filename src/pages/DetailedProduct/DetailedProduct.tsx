@@ -131,7 +131,7 @@ export const DetailedProduct: FC<ModalAndFavorite> = ({setAddedFunc, isAdd, adde
                                             setAddedFunc(true, {
                                                 id: String(data._id),
                                                 name: data.name,
-                                                price: 350,
+                                                price: data.price,
                                                 img: `${url}/api/uploads/${data.img}`
                                             });
                                         }}
@@ -142,7 +142,7 @@ export const DetailedProduct: FC<ModalAndFavorite> = ({setAddedFunc, isAdd, adde
                                         setAddedFunc(true, {
                                             id: String(data._id),
                                             name: data.name,
-                                            price: 350,
+                                            price: data.price,
                                             img: `${url}/api/uploads/${data.img}`
                                         })
                                     }}>
