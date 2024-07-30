@@ -38,10 +38,10 @@ const initialState: AccountState = {
 }
 
 export const adminSlice = createSlice({
-    name: 'account',
+    name: 'admin',
     initialState,
     reducers: {
-        signOut: (state, action) => {
+        signOut: (state) => {
             localStorage.removeItem('token')
             state.admin = null
         }

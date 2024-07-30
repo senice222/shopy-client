@@ -1,54 +1,41 @@
-import { Modal, Button, Box } from '@mui/material'
+import React, { useState } from 'react'
+import styles from './SettingsModal.module.scss'
 
-const SettingsModal = ({settingsOpen, setSettingsOpen}: any) => {
-    const handleCloseSettings = () => {
-        setSettingsOpen(false)
+interface FullScreenModalProps {
+    settingsOpen: boolean
+    setSettingsOpen: any
+}
+
+const FullScreenModal: React.FC<FullScreenModalProps> = ({ settingsOpen, setSettingsOpen }) => {
+    const [theme, setTheme] = useState<'light' | 'dark'>('light')
+
+    if (!settingsOpen) return null
+
+    const handleThemeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+        setTheme(event.target.value as 'light' | 'dark')
     }
 
     return (
-        <div>
-            <h1>Your Telegram Mini App</h1>
-            <Modal
-                open={settingsOpen}
-                onClose={handleCloseSettings}
-                aria-labelledby="settings-modal-title"
-                aria-describedby="settings-modal-description"
-                sx={{
-                    width: '100vw',
-                    height: '100vh',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    bgcolor: 'background.paper',
-                    p: 2,
-                }}
+        <div className={`${styles.modal} ${styles[theme]}`}>
+            <h2>Settings</h2>
+            <label htmlFor="theme-select">Theme:</label>
+            <select
+                id="theme-select"
+                value={theme}
+                onChange={handleThemeChange}
+                className={styles.select}
             >
-                <Box
-                    sx={{
-                        width: '100%',
-                        height: '100%',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        bgcolor: 'background.default',
-                        borderRadius: 1,
-                        boxShadow: 24,
-                        p: 4,
-                    }}
-                >
-                    <h2 id="settings-modal-title">Settings</h2>
-                    <p id="settings-modal-description">
-                        Here you can configure your settings.
-                    </p>
-                    {/* Add your settings content here */}
-                    <Button variant="contained" onClick={handleCloseSettings}>
-                        Close
-                    </Button>
-                </Box>
-            </Modal>
+                <option value="light">Light</option>
+                <option value="dark">Dark</option>
+            </select>
+            <button
+                onClick={() => setSettingsOpen(false)}
+                className={styles.closeButton}
+            >
+                Close
+            </button>
         </div>
-    );
-};
+    )
+}
 
-export default SettingsModal;
+export default FullScreenModal

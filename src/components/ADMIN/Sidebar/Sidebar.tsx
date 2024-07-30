@@ -10,10 +10,11 @@ import settings from '../../../assets/settings-01.png'
 import logout from '../../../assets/log-out-01.png'
 import {useNavigate} from "react-router-dom";
 import {useAppDispatch} from "../../../hooks/redux-hooks";
+import {signOut} from "../../../store/features/AdminSlice";
 
 
 const Sidebar = () => {
-    const dispatch = useAppDispatch
+    const dispatch = useAppDispatch()
     const navigate = useNavigate()
     return (
         <div className={style.sidebar}>
@@ -56,7 +57,10 @@ const Sidebar = () => {
                             <h2>Admin</h2>
                             <p>@mshopybot</p>
                         </div>
-                        <img  src={logout} alt={"/"}/>
+                        <img onClick={() => {
+                            dispatch(signOut())
+                            navigate('/login')
+                        }} src={logout} alt={"/"}/>
                     </div>
                 </div>
             </div>
