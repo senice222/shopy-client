@@ -30,11 +30,13 @@ const DetailedUser: React.FC = () => {
 
     const handleStatusChange = async (orderId: string, newStatus: string) => {
         try {
+            const token = localStorage.getItem('token')
             await mutate(
                 `${url}/api/user/username/${username}`,
                 fetcher(`${url}/api/order/update/${orderId}`, {
                     method: 'PUT',
                     headers: {
+                        'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json',
                     },
                     body: JSON.stringify({

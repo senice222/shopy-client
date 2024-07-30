@@ -22,7 +22,7 @@ export const AddCategory : FC<AddCategoryI> = ({active, setOpen}) => {
     const {mutate} = useSWRConfig()
 
     const addCategory = async () => {
-        const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Njg5MTMwYTFjNmJlMDkwYjJiOTk5NWYiLCJpYXQiOjE3MjIzMjU1OTYsImV4cCI6MTcyMzYyMTU5Nn0.4eYfUtwwwZCd2hgioIzpIq4MHUVUnWQAXTcoCV6keQE'
+        const token = localStorage.getItem('token')
         try {
             if (value) {
                 const {data} = await axios.post(`${url}/api/category/create`,
