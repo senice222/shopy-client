@@ -9,6 +9,7 @@ import useSWR from "swr";
 import {fetcher, url} from "../../../core/fetch";
 import {format} from 'date-fns';
 import Loader from "../../../components/Loader/Loader";
+import {feedbackManager} from "../../../utils/feedbackManager";
 
 const DetailedOrder = () => {
     const navigate = useNavigate()
@@ -24,6 +25,10 @@ const DetailedOrder = () => {
         "cancelled": {
             style: style.cancelledStatus,
             text: "Отменен"
+        },
+        "ready": {
+            style: style.payedStatus,
+            text: "Выполнен"
         },
         "in work": {
             style: style.pendingStatus,
@@ -53,14 +58,14 @@ const DetailedOrder = () => {
             <Layout>
                 <div className={style.wrappedOrder}>
                     <div className={style.historyTitle}>
-                        <h2>Заказ №{id}</h2>
+                        <h2 style={{fontSize: "16px"}}>Заказ №{id}</h2>
                     </div>
                     <div className={style.detailedInfo}>
                         <p className={style.date}>{formattedDate}</p>
-                        <div className={currentStatus.style}>
-                            <p>Статус:</p>
+                        <div className={currentStatus?.style}>
+                            <p className={style.date}>Статус:</p>
                             <div>
-                                <p>{currentStatus.text}</p>
+                                <p>{currentStatus?.text}</p>
                             </div>
                         </div>
                     </div>
@@ -116,7 +121,10 @@ const DetailedOrder = () => {
                             <h2>{data.totalAmount}₽</h2>
                         </div>
                     </div>
-                    <div style={{width: "100%", marginTop: "25px"}} onClick={() => navigate('/change-data')}>
+                    <div style={{width: "100%", marginTop: "25px"}} onClick={() => {
+                        feedbackManager()
+                        // navigate('/change-data')
+                    }}>
                         <Button text={"Написать в поддержку"} width={"100%"} height={"48px"}/>
                     </div>
                 </div>

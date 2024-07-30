@@ -1,4 +1,4 @@
-import React, {FC, useEffect, useState} from "react";
+import React, {ChangeEvent, FC, useEffect, useState} from "react";
 import AdminLayout from "../../../layouts/AdminLayout";
 import s from './CategoriesAndProducts.module.scss';
 import CategoryItem from "./CategoryItem";
@@ -32,7 +32,7 @@ const CategoriesAndProducts: FC = () => {
     const handlePageChange = (page: number) => {
         setCurrentPage(page);
     };
-    const [filteredProducts, setFilteredProducts] = useState<Product[]>(products);
+    const [filteredProducts, setFilteredProducts] = useState<Product[]>(products?.products);
     useEffect(() => {
         if (products) {
             setTotalPages(products.totalPages)
@@ -41,17 +41,15 @@ const CategoriesAndProducts: FC = () => {
     // useEffect(() => {
     //     mutate()
     // }, [currentPage])
-    // const filteredProducts =
-    // const handleSearchChange = (event) => {
-    //     const query = event.target.value;
-    //     setSearchQuery(query);
-    //
-    //     // Filter products by name
-    //     const filtered = products.filter(product =>
-    //         product.name.toLowerCase().includes(query.toLowerCase())
-    //     );
-    //     setFilteredProducts(filtered);
-    // };
+
+    const handleSearchChange = (event : ChangeEvent<HTMLInputElement>) => {
+        const query = event.target.value;
+        setSearchQuery(query);
+
+        // Filter products by name
+        const filtered = products?.products.filter((product : Product) => product.name.toLowerCase().includes(query.toLowerCase()))
+        setFilteredProducts(filtered);
+    };
     return (
         <DndProvider backend={HTML5Backend}>
             <CreateProductBurger isOpened={creating} setOpened={() => setCreating((prev) => !prev)}/>
@@ -81,7 +79,7 @@ const CategoriesAndProducts: FC = () => {
                             <div className={s.topWrapper1}>
                                 <h2 className={s.title2}>Товары</h2>
                                 <div className={s.searchBar}>
-                                    <input value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} type="text" placeholder="Поиск товаров" />
+                                    <input value={searchQuery} onChange={handleSearchChange} type="text" placeholder="Поиск товаров" />
                                 </div>
                             </div>
                             <div className={s.tableDiv}>
@@ -94,7 +92,7 @@ const CategoriesAndProducts: FC = () => {
                                         <th>Действия</th>
                                     </tr>
                                     </thead>
-                                    <ProductList url={currentUrl} items={products?.products} />
+                                    <ProductList url={currentUrl} items={filteredProducts} />
                                 </table>
                                 <div className={s.paginationContainer}>
                                     <Pagination

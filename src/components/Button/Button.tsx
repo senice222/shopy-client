@@ -8,12 +8,13 @@ interface ButtonProps {
     width?: string;
     fontSize?: string;
     letterSpacing?: string;
-    loading?: boolean
+    loading?: boolean,
+    onClick?: () => void
 }
 
-const BlueButton: FC<ButtonProps> = ({text, height, width, fontSize, letterSpacing, loading}) => {
+const BlueButton: FC<ButtonProps> = ({text, height, width, fontSize, letterSpacing, loading, onClick}) => {
     return (
-        <button className={style.blue} style={{height, width, fontSize, letterSpacing}}>
+        <button onClick={onClick} className={style.blue} style={{height, width, fontSize, letterSpacing}}>
             {loading ? (
                 <ClipLoader size={20} color={'#ffffff'} loading={true} />
             ) : (

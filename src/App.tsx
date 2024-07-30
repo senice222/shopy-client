@@ -45,8 +45,23 @@ function App() {
     useTelegramTheme();
 
     useEffect(() => {
-        tg.ready();
-    }, [tg]);
+        if (tg) {
+            tg.ready()
+            const settingsButton = tg.MainButton
+
+            settingsButton.onClick(() => {
+                console.log('Settings button clicked')
+            })
+
+            settingsButton.show()
+
+            return () => {
+                settingsButton.offClick(() => {
+                    // Cleanup logic if necessary
+                })
+            }
+        }
+    }, [tg])
 
     useEffect(() => {
         document.documentElement.setAttribute(
@@ -70,7 +85,7 @@ function App() {
             <Route path="/history-of-orders" element={<HistoryOfOrders user={data}/>}/>
             <Route path="/history-of-orders/:id" element={<DetailedOrder />}/>
             <Route path="/activation/:id/:variant" element={<SubscribeActivate data={data} />}/>
-            <Route path="/referral" element={<Referral />}/>
+            <Route path="/referral" element={<Referral user={data} />}/>
             <Route path="/login" element={<Login />}/>
             <Route path={'/panel'} element={<AdminLayout active={active} setActive={setActive}/>}>
                 <Route index path="" element={<Panel />}/>

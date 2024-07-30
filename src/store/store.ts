@@ -5,6 +5,7 @@ import accountReducer from './features/accountSlice'
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { combineReducers } from 'redux';
+import adminSlice from "./features/AdminSlice";
 
 const persistConfig = {
     key: 'root',
@@ -14,7 +15,8 @@ const persistConfig = {
 const rootReducer = combineReducers({
     cart: persistReducer(persistConfig, cartReducer),
     favorite: persistReducer(persistConfig, favoriteReducer),
-    account: accountReducer
+    account: accountReducer,
+    admin: adminSlice
 });
 
 const store = configureStore({

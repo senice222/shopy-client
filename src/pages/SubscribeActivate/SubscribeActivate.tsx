@@ -57,12 +57,11 @@ export const SubscribeActivate: FC<UserDataProps> = ({data}) => {
 
     console.log(feedback)
     // const {data: feedback} = useSWR(`${url}/api/feedback/${id}`, fetcher);
+
     const getFeedBack = async () => {
         try {
-            const {data} = await axios.get(`http://localhost:4000/api/feedback/${product}/${variant}`)
-
+            const {data} = await axios.get(`${url}/api/feedback/${product}/${variant}`)
             setFeedBack(data)
-
         } catch (e) {
             console.log(e)
         }

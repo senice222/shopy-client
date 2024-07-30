@@ -20,8 +20,7 @@ const AccountsDetailes: FC<DetailesProps> = ({account, setIsEdit, onClose, setIs
                 setCopied(true);
                 message.success({
                     type: "success",
-                    content: 'Успешно скопировано',
-                    style: {color: "#52c41a"}
+                    content: 'Успешно скопировано'
                 })
                 setTimeout(() => setCopied(false), 2000);
             })

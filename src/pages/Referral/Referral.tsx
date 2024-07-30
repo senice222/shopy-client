@@ -1,17 +1,20 @@
 import style from './Referral.module.scss'
 import Layout from "../../layouts/Layout";
-import {Input} from "antd";
+import {Input, message} from "antd";
 import copy from "../../assets/copy-01.png";
-import React, {useEffect} from "react";
+import React, {FC, useEffect, useState} from "react";
 import nothing from "../../assets/Illustrationnothing.png";
 import Button from "../../components/Button/Button";
 import {useNavigate} from "react-router-dom";
 import {useTelegram} from "../../hooks/useTelegram";
 import LeftArrow from "../../components/LeftArrow/LeftArrow";
 import RightArrow from "../../components/RightArrow/RightArrow";
+import {UserProps} from "../../interfaces/User";
+import Loader from "../../components/Loader/Loader";
 
-const Referral = () => {
+const Referral: FC<UserProps> = ({ user }) => {
     const navigate = useNavigate()
+    const [copied, setCopied] = useState(false);
     const { onBackButtonClick } = useTelegram();
 
     useEffect(() => {
@@ -22,12 +25,30 @@ const Referral = () => {
         };
     }, [onBackButtonClick, navigate]);
 
+    const copyToClipboard = (text: string) => {
+        navigator.clipboard.writeText(text)
+            .then(() => {
+                setCopied(true);
+                message.success({
+                    type: "success",
+                    content: 'Успешно скопировано'
+                })
+                setTimeout(() => setCopied(false), 2000);
+            })
+            .catch(err => {
+                message.error('Ошибка при копировании');
+                console.error('Ошибка при копировании: ', err);
+            });
+    };
+
     const data = [
         { date: '20.03', name: 'Иван', username: '@username', orders: '0 (0Р)', earnings: '0Р' },
         { date: '20.03', name: 'Иван', username: '@username', orders: '0 (0Р)', earnings: '0Р' },
         { date: '20.03', name: 'Иван', username: '@username', orders: '0 (0Р)', earnings: '0Р' },
         { date: '20.03', name: 'Иван', username: '@username', orders: '0 (0Р)', earnings: '0Р' },
     ];
+
+    if (!user) return <Loader />
 
     return (
         <div className={style.bg}>
@@ -40,15 +61,15 @@ const Referral = () => {
                     <div className={style.inputDiv}>
                         <p>Ваша реферальная ссылка</p>
                         <div>
-                            <Input className={style.input} value={"https://t.me/mshopybot?start=ref.."} placeholder="olivia@mshopy.ru" readOnly/>
-                            <div>
+                            <Input className={style.input} value={`https://t.me/mshopybot?start=r_${user.id}`} placeholder="olivia@mshopy.ru" readOnly/>
+                            <div onClick={() => copyToClipboard(`https://t.me/mshopybot?start=r_${user.id}`)}>
                                 <img src={copy} alt={'/'}/>
                             </div>
                         </div>
                     </div>
                     <div className={style.earnings}>
                         <p>Всего заработали с рефералов</p>
-                        <h2>399₽</h2>
+                        <h2>{user.receivedReferral}₽</h2>
                     </div>
                     <div className={style.yourReferral}>
                         <h2>Ваши рефералы</h2>

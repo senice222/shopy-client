@@ -22,6 +22,8 @@ export interface User {
     cart: [];
     savedAccounts: SavedAccount[];
     orderIds: Order[];
+    receivedReferral: number,
+    referredBy: number
 }
 
 interface OrderItem {

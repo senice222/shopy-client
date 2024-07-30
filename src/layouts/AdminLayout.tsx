@@ -4,14 +4,22 @@ import {HeaderAdmin} from "../components/ADMIN/HeaderAdmin/HeaderAdmin";
 import s from './AdminLayout.module.scss'
 import AdminBurger from "../components/ADMIN/AdminBurger/AdminBurger";
 import {useEffect, useState} from "react";
-import {Outlet} from "react-router-dom";
+import {Navigate, Outlet} from "react-router-dom";
+import {useAppDispatch, useAppSelector} from "../hooks/redux-hooks";
+import {fetchAdmin} from "../store/features/AdminSlice";
 
 const AdminLayout = ({active, setActive} : {active: boolean, setActive : React.Dispatch<React.SetStateAction<boolean>>}) => {
     // const [active, setActive] = useState(false)
-    console.log(active)
+    const dispatch = useAppDispatch()
+
     useEffect(() => {
-        console.log(228)
-    }, [ ]);
+        dispatch(fetchAdmin())
+    }, [ ])
+    const admin = useAppSelector(state => state.admin.admin)
+
+    if (!admin) {
+        return <Navigate to={'/login'} />
+    }
 
     return (
         // <AnimatedPage>

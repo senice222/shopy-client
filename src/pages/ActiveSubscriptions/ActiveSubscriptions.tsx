@@ -47,7 +47,7 @@ const ActiveSubscriptions: FC<UserProps> = ({user}) => {
             const {data: order} = await axios.get(`${url}/api/order/${orderId}`)
             if (user.balance >= order.totalAmount) {
                 await axios.post(`${url}/api/order/create`, order)
-                notification.success({ message: "Заказ успешно создан", duration: 1 })
+                notification.success({ message: "Заказ успешно создан.", duration: 1.5 })
             }
         } else {
             setOpen(true)
