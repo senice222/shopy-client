@@ -45,23 +45,9 @@ function App() {
     useTelegramTheme();
 
     useEffect(() => {
-        if (tg) {
-            tg.ready()
-            const settingsButton = tg.MainButton
-
-            settingsButton.onClick(() => {
-                console.log('Settings button clicked')
-            })
-
-            settingsButton.show()
-
-            return () => {
-                settingsButton.offClick(() => {
-                    // Cleanup logic if necessary
-                })
-            }
-        }
-    }, [tg])
+        tg.ready();
+        tg.SettingsButton.show()
+    }, [tg]);
 
     useEffect(() => {
         document.documentElement.setAttribute(

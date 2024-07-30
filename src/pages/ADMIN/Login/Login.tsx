@@ -6,6 +6,7 @@ import {EyeInvisibleOutlined, EyeTwoTone} from "@ant-design/icons";
 import Button from "../../../components/Button/Button";
 import {useState} from "react";
 import {useAppDispatch} from "../../../hooks/redux-hooks";
+import {fetchLogin} from "../../../store/features/AdminSlice";
 
 const Login = () => {
 
@@ -14,6 +15,9 @@ const Login = () => {
 
     const dispatch = useAppDispatch()
     const handleLogin = () => {
+        if (username && password) {
+            dispatch(fetchLogin({username, password}))
+        }
 
     }
     return (

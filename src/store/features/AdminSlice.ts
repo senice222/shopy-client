@@ -49,6 +49,9 @@ export const adminSlice = createSlice({
         builder.addCase(fetchAdmin.fulfilled, (state, action) => {
             state.admin = {login: action.payload.login, role: action.payload.role}
         })
+        builder.addCase(fetchLogin.fulfilled, (state, action) => {
+            state.admin = {login: action.payload.login, role: action.payload.role}
+        })
     }
 })
 
