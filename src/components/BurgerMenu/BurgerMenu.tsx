@@ -16,6 +16,7 @@ import Loader from "../Loader/Loader";
 import useSWR from "swr";
 import {fetcher, url} from "../../core/fetch";
 import {Order} from "../../interfaces/User";
+import {feedbackManager} from "../../utils/feedbackManager";
 
 const BurgerMenu: FC<BurgerMenuI> = ({isOpened, setOpened}) => {
     const [isPromo, setPromo] = useState<boolean>(false)
@@ -144,7 +145,7 @@ const BurgerMenu: FC<BurgerMenuI> = ({isOpened, setOpened}) => {
                         </div>
                         <p>Справочный центр</p>
                     </div>
-                    <div className={s.block}>
+                    <div className={s.block} onClick={feedbackManager}>
                         <div className={s.icon}>
                             <div className={s.svg1}><Message/></div>
                         </div>

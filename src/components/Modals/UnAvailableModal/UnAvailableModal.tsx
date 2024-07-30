@@ -3,17 +3,11 @@ import React, {Dispatch, FC, SetStateAction} from "react";
 import {Warning} from "../../Svgs/Svgs";
 import BootstrapModal from "../BootstrapModal/BootstrapModal";
 import BlueButton from "../../Button/Button";
-import {useTelegram} from "../../../hooks/useTelegram";
+import {feedbackManager} from "../../../utils/feedbackManager";
 
 const UnAvailableModal: FC<{
     active: boolean, setOpen: Dispatch<SetStateAction<boolean>>
 }> = ({active, setOpen}) => {
-    const {tg} = useTelegram()
-
-    const openChatWithManager = () => {
-        const tg = window.Telegram.WebApp;
-        tg.openTelegramLink('https://t.me/whigga52'); // Open chat with the specified Telegram user
-    };
 
     return (
         <BootstrapModal modalHeight={"260px"} active={active} onClose={() => setOpen(false)}>
@@ -43,7 +37,7 @@ const UnAvailableModal: FC<{
                         <h2>Удалить данные аккаунта Spotify?</h2>
                         <p>Вы уверены, что хотите удалить данные от аккаунта? </p>
                     </div>
-                    <div className={style.btnWrapp} onClick={openChatWithManager}>
+                    <div className={style.btnWrapp} onClick={feedbackManager}>
                         <BlueButton text={"Написать менеджеру"} height={"44px"} width={"100%"} />
                     </div>
                 </div>

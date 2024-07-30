@@ -32,7 +32,7 @@ const CategoriesAndProducts: FC = () => {
     const handlePageChange = (page: number) => {
         setCurrentPage(page);
     };
-
+    const [filteredProducts, setFilteredProducts] = useState<Product[]>(products);
     useEffect(() => {
         if (products) {
             setTotalPages(products.totalPages)
@@ -42,6 +42,16 @@ const CategoriesAndProducts: FC = () => {
     //     mutate()
     // }, [currentPage])
     // const filteredProducts =
+    // const handleSearchChange = (event) => {
+    //     const query = event.target.value;
+    //     setSearchQuery(query);
+    //
+    //     // Filter products by name
+    //     const filtered = products.filter(product =>
+    //         product.name.toLowerCase().includes(query.toLowerCase())
+    //     );
+    //     setFilteredProducts(filtered);
+    // };
     return (
         <DndProvider backend={HTML5Backend}>
             <CreateProductBurger isOpened={creating} setOpened={() => setCreating((prev) => !prev)}/>

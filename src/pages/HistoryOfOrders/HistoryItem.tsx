@@ -36,8 +36,8 @@ const HistoryItem:FC<OrderProps> = ({order}) => {
                     <img src={featured} alt="/" />
                     <h2>Заказ №212343456</h2>
                 </div>
-                <div className={currentStatus.style}>
-                    <p>{currentStatus.text}</p>
+                <div className={currentStatus?.style}>
+                    <p>{currentStatus?.text}</p>
                 </div>
             </div>
             <div className={style.bottomSide}>
