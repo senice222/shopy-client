@@ -1,32 +1,29 @@
-import React, {useEffect, useState} from 'react'
-import styles from './SettingsModal.module.scss'
-import {useTelegram} from "../../../hooks/useTelegram";
+import React, {FC, useEffect, useState} from 'react'
+import styles from './SettingsPage.module.scss'
+import {useTelegram} from "../../hooks/useTelegram";
+import {useNavigate} from "react-router-dom";
 
-interface FullScreenModalProps {
-    settingsOpen: boolean
-    setSettingsOpen: any
-}
 
-const FullScreenModal: React.FC<FullScreenModalProps> = ({ settingsOpen, setSettingsOpen }) => {
+
+const SettingsPage: FC = () => {
     const [theme, setTheme] = useState<'light' | 'dark'>('light')
     const { onBackButtonClick } = useTelegram();
+    const navigate = useNavigate()
 
     useEffect(() => {
-        onBackButtonClick(() => setSettingsOpen(false));
+        onBackButtonClick(() => navigate('/'));
 
         return () => {
             onBackButtonClick(null);
         };
-    }, [onBackButtonClick]);
+    }, [onBackButtonClick, navigate]);
 
     const handleThemeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setTheme(event.target.value as 'light' | 'dark')
     }
 
-    if (!settingsOpen) return null
-
     return (
-        <div className={`${styles.modal} ${styles[theme]}`}>
+        <div className={styles.settingsContainer}>
             <h2>Settings</h2>
             <label htmlFor="theme-select">Theme:</label>
             <select
@@ -39,7 +36,6 @@ const FullScreenModal: React.FC<FullScreenModalProps> = ({ settingsOpen, setSett
                 <option value="dark">Dark</option>
             </select>
             <button
-                onClick={() => setSettingsOpen(false)}
                 className={styles.closeButton}
             >
                 Close
@@ -48,4 +44,4 @@ const FullScreenModal: React.FC<FullScreenModalProps> = ({ settingsOpen, setSett
     )
 }
 
-export default FullScreenModal
+export default SettingsPage
