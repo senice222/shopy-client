@@ -2,7 +2,7 @@ import './app.scss';
 import Home from "./pages/Home/Home";
 import {
     Route,
-    Routes, useLocation,
+    Routes, useLocation, useNavigate,
 } from "react-router-dom";
 import Category from "./pages/Category/Category";
 import Basket from "./pages/Basket/Basket";
@@ -44,24 +44,20 @@ function App() {
     const [active, setActive] = useState<boolean>(false);
     const {data} = useSWR(`${url}/api/user/878990615`, fetcher);
     const {setAddedFunc, isAdd, added, setAdded} = useFavoriteManager();
-    const [settingsOpen, setSettingsOpen] = useState(false)
+    const navigate = useNavigate()
     useTelegramTheme();
 
     useEffect(() => {
         if (tg) {
             tg.ready()
             tg.SettingsButton.show()
-            tg.SettingsButton.onClick(() => {
-                setSettingsOpen(true)
-            })
+            tg.SettingsButton.onClick(() => navigate('/settings'))
 
             return () => {
-                tg.SettingsButton.offClick(() => {
-                    setSettingsOpen(false)
-                })
+                tg.SettingsButton.offClick(() => navigate('/'))
             }
         }
-    }, [tg])
+    }, [tg, navigate])
 
     useEffect(() => {
         document.documentElement.setAttribute(
