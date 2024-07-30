@@ -10,7 +10,6 @@ interface FullScreenModalProps {
 const FullScreenModal: React.FC<FullScreenModalProps> = ({ settingsOpen, setSettingsOpen }) => {
     const [theme, setTheme] = useState<'light' | 'dark'>('light')
     const { onBackButtonClick } = useTelegram();
-    if (!settingsOpen) return null
 
     useEffect(() => {
         onBackButtonClick(() => setSettingsOpen(false));
@@ -23,6 +22,8 @@ const FullScreenModal: React.FC<FullScreenModalProps> = ({ settingsOpen, setSett
     const handleThemeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
         setTheme(event.target.value as 'light' | 'dark')
     }
+
+    if (!settingsOpen) return null
 
     return (
         <div className={`${styles.modal} ${styles[theme]}`}>
