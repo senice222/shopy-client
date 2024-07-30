@@ -5,14 +5,16 @@ import {Input} from "antd";
 import {EyeInvisibleOutlined, EyeTwoTone} from "@ant-design/icons";
 import Button from "../../../components/Button/Button";
 import {useState} from "react";
-import {useAppDispatch} from "../../../hooks/redux-hooks";
+import {useAppDispatch, useAppSelector} from "../../../hooks/redux-hooks";
 import {fetchLogin} from "../../../store/features/AdminSlice";
+import {useEffect} from "react";
+import {useNavigate} from "react-router-dom";
 
 const Login = () => {
-
+    const navigate = useNavigate()
     const [username, setUserName] = useState('')
     const [password, setPassword] = useState('')
-
+    const admin = useAppSelector((state) => state.admin.admin)
     const dispatch = useAppDispatch()
     const handleLogin = () => {
         if (username && password) {
@@ -20,6 +22,12 @@ const Login = () => {
         }
 
     }
+    useEffect(() => {
+        if (admin?.login) {
+            navigate('/panel')
+        }
+    }, [admin]);
+    
     return (
         <div className={style.loginWrapper}>
             <div className={style.formWrapper}>

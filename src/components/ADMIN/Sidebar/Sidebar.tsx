@@ -9,9 +9,11 @@ import rassylka from '../../../assets/message-text-square-01.png'
 import settings from '../../../assets/settings-01.png'
 import logout from '../../../assets/log-out-01.png'
 import {useNavigate} from "react-router-dom";
+import {useAppDispatch} from "../../../hooks/redux-hooks";
 
 
 const Sidebar = () => {
+    const dispatch = useAppDispatch
     const navigate = useNavigate()
     return (
         <div className={style.sidebar}>
@@ -54,7 +56,7 @@ const Sidebar = () => {
                             <h2>Admin</h2>
                             <p>@mshopybot</p>
                         </div>
-                        <img src={logout} alt={"/"}/>
+                        <img  src={logout} alt={"/"}/>
                     </div>
                 </div>
             </div>

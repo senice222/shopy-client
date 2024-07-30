@@ -27,7 +27,7 @@ export const fetchLogin = createAsyncThunk(
     // if you type your function argument here
     async ({username, password} : {username: string, password: string}) => {
         const token = localStorage.getItem('token')
-        const {data} = await axios.post(`${url}/api/admin/me`, {login: username, password: password})
+        const {data} = await axios.post(`${url}/api/admin/login`, {login: username, password: password})
         localStorage.setItem('token', data.token)
         return data.admin
         // return (await response.json())
@@ -41,8 +41,9 @@ export const adminSlice = createSlice({
     name: 'account',
     initialState,
     reducers: {
-        chooseAccount: (state, action) => {
-            const {service, email, password} = action.payload
+        signOut: (state, action) => {
+            localStorage.removeItem('token')
+            state.admin = null
         }
     },
     extraReducers: (builder) => {
@@ -55,6 +56,6 @@ export const adminSlice = createSlice({
     }
 })
 
-export const { chooseAccount } = adminSlice.actions
+export const { signOut } = adminSlice.actions
 
 export default adminSlice.reducer

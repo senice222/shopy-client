@@ -34,20 +34,33 @@ import Newsletter from "./pages/ADMIN/Newsletter/Newsletter";
 import Orders from "./pages/ADMIN/Orders/Orders";
 import useTelegramTheme from "./hooks/useTelegramTheme";
 import useFavoriteManager from "./hooks/useFavoriteManager";
+import SettingsModal from "./components/Modals/SettingsModal/SettingsModal";
 
 function App() {
     const location = useLocation()
-    const { darkTheme } = useContext(ThemeContext);
+    const {darkTheme} = useContext(ThemeContext);
     const {tg, id} = useTelegram();
     const [active, setActive] = useState<boolean>(false);
-    const { data } = useSWR(`${url}/api/user/878990615`, fetcher);
-    const { setAddedFunc, isAdd, added, setAdded } = useFavoriteManager();
+    const {data} = useSWR(`${url}/api/user/878990615`, fetcher);
+    const {setAddedFunc, isAdd, added, setAdded} = useFavoriteManager();
+    const [settingsOpen, setSettingsOpen] = useState(false)
     useTelegramTheme();
 
     useEffect(() => {
-        tg.ready();
-        tg.SettingsButton.show()
-    }, [tg]);
+        if (tg) {
+            tg.ready()
+            tg.SettingsButton.show()
+            tg.SettingsButton.onClick(() => {
+                setSettingsOpen(true)
+            })
+
+            return () => {
+                tg.SettingsButton.offClick(() => {
+                    setSettingsOpen(false)
+                })
+            }
+        }
+    }, [tg])
 
     useEffect(() => {
         document.documentElement.setAttribute(
@@ -56,30 +69,34 @@ function App() {
         );
     }, [darkTheme]);
 
-
     return (
         <Routes key={location.pathname} location={location}>
-            <Route path="/" element={<Home setAddedFunc={setAddedFunc} isAdd={isAdd} added={added} setAdded={setAdded}/>}/>
+            <SettingsModal settingsOpen={settingsOpen} setSettingsOpen={setSettingsOpen} />
+            <Route path="/"
+                   element={<Home setAddedFunc={setAddedFunc} isAdd={isAdd} added={added} setAdded={setAdded}/>}/>
             <Route path="/category/:category" element={<Category/>}/>
-            <Route path="/basket" element={<Basket />}/>
-            <Route path="/active-accounts" element={<ActivateAccounts />}/>
-            <Route path="/active-subscriptions" element={<ActiveSubscriptions user={data} />}/>
-            <Route path="/favorite-products" element={<FavoriteProducts setAddedFunc={setAddedFunc} isAdd={isAdd} added={added} setAdded={setAdded}/>}/>
+            <Route path="/basket" element={<Basket/>}/>
+            <Route path="/active-accounts" element={<ActivateAccounts/>}/>
+            <Route path="/active-subscriptions" element={<ActiveSubscriptions user={data}/>}/>
+            <Route path="/favorite-products"
+                   element={<FavoriteProducts setAddedFunc={setAddedFunc} isAdd={isAdd} added={added}
+                                              setAdded={setAdded}/>}/>
             <Route path="/proceed-payment" element={<ProceedToPayment/>}/>
-            <Route path="/product/:id" element={<DetailedProduct setAddedFunc={setAddedFunc} isAdd={isAdd} added={added} setAdded={setAdded} />}/>
+            <Route path="/product/:id" element={<DetailedProduct setAddedFunc={setAddedFunc} isAdd={isAdd} added={added}
+                                                                 setAdded={setAdded}/>}/>
             <Route path="/change-data" element={<ChangeData/>}/>
             <Route path="/history-of-orders" element={<HistoryOfOrders user={data}/>}/>
-            <Route path="/history-of-orders/:id" element={<DetailedOrder />}/>
-            <Route path="/activation/:id/:variant" element={<SubscribeActivate data={data} />}/>
-            <Route path="/referral" element={<Referral user={data} />}/>
-            <Route path="/login" element={<Login />}/>
+            <Route path="/history-of-orders/:id" element={<DetailedOrder/>}/>
+            <Route path="/activation/:id/:variant" element={<SubscribeActivate data={data}/>}/>
+            <Route path="/referral" element={<Referral user={data}/>}/>
+            <Route path="/login" element={<Login/>}/>
             <Route path={'/panel'} element={<AdminLayout active={active} setActive={setActive}/>}>
-                <Route index path="" element={<Panel />}/>
-                <Route path="users" element={<Users />}/>
-                <Route path="orders" element={<Orders />}/>
-                <Route path="newsletter" element={<Newsletter />}/>
-                <Route path="categoriesAndProducts" element={<CategoriesAndProducts />}/>
-                <Route path="users/:username" element={<DetailedUser />}/>
+                <Route index path="" element={<Panel/>}/>
+                <Route path="users" element={<Users/>}/>
+                <Route path="orders" element={<Orders/>}/>
+                <Route path="newsletter" element={<Newsletter/>}/>
+                <Route path="categoriesAndProducts" element={<CategoriesAndProducts/>}/>
+                <Route path="users/:username" element={<DetailedUser/>}/>
             </Route>
 
             <Route path="/success" element={
