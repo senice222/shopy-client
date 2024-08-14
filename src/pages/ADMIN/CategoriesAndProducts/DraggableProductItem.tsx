@@ -5,65 +5,57 @@ import s from './CategoriesAndProducts.module.scss';
 import { Copy, Eye, Pencil, Arrow2 } from "./Svg";
 import axios from "axios";
 import {url} from "../../../core/fetch";
-import {a} from "react-spring";
-import {notification} from "antd";
-import useSWR, {useSWRConfig} from "swr";
+import { notification } from "antd";
+import useSWR, { useSWRConfig } from "swr";
 
 interface DraggableProductItemProps {
     item: Product;
+    items: Product[]; // Массив продуктов на текущей странице
     index: number;
     moveItem: (fromIndex: number, toIndex: number) => void;
-    length: number,
-    url1: string
-
+    length: number;
+    currentPage: number;
+    url1: string;
+    onDragEnd: (updatedItems: Product[]) => void; // Функция для обновления порядка
 }
 
-const DraggableProductItem: FC<DraggableProductItemProps> = ({ item, index, moveItem, length, url1 }) => {
+const DraggableProductItem: FC<DraggableProductItemProps> = ({ item, index, items, moveItem, length, url1, currentPage, onDragEnd }) => {
     const ref = useRef<HTMLTableRowElement>(null);
+    const { mutate } = useSWRConfig();
 
-
-    const {mutate} = useSWRConfig()
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2Njg5MTMwYTFjNmJlMDkwYjJiOTk5NWYiLCJpYXQiOjE3MjIzMjU1OTYsImV4cCI6MTcyMzYyMTU5Nn0.4eYfUtwwwZCd2hgioIzpIq4MHUVUnWQAXTcoCV6keQE'
+    const token = localStorage.getItem('token');
 
     const changeVisibility = async () => {
         try {
-            console.log(item._id, 221)
-
-                const {data} = await axios.post(`${url}/api/product/${item._id}`,
-                    {
-                        headers: {
-                            'Authorization': `Bearer ${token}`
-                        }
-                    }
-                )
-                if (data) {
-                    notification.success({ message: `Видимость ${data.value ? 'Включена' : 'Выключена'}`, duration: 2 })
+            const { data } = await axios.post(`${url}/api/product/${item._id}`, {}, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
                 }
-
+            });
+            if (data) {
+                notification.success({ message: `Видимость ${data.value ? 'Включена' : 'Выключена'}`, duration: 2 });
+            }
         } catch (e) {
-            console.log(e)
+            console.error(e);
         }
-    }
+    };
+
     const copyDocument = async () => {
         try {
-            console.log(item._id, 221)
-
-            const {data} = await axios.post(`http://localhost:4000/api/product/copy/${item._id}`,
-                {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
+            const { data } = await axios.post(`${url}/api/product/copy/${item._id}`, {}, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
                 }
-            )
+            });
             if (data) {
-                await mutate(url1)
-                notification.success({ message: `Скопировано успешно!`, duration: 2 })
+                await mutate(url1);
+                notification.success({ message: `Скопировано успешно!`, duration: 2 });
             }
-
         } catch (e) {
-            console.log(e)
+            console.error(e);
         }
-    }
+    };
+
     const moveLeft = () => {
         if (index > 0) {
             moveItem(index, index - 1);
@@ -89,6 +81,10 @@ const DraggableProductItem: FC<DraggableProductItemProps> = ({ item, index, move
     const [{ isDragging }, drag] = useDrag({
         type: ItemTypes.PRODUCT,
         item: { type: ItemTypes.PRODUCT, index },
+        end: (item, monitor) => {
+            if (!monitor.didDrop()) return;
+            onDragEnd([...items]); // Передаем обновленный массив продуктов
+        },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
         }),

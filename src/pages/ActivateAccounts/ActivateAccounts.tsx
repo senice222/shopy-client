@@ -12,17 +12,16 @@ import useSWR from "swr";
 import {fetcher, url} from "../../core/fetch";
 import {useTelegram} from "../../hooks/useTelegram";
 import {useNavigate} from "react-router-dom";
-import {User, UserProps} from "../../interfaces/User";
+import {SavedAccount, User, UserProps} from "../../interfaces/User";
 
 const ActivateAccounts = () => {
     const [addAccount, setAddAccount] = useState<boolean>(false)
     const [editAccount, setEditAccount] = useState<boolean>(false)
-    const [isOpen, setIsOpen] = useState<boolean>(false)
     const {id, onBackButtonClick} = useTelegram()
     const [selectedAccountId, setSelectedAccountId] = useState<string>('');
     const {data} = useSWR(`${url}/api/user/account/878990615`, fetcher)
     const navigate = useNavigate()
-
+    console.log(data)
     useEffect(() => {
         onBackButtonClick(() => navigate('/'));
 
@@ -30,7 +29,6 @@ const ActivateAccounts = () => {
             onBackButtonClick(null);
         };
     }, [onBackButtonClick, navigate]);
-
 
     return (
         <div className={style.wrapp}>
@@ -49,7 +47,7 @@ const ActivateAccounts = () => {
                     <div className={style.nothingYet}>
                         {
                             (data && data?.length > 0) ? (
-                                data.map((item: any) => (
+                                data.map((item: SavedAccount) => (
                                     <div className={style.item} onClick={() => {
                                         setSelectedAccountId(item.id);
                                         setEditAccount(true)

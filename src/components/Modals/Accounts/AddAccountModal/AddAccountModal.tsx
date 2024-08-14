@@ -22,7 +22,6 @@ interface AccountProps {
 const { Option } = Select;
 
 const AddAccountModal = ({addAccount, onClose}: AccountProps) => {
-    const [selected, setSelected] = useState<string>('');
     const { control, handleSubmit, formState: { errors } } = useForm();
     const {mutate} = useSWRConfig()
     const {id} = useTelegram()
@@ -49,10 +48,6 @@ const AddAccountModal = ({addAccount, onClose}: AccountProps) => {
         } catch (error) {
             console.error('Error:', error);
         }
-    };
-
-    const handleChange = (value: string) => {
-        setSelected(value);
     };
 
     return (

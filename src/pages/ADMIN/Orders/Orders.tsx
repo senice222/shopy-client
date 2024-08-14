@@ -8,6 +8,7 @@ import {fetcher, url} from "../../../core/fetch";
 import Loader from "../../../components/Loader/Loader";
 import {Order} from "../../../interfaces/User";
 import {format} from "date-fns";
+import dayjs from 'dayjs';
 
 const Orders = () => {
     const [active, setActive] = useState(false)
@@ -17,6 +18,14 @@ const Orders = () => {
     const totalAmount = data ? data.reduce((acc: number, curr: Order) => acc += curr.totalAmount, 0) : 0;
 
     if (!data) return <Loader />
+    const today = dayjs().startOf('day');
+    const startOfMonth = dayjs().startOf('month');
+
+    const ordersToday = data.filter((order: Order) => dayjs(order.date).isAfter(today));
+    const ordersThisMonth = data.filter((order: Order) => dayjs(order.date).isAfter(startOfMonth));
+
+    const totalAmountToday = ordersToday.reduce((total: number, order: Order) => total + order.totalAmount, 0);
+    const totalAmountThisMonth = ordersThisMonth.reduce((total: number, order: Order) => total + order.totalAmount, 0);
 
     return (
         <div className={style.users}>
@@ -36,14 +45,14 @@ const Orders = () => {
                 <div>
                     <p>Заказов за месяц</p>
                     <div className={style.wrapp}>
-                        <h2>2,671</h2>
+                        <h2>{totalAmountThisMonth}</h2>
                         <p className={style.amount}>{totalAmount}₽</p>
                     </div>
                 </div>
                 <div>
                     <p>Заказов за сегодня</p>
                     <div className={style.wrapp}>
-                        <h2>132</h2>
+                        <h2>{totalAmountToday}</h2>
                         <p className={style.amount}>{totalAmount}₽</p>
                     </div>
                 </div>

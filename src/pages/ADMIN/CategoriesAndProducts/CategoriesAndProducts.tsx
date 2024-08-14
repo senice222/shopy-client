@@ -7,14 +7,12 @@ import {Product} from "./ProductTypes";
 import Pagination from "../../../components/Pagination/Pagination";
 import {DndProvider} from 'react-dnd';
 import {HTML5Backend} from 'react-dnd-html5-backend';
-import avatar from '../../../assets/Avatar.png';
-import {AddCategory} from "../../../components/Modals/AdminModals/AddCategory/AddCategory";
 import {CategoriesBurger} from "../../../components/CategoriesBurger/CategoriesBurger";
 import {CreateProductBurger} from "../../../components/ADMIN/CreateProductBurger/CreateProductBurger";
 // import {initialProductList} from "../../../utils/dummy_data";
 import useSWR from "swr";
 import {fetcher, url} from "../../../core/fetch";
-import {CategoryI, SubCategoryI, SubCategoryIState} from "../../../interfaces/Category";
+import {CategoryI, SubCategoryIState} from "../../../interfaces/Category";
 
 const CategoriesAndProducts: FC = () => {
     const [currentPage, setCurrentPage] = useState<number>(1);
@@ -30,7 +28,7 @@ const CategoriesAndProducts: FC = () => {
         data: products
     } = useSWR(`${url}/api/products/${currentCategory ? `category/${currentCategory.mainCategoryName}/${currentCategory.name}` : ''}?page=${currentPage}&limit=10`, fetcher);
     const [filteredProducts, setFilteredProducts] = useState<Product[]>(products?.products);
-
+    console.log(filteredProducts,2)
     const handlePageChange = (page: number) => {
         setCurrentPage(page);
     };
@@ -104,7 +102,7 @@ const CategoriesAndProducts: FC = () => {
                                     <th>Действия</th>
                                 </tr>
                                 </thead>
-                                <ProductList url={currentUrl} items={filteredProducts}/>
+                                <ProductList url={currentUrl} setProducts={setFilteredProducts} items={filteredProducts} currentPage={currentPage}/>
                             </table>
                             <div className={s.paginationContainer}>
                                 <Pagination

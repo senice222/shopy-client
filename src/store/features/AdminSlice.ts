@@ -1,7 +1,7 @@
 
-import {createAsyncThunk, createSlice} from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import axios from "axios";
-import {url} from "../../core/fetch";
+import { url } from "../../core/fetch";
 
 interface AccountState {
     admin: {
@@ -11,12 +11,13 @@ interface AccountState {
 }
 export const fetchAdmin = createAsyncThunk(
     'admin/fetchMe',
-    // if you type your function argument here
     async () => {
         const token = localStorage.getItem('token')
-        const {data} = await axios.get(`${url}/api/admin/me`, {headers: {
-                'Authorization' : `Bearer ${token}`
-            }})
+        const { data } = await axios.get(`${url}/api/admin/me`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
 
         return data
         // return (await response.json())
@@ -24,10 +25,9 @@ export const fetchAdmin = createAsyncThunk(
 )
 export const fetchLogin = createAsyncThunk(
     'admin/fetchLogin',
-    // if you type your function argument here
-    async ({username, password} : {username: string, password: string}) => {
+    async ({ username, password }: { username: string, password: string }) => {
         const token = localStorage.getItem('token')
-        const {data} = await axios.post(`${url}/api/admin/login`, {login: username, password: password})
+        const { data } = await axios.post(`${url}/api/admin/login`, { login: username, password: password })
         localStorage.setItem('token', data.token)
         return data.admin
         // return (await response.json())
@@ -48,10 +48,10 @@ export const adminSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(fetchAdmin.fulfilled, (state, action) => {
-            state.admin = {login: action.payload.login, role: action.payload.role}
+            state.admin = { login: action.payload.login, role: action.payload.role }
         })
         builder.addCase(fetchLogin.fulfilled, (state, action) => {
-            state.admin = {login: action.payload.login, role: action.payload.role}
+            state.admin = { login: action.payload.login, role: action.payload.role }
         })
     }
 })

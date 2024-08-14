@@ -33,6 +33,7 @@ interface OrderItem {
 }
 
 export interface Order {
+    normalOrderId: number;
     customerId: string;
     date: string;
     email: string;

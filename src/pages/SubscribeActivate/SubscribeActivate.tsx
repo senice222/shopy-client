@@ -89,7 +89,7 @@ export const SubscribeActivate: FC<UserDataProps> = ({data}) => {
             password: password || currentAccount.password,
             totalAmount,
             items: cartItems,
-            status: "payed",
+            status: "Оплачен",
             existedAcc: selected,
             additionalInfo
         };
