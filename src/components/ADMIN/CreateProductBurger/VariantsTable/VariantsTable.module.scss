@@ -4,6 +4,8 @@
   margin-top: 20px;
   margin-bottom: 20px;
   overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f1f1f1;
 
   .btnDiv {
     margin-top: 20px;
@@ -35,7 +37,7 @@
   overflow-y: auto;
   scrollbar-width: thin;
   scrollbar-color: #888 #f1f1f1;
-
+  width: 1000px;
   .wrapper {
     height: 90%;
   }
@@ -45,7 +47,18 @@
   width: 100%;
   border-collapse: collapse;
   margin-bottom: 20px;
-
+  thead {
+    tr {
+      th {
+        
+        svg {
+          path {
+            stroke: #475467;
+          }
+        }
+      }
+    }
+  }
   th,
   td {
     padding: 10px;
@@ -108,8 +121,14 @@
     margin-right: 25px;
     cursor: pointer;
   }
-
-  tbody {
-
+  thead {
+    th {
+      height: 44px;
+    }
+  }
+  tbody { 
+    td {
+      height: 72px;
+    }
   }
 }

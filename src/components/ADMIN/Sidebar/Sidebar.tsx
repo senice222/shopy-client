@@ -44,7 +44,7 @@ const Sidebar = () => {
                 </div>
             </div>
             <div className={style.settings}>
-                <div className={style.itemSettings}>
+                <div onClick={() => navigate('/panel/settings')} className={style.itemSettings}>
                     <img src={settings} alt={"/"}/>
                     <p>Настройки</p>
                 </div>

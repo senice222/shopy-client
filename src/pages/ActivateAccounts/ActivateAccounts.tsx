@@ -21,7 +21,7 @@ const ActivateAccounts = () => {
     const [selectedAccountId, setSelectedAccountId] = useState<string>('');
     const {data} = useSWR(`${url}/api/user/account/878990615`, fetcher)
     const navigate = useNavigate()
-    console.log(data)
+
     useEffect(() => {
         onBackButtonClick(() => navigate('/'));
 

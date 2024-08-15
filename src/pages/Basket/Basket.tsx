@@ -55,7 +55,7 @@ const Basket = () => {
                                 <img src={nothing} alt="/"/>
                                 <h2>Пока что тут ничего нет</h2>
                                 <p>Нажимайте на кнопку "Добавить в корзину" в товаре. Он отобразится здесь.</p>
-                                <div>
+                                <div onClick={() => navigate('/')}>
                                     <BlueButton text={"Перейти в каталог"} height={"48px"} width={"100%"} />
                                 </div>
                             </div>

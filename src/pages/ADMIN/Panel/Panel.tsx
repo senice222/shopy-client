@@ -11,7 +11,7 @@ import { Order, User } from "../../../interfaces/User";
 import Loader from "../../../components/Loader/Loader";
 
 const Panel = () => {
-    const { data: lastUsers } = useSWR(`${url}/api/users`, fetcher)
+    const {data: lastUsers} = useSWR(`${url}/api/users`, fetcher)
     const {data: lastOrders} = useSWR(`${url}/api/order`, fetcher)
 
     if (!lastOrders && !lastUsers) return <Loader />

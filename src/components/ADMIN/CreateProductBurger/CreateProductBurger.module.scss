@@ -9,7 +9,7 @@
   top: 0;
   opacity: 0;
   pointer-events: none;
-  transition: .3s all;
+  transition: 0.3s all;
 }
 .activeBg {
   pointer-events: all;
@@ -24,7 +24,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: .3s all;
+  transition: 0.3s all;
   left: -700px;
   pointer-events: none;
   overflow-y: auto;
@@ -57,7 +57,7 @@
       align-items: flex-start;
       justify-content: center;
       align-items: center;
-      border: 1px solid #EAECF0;
+      border: 1px solid #eaecf0;
       border-radius: 8px;
     }
     .textd {
@@ -77,7 +77,7 @@
       margin-bottom: 15px;
     }
   }
-  border-bottom: 1px solid #EAECF0;
+  border-bottom: 1px solid #eaecf0;
 }
 .crossBtn {
   width: 40px;
@@ -91,7 +91,7 @@
   display: flex;
   button {
     padding: 10px 14px;
-    background-color: #0070CC;
+    background-color: #0070cc;
     color: white;
     font-size: 16px;
     border-radius: 8px;
@@ -112,7 +112,6 @@
 }
 .mainInputs {
   width: 100%;
-
 }
 .blocks {
   margin-top: 10px;
@@ -130,7 +129,7 @@
   textarea {
     margin-top: 10px;
     width: 100%;
-    border: 1px solid #D0D5DD;
+    border: 1px solid #d0d5dd;
     resize: none;
     padding: 10px;
     height: 120px;
@@ -143,7 +142,7 @@
   input {
     margin-top: 10px;
     width: 100%;
-    border: 1px solid #D0D5DD;
+    border: 1px solid #d0d5dd;
     padding: 10px;
     border-radius: 8px;
     color: #667085;
@@ -157,5 +156,17 @@
     h3 {
       margin-bottom: 12px;
     }
+    p {
+      margin-top: 14px;
+      font-family: Graphik LCG Regular;
+      font-size: 14px;
+      font-weight: 400;
+      color: #475467;
+      line-height: 20px;
+    }
   }
+}
+.select {
+  width: 43%;
+  font-family: Inter !important;
 }

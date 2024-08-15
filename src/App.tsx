@@ -36,6 +36,7 @@ import useTelegramTheme from "./hooks/useTelegramTheme";
 import useFavoriteManager from "./hooks/useFavoriteManager";
 import SettingsModal from "./pages/SettingsPage/SettingsPage";
 import SettingsPage from "./pages/SettingsPage/SettingsPage";
+import Settings from './pages/ADMIN/Settings/Settings'
 
 function App() {
     const location = useLocation()
@@ -95,6 +96,9 @@ function App() {
                 <Route path="newsletter" element={<Newsletter/>}/>
                 <Route path="categoriesAndProducts" element={<CategoriesAndProducts/>}/>
                 <Route path="users/:username" element={<DetailedUser/>}/>
+                <Route path="settings" element={<Settings/>}>
+                    <Route path="" element={<div>2312</div>}/>
+                </Route>
             </Route>
 
             <Route path="/success" element={

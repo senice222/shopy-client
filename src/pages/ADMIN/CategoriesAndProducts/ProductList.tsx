@@ -5,6 +5,7 @@ import { Product } from "./ProductTypes";
 import Loader from "../../../components/Loader/Loader";
 import axios from 'axios'
 import {notification} from 'antd'
+import useSWR, {useSWRConfig} from "swr";
 
 interface ProductListProps {
     items: Product[] | undefined;
@@ -15,6 +16,8 @@ interface ProductListProps {
 
 const ProductList: FC<ProductListProps> = ({ items, setProducts, url, currentPage, }) => {
     const token = localStorage.getItem('token')
+    const {mutate} = useSWRConfig()
+
     const moveItem = (dragIndex: number, hoverIndex: number) => {
         setProducts((prevCards: Product[]) =>
             update(prevCards, {
@@ -31,7 +34,7 @@ const ProductList: FC<ProductListProps> = ({ items, setProducts, url, currentPag
         try {
             // Отправка обновленного списка на сервер
             
-            await axios.post(`http://localhost:4000/api/products/reorder`, {
+            const {data} = await axios.post(`http://localhost:4000/api/products/reorder`, {
                 items: updatedItems,
                 page: currentPage
             }, {
@@ -39,6 +42,7 @@ const ProductList: FC<ProductListProps> = ({ items, setProducts, url, currentPag
                     'Authorization': `Bearer ${token}`
                 }
             });
+            await mutate(`${url}/api/products/?page=${currentPage}&limit=10`)
             notification.success({ message: "Изменения сохранены!", duration: 2 });
         } catch (e) {
             console.error(e);
