@@ -1,0 +1,45 @@
+.wrapper {
+    h2 {
+        color: #101828;
+        font-size: 18px;
+        font-weight: 600;
+        line-height: 28px;
+    }
+    p {
+        font-family: Graphik LCG Regular;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+    }
+    .inputsWrapper {
+        margin-top: 10px;
+        p {
+            font-size: 14px;
+            font-weight: 500;
+            color: #344054;
+
+        }
+        input {
+            margin-top: 5px !important;
+        }
+    }
+    .btns {
+        display: flex;
+        width: 100%;
+        margin-top: 25px;
+        gap: 20px;
+        .white {
+            font-size: 16px;
+            border-radius: 8px;
+            background-color: white;
+            border: 1px solid #D0D5DD;
+            color: #344054;
+            font-weight: 600;
+            width: 50%;
+            height: 44px;
+        }
+        div {
+            width: 50%;
+        }
+    }
+}

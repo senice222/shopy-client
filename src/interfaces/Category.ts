@@ -10,6 +10,7 @@ export interface SubCategoryIState {
 
 
 export interface CategoryI {
+    icon: string,
     name : string,
     subCategories: SubCategoryI[],
     _id: string

@@ -8,6 +8,14 @@ import { Select, MenuItem, FormControl, InputLabel, Typography } from '@mui/mate
 import UploadButton, { FileUpload } from "../UploadButton/UploadButton";
 import VariantsTable from "./VariantsTable/VariantsTable";
 import QuestionsFAQ from "./FAQ/FAQ";
+import useSWR from 'swr';
+import { fetcher, url } from '../../../core/fetch';
+import { CategoryI } from '../../../interfaces/Category';
+import BlueButton from '../../Button/Button';
+interface SelectedCategory {
+    main: string;
+    subcategory?: string;
+}
 
 export const CreateProductBurger = ({ isOpened, setOpened }: { isOpened: boolean, setOpened: () => void }) => {
     const [title, setTitle] = useState<string>('')
@@ -15,6 +23,38 @@ export const CreateProductBurger = ({ isOpened, setOpened }: { isOpened: boolean
     const [uploads, setUploads] = useState<FileUpload[]>([]);
     const [categoryValue, setCategoryValue] = useState('');
     const [serviceValue, setServiceValue] = useState('');
+    const { data: categories } = useSWR(`${url}/api/categories`, fetcher)
+    const { data: services } = useSWR(`${url}/api/services`, fetcher)
+    const [category, setCategory] = useState<SelectedCategory>()
+
+    const allCategories = categories ? categories.flatMap((item: CategoryI) => [
+        item.name,
+        ...item.subCategories.map((sub: { name: string }) => sub.name)
+    ]) : [];
+
+    const findCategory = (categories: CategoryI[], selectedName: string): SelectedCategory | null => {
+        for (let category of categories) {
+            if (category.name === selectedName) {
+                return { main: category.name }; // if it main category
+            }
+            if (category.subCategories) {
+                const subCategory = category.subCategories.find(sub => sub.name === selectedName);
+                if (subCategory) {
+                    return { main: category.name, subcategory: subCategory.name }; // if it subcategory
+                }
+            }
+        }
+        return null; // if nothing found
+    };
+
+    const handleCategorySelect = (selectedName: string) => {
+        const category = findCategory(categories, selectedName);
+        if (category) {
+            setCategory(category)
+        } else {
+            console.log('Категория не найдена');
+        }
+    };
 
     const handleCategoryChange = (event: any) => {
         setCategoryValue(event.target.value);
@@ -63,16 +103,15 @@ export const CreateProductBurger = ({ isOpened, setOpened }: { isOpened: boolean
                                     onChange={handleCategoryChange}
                                     label="Выберите нужный вариант"
                                 >
-                                    <MenuItem value={'Category1'}>
-                                        <div className={s.selectItem}>
-                                            <Typography>Category1</Typography>
-                                        </div>
-                                    </MenuItem>
-                                    <MenuItem value={'Category2'}>
-                                        <div className={s.selectItem}>
-                                            <Typography>Category2</Typography>
-                                        </div>
-                                    </MenuItem>
+                                    {
+                                        allCategories && allCategories.map((item: string) => (
+                                            <MenuItem value={item} onClick={() => handleCategorySelect(item)}>
+                                                <div className={s.selectItem}>
+                                                    <Typography>{item}</Typography>
+                                                </div>
+                                            </MenuItem>
+                                        ))
+                                    }
                                 </Select>
                             </FormControl>
                         </div>
@@ -87,16 +126,15 @@ export const CreateProductBurger = ({ isOpened, setOpened }: { isOpened: boolean
                                     onChange={handleServiceChange}
                                     label="Выберите нужный вариант"
                                 >
-                                    <MenuItem value={'Category1'}>
-                                        <div className={s.selectItem}>
-                                            <Typography>Category1</Typography>
-                                        </div>
-                                    </MenuItem>
-                                    <MenuItem value={'Category2'}>
-                                        <div className={s.selectItem}>
-                                            <Typography>Category2</Typography>
-                                        </div>
-                                    </MenuItem>
+                                    {
+                                        services && services.map((item: { name: string }) => (
+                                            <MenuItem value={item.name} onClick={() => handleCategorySelect(item.name)}>
+                                                <div className={s.selectItem}>
+                                                    <Typography>{item.name}</Typography>
+                                                </div>
+                                            </MenuItem>
+                                        ))
+                                    }
                                 </Select>
                             </FormControl>
                             <Typography variant="body2" style={{ marginTop: '8px' }}>
@@ -110,6 +148,12 @@ export const CreateProductBurger = ({ isOpened, setOpened }: { isOpened: boolean
                     </div>
                     <VariantsTable />
                     <QuestionsFAQ />
+                </div>
+                <div className={s.bottomDiv}>
+                    <button className={s.btn} onClick={setOpened}>Отмена</button>
+                    <div>
+                        <BlueButton text="Сохранить" height='44px' width='150px' />
+                    </div>
                 </div>
             </div>
         </div>

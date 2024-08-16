@@ -40,6 +40,12 @@ body {
   overflow-x: hidden !important;
 }
 
+.ant-menu {
+  border-inline-end: none !important
+}
+.ant-btn:hover {
+  background: none !important;
+}
 img {
   user-select: none;
 }

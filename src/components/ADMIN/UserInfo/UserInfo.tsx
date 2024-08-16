@@ -1,11 +1,19 @@
-import React, {FC} from 'react';
+import React, { FC, useState } from 'react';
 import styles from './UserInfo.module.scss';
-import {User, UserProps} from "../../../interfaces/User";
+import { User, UserProps } from "../../../interfaces/User";
 import { format, formatDistanceToNow } from 'date-fns';
 import { ru } from 'date-fns/locale';
 import Loader from "../../Loader/Loader";
+import { Popover, Button, Menu } from 'antd';
 
-const UserInfo:FC<UserProps> = ({user}) => {
+enum UserStatus {
+    Active = 'Активен',
+    Blocked = 'Заблокирован',
+    Inactive = 'Неактивен',
+}
+
+const UserInfo: FC<UserProps> = ({ user }) => {
+    const [visible, setVisible] = useState(false);
 
     if (!user) return <Loader />;
 
@@ -28,6 +36,26 @@ const UserInfo:FC<UserProps> = ({user}) => {
         ? `${format(userRegisterDate, 'dd.MM.yyyy в HH:mm', { locale: ru })} (${formatDistanceToNow(userRegisterDate, { addSuffix: true, locale: ru })})`
         : 'Дата не указана';
 
+    const handleVisibleChange = (newVisible: boolean) => {
+        setVisible(newVisible);
+    };
+
+    const handleStatusChange = (status: any) => {
+        console.log(status)
+        setVisible(false);
+    };
+
+    const menu = (
+        <Menu>
+            {Object.values(UserStatus).map((status) => (
+                <Menu.Item key={status} onClick={() => handleStatusChange(status)}>
+                    {status}
+                </Menu.Item>
+            ))}
+        </Menu>
+    );
+
+
     return (
         <div className={styles.userInfoContainer}>
             <h2>Основная информация</h2>
@@ -42,7 +70,18 @@ const UserInfo:FC<UserProps> = ({user}) => {
                 </div>
                 <div className={styles.infoItem}>
                     <span>Статус</span>
-                    <div className={styles.statusActive}>{user.status}</div>
+                    <Popover
+                        content={menu}
+                        placement="bottom"
+                        trigger="hover"
+                        visible={visible}
+                        onVisibleChange={handleVisibleChange}
+                    >
+                        <div className={styles.statusActive} >
+                            {user.status}
+                        </div>
+                    </Popover>
+                    {/* <div className={styles.statusActive}>{user.status}</div> */}
                 </div>
                 <div className={styles.infoItem}>
                     <span>Реферальная ссылка</span>

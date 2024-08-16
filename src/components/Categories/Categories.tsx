@@ -1,73 +1,38 @@
-import React, {useState} from 'react';
 import styles from './Categories.module.scss'
-import {useNavigate} from "react-router-dom";
-import {motion} from 'framer-motion'
+import { useNavigate } from "react-router-dom";
+import { motion } from 'framer-motion'
+import useSWR from 'swr';
+import { fetcher, url } from '../../core/fetch';
+import { CategoryI } from '../../interfaces/Category';
+import Loader from '../Loader/Loader';
 
 const Categories = () => {
     const navigate = useNavigate()
-
-    const categories = [
-        {
-            img: "headphones",
-            title: "Музыка",
-        },
-        {
-            img: "tickets",
-            title: "Кино",
-        },
-        {
-            img: "screen",
-            title: "Работа",
-        },
-        {
-            img: "hello",
-            title: "Нейросети",
-        },
-        {
-            img: "view",
-            title: "Игры",
-        },
-        {
-            img: "figures",
-            title: "Лайфстайл",
-        },
-        {
-            img: "cards",
-            title: "Развлечения",
-        },
-        {
-            img: "advertising",
-            title: "Соц.сети",
-        },
-        {
-            img: "AppStore",
-            title: "App Store",
-        },
-    ]
+    const { data: categories } = useSWR(`${url}/api/categories`, fetcher)
 
     const handleClick = (item: string) => {
-        navigate("/category/music")
+        navigate(`/category/${item}`)
     };
-
     const containerVariants = {
         hidden: { opacity: 1 },
         visible: {
             opacity: 1,
             transition: {
-                staggerChildren: 0.125, 
+                staggerChildren: 0.125,
             },
         },
     };
 
     const itemVariants = {
         hidden: { opacity: 0, y: 20 },
-        visible: { 
-            opacity: 1, 
-            y: 0, 
-            transition: { duration: 0.4 } 
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: { duration: 0.4 }
         },
     };
 
+    if (!categories) return <Loader />
 
     return (
         <div className={styles.category}>
@@ -79,19 +44,21 @@ const Categories = () => {
                     initial="hidden"
                     animate="visible"
                 >
-                    {categories.map((item, i) => (
-                        <motion.div
-                            onClick={() => handleClick(item.title)}
-                            key={i}
-                            className={styles['category-card']}
-                            variants={itemVariants}
-                        >
-                            <img
-                                src={require(`../../assets/svg/${item.img}.svg`)}
-                                alt={item.title}
-                            />
-                            <h1 className={styles['card-title']}>{item.title}</h1>
-                        </motion.div>
+                    {categories?.map((item: CategoryI, i: number) => (
+                        item && item.name && item.icon ? (  // Проверка на наличие данных
+                            <motion.div
+                                onClick={() => handleClick(item.name)}
+                                key={i}
+                                className={styles['category-card']}
+                                variants={itemVariants}
+                            >
+                                <img
+                                    src={`${url}/api/uploads/${item.icon}`}
+                                    alt={item.name}
+                                />
+                                <h1 className={styles['card-title']}>{item.name}</h1>
+                            </motion.div>
+                        ) : null  // Если item, item.name или item.icon undefined или пустые, элемент не рендерится
                     ))}
                 </motion.div>
             </div>

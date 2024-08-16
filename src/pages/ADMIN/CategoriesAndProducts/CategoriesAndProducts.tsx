@@ -28,7 +28,7 @@ const CategoriesAndProducts: FC = () => {
         data: products
     } = useSWR(`${url}/api/products/${currentCategory ? `category/${currentCategory.mainCategoryName}/${currentCategory.name}` : ''}?page=${currentPage}&limit=10`, fetcher);
     const [filteredProducts, setFilteredProducts] = useState<Product[]>(products?.products);
-    console.log(filteredProducts,2)
+
     const handlePageChange = (page: number) => {
         setCurrentPage(page);
     };

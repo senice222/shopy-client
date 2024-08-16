@@ -35,6 +35,7 @@ import Orders from "./pages/ADMIN/Orders/Orders";
 import useTelegramTheme from "./hooks/useTelegramTheme";
 import useFavoriteManager from "./hooks/useFavoriteManager";
 import SettingsModal from "./pages/SettingsPage/SettingsPage";
+import Feedback from './pages/ADMIN/Feedback/Feedback'
 import SettingsPage from "./pages/SettingsPage/SettingsPage";
 import Settings from './pages/ADMIN/Settings/Settings'
 
@@ -97,7 +98,7 @@ function App() {
                 <Route path="categoriesAndProducts" element={<CategoriesAndProducts/>}/>
                 <Route path="users/:username" element={<DetailedUser/>}/>
                 <Route path="settings" element={<Settings/>}>
-                    <Route path="" element={<div>2312</div>}/>
+                    <Route path="" element={<Feedback />}/>
                 </Route>
             </Route>
 
