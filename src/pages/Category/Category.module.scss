@@ -27,7 +27,20 @@
     }
   }
 }
-
+.subcategories {
+  background-color: var(--button-color);
+  border: 1px solid var(--input-border);
+  width: 135px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 14px;
+  color: var(--default-text);
+  text-align: center;
+}
 .heartFilled {
   path {
     fill: red
@@ -44,7 +57,7 @@
 }
 
 .wrappLeft {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .titleCategory {
