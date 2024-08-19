@@ -12,6 +12,8 @@ import useSWR from 'swr';
 import { fetcher, url } from '../../../core/fetch';
 import { CategoryI } from '../../../interfaces/Category';
 import BlueButton from '../../Button/Button';
+import { Variant } from '../../../interfaces/Product';
+
 interface SelectedCategory {
     main: string;
     subcategory?: string;
@@ -23,9 +25,17 @@ export const CreateProductBurger = ({ isOpened, setOpened }: { isOpened: boolean
     const [uploads, setUploads] = useState<FileUpload[]>([]);
     const [categoryValue, setCategoryValue] = useState('');
     const [serviceValue, setServiceValue] = useState('');
+    const [titleBanner, setTitleBanner] = useState<string>('');
+    const [description, setDescription] = useState<string>('');
     const { data: categories } = useSWR(`${url}/api/categories`, fetcher)
     const { data: services } = useSWR(`${url}/api/services`, fetcher)
     const [category, setCategory] = useState<SelectedCategory>()
+    const [variants, setVariants] = useState<Variant>(
+        {
+            properties: [],
+            items: []
+        }
+    )
 
     const allCategories = categories ? categories.flatMap((item: CategoryI) => [
         item.name,
@@ -146,7 +156,11 @@ export const CreateProductBurger = ({ isOpened, setOpened }: { isOpened: boolean
                         <h2>Изображения товара</h2>
                         <UploadButton uploads={uploads} setUploads={setUploads} />
                     </div>
-                    <VariantsTable />
+                    <VariantsTable
+                        description={description} setDescription={setDescription}
+                        titleBanner={titleBanner} setTitleBanner={setTitleBanner}
+                        variants={variants} setVariants={setVariants}
+                    />
                     <QuestionsFAQ />
                 </div>
                 <div className={s.bottomDiv}>

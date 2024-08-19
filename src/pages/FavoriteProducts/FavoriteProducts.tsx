@@ -1,15 +1,17 @@
 import styles from './FavoriteProducts.module.scss'
 import Layout from "../../layouts/Layout";
-import {useAppSelector} from "../../hooks/redux-hooks";
-import React, {FC, Fragment, useEffect} from "react";
-import {useNavigate} from "react-router-dom";
-import {AddedToFav} from "../../components/AddedToFav/AddedToFav";
-import {ModalAndFavorite} from "../../interfaces/ModalAndFavorite";
+import { useAppSelector } from "../../hooks/redux-hooks";
+import React, { FC, Fragment, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { AddedToFav } from "../../components/AddedToFav/AddedToFav";
+import { ModalAndFavorite } from "../../interfaces/ModalAndFavorite";
 import nothing from '../../assets/Illustrationnothing.png'
 import BlueButton from "../../components/Button/Button";
-import {useTelegram} from "../../hooks/useTelegram";
+import { useTelegram } from "../../hooks/useTelegram";
+import { Product } from '../../interfaces/Product';
+import { FavoriteItem } from '../../store/features/favoriteSlice';
 
-const FavoriteProducts: FC<ModalAndFavorite> = ({setAddedFunc, isAdd, added, setAdded}) => {
+const FavoriteProducts: FC<ModalAndFavorite> = ({ setAddedFunc, isAdd, added, setAdded }) => {
     const state = useAppSelector(state => state.favorite.items)
     const navigate = useNavigate()
     const { onBackButtonClick } = useTelegram();
@@ -23,15 +25,15 @@ const FavoriteProducts: FC<ModalAndFavorite> = ({setAddedFunc, isAdd, added, set
     }, [onBackButtonClick, navigate]);
 
 
-    const handleClick = () => {
-        navigate('/product/1');
-        window.scrollTo({top: 0});
+    const handleClick = (item: FavoriteItem) => {
+        navigate(`/product/${item.id}`);
+        window.scrollTo({ top: 0 });
     };
 
     return (
         <div className={styles.wrapp}>
             <Layout>
-                <AddedToFav isAdd={isAdd} isOpen={added} setOpen={() => setAdded(false)}/>
+                <AddedToFav isAdd={isAdd} isOpen={added} setOpen={() => setAdded(false)} />
                 <div className={styles.favoriteContainer}>
                     <div className={styles.titleHeader}>
                         <h2 className={styles.text}>Избранное</h2>
@@ -57,23 +59,22 @@ const FavoriteProducts: FC<ModalAndFavorite> = ({setAddedFunc, isAdd, added, set
                                                 <g transform="translate(0 -1028.4)">
                                                     <path
                                                         d="m7 1031.4c-1.5355 0-3.0784 0.5-4.25 1.7-2.3431 2.4-2.2788 6.1 0 8.5l9.25 9.8 9.25-9.8c2.279-2.4 2.343-6.1 0-8.5-2.343-2.3-6.157-2.3-8.5 0l-0.75 0.8-0.75-0.8c-1.172-1.2-2.7145-1.7-4.25-1.7z"
-                                                        fill="#e74c3c"/>
+                                                        fill="#e74c3c" />
                                                 </g>
                                             </svg>
                                         </div>
-                                        <img style={{width: '165px', height: '165px'}} src={item.img}
-                                             alt="Spotify Premium Image" onClick={handleClick}/>
+                                        <img style={{ width: '165px', height: '165px' }} src={item.img} alt="Spotify Premium Image" />
                                     </div>
-                                    <div className={styles.productCardBottom} onClick={handleClick}>
+                                    <div className={styles.productCardBottom} onClick={() => handleClick(item)}>
                                         <h3 className={styles.cardTitle}>{item.name}</h3>
                                         <span className={styles.price}>от {item.price}₽</span>
                                     </div>
                                 </div>
                             </div>
                         </Fragment>
-                    )): (
+                    )) : (
                         <div className={styles.nothingYet}>
-                            <img src={nothing} alt="/"/>
+                            <img src={nothing} alt="/" />
                             <h2>Пока что тут ничего нет</h2>
                             <p>Нажимайте на сердечко в товаре, чтобы добавить товар в избранное. Он отобразится здесь.</p>
                             <div>

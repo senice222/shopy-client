@@ -27,7 +27,7 @@ const Category = () => {
     const state = useAppSelector(state => state.favorite.items);
     const navigate = useNavigate();
     const { onBackButtonClick } = useTelegram();
-
+    
     const getAllSubCategories = useMemo(() => {
         return items ? Array.from(new Set(items.products.map((item: Product) => item.category.subcategory))) : [];
     }, [items]);
@@ -73,7 +73,6 @@ const Category = () => {
     return (
         <Layout notAnimated={true}>
             <Slider />
-            <Search />
             <AddedToFav isAdd={isAdd} isOpen={added} setOpen={() => setAdded(false)} />
             <div className={styles.category}>
                 <div className={`${styles.category__content} ${styles.container}`}>
@@ -102,7 +101,7 @@ const Category = () => {
                                         key={item._id}
                                         toFav={setAddedFunc}
                                         name={item.name}
-                                        price={item.price}
+                                        price={Math.min(...item.variants.items.map((variant: any) => variant.price))}
                                         img={item.img}
                                         id={item._id}
                                     />

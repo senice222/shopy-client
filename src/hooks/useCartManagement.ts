@@ -12,7 +12,6 @@ const useCartManagement = (
     redirect: () => void,
     variantId: string
 ) => {
-    console.log(currentItem)
     const dispatch = useAppDispatch();
     const { tg } = useTelegram();
     const cartItems = useAppSelector((state: any) => state.cart.items);
@@ -36,7 +35,7 @@ const useCartManagement = (
             price,
         },
         optional: transformSelectedVariantsToOptional()
-    }), [currentItem, price, transformSelectedVariantsToOptional]);
+    }), [currentItem, price, transformSelectedVariantsToOptional, variantId]);
 
     const isCart = useMemo(() => cartItems.some((item: any) => item?.main?.name === newItem.main.name), [cartItems, newItem.main.name]);
 

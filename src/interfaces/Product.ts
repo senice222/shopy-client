@@ -18,12 +18,6 @@ export interface SelectedVariants {
 
 export interface ComparisonObject { label: string, option: string }
 
-export interface Properties {
-    id: string;
-    text: string;
-    _id: string;
-}
-
 export interface ValuesItem {
     id: string;
     value: string;
@@ -37,25 +31,29 @@ export interface Category {
 export interface TableRow {
     price: string;
     oldPrice: string;
-    property1: string;
-    property2: string;
+    // property1: string;
+    // property2: string;
+    values: [];
     quantity: number;
     actions: string[];
 }
-
+export interface Properties {
+    id: string;
+    text: string;
+    _id: string;
+}
 export interface VariantItem {
     price: number;
     oldPrice: number;
     _id: string;
     visible: boolean;
+    img: string;
     quantity: number,
     attachedId: string,
-    values : [{id: string, value: string}]
+    values: Array<{ id: string, value: string }>;
 }
 
 export interface Variant {
-    // label: string
-    // items: Item[]
     properties: Properties[],
     items: VariantItem[]
 }
