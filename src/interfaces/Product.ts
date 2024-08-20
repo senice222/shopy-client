@@ -11,12 +11,13 @@ export interface Product {
 
 export interface SelectedVariants {
     [dataId: string]: {
+        id: string,
         label: string;
         option: string;
     }[];
 }
 
-export interface ComparisonObject { label: string, option: string }
+export interface ComparisonObject { id: string, label: string, option: string }
 
 export interface ValuesItem {
     id: string;
@@ -40,12 +41,12 @@ export interface TableRow {
 export interface Properties {
     id: string;
     text: string;
-    _id: string;
+    _id?: string;
 }
 export interface VariantItem {
     price: number;
     oldPrice: number;
-    _id: string;
+    _id?: string;
     visible: boolean;
     img: string;
     quantity: number,

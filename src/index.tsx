@@ -20,6 +20,7 @@ root.render(
                 <UserProvider>
                     <ThemeProvider>
                         <App/>
+                        {/* <img src="https://i.ibb.co/8DyHpfb/1123.png" className={'kartinka'}/> */}
                     </ThemeProvider>
                 </UserProvider>
             </Provider>

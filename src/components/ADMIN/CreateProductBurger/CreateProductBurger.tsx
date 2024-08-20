@@ -1,14 +1,13 @@
 import s from './CreateProductBurger.module.scss'
 import { Plus } from "../../../pages/ADMIN/CategoriesAndProducts/Svg";
 import { Cross } from "../../Modals/AdminModal/Svgs";
-import React, { useState } from "react";
-// import { Select } from "antd";
+import { useState } from "react";
 import './Antd.scss'
 import { Select, MenuItem, FormControl, InputLabel, Typography } from '@mui/material';
 import UploadButton, { FileUpload } from "../UploadButton/UploadButton";
 import VariantsTable from "./VariantsTable/VariantsTable";
 import QuestionsFAQ from "./FAQ/FAQ";
-import useSWR from 'swr';
+import useSWR, { useSWRConfig } from 'swr';
 import { fetcher, url } from '../../../core/fetch';
 import { CategoryI } from '../../../interfaces/Category';
 import BlueButton from '../../Button/Button';
@@ -18,10 +17,15 @@ interface SelectedCategory {
     main: string;
     subcategory?: string;
 }
+export interface Btns {
+    question: string
+    id: string,
+    answer: string,
+}
 
 export const CreateProductBurger = ({ isOpened, setOpened }: { isOpened: boolean, setOpened: () => void }) => {
     const [title, setTitle] = useState<string>('')
-    const [deskr, setDeskr] = useState<string>('')
+    const [descr, setDescr] = useState<string>('')
     const [uploads, setUploads] = useState<FileUpload[]>([]);
     const [categoryValue, setCategoryValue] = useState('');
     const [serviceValue, setServiceValue] = useState('');
@@ -29,13 +33,71 @@ export const CreateProductBurger = ({ isOpened, setOpened }: { isOpened: boolean
     const [description, setDescription] = useState<string>('');
     const { data: categories } = useSWR(`${url}/api/categories`, fetcher)
     const { data: services } = useSWR(`${url}/api/services`, fetcher)
+    const { mutate } = useSWRConfig()
     const [category, setCategory] = useState<SelectedCategory>()
+    const [formErrors, setFormErrors] = useState<{}>()
+    const [btns, setBtns] = useState<Btns[]>([])
     const [variants, setVariants] = useState<Variant>(
         {
             properties: [],
             items: []
         }
     )
+
+    const validateForm = () => {
+        const errors: Record<string, string> = {};
+
+        if (!title.trim()) {
+            errors.title = 'Заголовок обязателен';
+        } else if (title.length < 3) {
+            errors.title = 'Заголовок должен содержать не менее 3 символов';
+        }
+
+        if (!descr.trim()) {
+            errors.descr = 'Описание обязательно';
+        } else if (descr.length < 10) {
+            errors.descr = 'Описание должно содержать не менее 10 символов';
+        }
+
+        if (!categoryValue) {
+            errors.categoryValue = 'Выберите категорию';
+        }
+
+        if (!serviceValue) {
+            errors.serviceValue = 'Выберите сервис';
+        }
+
+        return errors;
+    };
+
+    const handleSubmit = async () => {
+        const errors = validateForm();
+        if (Object.keys(errors).length > 0) {
+            setFormErrors(errors);
+        } else {
+            const token = localStorage.getItem('token')
+            const formData = new FormData();
+            formData.append('name', title);
+            formData.append('description', descr);
+            formData.append('category', JSON.stringify(category));
+            formData.append('variants', JSON.stringify(variants));
+            formData.append('img', uploads[0].file);
+            formData.append('features', JSON.stringify(btns));
+
+            try {
+                await mutate(`${url}/api/products`, fetcher(`${url}/api/product/create`, {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: formData
+                }));
+                setFormErrors({});
+            } catch (e) {
+                console.log(e)
+            }
+        }
+    };
 
     const allCategories = categories ? categories.flatMap((item: CategoryI) => [
         item.name,
@@ -98,8 +160,8 @@ export const CreateProductBurger = ({ isOpened, setOpened }: { isOpened: boolean
                     <div className={s.block}>
                         <h3>Описание товара</h3>
                         <textarea
-                            value={deskr}
-                            onChange={(e) => setDeskr(e.target.value)}
+                            value={descr}
+                            onChange={(e) => setDescr(e.target.value)}
                             placeholder={"Например, привет."}
                         />
                     </div>
@@ -161,11 +223,11 @@ export const CreateProductBurger = ({ isOpened, setOpened }: { isOpened: boolean
                         titleBanner={titleBanner} setTitleBanner={setTitleBanner}
                         variants={variants} setVariants={setVariants}
                     />
-                    <QuestionsFAQ />
+                    <QuestionsFAQ btns={btns} setBtns={setBtns} />
                 </div>
                 <div className={s.bottomDiv}>
                     <button className={s.btn} onClick={setOpened}>Отмена</button>
-                    <div>
+                    <div onClick={handleSubmit}>
                         <BlueButton text="Сохранить" height='44px' width='150px' />
                     </div>
                 </div>

@@ -48,12 +48,11 @@ export const DetailedProduct: FC<ModalAndFavorite> = ({setAddedFunc, isAdd, adde
         redirect,
         variantId
     );
-
     useEffect(() => {
         const product = compare();
         if (product && product.length > 0) {
             setPrice(product[0].price);
-            setVariantId(product[0]._id)
+            setVariantId(product[0]._id ? product[0]._id : "")
         }
     }, [id, selectedVariants, compare]);
 
@@ -83,7 +82,6 @@ export const DetailedProduct: FC<ModalAndFavorite> = ({setAddedFunc, isAdd, adde
             };
         });
     };
-
     if (!data) return <Loader/>;
 
     return (

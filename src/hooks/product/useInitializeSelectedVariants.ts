@@ -27,6 +27,7 @@ export const useInitializeSelectedVariants = (
 
                     if (!initialSelected[data._id].some((v: ComparisonObject) => v.label === label)) {
                         initialSelected[data._id].push({
+                            id: property ? property.id : '',
                             label: label,
                             option: value.value
                         });

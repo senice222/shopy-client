@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import s from "./Feedback.module.scss";
 import { Search } from "./Svgs";
+import {useNavigate} from 'react-router-dom'
 import { Pencil, Trash } from "../CategoriesAndProducts/Svg";
 import useSWR from "swr";
 import { fetcher, url } from "../../../core/fetch";
@@ -9,6 +10,7 @@ import Pagination from "../../../components/Pagination/Pagination";
 const Feedback = () => {
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate()
   const [totalPages, setTotalPages] = useState<number | null>(null);
   const { data: feedbacks } = useSWR(
     `${url}/api/feedback/?page=${currentPage}&limit=10`,
@@ -48,7 +50,7 @@ const Feedback = () => {
           </tr>
         </thead>
         <tbody>
-          {feedbacks.feedbacks.map((item : any, i : any) => <tr key={i}>
+          {feedbacks.feedbacks.map((item : any, i : any) => <tr onClick={() => navigate('/panel/feedback/asd')} key={i}>
             <td className={s.td1}>
               <p>{item.name}</p>
             </td>

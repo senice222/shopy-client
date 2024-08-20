@@ -35,9 +35,10 @@ import Orders from "./pages/ADMIN/Orders/Orders";
 import useTelegramTheme from "./hooks/useTelegramTheme";
 import useFavoriteManager from "./hooks/useFavoriteManager";
 import SettingsModal from "./pages/SettingsPage/SettingsPage";
-import Feedback from './pages/ADMIN/Feedback/Feedback'
+import Feedback from './pages/ADMIN/Feedback/Feedback';
+import FeedbackDetailed from './pages/ADMIN/Feedback/DetailedFeedback/DetailedFeedback';
 import SettingsPage from "./pages/SettingsPage/SettingsPage";
-import Settings from './pages/ADMIN/Settings/Settings'
+import Settings from './pages/ADMIN/Settings/Settings';
 
 function App() {
     const location = useLocation()
@@ -97,6 +98,7 @@ function App() {
                 <Route path="newsletter" element={<Newsletter/>}/>
                 <Route path="categoriesAndProducts" element={<CategoriesAndProducts/>}/>
                 <Route path="users/:username" element={<DetailedUser/>}/>
+                <Route path="feedback/:id" element={<FeedbackDetailed />}/>
                 <Route path="settings" element={<Settings/>}>
                     <Route path="" element={<Feedback />}/>
                 </Route>

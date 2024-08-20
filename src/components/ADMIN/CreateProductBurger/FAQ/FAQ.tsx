@@ -1,28 +1,22 @@
 import s from './FAQ.module.scss'
 import BlueButton from "../../../Button/Button";
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { Pencil } from '../../../Modals/AdminModals/UserMessage/Svgs';
+import { Btns } from '../../../Modals/AdminModals/UserMessage/UserMessageModal';
 
-export interface Btns {
-    question : string
-    id: string,
-    answer: string,
-}
-
-const QuestionsFAQ = () => {
+const QuestionsFAQ = ({btns, setBtns}: any) => {
     const [isCreating, setCreating] = useState<boolean>(false)
     const [btnText, setBtnText] = useState<string>('')
     const [btnLink, setBtnLink] = useState<string>('')
     const [isEditing, setEditing] = useState<string>()
-    const [btns, setBtns] = useState<Btns[]>([])
 
     const addButton = () => {
         if (btns.length < 4) {
             let btnsCopied = btns.concat()
             btnsCopied.push({
-                question: btnText,
+                title: btnText,
                 id: String(btns.length + Math.floor(Math.random())),
-                answer: btnLink
+                value: btnLink
             })
             setBtns(btnsCopied)
             setBtnText('')
@@ -36,10 +30,10 @@ const QuestionsFAQ = () => {
 
         const copiedArr = btns.concat()
 
-        let foundBtn = copiedArr.find((item) => item.id === id)
+        let foundBtn = copiedArr.find((item: Btns) => item.id === id)
         if (foundBtn) {
-            foundBtn.question = btnText
-            foundBtn.answer = btnLink
+            foundBtn.title = btnText
+            foundBtn.value = btnLink
             setBtns(copiedArr)
             setBtnText('')
             setBtnLink('')
@@ -81,7 +75,7 @@ const QuestionsFAQ = () => {
                 </div> : <div className={s.addDiv}>
                     <h1 onClick={() => setCreating(true)}>+ Добавить кнопки</h1>
                     <div className={s.createdBtns}>
-                        {btns.map((item) => <>
+                        {btns.map((item: any) => <>
                             <button onClick={() => handleChange({ id: item.id, text: item.question, link: item.answer })}>{item.question} <Pencil /></button>
                         </>)}
                     </div>

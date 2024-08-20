@@ -10,9 +10,8 @@ export const useCompare = (data: Product, selectedVariants: SelectedVariants, id
         if (array.length !== comparisonObject.length) {
             return false;
         }
-
         return array.every(item =>
-            comparisonObject.some((obj: ComparisonObject, i: number) => String(i + 1) === item.id && obj.option === item.value)
+            comparisonObject.some((obj: ComparisonObject, i: number) => obj.id === item.id && obj.option === item.value)
         );
     };
 
