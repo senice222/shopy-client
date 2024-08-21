@@ -1,11 +1,11 @@
 import React from 'react';
 import style from '../DetailedProduct.module.scss';
-import {VariantItem} from "../../../interfaces/Product";
+import { VariantItem } from "../../../interfaces/Product";
 
 interface VariantSelectorProps {
     data: any;
     selectedVariants: any;
-    handleVariantChange: (propertyId: string, dataId: string, option: any) => void;
+    handleVariantChange: (propertyId: string, dataId: string, option: any, banner: { title: string, description: string }) => void;
 }
 
 const VariantSelector: React.FC<VariantSelectorProps> = ({ data, selectedVariants, handleVariantChange }) => {
@@ -34,12 +34,15 @@ const VariantSelector: React.FC<VariantSelectorProps> = ({ data, selectedVariant
                     <div className={style.btns}>
                         {uniqueArray.map((value: any, index: number) => {
                             const isActive = selectedVariants[data._id]?.some((item: any) => item.option === value);
-
+                            const selectedItem = data.variants.items.find((item: VariantItem) =>
+                                item.values.some(v => v.id === property.id && v.value === value)
+                            );
+                            const banner = selectedItem?.banner;
                             return (
                                 <button
                                     key={`${property.id}-${index}`}
                                     className={isActive ? style.active : ''}
-                                    onClick={() => handleVariantChange(property.text, data._id, value)}
+                                    onClick={() => handleVariantChange(property.text, data._id, value, banner)}
                                 >
                                     {value}
                                 </button>

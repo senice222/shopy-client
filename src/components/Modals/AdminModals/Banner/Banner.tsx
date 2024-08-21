@@ -2,26 +2,47 @@ import { Dispatch, SetStateAction, useState } from 'react';
 import BlueButton from '../../../Button/Button'
 import { AdminModal } from '../../AdminModal/AdminModal'
 import style from './Banner.module.scss'
+import { VariantItem, Variant } from '../../../../interfaces/Product';
 
 interface BannerProps {
     description: string;
+    setVariants: Dispatch<SetStateAction<Variant>>;
     setDescription: Dispatch<SetStateAction<string>>;
     title: string;
     setTitle: Dispatch<SetStateAction<string>>;
     banner: boolean;
+    variantId?: string,
     setBanner: any
 }
 
-const Banner: React.FC<BannerProps> = ({ description, setDescription, title, setTitle, banner, setBanner }) => {
+const Banner: React.FC<BannerProps> = ({ variantId, setVariants, description, setDescription, title, setTitle, banner, setBanner }) => {
     const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
 
     const handleSubmit = () => {
         if (title.trim() === '' || description.trim() === '') {
-            setIsSubmitted(true); 
+            setIsSubmitted(true);
             return;
         }
-        setBanner(false);
+
+        setVariants((prev: any) => ({
+            ...prev,
+            items: prev.items.map((variant: VariantItem) => {
+                if (variant.id === variantId) {
+                    return {
+                        ...variant,
+                        banner: {
+                            title: title.trim(),
+                            description: description.trim()
+                        }
+                    };
+                }
+                return variant;
+            })
+        }));
+
+        setBanner(false); 
     };
+
 
     return (
         <AdminModal isOpened={banner} setOpen={setBanner}>
@@ -50,13 +71,12 @@ const Banner: React.FC<BannerProps> = ({ description, setDescription, title, set
                 </div>
                 <div className={style.btns}>
                     <button className={style.white} onClick={() => setBanner(false)}>Закрыть</button>
-                    <div>
+                    <div onClick={handleSubmit}>
                         <BlueButton
                             text="Добавить"
                             fontSize="16px"
                             height="44px"
                             width="100%"
-                            onClick={handleSubmit}
                         />
                     </div>
                 </div>

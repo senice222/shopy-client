@@ -14,10 +14,19 @@ export interface SelectedVariants {
         id: string,
         label: string;
         option: string;
+        banner?: {
+            title: string,
+            description: string
+        }
     }[];
 }
 
-export interface ComparisonObject { id: string, label: string, option: string }
+export interface ComparisonObject {
+    id: string, label: string, option: string, banner?: {
+        title: string,
+        description: string
+    }
+}
 
 export interface ValuesItem {
     id: string;
@@ -48,10 +57,15 @@ export interface VariantItem {
     oldPrice: number;
     _id?: string;
     visible: boolean;
+    id?: string;
     img: string;
     quantity: number,
     attachedId: string,
     values: Array<{ id: string, value: string }>;
+    banner?: {
+        description: string;
+        title: string;
+    };
 }
 
 export interface Variant {

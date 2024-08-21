@@ -77,10 +77,12 @@ export const CreateProductBurger = ({ isOpened, setOpened }: { isOpened: boolean
         } else {
             const token = localStorage.getItem('token')
             const formData = new FormData();
+            const banner = {text: titleBanner, description}
             formData.append('name', title);
             formData.append('description', descr);
             formData.append('category', JSON.stringify(category));
             formData.append('variants', JSON.stringify(variants));
+            formData.append('banner', JSON.stringify(banner));
             formData.append('img', uploads[0].file);
             formData.append('features', JSON.stringify(btns));
 
@@ -99,10 +101,10 @@ export const CreateProductBurger = ({ isOpened, setOpened }: { isOpened: boolean
         }
     };
 
-    const allCategories = categories ? categories.flatMap((item: CategoryI) => [
+    const allCategories = categories ? Array.from(new Set(categories.flatMap((item: CategoryI) => [
         item.name,
         ...item.subCategories.map((sub: { name: string }) => sub.name)
-    ]) : [];
+    ]))) as string[] : [];
 
     const findCategory = (categories: CategoryI[], selectedName: string): SelectedCategory | null => {
         for (let category of categories) {

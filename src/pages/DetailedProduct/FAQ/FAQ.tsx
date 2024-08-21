@@ -1,11 +1,18 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import styles from './FAQ.module.scss';
-import {ReactComponent as PlusIcon} from '../../../assets/svg/Icon wrap.svg';
-import {ReactComponent as MinusIcon} from '../../../assets/svg/minus-circle.svg';
-import {motion} from 'framer-motion';
-import {faq} from "../../../utils/dummy_data";
+import { ReactComponent as PlusIcon } from '../../../assets/svg/Icon wrap.svg';
+import { ReactComponent as MinusIcon } from '../../../assets/svg/minus-circle.svg';
+import { motion } from 'framer-motion';
 
-const FAQ = () => {
+interface Features {
+    features: {
+        id: string,
+        title: string,
+        value: string,
+    }[]
+}
+
+const FAQ = ({ features }: Features) => {
     const [activeIndex, setActiveIndex] = useState(null);
 
     const toggleFAQ = (index: any) => {
@@ -16,11 +23,11 @@ const FAQ = () => {
         <div className={styles.faqContainer}>
             <h2 className={styles.title}>Часто задаваемые вопросы</h2>
             {
-                faq.map((item, i) => (
+                features?.map((item, i) => (
                     <div className={styles.faqItem} key={i}>
                         <div className={styles.question} onClick={() => toggleFAQ(i)}>
-                            <span>{item.question}</span>
-                            {activeIndex === i ? <MinusIcon className={styles.icon}/> : <PlusIcon className={styles.icon}/>}
+                            <span>{item.title}</span>
+                            {activeIndex === i ? <MinusIcon className={styles.icon} /> : <PlusIcon className={styles.icon} />}
                         </div>
                         <motion.div
                             initial={{ maxHeight: 0 }}
@@ -28,7 +35,7 @@ const FAQ = () => {
                             transition={{ duration: 0.3, ease: "easeInOut" }}
                             className={styles.answer}
                         >
-                            {item.answer}
+                            {item.value}
                         </motion.div>
                     </div>
                 ))

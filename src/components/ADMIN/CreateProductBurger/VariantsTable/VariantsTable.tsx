@@ -7,6 +7,7 @@ import { Copy, Eye, Trash, Message, Percent } from '../../../../pages/ADMIN/Cate
 import Banner from '../../../Modals/AdminModals/Banner/Banner';
 import useEditing from '../../../../hooks/useEditing';
 import useProperties from '../../../../hooks/useProperties';
+import { v4 as uuidv4 } from 'uuid';
 
 interface VariantsTableProps {
     description: string;
@@ -19,17 +20,16 @@ interface VariantsTableProps {
 
 const VariantsTable: FC<VariantsTableProps> = (props) => {
     const { description, setDescription, titleBanner, setTitleBanner, variants, setVariants } = props;
-
     const [banner, setBanner] = useState<boolean>(false);
-
     const { editingCell, tempValue, handleCellClick, handleInputChange, handleBlur } = useEditing('');
     const { editingProperty, tempPropertyText, handlePropertyClick, handlePropertyBlur, handlePropertyInputChange, handleAddProperty } = useProperties(variants, setVariants);
+    const [variantId, setVariantId] = useState<string>()
 
     const handleAddVariant = () => {
         const newVariant: VariantItem = {
+            id: uuidv4(),
             price: 0,
             oldPrice: 0,
-            // _id: Date.now().toString(),
             visible: true,
             img: '',
             quantity: 0,
@@ -51,10 +51,16 @@ const VariantsTable: FC<VariantsTableProps> = (props) => {
     };
 
     const handleDuplicateVariant = (index: number) => {
-        const newVariant = { ...variants.items[index] };
+        const newId = uuidv4();
+        const newVariant = { ...variants.items[index], id: newId };
+
         setVariants(prev => ({
             ...prev,
-            items: [...prev.items.slice(0, index), newVariant, ...prev.items.slice(index)]
+            items: [
+                ...prev.items.slice(0, index + 1), 
+                newVariant,
+                ...prev.items.slice(index + 1) 
+            ]
         }));
     };
 
@@ -70,6 +76,8 @@ const VariantsTable: FC<VariantsTableProps> = (props) => {
     return (
         <>
             <Banner
+                variantId={variantId}
+                setVariants={setVariants}
                 description={description}
                 setDescription={setDescription}
                 title={titleBanner}
@@ -180,7 +188,10 @@ const VariantsTable: FC<VariantsTableProps> = (props) => {
                                         <span style={{ paddingRight: "12px", cursor: "pointer" }} onClick={() => handleToggle(rowIndex)}><Eye /></span>
                                         <span style={{ paddingRight: "12px", cursor: "pointer" }} onClick={() => handleDuplicateVariant(rowIndex)}><Copy /></span>
                                         <span style={{ paddingRight: "12px", cursor: "pointer" }} onClick={() => handleDeleteVariant(rowIndex)}><Trash /></span>
-                                        <span style={{ paddingRight: "12px", cursor: "pointer" }} onClick={() => setBanner(true)}><Message /></span>
+                                        <span style={{ paddingRight: "12px", cursor: "pointer" }} onClick={() => {
+                                            setVariantId(item.id)
+                                            setBanner(true)
+                                        }}><Message /></span>
                                         <span style={{ paddingRight: "12px", cursor: "pointer" }}><Percent /></span>
                                     </td>
                                 </tr>
