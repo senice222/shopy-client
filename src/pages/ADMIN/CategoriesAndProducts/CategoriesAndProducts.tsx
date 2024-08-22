@@ -9,7 +9,6 @@ import {DndProvider} from 'react-dnd';
 import {HTML5Backend} from 'react-dnd-html5-backend';
 import {CategoriesBurger} from "../../../components/CategoriesBurger/CategoriesBurger";
 import {CreateProductBurger} from "../../../components/ADMIN/CreateProductBurger/CreateProductBurger";
-// import {initialProductList} from "../../../utils/dummy_data";
 import useSWR from "swr";
 import {fetcher, url} from "../../../core/fetch";
 import {CategoryI, SubCategoryIState} from "../../../interfaces/Category";
@@ -43,10 +42,6 @@ const CategoriesAndProducts: FC = () => {
         setSearchQuery('')
         setFilteredProducts(products?.products)
     }, [currentCategory, products]);
-
-    // useEffect(() => {
-    //     mutate()
-    // }, [currentPage])
 
     const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
         const query = event.target.value;

@@ -10,6 +10,7 @@ export interface User {
     _id: string;
     id: number;
     username: string;
+    totalBuys: number;
     status: string;
     balance: number;
     cashbackPercent: number;

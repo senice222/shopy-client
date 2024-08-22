@@ -8,15 +8,15 @@ import {DoDepModal} from "../Modals/DoDepModal/DoDepModal";
 import {NotFindModal} from "../Modals/NotFindModal/NotFindModal";
 import {useNavigate} from "react-router-dom";
 import CashBackModal from "../Modals/CashBackModal/CashBackModal";
-import {Emoji, Sale, Bookmark, Calendar, Clock, Users, HelpCircle, Message, Search} from "./Svgs";
-import {useTelegram} from "../../hooks/useTelegram";
+import {Emoji, Sale, Bookmark, Calendar, Clock, Users, HelpCircle, Message, Search, Percent} from "./Svgs";
 import IsActiveOrder from "./IsActiveOrder/IsActiveOrder";
 import {useCurrentUser} from "../../context/UserContext";
 import Loader from "../Loader/Loader";
 import useSWR from "swr";
 import {fetcher, url} from "../../core/fetch";
-import {Order} from "../../interfaces/User";
+import {Order, User} from "../../interfaces/User";
 import {feedbackManager} from "../../utils/feedbackManager";
+import { useTelegram } from "../../hooks/useTelegram";
 
 const BurgerMenu: FC<BurgerMenuI> = ({isOpened, setOpened}) => {
     const [isPromo, setPromo] = useState<boolean>(false)
@@ -24,8 +24,8 @@ const BurgerMenu: FC<BurgerMenuI> = ({isOpened, setOpened}) => {
     const [notFind, setNotFind] = useState<boolean>(false)
     const [cashback, setCashback] = useState<boolean>(false)
     const navigate = useNavigate()
+    const currentUser = useCurrentUser() as User;
     const {id} = useTelegram()
-    const currentUser = useCurrentUser() as any;
     const {data} = useSWR(`${url}/api/active-orders/878990615`, fetcher)
 
     useEffect(() => {
@@ -36,7 +36,7 @@ const BurgerMenu: FC<BurgerMenuI> = ({isOpened, setOpened}) => {
         }
     }, [isOpened]);
 
-    if (!currentUser || !data) return <Loader />
+    if (!currentUser && !data) return <Loader />
     const activeAccounts = data.filter((item: Order) => item.status === "in work")
 
     return (
@@ -48,7 +48,7 @@ const BurgerMenu: FC<BurgerMenuI> = ({isOpened, setOpened}) => {
                     setPromo(false)
                 }
             }/>
-            <CashBackModal cashback={cashback} onClose={() => setCashback(!cashback)}/>
+            <CashBackModal user={currentUser} cashback={cashback} onClose={() => setCashback(!cashback)}/>
             <div className={s.header1Div}>
                 <Header isCross={isOpened} setOpened={setOpened}/>
             </div>
@@ -69,21 +69,7 @@ const BurgerMenu: FC<BurgerMenuI> = ({isOpened, setOpened}) => {
                     <div className={s.cashbackDiv} onClick={() => setCashback(true)}>
                         <div>
                             <p>Процент кэшбека</p>
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width={16}
-                                height={17}
-                                viewBox="0 0 16 17"
-                                fill="none"
-                            >
-                                <path
-                                    d="M6.05998 6.49992C6.21672 6.05436 6.52608 5.67866 6.93328 5.43934C7.34048 5.20002 7.81924 5.11254 8.28476 5.19239C8.75028 5.27224 9.17252 5.51427 9.4767 5.8756C9.78087 6.23694 9.94735 6.69427 9.94665 7.16659C9.94665 8.49992 7.94665 9.16659 7.94665 9.16659M7.99998 11.8333H8.00665M14.6666 8.49992C14.6666 12.1818 11.6819 15.1666 7.99998 15.1666C4.31808 15.1666 1.33331 12.1818 1.33331 8.49992C1.33331 4.81802 4.31808 1.83325 7.99998 1.83325C11.6819 1.83325 14.6666 4.81802 14.6666 8.49992Z"
-                                    stroke="#98A2B3"
-                                    strokeWidth="1.33333"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                />
-                            </svg>
+                            <Percent />
                         </div>
                         <p>
                             0%

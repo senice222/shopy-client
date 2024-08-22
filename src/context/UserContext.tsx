@@ -1,10 +1,11 @@
-import React, {createContext, FC, useContext, useState} from 'react';
+import {createContext, FC, useContext} from 'react';
 import useSWR from 'swr';
 import {fetcher, url} from "../core/fetch";
 import {useTelegram} from "../hooks/useTelegram";
 import {Children} from "../interfaces/Layout";
+import { User } from '../interfaces/User';
 
-const UserContext = createContext(null);
+const UserContext = createContext<User | null>(null);
 
 export const UserProvider:FC<Children> = ({ children }) => {
     const {id} = useTelegram()

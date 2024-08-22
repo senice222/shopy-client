@@ -49,6 +49,7 @@ export const DetailedProduct: FC<ModalAndFavorite> = ({ setAddedFunc, isAdd, add
         redirect,
         variantId
     );
+
     useEffect(() => {
         const product = compare();
         if (product && product.length > 0) {
@@ -89,11 +90,11 @@ export const DetailedProduct: FC<ModalAndFavorite> = ({ setAddedFunc, isAdd, add
             for (const variant of variants) {
                 if (variant.banner) {
                     return variant.banner;
-                } 
+                }
             }
         }
         return null;
-    } ;
+    };
     const banner = getBanner();
     const hasBanner = !!banner;
 

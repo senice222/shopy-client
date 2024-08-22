@@ -24,7 +24,7 @@ const VariantsTable: FC<VariantsTableProps> = (props) => {
     const { editingCell, tempValue, handleCellClick, handleInputChange, handleBlur } = useEditing('');
     const { editingProperty, tempPropertyText, handlePropertyClick, handlePropertyBlur, handlePropertyInputChange, handleAddProperty } = useProperties(variants, setVariants);
     const [variantId, setVariantId] = useState<string>()
-
+    
     const handleAddVariant = () => {
         const newVariant: VariantItem = {
             id: uuidv4(),
