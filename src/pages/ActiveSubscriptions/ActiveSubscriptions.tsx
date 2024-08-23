@@ -1,9 +1,8 @@
 import style from './ActiveSubscriptions.module.scss'
 import Button from "../../components/Button/Button";
-import React, {FC, useEffect, useState} from "react";
+import {FC, useState} from "react";
 import Layout from "../../layouts/Layout";
 import {useTelegram} from "../../hooks/useTelegram";
-import {useNavigate} from "react-router-dom";
 import {UserProps} from "../../interfaces/User";
 import useSWR from "swr";
 import {fetcher, url} from "../../core/fetch";
@@ -20,18 +19,9 @@ interface Optional {
 }
 
 const ActiveSubscriptions: FC<UserProps> = ({user}) => {
-    const {onBackButtonClick, id} = useTelegram();
-    const navigate = useNavigate()
+    const {id} = useTelegram();
     const {data} = useSWR(`${url}/api/active-orders/878990615`, fetcher)
     const [open, setOpen] = useState<boolean>(false)
-
-    useEffect(() => {
-        onBackButtonClick(() => navigate('/'));
-
-        return () => {
-            onBackButtonClick(null);
-        };
-    }, [onBackButtonClick, navigate]);
 
     const calculateEndDate = (startDate: Date, duration: number) => {
         return addMonths(new Date(startDate), duration);

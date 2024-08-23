@@ -2,33 +2,22 @@ import style from './ActivateAccounts.module.scss'
 import Layout from "../../layouts/Layout";
 import lock from '../../assets/lock-02.png'
 import nothing from '../../assets/Illustrationnothing.png'
-import spotify48 from '../../assets/spotify48x48.png'
 import dots from '../../assets/dots-vertical.png'
 import Button from "../../components/Button/Button";
-import {FC, useEffect, useState} from "react";
+import {useState} from "react";
 import AddAccountModal from "../../components/Modals/Accounts/AddAccountModal/AddAccountModal";
 import EditAccountModal from "../../components/Modals/Accounts/EditAccountModal/EditAccountModal";
 import useSWR from "swr";
 import {fetcher, url} from "../../core/fetch";
 import {useTelegram} from "../../hooks/useTelegram";
-import {useNavigate} from "react-router-dom";
-import {SavedAccount, User, UserProps} from "../../interfaces/User";
+import {SavedAccount} from "../../interfaces/User";
 
 const ActivateAccounts = () => {
     const [addAccount, setAddAccount] = useState<boolean>(false)
     const [editAccount, setEditAccount] = useState<boolean>(false)
-    const {id, onBackButtonClick} = useTelegram()
+    const {id} = useTelegram()
     const [selectedAccountId, setSelectedAccountId] = useState<string>('');
     const {data} = useSWR(`${url}/api/user/account/878990615`, fetcher)
-    const navigate = useNavigate()
-
-    useEffect(() => {
-        onBackButtonClick(() => navigate('/'));
-
-        return () => {
-            onBackButtonClick(null);
-        };
-    }, [onBackButtonClick, navigate]);
 
     return (
         <div className={style.wrapp}>

@@ -1,24 +1,12 @@
-import React, { FC, useEffect } from 'react'
+import { FC } from 'react'
 import style from './HistoryOfOrders.module.scss'
 import Layout from '../../layouts/Layout'
-import { useNavigate } from "react-router-dom";
-import { useTelegram } from "../../hooks/useTelegram";
 import { UserProps } from '../../interfaces/User'
 import HistoryItem from './HistoryItem'
 import nothing from "../../assets/Illustrationnothing.png";
 import BlueButton from "../../components/Button/Button";
 
 const HistoryOfOrders: FC<UserProps> = ({ user }) => {
-    const navigate = useNavigate()
-    const { onBackButtonClick } = useTelegram();
-
-    useEffect(() => {
-        onBackButtonClick(() => navigate('/'));
-
-        return () => {
-            onBackButtonClick(null);
-        };
-    }, [onBackButtonClick, navigate]);
 
     return (    
         <div className={style.historyWrapp}>

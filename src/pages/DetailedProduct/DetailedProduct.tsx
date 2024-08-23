@@ -24,7 +24,7 @@ export const DetailedProduct: FC<ModalAndFavorite> = ({ setAddedFunc, isAdd, add
     const [favouriteStatus, setFavouriteStatus] = useState(false);
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
-    const { tg, onBackButtonClick } = useTelegram();
+    const { tg } = useTelegram();
     const { data } = useSWR(`${url}/api/product/${id}`, fetcher);
     const [selectedVariants, setSelectedVariants] = useState<SelectedVariants>({});
     const [price, setPrice] = useState<number>()
@@ -58,13 +58,6 @@ export const DetailedProduct: FC<ModalAndFavorite> = ({ setAddedFunc, isAdd, add
             setVariantId(product[0]._id ? product[0]._id : "")
         }
     }, [id, selectedVariants, compare]);
-
-    useEffect(() => {
-        onBackButtonClick(() => navigate('/'));
-        return () => {
-            onBackButtonClick(null);
-        };
-    }, [onBackButtonClick, navigate]);
 
     const handleVariantChange = (tariff: string, dataId: string, option: string, banner?: { title: string, description: string }) => {
         setSelectedVariants((prevState: SelectedVariants) => {

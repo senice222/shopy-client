@@ -2,28 +2,14 @@ import style from './Referral.module.scss'
 import Layout from "../../layouts/Layout";
 import {Input, message} from "antd";
 import copy from "../../assets/copy-01.png";
-import React, {FC, useEffect, useState} from "react";
-import nothing from "../../assets/Illustrationnothing.png";
-import Button from "../../components/Button/Button";
-import {useNavigate} from "react-router-dom";
-import {useTelegram} from "../../hooks/useTelegram";
+import {FC, useState} from "react";
 import LeftArrow from "../../components/LeftArrow/LeftArrow";
 import RightArrow from "../../components/RightArrow/RightArrow";
 import {UserProps} from "../../interfaces/User";
 import Loader from "../../components/Loader/Loader";
 
 const Referral: FC<UserProps> = ({ user }) => {
-    const navigate = useNavigate()
     const [copied, setCopied] = useState(false);
-    const { onBackButtonClick } = useTelegram();
-
-    useEffect(() => {
-        onBackButtonClick(() => navigate('/'));
-
-        return () => {
-            onBackButtonClick(null);
-        };
-    }, [onBackButtonClick, navigate]);
 
     const copyToClipboard = (text: string) => {
         navigator.clipboard.writeText(text)
@@ -75,14 +61,6 @@ const Referral: FC<UserProps> = ({ user }) => {
                         <h2>Ваши рефералы</h2>
                         <p>Приглашайте друзей в Shopy и получайте 5% с каждой их покупки</p>
                     </div>
-                    {/*<div className={style.nothing}>*/}
-                    {/*    <img src={nothing} alt="/"/>*/}
-                    {/*    <h2>Пока что тут ничего нет</h2>*/}
-                    {/*    <p>Как только реферал войдёт в бота, он отобразится здесь. Если реферал не отобразился, обратитесь в поддержку.</p>*/}
-                    {/*    <div>*/}
-                    {/*        <Button text={"Написать в поддержку"} height={"48px"} width={"100%"}/>*/}
-                    {/*    </div>*/}
-                    {/*</div>*/}
                 </div>
                 <div className={style.tableContainer}>
                     <table>

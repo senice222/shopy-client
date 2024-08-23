@@ -1,6 +1,6 @@
 import s from './SubscribeActivate.module.scss'
 import Layout from "../../layouts/Layout";
-import React, {FC, useCallback, useEffect, useMemo, useState} from "react";
+import {FC, useCallback, useEffect, useMemo, useState} from "react";
 import {OwnSelect} from "../../components/OwnSelect/OwnSelect";
 import {CheckBox} from "../../components/CheckBox/CheckBox";
 import Button from "../../components/Button/Button";
@@ -43,7 +43,7 @@ export const SubscribeActivate: FC<UserDataProps> = ({data}) => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
     const [showAccountBlock, setShowAccountBlock] = useState(false);
-    const { id, onBackButtonClick } = useTelegram();
+    const { id } = useTelegram();
     const [loading, setLoading] = useState<boolean>(false);
 
     const dispatch = useAppDispatch();
@@ -69,10 +69,6 @@ export const SubscribeActivate: FC<UserDataProps> = ({data}) => {
     useEffect(() => {
         getFeedBack()
     }, [])
-    useEffect(() => {
-        onBackButtonClick(() => navigate('/'));
-        return () => onBackButtonClick(null);
-    }, [onBackButtonClick, navigate]);
 
     useEffect(() => {
         if (data?.savedAccounts) {

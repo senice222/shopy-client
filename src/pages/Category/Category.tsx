@@ -25,8 +25,6 @@ const Category = () => {
     const [subCategory, setSubCategory] = useState<string>('');
     const dispatch = useAppDispatch();
     const state = useAppSelector(state => state.favorite.items);
-    const navigate = useNavigate();
-    const { onBackButtonClick } = useTelegram();
     
     const getAllSubCategories = useMemo(() => {
         return items ? Array.from(new Set(items.products.map((item: Product) => item.category.subcategory))) : [];
@@ -35,11 +33,6 @@ const Category = () => {
     const filteredItems = useMemo(() => {
         return !subCategory ? items?.products : items?.products.filter((item: Product) => item.category.subcategory === subCategory);
     }, [subCategory, items]);
-
-    // useEffect(() => {
-    //     onBackButtonClick(() => navigate('/'));
-    //     return () => onBackButtonClick(null);
-    // }, [onBackButtonClick, navigate]);
 
     const setAddedFunc = (isAdd: boolean, item: FavoriteItem) => {
         setIsAdd(isAdd);

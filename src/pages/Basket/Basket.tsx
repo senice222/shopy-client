@@ -6,8 +6,6 @@ import Button from "../../components/Button/Button";
 import TopItem from "../../components/TopItem/TopItem";
 import {useNavigate} from "react-router-dom";
 import { useAppSelector } from '../../hooks/redux-hooks';
-import {useTelegram} from "../../hooks/useTelegram";
-import React, {useEffect} from "react";
 import styles from "../FavoriteProducts/FavoriteProducts.module.scss";
 import nothing from "../../assets/Illustrationnothing.png";
 import BlueButton from "../../components/Button/Button";
@@ -15,21 +13,7 @@ import BlueButton from "../../components/Button/Button";
 const Basket = () => {
     const items = useAppSelector((state: any) => state.cart.items);
     const totalAmount = items?.reduce((acc: number, curr: any) => acc += curr.main?.price, 0)
-    const { onBackButtonClick } = useTelegram();
     const navigate = useNavigate()
-
-    useEffect(() => {
-        onBackButtonClick(() => {
-            navigate('/')
-            window.scrollTo({
-                top: 0
-            })
-        });
-
-        return () => {
-            onBackButtonClick(null);
-        };
-    }, [onBackButtonClick, navigate]);
 
     const handlePayment = async () => {
         navigate(`/activation/${items[0].main.id}/${items[0].variantId}`)

@@ -17,7 +17,12 @@ const Layout = ({ children, notAnimated }: LayoutProps) => {
 
     useEffect(() => {
         if (pathname !== '/') {
-            onBackButtonClick(() => navigate('/'));
+            onBackButtonClick(() => {
+                navigate('/')
+                window.scrollTo({
+                    top: 0
+                })
+            });    
             return () => onBackButtonClick(null);
         }
     }, [onBackButtonClick, navigate, pathname]);
