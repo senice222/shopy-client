@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import {url} from "../../../core/fetch";
 
 interface ProductItemI {
-    toFav: (isAdd : boolean, item: FavoriteItem) => void,
+    toFav: (isAdd: boolean, item: FavoriteItem) => void,
     name: string,
     price: number,
     img: string,
