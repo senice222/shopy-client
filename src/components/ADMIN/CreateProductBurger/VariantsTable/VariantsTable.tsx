@@ -24,7 +24,7 @@ const VariantsTable: FC<VariantsTableProps> = (props) => {
     const { editingCell, tempValue, handleCellClick, handleInputChange, handleBlur } = useEditing('');
     const { editingProperty, tempPropertyText, handlePropertyClick, handlePropertyBlur, handlePropertyInputChange, handleAddProperty } = useProperties(variants, setVariants);
     const [variantId, setVariantId] = useState<string>()
-    
+
     const handleAddVariant = () => {
         const newVariant: VariantItem = {
             id: uuidv4(),
@@ -36,7 +36,6 @@ const VariantsTable: FC<VariantsTableProps> = (props) => {
             attachedId: '',
             values: variants.properties.map(prop => ({ id: prop.id, value: '' }))
         };
-
         setVariants(prev => ({
             ...prev,
             items: [...prev.items, newVariant]
@@ -53,13 +52,12 @@ const VariantsTable: FC<VariantsTableProps> = (props) => {
     const handleDuplicateVariant = (index: number) => {
         const newId = uuidv4();
         const newVariant = { ...variants.items[index], id: newId };
-
         setVariants(prev => ({
             ...prev,
             items: [
-                ...prev.items.slice(0, index + 1), 
+                ...prev.items.slice(0, index + 1),
                 newVariant,
-                ...prev.items.slice(index + 1) 
+                ...prev.items.slice(index + 1)
             ]
         }));
     };
@@ -171,9 +169,9 @@ const VariantsTable: FC<VariantsTableProps> = (props) => {
                                                     type="text"
                                                     value={tempValue}
                                                     onChange={handleInputChange}
-                                                    onBlur={() => handleBlur(value => {
+                                                    onBlur={() => handleBlur(updatedValue => {
                                                         const newVariants = { ...variants };
-                                                        newVariants.items[rowIndex].values[valueIndex].value = value;
+                                                        newVariants.items[rowIndex].values[valueIndex].value = updatedValue;
                                                         setVariants(newVariants);
                                                     })}
                                                     autoFocus
@@ -183,7 +181,25 @@ const VariantsTable: FC<VariantsTableProps> = (props) => {
                                             )}
                                         </td>
                                     ))}
-                                    <td>{item.quantity}</td>
+                                    <td>
+                                        {editingCell && editingCell.rowIndex === rowIndex && editingCell.type === 'quantity' ? (
+                                            <input
+                                                type="text"
+                                                value={tempValue}
+                                                onChange={handleInputChange}
+                                                onBlur={() => handleBlur(value => {
+                                                    const newVariants = { ...variants };
+                                                    newVariants.items[rowIndex].quantity = +value;
+                                                    setVariants(newVariants);
+                                                })}
+                                                autoFocus
+                                            />
+                                        ) : (
+                                            <div onClick={() => handleCellClick(rowIndex, 0, item.quantity.toString(), 'quantity')} style={{ cursor: 'pointer' }}>
+                                                {item.quantity}
+                                            </div>
+                                        )}
+                                    </td>
                                     <td>
                                         <span style={{ paddingRight: "12px", cursor: "pointer" }} onClick={() => handleToggle(rowIndex)}><Eye /></span>
                                         <span style={{ paddingRight: "12px", cursor: "pointer" }} onClick={() => handleDuplicateVariant(rowIndex)}><Copy /></span>

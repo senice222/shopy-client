@@ -13,7 +13,6 @@ function useFavoriteManager() {
         dispatch(deleteFromFavorite(item.id));
 
         const product = state.find((el) => el.id === item.id);
-
         if (!product) {
             setIsAdd(true);
             setAdded(true);

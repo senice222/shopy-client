@@ -126,7 +126,7 @@ export const CreateProductBurger = ({ isOpened, setOpened }: { isOpened: boolean
         if (category) {
             setCategory(category)
         } else {
-            console.log('Категория не найдена');
+            console.log('Category not found');
         }
     };
 

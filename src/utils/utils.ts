@@ -24,3 +24,12 @@ export const priceRanges = [
     { range: 'от 20 000₽ до 29 999₽', percentage: '4%' },
     { range: 'от 30 000₽', percentage: '5%' },
 ];
+
+export const calculateNextThreshold = (totalBuys: number) => {
+    if (totalBuys < 5000) return { nextThreshold: 5000, cashbackPercent: 0 };
+    if (totalBuys < 10000) return { nextThreshold: 10000, cashbackPercent: 1 };
+    if (totalBuys < 15000) return { nextThreshold: 15000, cashbackPercent: 2 };
+    if (totalBuys < 20000) return { nextThreshold: 20000, cashbackPercent: 3 };
+    if (totalBuys < 30000) return { nextThreshold: 30000, cashbackPercent: 4 };
+    return { nextThreshold: null, cashbackPercent: 5 };
+};

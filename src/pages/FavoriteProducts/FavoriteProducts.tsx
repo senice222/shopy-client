@@ -10,6 +10,7 @@ import BlueButton from "../../components/Button/Button";
 import { useTelegram } from "../../hooks/useTelegram";
 import { Product } from '../../interfaces/Product';
 import { FavoriteItem } from '../../store/features/favoriteSlice';
+import { url } from '../../core/fetch';
 
 const FavoriteProducts: FC<ModalAndFavorite> = ({ setAddedFunc, isAdd, added, setAdded }) => {
     const state = useAppSelector(state => state.favorite.items)
@@ -63,7 +64,7 @@ const FavoriteProducts: FC<ModalAndFavorite> = ({ setAddedFunc, isAdd, added, se
                                                 </g>
                                             </svg>
                                         </div>
-                                        <img style={{ width: '165px', height: '165px' }} src={item.img} alt="Spotify Premium Image" />
+                                        <img style={{ width: '165px', height: '165px' }} src={`${url}/api/uploads/${item.img}`} alt="Spotify Premium Image" />
                                     </div>
                                     <div className={styles.productCardBottom} onClick={() => handleClick(item)}>
                                         <h3 className={styles.cardTitle}>{item.name}</h3>

@@ -36,10 +36,10 @@ const Category = () => {
         return !subCategory ? items?.products : items?.products.filter((item: Product) => item.category.subcategory === subCategory);
     }, [subCategory, items]);
 
-    useEffect(() => {
-        onBackButtonClick(() => navigate('/'));
-        return () => onBackButtonClick(null);
-    }, [onBackButtonClick, navigate]);
+    // useEffect(() => {
+    //     onBackButtonClick(() => navigate('/'));
+    //     return () => onBackButtonClick(null);
+    // }, [onBackButtonClick, navigate]);
 
     const setAddedFunc = (isAdd: boolean, item: FavoriteItem) => {
         setIsAdd(isAdd);

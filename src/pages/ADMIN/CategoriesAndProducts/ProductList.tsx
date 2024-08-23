@@ -4,8 +4,8 @@ import DraggableProductItem from "./DraggableProductItem";
 import { Product } from "./ProductTypes";
 import Loader from "../../../components/Loader/Loader";
 import axios from 'axios'
-import {notification} from 'antd'
-import useSWR, {useSWRConfig} from "swr";
+import { notification } from 'antd'
+import useSWR, { useSWRConfig } from "swr";
 
 interface ProductListProps {
     items: Product[] | undefined;
@@ -16,25 +16,23 @@ interface ProductListProps {
 
 const ProductList: FC<ProductListProps> = ({ items, setProducts, url, currentPage, }) => {
     const token = localStorage.getItem('token')
-    const {mutate} = useSWRConfig()
+    const { mutate } = useSWRConfig()
 
     const moveItem = (dragIndex: number, hoverIndex: number) => {
         setProducts((prevCards: Product[]) =>
             update(prevCards, {
-              $splice: [
-                [dragIndex, 1],
-                [hoverIndex, 0, prevCards[dragIndex] as Product],
-              ],
+                $splice: [
+                    [dragIndex, 1],
+                    [hoverIndex, 0, prevCards[dragIndex] as Product],
+                ],
             }),
-          )
-          console.log(12)
+        )
+        console.log(12)
     };
 
     const onDragEnd = async (updatedItems: Product[]) => {
         try {
-            // Отправка обновленного списка на сервер
-            
-            const {data} = await axios.post(`http://localhost:4000/api/products/reorder`, {
+            await axios.post(`${url}/api/products/reorder`, {
                 items: updatedItems,
                 page: currentPage
             }, {
@@ -52,19 +50,19 @@ const ProductList: FC<ProductListProps> = ({ items, setProducts, url, currentPag
 
     return (
         <tbody>
-        {items ? items.sort().map((item, index) => (
-            <DraggableProductItem
-                url1={url}
-                key={item._id}
-                items={items}
-                index={index}
-                item={item}
-                length={items.length}
-                moveItem={moveItem}
-                currentPage={currentPage} // Передача currentPage
-                onDragEnd={onDragEnd}  // Передача функции завершения drag-and-drop
-            />
-        )) : <Loader />}
+            {items ? items.sort().map((item, index) => (
+                <DraggableProductItem
+                    url1={url}
+                    key={item._id}
+                    items={items}
+                    index={index}
+                    item={item}
+                    length={items.length}
+                    moveItem={moveItem}
+                    currentPage={currentPage}
+                    onDragEnd={onDragEnd}
+                />
+            )) : <Loader />}
         </tbody>
     );
 };

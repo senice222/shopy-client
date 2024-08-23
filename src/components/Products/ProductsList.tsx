@@ -7,7 +7,7 @@ import { FC, useState } from "react";
 import { ModalAndFavorite } from "../../interfaces/ModalAndFavorite";
 import useSWR from "swr";
 import { fetcher, url } from "../../core/fetch";
-import { Product } from "../../interfaces/Product";
+import { Product, VariantItem } from "../../interfaces/Product";
 import Loader from "../Loader/Loader";
 import { getMinPrice } from "../../utils/utils";
 import back from "../../assets/svg/arrow-left.svg";
@@ -35,7 +35,7 @@ const ProductsList: FC<ModalAndFavorite> = ({ setAddedFunc, isAdd, added, setAdd
                                     <ProductItem
                                         toFav={setAddedFunc}
                                         name={item.name}
-                                        price={Math.min(...item.variants.items.map((variant: any) => variant.price))}
+                                        price={Math.min(...item.variants.items.map((variant: VariantItem) => variant.price))}
                                         img={item.img}
                                         id={item._id}
                                     />

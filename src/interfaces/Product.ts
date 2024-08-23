@@ -10,22 +10,16 @@ export interface Product {
 }
 
 export interface SelectedVariants {
-    [dataId: string]: {
-        id: string,
-        label: string;
-        option: string;
-        banner?: {
-            title: string,
-            description: string
-        }
-    }[];
+    [key: string]: ComparisonObject[];
 }
-
 export interface ComparisonObject {
-    id: string, label: string, option: string, banner?: {
-        title: string,
-        description: string
-    }
+    id?: string;
+    label: string;
+    option: string;
+    banner?: {
+        title: string;
+        description: string;
+    } | null;
 }
 
 export interface ValuesItem {

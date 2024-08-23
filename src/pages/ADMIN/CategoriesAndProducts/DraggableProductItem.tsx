@@ -10,16 +10,16 @@ import useSWR, { useSWRConfig } from "swr";
 
 interface DraggableProductItemProps {
     item: Product;
-    items: Product[]; // Массив продуктов на текущей странице
+    items: Product[]; 
     index: number;
     moveItem: (fromIndex: number, toIndex: number) => void;
     length: number;
     currentPage: number;
     url1: string;
-    onDragEnd: (updatedItems: Product[]) => void; // Функция для обновления порядка
+    onDragEnd: (updatedItems: Product[]) => void; 
 }
 
-const DraggableProductItem: FC<DraggableProductItemProps> = ({ item, index, items, moveItem, length, url1, currentPage, onDragEnd }) => {
+const DraggableProductItem: FC<DraggableProductItemProps> = ({ item, index, items, moveItem, length, url1, onDragEnd }) => {
     const ref = useRef<HTMLTableRowElement>(null);
     const { mutate } = useSWRConfig();
 
@@ -83,7 +83,7 @@ const DraggableProductItem: FC<DraggableProductItemProps> = ({ item, index, item
         item: { type: ItemTypes.PRODUCT, index },
         end: (item, monitor) => {
             if (!monitor.didDrop()) return;
-            onDragEnd([...items]); // Передаем обновленный массив продуктов
+            onDragEnd([...items]); 
         },
         collect: (monitor) => ({
             isDragging: monitor.isDragging(),
@@ -94,7 +94,7 @@ const DraggableProductItem: FC<DraggableProductItemProps> = ({ item, index, item
 
     return (
         <tr ref={ref} style={{ opacity: isDragging ? 0.5 : 1 }}>
-            <td><img src={item.img} alt={item.name} /></td>
+            <td><img src={`${url}/api/uploads/${item.img}`} style={{width: "50px"}} alt={item.name} /></td>
             <td className={s.name}>{item.name}</td>
             <td className={s.price}>{highestPrice(item.variants.items)}</td>
             <td className={s.lastTd}>

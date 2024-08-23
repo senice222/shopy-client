@@ -37,7 +37,7 @@ const BurgerMenu: FC<BurgerMenuI> = ({isOpened, setOpened}) => {
     }, [isOpened]);
 
     if (!currentUser && !data) return <Loader />
-    const activeAccounts = data.filter((item: Order) => item.status === "in work")
+    const activeAccounts = data ? data.filter((item: Order) => item.status === "in work") : []
 
     return (
         isOpened ? <div className={`${s.burger} 'openned`}>
