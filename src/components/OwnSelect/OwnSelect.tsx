@@ -13,15 +13,15 @@ interface SelectI {
 
 
 export const OwnSelect : FC<SelectI> = ({items, setSelected}) => {
-    const [activeItem, setActiveItem] = useState('have')
+    const [activeItem, setActiveItem] = useState<{value: string, id: string}>({value: '', id: ''})
 
     useEffect(() => {
-        setSelected(activeItem)
+        setSelected(activeItem.value)
     }, [activeItem])
 
     return (
         <div className={s.select}>
-            {items.map((item, i) => <div key={i} onClick={() => setActiveItem(item._id)} className={`${s.item} ${activeItem === item._id ? s.active : ''}`}>
+            {items.map((item, i) => <div key={i} onClick={() => setActiveItem({id: item._id, value: item.name})} className={`${s.item} ${activeItem.id === item._id ? s.active : ''}`}>
                 <div className={s.circle}>
                     <div className={s.checked}></div>
                 </div>

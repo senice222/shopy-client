@@ -60,7 +60,7 @@ export const routes: RouteConfig[] = [
         ]
     },
     { path: "/success", element: Payment, props: { title: "Оплата прошла успешно!", descr: "Не забудьте активировать аккаунт, чтобы пользоваться подпиской.", btnText: "Активировать аккаунт", type: "success" } },
-    { path: "/success-actived", element: Payment, props: { title: "Вы успешно активировали аккаунт!", descr: "Ожидайте активации.", btnText: "", type: "success" } },
+    { path: "/success-activated", element: Payment, props: { title: "Вы успешно активировали аккаунт!", descr: "Ожидайте активации.", btnText: "", type: "success" } },
     { path: "/fail", element: Payment, props: { title: "Оплата не прошла!", descr: "Возможно Вы ввели неверные реквизиты карты или на карте недостаточно средств. Попробуйте еще раз.", btnText: "Повторить заказ", type: "rejected" } },
     { path: "/rejected-payment", element: Payment, props: { title: "Оплата не прошла!", descr: "Возможно Вы ввели неверные реквизиты карты или на карте недостаточно средств. Попробуйте еще раз.", btnText: "Повторить заказ", type: "rejected" } },
     { path: "/pending-payment", element: Payment, props: { title: "Заказ пока ещё не оплачен", descr: "Нажмите на кнопку ниже, чтобы оплатить заказ. По истечению 30 минут заказ будет отменён.", btnText: "Оплатить заказ", type: "pending" } },

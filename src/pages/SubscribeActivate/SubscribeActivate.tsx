@@ -18,6 +18,7 @@ import {getServiceImage} from "../../utils/imgs";
 import {UserDataProps} from "../../interfaces/User";
 import Loader from "../../components/Loader/Loader";
 import {FeedbackBlock, FeedBackI} from "../../interfaces/Feedback";
+import {CombinedObj} from "../../interfaces/Product";
 
 const items = [
     {
@@ -38,12 +39,12 @@ const SubscribeActivate: FC<UserDataProps> = ({data}) => {
     const [selected, setSelected] = useState('');
     const [isSave, setIsSave] = useState(false);
     const [isOpened, setOpened] = useState(false);
-    const {id : product, variant} = useParams()
+    const {id: product, variant} = useParams()
     const [step, setStep] = useState(1);
-    const { register, handleSubmit, formState: { errors } } = useForm();
+    const {register, handleSubmit, formState: {errors}} = useForm();
     const navigate = useNavigate();
     const [showAccountBlock, setShowAccountBlock] = useState(false);
-    const { id } = useTelegram();
+    const {id} = useTelegram();
     const [loading, setLoading] = useState<boolean>(false);
 
     const dispatch = useAppDispatch();
@@ -54,7 +55,6 @@ const SubscribeActivate: FC<UserDataProps> = ({data}) => {
     const totalAmount = useMemo(() => cartItems.reduce((acc, curr) => acc + (curr.main?.price || 0), 0), [cartItems]);
     const cartItem = useMemo(() => cartItems[0]?.main?.name, [cartItems]);
     const [feedback, setFeedBack] = useState<FeedBackI | null>(null)
-    console.log(cartItems[0])
     // const {data: feedback} = useSWR(`${url}/api/feedback/${id}`, fetcher);
 
     const getFeedBack = async () => {
@@ -77,30 +77,33 @@ const SubscribeActivate: FC<UserDataProps> = ({data}) => {
 
     const matchingAccounts = useMemo(() => data?.savedAccounts.filter((item: Account) => item.service === cartItem) || [], [data, cartItem]);
 
-    const handleOrder = async (email: string, password: string, additionalInfo: string) => {
+    const handleOrder = async (combinedArray: CombinedObj[]) => {
+        const emailData = combinedArray.find(item => item.fallbackName === 'ПОЧТА');
+        const passwordData = combinedArray.find(item => item.fallbackName === 'ПАРОЛЬ');
+        console.log(combinedArray)
         const orderData = {
             customerId: 878990615,
-            email: email || currentAccount.email,
-            password: password || currentAccount.password,
+            combinedArray,
             totalAmount,
             items: cartItems[0],
             status: "Оплачен",
             existedAcc: selected,
-            additionalInfo
         };
 
         try {
-            const { data: response } = await axios.post(`${url}/api/order/create`, orderData);
+            const {data: response} = await axios.post(`${url}/api/order/create`, orderData);
+
             if (response) {
-                navigate('/success-actived');
+                navigate('/success-activated');
                 dispatch(clearCart());
             }
+            const existingAccount = data.savedAccounts.find(account => account.service === cartItems[0].main.name);
 
-            if (isSave) {
+            if (isSave && emailData && passwordData && !existingAccount) {
                 const accountData = {
                     service: cartItems[0].main.name,
-                    email,
-                    password,
+                    email: emailData.value,
+                    password: passwordData.value,
                     image: getServiceImage(cartItems[0].main.name)
                 };
                 await axios.post(`${url}/api/user/account/878990615`, accountData);
@@ -113,10 +116,10 @@ const SubscribeActivate: FC<UserDataProps> = ({data}) => {
     const handlePayment = useCallback(async (amount: number) => {
         try {
             setLoading(true);
-            const { data: paymentData } = await axios.get(`${url}/api/payment/create-link?amount=${amount}&invoiceId=${id}&description=Пополнение баланса на сумму ${amount}`);
+            const {data: paymentData} = await axios.get(`${url}/api/payment/create-link?amount=${amount}&invoiceId=${id}&description=Пополнение баланса на сумму ${amount}`);
             if (paymentData?.paymentLink) {
                 navigate('/proceed-payment');
-                window.scrollTo({ top: 0 });
+                window.scrollTo({top: 0});
                 window.location.href = paymentData.paymentLink;
             }
         } catch (error) {
@@ -127,16 +130,40 @@ const SubscribeActivate: FC<UserDataProps> = ({data}) => {
     }, [id, navigate]);
 
     const onSubmit: SubmitHandler<FieldValues> = useCallback(async (values) => {
-        const { email, password, additionalInfo: formAdditionalInfo } = values;
+        const valuesArr = Object.entries(values)
+        const fallbacks = feedback ? feedback.blocks.map((item) => ({
+            fallback: item.fallbackName,
+            type: item.inputType
+        })) : [];
 
+        let offset = 0;
+
+        const combinedArray = fallbacks.map((fallback, index) => {
+            if (fallback.type === 'radio') {
+                offset = 1;
+                return {
+                    fallbackName: fallback.fallback,
+                    question: fallback.fallback,
+                    value: selected
+                };
+            } else {
+                return {
+                    fallbackName: fallback.fallback,
+                    question: valuesArr[index - offset] ? valuesArr[index - offset][0] : '',
+                    value: valuesArr[index - offset] ? valuesArr[index - offset][1] : null
+                };
+            }
+        });
+
+        console.log(combinedArray);
         if (data.balance >= totalAmount) {
-            await handleOrder(email, password, formAdditionalInfo);
+            await handleOrder(combinedArray);
         } else {
             await handlePayment(totalAmount);
         }
     }, [totalAmount, handleOrder, handlePayment]);
 
-    if (!data || loading || !feedback) return <Loader />;
+    if (!data || loading || !feedback) return <Loader/>;
 
     return (
         <>
@@ -177,78 +204,50 @@ const SubscribeActivate: FC<UserDataProps> = ({data}) => {
                                 <p>Все данные надёжно защищены</p>
                             </div>
                         </div>
-                        {showAccountBlock && (
-                            <div className={s.haveAccBlock}>
-                                <img
-                                    src={`${url}/api/uploads/${matchingAccounts[0].image}`}
-                                    style={{ width: '30px', height: '30px' }}
-                                    alt='/'
-                                />
-                                <div className={s.rightDiv}>
-                                    <p className={s.headingText}>
-                                        Активировать подписку на сохранённый аккаунт?
-                                    </p>
-                                    <p className={s.descr}>
-                                        {matchingAccounts[0].email}
-                                    </p>
-                                    <div className={s.variants}>
-                                        {step !== 2 && (
-                                            <p
-                                                className={s.blue}
-                                                onClick={() => {
-                                                    dispatch(chooseAccount({
-                                                        service: matchingAccounts[0].service,
-                                                        email: matchingAccounts[0].email,
-                                                        password: matchingAccounts[0].password
-                                                    }));
-                                                    setShowAccountBlock(false);
-                                                }}
-                                            >
-                                                Да
-                                            </p>
-                                        )}
-                                        <p onClick={() => setOpened(true)}>Выбрать другой</p>
-                                    </div>
-                                </div>
-                            </div>
-                        )}
+                        {/*{showAccountBlock && (*/}
+                        {/*    <div className={s.haveAccBlock}>*/}
+                        {/*        <img*/}
+                        {/*            src={`${url}/api/uploads/${matchingAccounts[0].image}`}*/}
+                        {/*            style={{ width: '30px', height: '30px' }}*/}
+                        {/*            alt='/'*/}
+                        {/*        />*/}
+                        {/*        <div className={s.rightDiv}>*/}
+                        {/*            <p className={s.headingText}>*/}
+                        {/*                Активировать подписку на сохранённый аккаунт?*/}
+                        {/*            </p>*/}
+                        {/*            <p className={s.descr}>*/}
+                        {/*                {matchingAccounts[0].email}*/}
+                        {/*            </p>*/}
+                        {/*            <div className={s.variants}>*/}
+                        {/*                {step !== 2 && (*/}
+                        {/*                    <p*/}
+                        {/*                        className={s.blue}*/}
+                        {/*                        onClick={() => {*/}
+                        {/*                            dispatch(chooseAccount({*/}
+                        {/*                                service: matchingAccounts[0].service,*/}
+                        {/*                                email: matchingAccounts[0].email,*/}
+                        {/*                                password: matchingAccounts[0].password*/}
+                        {/*                            }));*/}
+                        {/*                            setShowAccountBlock(false);*/}
+                        {/*                        }}*/}
+                        {/*                    >*/}
+                        {/*                        Да*/}
+                        {/*                    </p>*/}
+                        {/*                )}*/}
+                        {/*                <p onClick={() => setOpened(true)}>Выбрать другой</p>*/}
+                        {/*            </div>*/}
+                        {/*        </div>*/}
+                        {/*    </div>*/}
+                        {/*)}*/}
                         <form onSubmit={handleSubmit(onSubmit)}>
-                            {/*{isAccountIncomplete && (*/}
-                            {/*    <>*/}
-
-                            {/*        <div className={s.loginBlock}>*/}
-                            {/*            <p className={s.headingText}>Пароль для входа в необходимый сервис</p>*/}
-                            {/*            <input*/}
-                            {/*                {...register('password', { required: true })}*/}
-                            {/*                type="password"*/}
-                            {/*                placeholder="****"*/}
-                            {/*            />*/}
-                            {/*            {errors.password && <p className={s.error}>Пароль обязателен</p>}*/}
-                            {/*            <p className={s.descr}>*/}
-                            {/*                Введите пароль от аккаунта / для регистрации аккаунта в необходимом*/}
-                            {/*                сервисе.*/}
-                            {/*            </p>*/}
-                            {/*        </div>*/}
-                            {/*    </>*/}
-                            {/*)}*/}
-                            {/*<div className={s.loginBlock}>*/}
-                            {/*    <p className={s.headingText}>*/}
-                            {/*        Укажите дополнительную информацию, которая нам может быть необходима для*/}
-                            {/*        активации подписки*/}
-                            {/*    </p>*/}
-                            {/*    <input {...register('additionalInfo')} placeholder="Вход через Apple, Google и т.д."/>*/}
-                            {/*    <p className={s.descr}>*/}
-                            {/*        К примеру, вход в аккаунт сервиса выполняется через определённую соц.сеть.*/}
-                            {/*        Если же доп.информация не нужна, оставьте поле пустым.*/}
-                            {/*    </p>*/}
-                            {/*</div>*/}
-                            {feedback.blocks.map((item : FeedbackBlock) => {
+                            {feedback.blocks.map((item: FeedbackBlock) => {
                                 if (item.inputType === 'radio') {
                                     return (
                                         <div className={s.selectBlock}>
                                             <p className={s.headingText}>{item.name}</p>
                                             <div className={s.select}>
-                                                {item.variants ? <OwnSelect items={item.variants} setSelected={setSelected}/> : null}
+                                                {item.variants ?
+                                                    <OwnSelect items={item.variants} setSelected={setSelected}/> : null}
                                             </div>
                                         </div>
                                     )
@@ -257,10 +256,10 @@ const SubscribeActivate: FC<UserDataProps> = ({data}) => {
                                         <div className={s.loginBlock}>
                                             <p className={s.headingText}>{item.name}</p>
                                             <input
-                                                {...register(item.name, { required: true })}
+                                                {...register(item.name, {required: true})}
                                                 type="text"
                                                 placeholder={item.placeholder}
-                                                />
+                                            />
                                             {errors.email && <p className={s.error}>Поле обязательно</p>}
                                             <p className={s.descr}>
                                                 {item.description}
@@ -272,7 +271,7 @@ const SubscribeActivate: FC<UserDataProps> = ({data}) => {
                                         <div className={s.loginBlock}>
                                             <p className={s.headingText}>{item.name}</p>
                                             <textarea
-                                                {...register(item.name, { required: true })}
+                                                {...register(item.name, {required: true})}
                                                 placeholder={item.placeholder}
                                             />
                                             {errors.email && <p className={s.error}>Поле обязательно</p>}

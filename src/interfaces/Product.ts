@@ -9,9 +9,16 @@ export interface Product {
     __v: number
 }
 
+export interface CombinedObj {
+    fallbackName: string,
+    question: string,
+    value: string
+}
+
 export interface SelectedVariants {
     [key: string]: ComparisonObject[];
 }
+
 export interface ComparisonObject {
     id?: string;
     label: string;
@@ -41,11 +48,13 @@ export interface TableRow {
     quantity: number;
     actions: string[];
 }
+
 export interface Properties {
     id: string;
     text: string;
     _id?: string;
 }
+
 export interface VariantItem {
     price: number;
     oldPrice: number;

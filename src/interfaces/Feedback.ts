@@ -4,6 +4,7 @@ export interface FeedbackBlock {
     placeholder: string,
     name: string,
     description: string,
+    fallbackName: string,
     savingData?: boolean
 }
 export interface FeedBackI {
