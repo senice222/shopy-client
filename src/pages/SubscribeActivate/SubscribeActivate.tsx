@@ -34,7 +34,7 @@ const items = [
     }
 ]
 
-export const SubscribeActivate: FC<UserDataProps> = ({data}) => {
+const SubscribeActivate: FC<UserDataProps> = ({data}) => {
     const [selected, setSelected] = useState('');
     const [isSave, setIsSave] = useState(false);
     const [isOpened, setOpened] = useState(false);
@@ -311,3 +311,5 @@ export const SubscribeActivate: FC<UserDataProps> = ({data}) => {
         </>
     )
 }
+
+export default SubscribeActivate

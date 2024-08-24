@@ -20,7 +20,7 @@ import VariantSelector from "./VariantSelector/VariantSelector";
 import { useInitializeSelectedVariants } from "../../hooks/product/useInitializeSelectedVariants";
 import { Heart } from "../ADMIN/CategoriesAndProducts/Svg";
 
-export const DetailedProduct: FC<ModalAndFavorite> = ({ setAddedFunc, isAdd, added, setAdded }) => {
+const DetailedProduct: FC<ModalAndFavorite> = ({ setAddedFunc, isAdd, added, setAdded }) => {
     const [favouriteStatus, setFavouriteStatus] = useState(false);
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
@@ -177,3 +177,5 @@ export const DetailedProduct: FC<ModalAndFavorite> = ({ setAddedFunc, isAdd, add
         </div>
     );
 };
+
+export default DetailedProduct

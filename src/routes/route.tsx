@@ -1,4 +1,4 @@
-import {useContext, useEffect, useState} from "react";
+import {Suspense, useContext, useEffect, useState} from "react";
 import {Routes, Route, useLocation, useNavigate} from "react-router-dom";
 import useSWR from "swr";
 
@@ -9,6 +9,7 @@ import useFavoriteManager from "../hooks/useFavoriteManager";
 import {ThemeContext} from "../context/ThemeContext";
 import {routes} from "../utils/routes";
 import {RouteConfig} from "../interfaces/Route";
+import Loader from "../components/Loader/Loader";
 
 export const AppRoutes = () => {
     const location = useLocation();
@@ -40,60 +41,48 @@ export const AppRoutes = () => {
     }, [darkTheme]);
 
     return (
-        <Routes key={location.pathname} location={location}>
-            {routes.map((route: RouteConfig, index: number) => {
-                const routeProps = {
-                    ...route.props,
-                    tg,
-                    active,
-                    setActive,
-                    data,
-                    setAddedFunc,
-                    isAdd,
-                    added,
-                    setAdded,
-                }
+        <Suspense fallback={<Loader />}>
+            <Routes key={location.pathname} location={location}>
+                {routes.map((route: RouteConfig, index: number) => {
+                    const routeProps = {
+                        ...route.props,
+                        tg,
+                        active,
+                        setActive,
+                        data,
+                        setAddedFunc,
+                        isAdd,
+                        added,
+                        setAdded,
+                    };
 
-                if (route.children) {
-                    return (
-                        <Route
-                            key={index}
-                            path={route.path}
-                            element={<route.element {...routeProps} />}
-                        >
-                            {route.children.map((childRoute: RouteConfig, childIndex: number) => {
-                                const childRouteProps = {
-                                    ...childRoute.props,
-                                    tg,
-                                    active,
-                                    setActive,
-                                    data,
-                                    setAddedFunc,
-                                    isAdd,
-                                    added,
-                                    setAdded,
-                                }
-
-                                return (
+                    if (route.children) {
+                        return (
+                            <Route
+                                key={index}
+                                path={route.path}
+                                element={<route.element {...routeProps} />}
+                            >
+                                {route.children.map((childRoute: RouteConfig, childIndex: number) => (
                                     <Route
                                         key={childIndex}
                                         path={childRoute.path}
-                                        element={<childRoute.element {...childRouteProps} />}
+                                        element={<childRoute.element {...routeProps} />}
                                     />
-                                )
-                            })}
-                        </Route>
-                    )
-                }
-
-                return (
-                    <Route
-                        key={index}
-                        path={route.path}
-                        element={<route.element {...routeProps} />}
-                    />
-                )
-            })}
-        </Routes>
+                                ))}
+                            </Route>
+                        );
+                    } else {
+                        return (
+                            <Route
+                                key={index}
+                                path={route.path}
+                                element={<route.element {...routeProps} />}
+                            />
+                        );
+                    }
+                })}
+            </Routes>
+        </Suspense>
     )
 };
