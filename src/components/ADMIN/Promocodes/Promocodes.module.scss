@@ -1,0 +1,140 @@
+.feedback {
+  width: 100%;
+
+
+  .topDiv {
+    border-bottom: 1px solid #D0D5DD;
+    background-color: white;
+    padding: 20px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    h3 {
+      color: #101828;
+      font-weight: 600;
+      font-size: 18px;
+    }
+    .searchWrapper {
+      display: flex;
+      align-items: center;
+      button {
+        background-color: #0070CC;
+        width: 146px;
+        height: 44px;
+        border-radius: 8px;
+        border: 0;
+        cursor: pointer;
+        color: white;
+        margin-left: 10px;
+      }
+      .searchDiv {
+        display: flex;
+        height: 44px;
+        align-items: center;
+        width: 320px;
+        border: 1px solid #D0D5DD;
+        border-radius: 8px;
+        svg {
+          margin: 0px 10px;
+        }
+
+      }
+    }
+  }
+}
+.usersTable {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+  .name {
+    //width: 55%;
+  }
+  th,
+  td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+    color: #101828;
+
+    p {
+      font-family: "Graphik LCG Regular", sans-serif;
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 20px;
+      text-align: left;
+      color: #475467;
+    }
+  }
+
+  th {
+    background-color: #F9FAFB;
+    color: #475467;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 18px;
+    text-align: left;
+  }
+
+  .status {
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    line-height: 18px;
+    text-align: center;
+  }
+
+  .active {
+    background-color: #ECFDF3;
+    color: #067647 !important;
+    border: 1px solid #ABEFC6 !important;
+    padding: 2px 8px;
+    border-radius: 12px;
+  }
+
+  .inactive {
+    background-color: #FFFAEB;
+    color: #B54708 !important;
+    border: 1px solid #FEDF89 !important;
+    padding: 2px 8px;
+    border-radius: 12px;
+  }
+
+  .blocked {
+    background-color: #FEF3F2;
+    color: #B42318 !important;
+    border: 1px solid #FECDCA !important;
+    padding: 2px 8px;
+    border-radius: 12px;
+  }
+
+  .icon {
+    margin-right: 25px;
+    cursor: pointer;
+  }
+  tbody {
+    tr {
+      height: 72px;
+
+    }
+    .td1 {
+      p {
+        margin-left: 10px;
+        font-weight: 600;
+        font-size: 14px;
+        color: #101828;
+      }
+    }
+    .td2 {
+      p {
+        margin-left: 20px;
+        font-weight: 400;
+        font-size: 14px;
+        color: #475467;
+      }
+    }
+
+  }
+}
+.paginationContainer {
+  height: 100px;
+}

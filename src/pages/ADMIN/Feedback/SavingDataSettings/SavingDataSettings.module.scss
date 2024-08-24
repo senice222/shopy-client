@@ -1,0 +1,51 @@
+.settingsContainer {
+  padding: 10px;
+  width: 100%
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  align-items: center;
+  width: 250px;
+  span {
+    color: #0157A3;
+    font-weight: 600;
+    font-size: 14px;
+  }
+}
+
+.contentWrapper {
+  overflow: hidden;
+  transition: height 0.3s ease; /* Переход для анимации изменения высоты */
+}
+
+.content {
+  padding-top: 10px;
+
+}
+
+.checkbox {
+  margin-right: 10px;
+  margin-top: 6px;
+}
+.checkboxdiv {
+  display: flex;
+  &:last-child {
+    margin-top: 15px;
+  }
+}
+.textDiv {
+  label {
+    font-weight: 600;
+    font-size: 14px;
+    color: #344054;
+  }
+  p {
+    margin-top: 4px;
+    font-weight: 400;
+    font-size: 14px;
+    color: #475467;
+  }
+}

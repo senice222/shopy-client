@@ -1,16 +1,14 @@
 import React from "react";
 import s from "./DetailedFeedback.module.scss";
 import BackTick from "../../../../components/ADMIN/BackTick/BackTick";
-import { PoleIcon } from "../Svgs";
-import { Trash, Arrow, Arrow2, Copy } from "../../CategoriesAndProducts/Svg";
+import {PoleIcon, RadioSvg, TextSvg} from "../Svgs";
+import {Trash, Arrow, Arrow2, Copy, Plus} from "../../CategoriesAndProducts/Svg";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import {SavingDataSettings} from "../SavingDataSettings/SavingDataSettings";
+import {FeedBackInput} from "../Fields/Input/Input";
+import {FeedBackRadio} from "../Fields/Radio/Radio";
 
 const DetailedFeedback = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
 
   return (
     <div className={s.detailedFeedback}>
@@ -29,58 +27,44 @@ const DetailedFeedback = () => {
             <button className={s.blue}>Сохранить</button>
           </div>
         </div>
-        <div className={s.pole}>
-          <p className={s.number}>Поле 1</p>
-          <div className={s.topBtnsBlock}>
-            <div className={s.nameDiv}>
-              <PoleIcon />
-              <p>Поле для ввода в одну строку</p>
-            </div>
-            <div className={s.btns}>
-              <div className={s.rotated}>
-                <Arrow2 />
+        <FeedBackInput />
+        <FeedBackRadio />
+        <div className={s.lastBtns}>
+          <div className={s.btns}>
+            <button className={s.gray}>Отмена</button>
+            <button className={s.blue}>Сохранить</button>
+          </div>
+        </div>
+      </div>
+      <div className={s.rightDiv}>
+        <div className={s.addBlock}>
+          <h3>Добавить блок</h3>
+
+          <div className={s.blocks}>
+            <div className={s.block}>
+              <div className={s.flex12}>
+                <div className={s.icon}><PoleIcon /></div>
+                <p>Поле для ввода в одну строку</p>
               </div>
-              <div>
-                <Arrow2 />
-              </div>
-              <div>
-                <Copy />
-              </div>
-              <div>
-                <Trash />
-              </div>
+              <button><Plus /> Добавить</button>
             </div>
-            <div className={s.loginBlock}>
-              <p className={s.headingText}>Название поле</p>
-              <input
-                {...register("item.name", { required: true })}
-                type="text"
-                placeholder={"Логин для входа"}
-              />
-              {/* {errors.email && <p className={s.error}>Поле обязательно</p>}
-                                            <p className={s.descr}>
-                                                {item.description}
-                                            </p> */}
+            <div className={s.block}>
+              <div className={s.flex12}>
+                <div className={s.icon}><TextSvg /></div>
+                <p>Текстовое поле в несколько строк</p>
+              </div>
+              <button><Plus /> Добавить</button>
             </div>
-            <div className={s.loginBlock}>
-              <p className={s.headingText}>Плейсхолдер</p>
-              <input
-                {...register("item.name", { required: true })}
-                type="text"
-                placeholder={"billing@untitledui.com"}
-              />
-            </div>
-            <div className={s.loginBlock}>
-              <p className={s.headingText}>Описание (выводится ниже)</p>
-              <textarea
-                {...register("item.name", { required: true })}
-                placeholder={"Введите почту, на котору"}
-              />
+            <div className={s.block}>
+              <div className={s.flex12}>
+                <div className={s.icon}><RadioSvg /></div>
+                <p>Радио-кнопки</p>
+              </div>
+              <button><Plus /> Добавить</button>
             </div>
           </div>
         </div>
       </div>
-      <div className={s.rightDiv}></div>
     </div>
   );
 };

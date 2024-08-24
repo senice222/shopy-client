@@ -59,7 +59,7 @@ const Panel = () => {
                                     {lastOrders?.map((order: Order, index: number) => (
                                         <tr key={index}>
                                             <td className={style.id}>{order.normalOrderId}</td>
-                                            <td className={style.id}>{order.items[0].main.name}</td>
+                                            <td className={style.id}>{order.items[0]?.main.name}</td>
                                             <td className={style.status}>
                                                 <div className={style.wrapperPaid}>
                                                     <div className={style.paid}>{order.status}</div>

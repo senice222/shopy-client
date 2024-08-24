@@ -40,3 +40,70 @@ export const PoleIcon = () => {
     </svg>
   );
 };
+export const ArrowDown = () => {
+  return (
+      <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width={20}
+          height={20}
+          viewBox="0 0 20 20"
+          fill="none"
+      >
+        <path
+            d="M5 7.5L10 12.5L15 7.5"
+            stroke="#0157A3"
+            strokeWidth="1.66667"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        />
+      </svg>
+  )
+}
+export const RadioSvg = () => {
+  return (
+      <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width={32}
+          height={32}
+          viewBox="0 0 32 32"
+          fill="none"
+      >
+        <path
+            d="M0 16C0 7.16344 7.16344 0 16 0C24.8366 0 32 7.16344 32 16C32 24.8366 24.8366 32 16 32C7.16344 32 0 24.8366 0 16Z"
+            fill="#E0EFFE"
+        />
+        <path
+            d="M19.3333 19.3327H12.6666C10.8256 19.3327 9.33325 17.8403 9.33325 15.9993C9.33325 14.1584 10.8256 12.666 12.6666 12.666H19.3333M19.3333 19.3327C21.1742 19.3327 22.6666 17.8403 22.6666 15.9993C22.6666 14.1584 21.1742 12.666 19.3333 12.666M19.3333 19.3327C17.4923 19.3327 15.9999 17.8403 15.9999 15.9993C15.9999 14.1584 17.4923 12.666 19.3333 12.666"
+            stroke="#0070CC"
+            strokeWidth="1.33333"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        />
+      </svg>
+
+  )
+}
+export const TextSvg = () => {
+  return (
+      <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width={32}
+          height={32}
+          viewBox="0 0 32 32"
+          fill="none"
+      >
+        <path
+            d="M0 16C0 7.16344 7.16344 0 16 0C24.8366 0 32 7.16344 32 16C32 24.8366 24.8366 32 16 32C7.16344 32 0 24.8366 0 16Z"
+            fill="#E0EFFE"
+        />
+        <path
+            d="M10.6665 12.666C10.6665 12.0448 10.6665 11.7341 10.768 11.4891C10.9033 11.1624 11.1629 10.9028 11.4896 10.7675C11.7346 10.666 12.0452 10.666 12.6665 10.666H19.3332C19.9544 10.666 20.2651 10.666 20.5101 10.7675C20.8368 10.9028 21.0964 11.1624 21.2317 11.4891C21.3332 11.7341 21.3332 12.0448 21.3332 12.666M13.9998 21.3327H17.9998M15.9998 10.666V21.3327"
+            stroke="#0070CC"
+            strokeWidth="1.33333"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+        />
+      </svg>
+
+  )
+}

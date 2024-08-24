@@ -55,7 +55,8 @@ export const routes: RouteConfig[] = [
             { path: "feedback/:id", element: FeedbackDetailed, props: {} },
             { path: "settings", element: Settings, props: {}, children: [
                     { path: "", element: Feedback, props: {} }
-                ]}
+                ]
+            }
         ]
     },
     { path: "/success", element: Payment, props: { title: "Оплата прошла успешно!", descr: "Не забудьте активировать аккаунт, чтобы пользоваться подпиской.", btnText: "Активировать аккаунт", type: "success" } },

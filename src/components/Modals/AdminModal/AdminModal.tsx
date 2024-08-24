@@ -4,8 +4,8 @@ import {Cross, Folder} from "./Svgs";
 
 interface AdminModalI {
     children: ReactNode,
-    setOpen: () => void,
-    isOpened: boolean
+    isOpened: boolean,
+    setOpen: () => void
 }
 
 export const AdminModal : FC<AdminModalI> = ({children, isOpened, setOpen}) => {

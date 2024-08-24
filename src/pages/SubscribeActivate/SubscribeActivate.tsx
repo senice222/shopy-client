@@ -54,8 +54,7 @@ const SubscribeActivate: FC<UserDataProps> = ({data}) => {
     const totalAmount = useMemo(() => cartItems.reduce((acc, curr) => acc + (curr.main?.price || 0), 0), [cartItems]);
     const cartItem = useMemo(() => cartItems[0]?.main?.name, [cartItems]);
     const [feedback, setFeedBack] = useState<FeedBackI | null>(null)
-
-    console.log(feedback)
+    console.log(cartItems[0])
     // const {data: feedback} = useSWR(`${url}/api/feedback/${id}`, fetcher);
 
     const getFeedBack = async () => {
@@ -80,11 +79,11 @@ const SubscribeActivate: FC<UserDataProps> = ({data}) => {
 
     const handleOrder = async (email: string, password: string, additionalInfo: string) => {
         const orderData = {
-            customerId: id,
+            customerId: 878990615,
             email: email || currentAccount.email,
             password: password || currentAccount.password,
             totalAmount,
-            items: cartItems,
+            items: cartItems[0],
             status: "Оплачен",
             existedAcc: selected,
             additionalInfo
@@ -104,7 +103,7 @@ const SubscribeActivate: FC<UserDataProps> = ({data}) => {
                     password,
                     image: getServiceImage(cartItems[0].main.name)
                 };
-                await axios.post(`${url}/api/user/account/${id}`, accountData);
+                await axios.post(`${url}/api/user/account/878990615`, accountData);
             }
         } catch (error) {
             console.error('Error processing order:', error);
@@ -214,14 +213,6 @@ const SubscribeActivate: FC<UserDataProps> = ({data}) => {
                             </div>
                         )}
                         <form onSubmit={handleSubmit(onSubmit)}>
-                            {/*<div className={s.selectBlock}>*/}
-                            {/*    <p className={s.headingText}>У Вас есть существующий аккаунт от необходимого*/}
-                            {/*        сервиса или его требуется зарегистрировать?</p>*/}
-                            {/*    <div className={s.select}>*/}
-                            {/*        <OwnSelect items={items} setSelected={setSelected}/>*/}
-                            {/*    </div>*/}
-                            {/*</div>*/}
-
                             {/*{isAccountIncomplete && (*/}
                             {/*    <>*/}
 
