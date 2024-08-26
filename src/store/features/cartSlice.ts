@@ -1,4 +1,4 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface MainItem {
     img: string;
@@ -19,17 +19,21 @@ export interface CartItem {
     main: {
         name?: string;
         price?: number;
-        id: string
+        id: string;
+        originalPrice?: number;
+        discount?: number;
     };
     optional: OptionalItem[];
 }
 
-interface CartState {
+export interface CartState {
     items: CartItem[];
+    promo: string | null;
 }
 
 const initialState: CartState = {
     items: [],
+    promo: null
 };
 
 const cartSlice = createSlice({
@@ -39,10 +43,17 @@ const cartSlice = createSlice({
         addToCart: (state, action: PayloadAction<CartItem>) => {
             if (state.items.length >= 0) {
                 state.items = []
-                state.items.push(action.payload)
-            } else {
-                state.items.push(action.payload);
             }
+
+            if (state.promo && action.payload.main.price) {
+                action.payload.main.originalPrice = action.payload.main.price;
+
+                const discountAmount = parseFloat(state.promo);
+                action.payload.main.price = action.payload.main.price - discountAmount;
+                action.payload.main.discount = discountAmount;
+            }
+
+            state.items.push(action.payload);
         },
         setCart: (state, action: PayloadAction<CartItem[]>) => {
             state.items = action.payload;
@@ -52,10 +63,18 @@ const cartSlice = createSlice({
         },
         clearCart: (state) => {
             state.items = [];
+        },
+        addPromo: (state, action: PayloadAction<string>) => {
+            state.promo = action.payload;
+            if (state.items[0]?.main.price) {
+                state.items[0].main.originalPrice = state.items[0].main.price;
+                state.items[0].main.discount = parseFloat(action.payload);
+                state.items[0].main.price = state.items[0].main.price - state.items[0].main.discount;
+            }
         }
     },
 });
 
-export const {addToCart, setCart, removeFromCart, clearCart} = cartSlice.actions;
+export const { addToCart, setCart, removeFromCart, clearCart, addPromo } = cartSlice.actions;
 
 export default cartSlice.reducer;

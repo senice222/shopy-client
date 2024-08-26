@@ -11,7 +11,6 @@ import Loader from "../../Loader/Loader";
 
 const Promocodes = () => {
     const [currentPage, setCurrentPage] = useState<number>(1);
-    const navigate = useNavigate()
     const [totalPages, setTotalPages] = useState<number | null>(null);
     const [promo, setModal] = useState<boolean>(false)
     const {data: promos} = useSWR(`${url}/api/promo`, fetcher);
@@ -26,8 +25,8 @@ const Promocodes = () => {
         }
     }, [promos]);
 
-    if (!promos) return <Loader />
-    console.log(promos)
+    if (!promos) return <Loader/>
+
     return (
         <div className={s.feedback}>
             <AddPromo open={promo} setOpen={setModal}/>
@@ -53,10 +52,10 @@ const Promocodes = () => {
                 </tr>
                 </thead>
                 <tbody>
-                {promos ? promos?.map((item: any, i: number) =>
+                {promos ? promos.products.map((item: any, i: number) =>
                     <tr key={i}>
                         <td className={s.td1}>
-                            <p>{item.name}</p>
+                            <p>{item.title}</p>
                         </td>
                         <td className={s.td1}>
                             <p>{item.discount}</p>
@@ -65,10 +64,10 @@ const Promocodes = () => {
                             <p>{item.expireAt}</p>
                         </td>
                         <td className={s.td1}>
-                            <p>{item.amountUsed}</p>
+                            <p>{item.maxUses}</p>
                         </td>
                         <td className={s.td1}>
-                            <p>{item.descr}</p>
+                            <p>{item.description}</p>
                         </td>
                         <td className={s.lastTd}>
                             <span className={s.icon} onClick={() => null}>

@@ -1,24 +1,24 @@
 import s from './SubscribeActivate.module.scss'
 import Layout from "../../layouts/Layout";
-import {FC, useCallback, useEffect, useMemo, useState} from "react";
-import {OwnSelect} from "../../components/OwnSelect/OwnSelect";
-import {CheckBox} from "../../components/CheckBox/CheckBox";
+import { FC, useCallback, useEffect, useMemo, useState } from "react";
+import { OwnSelect } from "../../components/OwnSelect/OwnSelect";
+import { CheckBox } from "../../components/CheckBox/CheckBox";
 import Button from "../../components/Button/Button";
-import {SelectAccount} from "../../components/Modals/SelectAccount/SelectAccount";
-import {FieldValues, SubmitHandler, useForm} from "react-hook-form";
-import {useTelegram} from "../../hooks/useTelegram";
-import {url} from "../../core/fetch";
+import { SelectAccount } from "../../components/Modals/SelectAccount/SelectAccount";
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
+import { useTelegram } from "../../hooks/useTelegram";
+import { url } from "../../core/fetch";
 import axios from "axios";
-import {useNavigate, useParams} from "react-router-dom";
-import {useAppDispatch, useAppSelector} from "../../hooks/redux-hooks";
-import {Account} from "../../interfaces/AccountsProps";
-import {chooseAccount} from "../../store/features/accountSlice";
-import {clearCart} from "../../store/features/cartSlice";
-import {getServiceImage} from "../../utils/imgs";
-import {UserDataProps} from "../../interfaces/User";
+import { useNavigate, useParams } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../hooks/redux-hooks";
+import { Account } from "../../interfaces/AccountsProps";
+import { chooseAccount } from "../../store/features/accountSlice";
+import { clearCart } from "../../store/features/cartSlice";
+import { getServiceImage } from "../../utils/imgs";
+import { UserDataProps } from "../../interfaces/User";
 import Loader from "../../components/Loader/Loader";
-import {FeedbackBlock, FeedBackI} from "../../interfaces/Feedback";
-import {CombinedObj} from "../../interfaces/Product";
+import { FeedbackBlock, FeedBackI } from "../../interfaces/Feedback";
+import { CombinedObj } from "../../interfaces/Product";
 
 const items = [
     {
@@ -35,31 +35,29 @@ const items = [
     }
 ]
 
-const SubscribeActivate: FC<UserDataProps> = ({data}) => {
+const SubscribeActivate: FC<UserDataProps> = ({ data }) => {
     const [selected, setSelected] = useState('');
     const [isSave, setIsSave] = useState(false);
     const [isOpened, setOpened] = useState(false);
-    const {id: product, variant} = useParams()
+    const { id: product, variant } = useParams()
     const [step, setStep] = useState(1);
-    const {register, handleSubmit, formState: {errors}} = useForm();
+    const { register, handleSubmit, formState: { errors } } = useForm();
     const navigate = useNavigate();
     const [showAccountBlock, setShowAccountBlock] = useState(false);
-    const {id} = useTelegram();
+    const { id } = useTelegram();
     const [loading, setLoading] = useState<boolean>(false);
-
     const dispatch = useAppDispatch();
     const cartItems = useAppSelector((state) => state.cart.items);
     const currentAccount = useAppSelector(state => state.account.account);
-
+    const [feedback, setFeedBack] = useState<FeedBackI | null>(null)
     const isAccountIncomplete = useMemo(() => !currentAccount.service || !currentAccount.email || !currentAccount.password, [currentAccount]);
     const totalAmount = useMemo(() => cartItems.reduce((acc, curr) => acc + (curr.main?.price || 0), 0), [cartItems]);
     const cartItem = useMemo(() => cartItems[0]?.main?.name, [cartItems]);
-    const [feedback, setFeedBack] = useState<FeedBackI | null>(null)
     // const {data: feedback} = useSWR(`${url}/api/feedback/${id}`, fetcher);
 
     const getFeedBack = async () => {
         try {
-            const {data} = await axios.get(`${url}/api/feedback/${product}/${variant}`)
+            const { data } = await axios.get(`${url}/api/feedback/${product}/${variant}`)
             setFeedBack(data)
         } catch (e) {
             console.log(e)
@@ -80,7 +78,7 @@ const SubscribeActivate: FC<UserDataProps> = ({data}) => {
     const handleOrder = async (combinedArray: CombinedObj[]) => {
         const emailData = combinedArray.find(item => item.fallbackName === 'ПОЧТА');
         const passwordData = combinedArray.find(item => item.fallbackName === 'ПАРОЛЬ');
-        console.log(combinedArray)
+
         const orderData = {
             customerId: 878990615,
             combinedArray,
@@ -91,7 +89,7 @@ const SubscribeActivate: FC<UserDataProps> = ({data}) => {
         };
 
         try {
-            const {data: response} = await axios.post(`${url}/api/order/create`, orderData);
+            const { data: response } = await axios.post(`${url}/api/order/create`, orderData);
 
             if (response) {
                 navigate('/success-activated');
@@ -116,10 +114,10 @@ const SubscribeActivate: FC<UserDataProps> = ({data}) => {
     const handlePayment = useCallback(async (amount: number) => {
         try {
             setLoading(true);
-            const {data: paymentData} = await axios.get(`${url}/api/payment/create-link?amount=${amount}&invoiceId=${id}&description=Пополнение баланса на сумму ${amount}`);
+            const { data: paymentData } = await axios.get(`${url}/api/payment/create-link?amount=${amount}&invoiceId=${id}&description=Пополнение баланса на сумму ${amount}`);
             if (paymentData?.paymentLink) {
                 navigate('/proceed-payment');
-                window.scrollTo({top: 0});
+                window.scrollTo({ top: 0 });
                 window.location.href = paymentData.paymentLink;
             }
         } catch (error) {
@@ -155,7 +153,6 @@ const SubscribeActivate: FC<UserDataProps> = ({data}) => {
             }
         });
 
-        console.log(combinedArray);
         if (data.balance >= totalAmount) {
             await handleOrder(combinedArray);
         } else {
@@ -163,7 +160,7 @@ const SubscribeActivate: FC<UserDataProps> = ({data}) => {
         }
     }, [totalAmount, handleOrder, handlePayment]);
 
-    if (!data || loading || !feedback) return <Loader/>;
+    if (!data || loading || !feedback) return <Loader />;
 
     return (
         <>
@@ -197,7 +194,7 @@ const SubscribeActivate: FC<UserDataProps> = ({data}) => {
                                     </g>
                                     <defs>
                                         <clipPath id="clip0_807_14661">
-                                            <rect width={12} height={12} fill="white"/>
+                                            <rect width={12} height={12} fill="white" />
                                         </clipPath>
                                     </defs>
                                 </svg>
@@ -247,7 +244,7 @@ const SubscribeActivate: FC<UserDataProps> = ({data}) => {
                                             <p className={s.headingText}>{item.name}</p>
                                             <div className={s.select}>
                                                 {item.variants ?
-                                                    <OwnSelect items={item.variants} setSelected={setSelected}/> : null}
+                                                    <OwnSelect items={item.variants} setSelected={setSelected} /> : null}
                                             </div>
                                         </div>
                                     )
@@ -256,7 +253,7 @@ const SubscribeActivate: FC<UserDataProps> = ({data}) => {
                                         <div className={s.loginBlock}>
                                             <p className={s.headingText}>{item.name}</p>
                                             <input
-                                                {...register(item.name, {required: true})}
+                                                {...register(item.name, { required: true })}
                                                 type="text"
                                                 placeholder={item.placeholder}
                                             />
@@ -271,7 +268,7 @@ const SubscribeActivate: FC<UserDataProps> = ({data}) => {
                                         <div className={s.loginBlock}>
                                             <p className={s.headingText}>{item.name}</p>
                                             <textarea
-                                                {...register(item.name, {required: true})}
+                                                {...register(item.name, { required: true })}
                                                 placeholder={item.placeholder}
                                             />
                                             {errors.email && <p className={s.error}>Поле обязательно</p>}
@@ -284,7 +281,7 @@ const SubscribeActivate: FC<UserDataProps> = ({data}) => {
                             })}
                             <div className={s.saveDataBlock}>
                                 <div className={s.topDiv}>
-                                    <CheckBox setChecked={setIsSave}/>
+                                    <CheckBox setChecked={setIsSave} />
                                     <h3>Cохранить данные</h3>
                                 </div>
                                 <p>Мы сохраним эти данные в вашем профиле, чтобы в следующий раз вам не
@@ -292,7 +289,7 @@ const SubscribeActivate: FC<UserDataProps> = ({data}) => {
                                 </p>
                             </div>
                             <div className={s.saveDataBlock}>
-                                <Button text="Активировать аккаунт" width="100%" height="40px"/>
+                                <Button text="Активировать аккаунт" width="100%" height="40px" />
                             </div>
                         </form>
                     </div>

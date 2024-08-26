@@ -66,7 +66,7 @@ const FavoriteProducts: FC<ModalAndFavorite> = ({ setAddedFunc, isAdd, added, se
                             <img src={nothing} alt="/" />
                             <h2>Пока что тут ничего нет</h2>
                             <p>Нажимайте на сердечко в товаре, чтобы добавить товар в избранное. Он отобразится здесь.</p>
-                            <div>
+                            <div onClick={() => navigate('/')}>
                                 <BlueButton text={"Перейти в каталог"} height={"48px"} width={"100%"} />
                             </div>
                         </div>

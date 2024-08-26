@@ -1,6 +1,11 @@
 .promoContainer {
   margin-top: 30px;
-  p {
+  .error {
+    color: #940707;
+    font-size: 15px;
+    font-family: "Graphik LCG Regular", sans-serif;
+  }
+  .active {
     color: #079455;
     font-size: 15px;
     font-family: "Graphik LCG Regular", sans-serif;

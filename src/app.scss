@@ -2,8 +2,8 @@
 
 
 @font-face {
- font-family: Graphik LCG;
- src: url(../public/GraphikLCG-Medium.ttf);
+  font-family: Graphik LCG;
+  src: url(../public/GraphikLCG-Medium.ttf);
 }
 
 @font-face {
@@ -12,9 +12,10 @@
 }
 
 @font-face {
- font-family: Graphik LCG SemiBold;
- src: url(../public/GraphikLCG-Semibold.ttf);
+  font-family: Graphik LCG SemiBold;
+  src: url(../public/GraphikLCG-Semibold.ttf);
 }
+
 @font-face {
   font-family: "Inter Semi Bold";
   src: url(../public/Inter-SemiBold.ttf);
@@ -27,6 +28,7 @@
   box-sizing: border-box;
   font-family: Inter Semi Bold;
 }
+
 body::-webkit-scrollbar {
   width: 7px;
   background-color: #eaeaea;
@@ -35,6 +37,7 @@ body::-webkit-scrollbar {
 body::-webkit-scrollbar-thumb {
   background-color: #c9c9c9;
 }
+
 body {
   color: var(--default-text);
   overflow-x: hidden !important;
@@ -43,12 +46,26 @@ body {
 .ant-menu {
   border-inline-end: none !important
 }
+
 .ant-btn:hover {
   background: none !important;
 }
+
 img {
   user-select: none;
 }
+
+.ant-picker {
+  height: 40px;
+}
+
+.ant-picker-input {
+  input {
+    padding: 5px !important;
+    border: none !important;
+  }
+}
+
 *,
 *:before,
 *:after {
@@ -56,20 +73,24 @@ img {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
+
 :focus,
 :active {
   outline: none;
 }
+
 a:focus,
 a:active {
   outline: none;
 }
+
 nav,
 footer,
 header,
 aside {
   display: block;
 }
+
 html,
 body {
   height: 100%;
@@ -88,29 +109,37 @@ button,
 textarea {
   font-family: inherit;
 }
+
 input::-ms-clear {
   display: none;
 }
+
 button {
   cursor: pointer;
 }
+
 button::-moz-focus-inner {
   padding: 0;
   border: 0;
 }
+
 a,
 a:visited {
   text-decoration: none;
 }
+
 a:hover {
   text-decoration: none;
 }
+
 ul li {
   list-style: none;
 }
+
 img {
   vertical-align: top;
 }
+
 h1,
 h2,
 h3,
