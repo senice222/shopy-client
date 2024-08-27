@@ -1,10 +1,10 @@
 import React from "react";
 import s from "../../DetailedFeedback/DetailedFeedback.module.scss";
-import { PoleIcon } from "../../Svgs";
+import { TextSvg } from "../../Svgs";
 import { Arrow2, Copy, Trash } from "../../../CategoriesAndProducts/Svg";
 import { SavingDataSettings } from "../../SavingDataSettings/SavingDataSettings";
 
-interface FeedBackInputProps {
+interface FeedBackTextAreaProps {
     name: string;
     placeholder: string;
     description: string;
@@ -17,29 +17,30 @@ interface FeedBackInputProps {
     deleteBlock: () => void;
     index: number; // Добавляем индекс для отображения номера
     length: number
+
 }
 
-export const FeedBackInput: React.FC<FeedBackInputProps> = ({
-                                                                name,
-                                                                placeholder,
-                                                                description,
-                                                                onNameChange,
-                                                                onPlaceholderChange,
-                                                                onDescriptionChange,
-                                                                moveBlockUp,
-                                                                moveBlockDown,
-                                                                copyBlock,
-                                                                deleteBlock,
-                                                                index,
+export const FeedBackTextArea: React.FC<FeedBackTextAreaProps> = ({
+                                                                      name,
+                                                                      placeholder,
+                                                                      description,
+                                                                      onNameChange,
+                                                                      onPlaceholderChange,
+                                                                      onDescriptionChange,
+                                                                      moveBlockUp,
+                                                                      moveBlockDown,
+                                                                      copyBlock,
+                                                                      deleteBlock,
+                                                                      index,
     length
-                                                            }) => {
+                                                                  }) => {
     return (
         <div className={s.pole}>
             <p className={s.number}>Поле {index + 1}</p>
             <div className={s.topBtnsBlock}>
                 <div className={s.nameDiv}>
-                    <PoleIcon />
-                    <p>Поле для ввода в одну строку</p>
+                    <TextSvg />
+                    <p>Текстовое поле в несколько строк</p>
                 </div>
                 <div className={s.btns}>
                     {index+1 !== length && (
@@ -70,8 +71,7 @@ export const FeedBackInput: React.FC<FeedBackInputProps> = ({
                 </div>
                 <div className={s.loginBlock}>
                     <p className={s.headingText}>Плейсхолдер</p>
-                    <input
-                        type="text"
+                    <textarea
                         value={placeholder}
                         onChange={(e) => onPlaceholderChange(e.target.value)}
                         placeholder="Введите плейсхолдер"

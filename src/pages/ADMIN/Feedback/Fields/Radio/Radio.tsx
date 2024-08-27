@@ -1,87 +1,77 @@
+import React from "react";
 import s from "../../DetailedFeedback/DetailedFeedback.module.scss";
-import {PoleIcon, RadioSvg} from "../../Svgs";
-import {Arrow2, Copy, Trash} from "../../../CategoriesAndProducts/Svg";
-import {SavingDataSettings} from "../../SavingDataSettings/SavingDataSettings";
-import React, {FC, useState} from "react";
-import {Cross} from "../../../../../components/Modals/AdminModal/Svgs";
+import { RadioSvg } from "../../Svgs";
+import { Arrow2, Copy, Trash } from "../../../CategoriesAndProducts/Svg";
+import { SavingDataSettings } from "../../SavingDataSettings/SavingDataSettings";
+import { Cross } from "../../../../../components/Modals/AdminModal/Svgs";
+
 interface Variant {
     name: string;
     id: string;
 }
 
-interface ItemProps {
+interface FeedBackRadioProps {
     name: string;
-    id: string;
-    onNameChange: (id: string, newName: string) => void;
-    onDelete: (id: string) => void;
+    placeholder: string;
+    description: string;
+    variants: Variant[];
+    onNameChange: (newName: string) => void;
+    onPlaceholderChange: (newPlaceholder: string) => void;
+    onDescriptionChange: (newDescription: string) => void;
+    onVariantChange: (id: string, newName: string) => void;
+    onAddVariant: () => void;
+    onDeleteVariant: (id: string) => void;
+    moveBlockUp: () => void;
+    moveBlockDown: () => void;
+    copyBlock: () => void;
+    deleteBlock: () => void;
+    index: number; // Добавляем индекс для отображения номера
+    length: number
+
 }
 
-const Item: FC<ItemProps> = ({ name, id, onNameChange, onDelete }) => {
-    const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        onNameChange(id, e.target.value);
-    };
+export const FeedBackRadio: React.FC<FeedBackRadioProps> = ({
+                                                                name,
+                                                                placeholder,
+                                                                description,
+                                                                variants,
+                                                                onNameChange,
+                                                                onPlaceholderChange,
+                                                                onDescriptionChange,
+                                                                onVariantChange,
+                                                                onAddVariant,
+                                                                onDeleteVariant,
+                                                                moveBlockUp,
+                                                                moveBlockDown,
+                                                                copyBlock,
+                                                                deleteBlock,
+                                                                index,
+    length
 
-    const handleDelete = () => {
-        onDelete(id);
-    };
-
-    return (
-        <div className={s.radioItem}>
-            <input
-                value={name}
-                className={s.text}
-                onChange={handleNameChange}
-            />
-            <div className={s.cross} onClick={handleDelete}>
-                <Cross />
-            </div>
-        </div>
-    );
-};
-
-export const FeedBackRadio = () => {
-    const [variants, setVariants] = useState<Variant[]>([
-        { name: 'First', id: '1' },
-        { name: 'Second', id: '2' },
-        { name: 'Third', id: '3' },
-    ]);
-
-    const handleNameChange = (id: string, newName: string) => {
-        setVariants(prevVariants =>
-            prevVariants.map(variant =>
-                variant.id === id ? { ...variant, name: newName } : variant
-            )
-        );
-    };
-
-    const handleDelete = (id: string) => {
-        setVariants(prevVariants => prevVariants.filter(variant => variant.id !== id));
-    };
-
-    const handleAddVariant = () => {
-        const newId = `${variants.length + 1}`; // Генерация нового id
-        setVariants([...variants, { name: `New variant ${newId}`, id: newId }]);
-    };
-
+                                                            }) => {
     return (
         <div className={s.pole}>
-            <p className={s.number}>Поле 2</p>
+            <p className={s.number}>Поле {index + 1}</p>
             <div className={s.topBtnsBlock}>
                 <div className={s.nameDiv}>
                     <RadioSvg />
                     <p>Радио-кнопки</p>
                 </div>
                 <div className={s.btns}>
-                    <div className={s.rotated}>
-                        <Arrow2 />
-                    </div>
-                    <div>
-                        <Arrow2 />
-                    </div>
-                    <div>
+                    {index+1 !== length && (
+                        <div className={s.rotated} onClick={moveBlockDown}>
+                            <Arrow2 />
+                        </div>
+                    )}
+                    {index > 0 && (
+                        <div onClick={moveBlockUp}>
+                            <Arrow2 />
+                        </div>
+                    )}
+                    <div onClick={copyBlock}>
                         <Copy />
                     </div>
-                    <div>
+                    <div onClick={deleteBlock}>
                         <Trash />
                     </div>
                 </div>
@@ -89,39 +79,45 @@ export const FeedBackRadio = () => {
                     <p className={s.headingText}>Название поле</p>
                     <input
                         type="text"
-                        placeholder={"Логин для входа"}
+                        value={name}
+                        onChange={(e) => onNameChange(e.target.value)}
+                        placeholder="Введите название"
                     />
                 </div>
                 <div className={s.loginBlock}>
                     <p className={s.headingText}>Плейсхолдер</p>
                     <input
-                        type="text"
-                        placeholder={"billing@untitledui.com"}
+                    type="text"
+                    value={placeholder}
+                    onChange={(e) => onPlaceholderChange(e.target.value)}
+                    placeholder="Введите плейсхолдер"
                     />
                 </div>
-                <div className={s.loginBlock}>
-                    <p className={s.headingText}>Варианты ответов</p>
-                    <div className={s.variants}>
-                        {variants.map(item => (
-                            <Item
-                                key={item.id}
-                                name={item.name}
-                                id={item.id}
-                                onNameChange={handleNameChange}
-                                onDelete={handleDelete}
-                            />
-                        ))}
-                    </div>
-                    <button className={s.buttonAdd} onClick={handleAddVariant}>
-                        + Добавить
-                    </button>
-                </div>
-
                 <div className={s.loginBlock}>
                     <p className={s.headingText}>Описание (выводится ниже)</p>
                     <textarea
-                        placeholder={"Введите почту, на котору"}
+                        value={description}
+                        onChange={(e) => onDescriptionChange(e.target.value)}
+                        placeholder="Введите описание"
                     />
+                </div>
+                <div className={s.variantsBlock}>
+                    <p className={s.headingText}>Варианты</p>
+                    {variants.map((variant) => (
+                        <div key={variant.id} className={s.radioItem}>
+                            <input
+                                type="text"
+                                className={s.text}
+                                value={variant.name}
+                                onChange={(e) => onVariantChange(variant.id, e.target.value)}
+                                placeholder="Введите вариант"
+                            />
+                            <div className={s.cross} onClick={() => onDeleteVariant(variant.id)}>
+                                <Cross />
+                            </div>
+                        </div>
+                    ))}
+                    <button className={s.buttonAdd} onClick={onAddVariant}>Добавить вариант</button>
                 </div>
             </div>
             <SavingDataSettings />
