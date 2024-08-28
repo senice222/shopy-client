@@ -1,4 +1,4 @@
-import {Product} from "../pages/ADMIN/CategoriesAndProducts/ProductTypes";
+import {Product} from "../interfaces/ProductTypes";
 import avatar from "../assets/Avatar.png";
 
 export const items = [

@@ -1,9 +1,8 @@
 import React, {ChangeEvent, FC, useEffect, useState} from "react";
-import AdminLayout from "../../../layouts/AdminLayout";
 import s from './CategoriesAndProducts.module.scss';
-import CategoryItem from "./CategoryItem";
-import ProductList from "./ProductList";
-import {Product} from "./ProductTypes";
+import CategoryItem from "./CategoryItem/CategoryItem";
+import ProductList from "./ProductList/ProductList";
+import {Product} from "../../../interfaces/ProductTypes";
 import Pagination from "../../../components/Pagination/Pagination";
 import {DndProvider} from 'react-dnd';
 import {HTML5Backend} from 'react-dnd-html5-backend';
@@ -97,7 +96,8 @@ const CategoriesAndProducts: FC = () => {
                                     <th>Действия</th>
                                 </tr>
                                 </thead>
-                                <ProductList url={currentUrl} setProducts={setFilteredProducts} items={filteredProducts} currentPage={currentPage}/>
+                                <ProductList url={currentUrl} setProducts={setFilteredProducts} items={filteredProducts}
+                                             currentPage={currentPage}/>
                             </table>
                             <div className={s.paginationContainer}>
                                 <Pagination

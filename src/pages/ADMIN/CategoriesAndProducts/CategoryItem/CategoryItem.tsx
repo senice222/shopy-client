@@ -1,7 +1,7 @@
 import React, { FC, useState } from "react";
-import s from './CategoriesAndProducts.module.scss';
-import { Arrow } from "./Svg";
-import {SubCategoryI, SubCategoryIState} from "../../../interfaces/Category";
+import s from '../CategoriesAndProducts.module.scss';
+import { Arrow } from "../Svg";
+import {SubCategoryI, SubCategoryIState} from "../../../../interfaces/Category";
 
 interface CategoryItemI {
     main: string;

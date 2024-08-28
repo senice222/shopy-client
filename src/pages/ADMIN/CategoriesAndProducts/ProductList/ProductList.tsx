@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import update from 'immutability-helper'
-import DraggableProductItem from "./DraggableProductItem";
-import { Product } from "./ProductTypes";
-import Loader from "../../../components/Loader/Loader";
+import DraggableProductItem from "../DraggableProductItem/DraggableProductItem";
+import { Product } from "../../../../interfaces/ProductTypes";
+import Loader from "../../../../components/Loader/Loader";
 import axios from 'axios'
 import { notification } from 'antd'
 import useSWR, { useSWRConfig } from "swr";

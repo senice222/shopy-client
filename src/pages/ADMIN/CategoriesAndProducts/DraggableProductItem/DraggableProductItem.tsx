@@ -1,10 +1,10 @@
 import React, { FC, useRef } from "react";
 import { useDrag, useDrop } from 'react-dnd';
-import { ItemTypes, Product } from "./ProductTypes";
-import s from './CategoriesAndProducts.module.scss';
-import { Copy, Eye, Pencil, Arrow2 } from "./Svg";
+import { ItemTypes, Product } from "../../../../interfaces/ProductTypes";
+import s from '../CategoriesAndProducts.module.scss';
+import { Copy, Eye, Pencil, Arrow2 } from "../Svg";
 import axios from "axios";
-import {url} from "../../../core/fetch";
+import {url} from "../../../../core/fetch";
 import { notification } from "antd";
 import useSWR, { useSWRConfig } from "swr";
 

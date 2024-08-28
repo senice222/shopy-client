@@ -2,7 +2,7 @@ import s from './CategoriesBurger.module.scss'
 import React, {FC, useState} from "react";
 import {Arrow, Plus} from "../../pages/ADMIN/CategoriesAndProducts/Svg";
 import {Cross} from "../Modals/AdminModal/Svgs";
-import CategoryItem from "../../pages/ADMIN/CategoriesAndProducts/CategoryItem";
+import CategoryItem from "../../pages/ADMIN/CategoriesAndProducts/CategoryItem/CategoryItem";
 import {AddCategory} from "../Modals/AdminModals/AddCategory/AddCategory";
 import {AddSubCategory} from "../Modals/AdminModals/AddSubCategory/AddSubCategory";
 import useSWR from "swr";
