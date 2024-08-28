@@ -25,30 +25,30 @@ interface FeedBackRadioProps {
     moveBlockDown: () => void;
     copyBlock: () => void;
     deleteBlock: () => void;
-    index: number; // Добавляем индекс для отображения номера
+    index: number; 
     length: number
 
 }
 
 export const FeedBackRadio: React.FC<FeedBackRadioProps> = ({
-                                                                name,
-                                                                placeholder,
-                                                                description,
-                                                                variants,
-                                                                onNameChange,
-                                                                onPlaceholderChange,
-                                                                onDescriptionChange,
-                                                                onVariantChange,
-                                                                onAddVariant,
-                                                                onDeleteVariant,
-                                                                moveBlockUp,
-                                                                moveBlockDown,
-                                                                copyBlock,
-                                                                deleteBlock,
-                                                                index,
+    name,
+    placeholder,
+    description,
+    variants,
+    onNameChange,
+    onPlaceholderChange,
+    onDescriptionChange,
+    onVariantChange,
+    onAddVariant,
+    onDeleteVariant,
+    moveBlockUp,
+    moveBlockDown,
+    copyBlock,
+    deleteBlock,
+    index,
     length
 
-                                                            }) => {
+}) => {
     return (
         <div className={s.pole}>
             <p className={s.number}>Поле {index + 1}</p>
@@ -58,7 +58,7 @@ export const FeedBackRadio: React.FC<FeedBackRadioProps> = ({
                     <p>Радио-кнопки</p>
                 </div>
                 <div className={s.btns}>
-                    {index+1 !== length && (
+                    {index + 1 !== length && (
                         <div className={s.rotated} onClick={moveBlockDown}>
                             <Arrow2 />
                         </div>
@@ -87,10 +87,10 @@ export const FeedBackRadio: React.FC<FeedBackRadioProps> = ({
                 <div className={s.loginBlock}>
                     <p className={s.headingText}>Плейсхолдер</p>
                     <input
-                    type="text"
-                    value={placeholder}
-                    onChange={(e) => onPlaceholderChange(e.target.value)}
-                    placeholder="Введите плейсхолдер"
+                        type="text"
+                        value={placeholder}
+                        onChange={(e) => onPlaceholderChange(e.target.value)}
+                        placeholder="Введите плейсхолдер"
                     />
                 </div>
                 <div className={s.loginBlock}>

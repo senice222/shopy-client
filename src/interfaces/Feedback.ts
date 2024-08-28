@@ -9,7 +9,8 @@ export interface FeedbackBlock {
 }
 export interface FeedBackI {
     name: string,
-    blocks : FeedbackBlock[]
+    blocks: FeedbackBlock[],
+    products: string[]
 }
 export interface Variant {
     name: string,

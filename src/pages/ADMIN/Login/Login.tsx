@@ -1,8 +1,6 @@
 import style from './Login.module.scss'
-import bg from '../../../assets/Background pattern decorative.png'
 import logo from '../../../assets/Logomark.png'
 import {Input} from "antd";
-import {EyeInvisibleOutlined, EyeTwoTone} from "@ant-design/icons";
 import Button from "../../../components/Button/Button";
 import {useState} from "react";
 import {useAppDispatch, useAppSelector} from "../../../hooks/redux-hooks";

@@ -15,24 +15,24 @@ interface FeedBackInputProps {
     moveBlockDown: () => void;
     copyBlock: () => void;
     deleteBlock: () => void;
-    index: number; // Добавляем индекс для отображения номера
+    index: number;
     length: number
 }
 
 export const FeedBackInput: React.FC<FeedBackInputProps> = ({
-                                                                name,
-                                                                placeholder,
-                                                                description,
-                                                                onNameChange,
-                                                                onPlaceholderChange,
-                                                                onDescriptionChange,
-                                                                moveBlockUp,
-                                                                moveBlockDown,
-                                                                copyBlock,
-                                                                deleteBlock,
-                                                                index,
+    name,
+    placeholder,
+    description,
+    onNameChange,
+    onPlaceholderChange,
+    onDescriptionChange,
+    moveBlockUp,
+    moveBlockDown,
+    copyBlock,
+    deleteBlock,
+    index,
     length
-                                                            }) => {
+}) => {
     return (
         <div className={s.pole}>
             <p className={s.number}>Поле {index + 1}</p>
@@ -42,7 +42,7 @@ export const FeedBackInput: React.FC<FeedBackInputProps> = ({
                     <p>Поле для ввода в одну строку</p>
                 </div>
                 <div className={s.btns}>
-                    {index+1 !== length && (
+                    {index + 1 !== length && (
                         <div className={s.rotated} onClick={moveBlockDown}>
                             <Arrow2 />
                         </div>

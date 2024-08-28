@@ -15,25 +15,25 @@ interface FeedBackTextAreaProps {
     moveBlockDown: () => void;
     copyBlock: () => void;
     deleteBlock: () => void;
-    index: number; // Добавляем индекс для отображения номера
+    index: number;
     length: number
 
 }
 
 export const FeedBackTextArea: React.FC<FeedBackTextAreaProps> = ({
-                                                                      name,
-                                                                      placeholder,
-                                                                      description,
-                                                                      onNameChange,
-                                                                      onPlaceholderChange,
-                                                                      onDescriptionChange,
-                                                                      moveBlockUp,
-                                                                      moveBlockDown,
-                                                                      copyBlock,
-                                                                      deleteBlock,
-                                                                      index,
+    name,
+    placeholder,
+    description,
+    onNameChange,
+    onPlaceholderChange,
+    onDescriptionChange,
+    moveBlockUp,
+    moveBlockDown,
+    copyBlock,
+    deleteBlock,
+    index,
     length
-                                                                  }) => {
+}) => {
     return (
         <div className={s.pole}>
             <p className={s.number}>Поле {index + 1}</p>
@@ -43,7 +43,7 @@ export const FeedBackTextArea: React.FC<FeedBackTextAreaProps> = ({
                     <p>Текстовое поле в несколько строк</p>
                 </div>
                 <div className={s.btns}>
-                    {index+1 !== length && (
+                    {index + 1 !== length && (
                         <div className={s.rotated} onClick={moveBlockDown}>
                             <Arrow2 />
                         </div>
