@@ -85,7 +85,7 @@ const ProductItem : FC<ProductItemI> = ({toFav, img, price, name, id}) => {
             </div>
             <div className={styles.productCardBottom} onClick={() => handleClick(id)}>
                 <h3 className={styles.cardTitle}>{name}</h3>
-                <span className={styles.price}>от {price}₽</span>
+                <span className={styles.price}>от {price}€</span>
             </div>
         </motion.div>
     )

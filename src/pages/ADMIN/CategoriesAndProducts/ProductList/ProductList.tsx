@@ -5,7 +5,7 @@ import { Product } from "../../../../interfaces/ProductTypes";
 import Loader from "../../../../components/Loader/Loader";
 import axios from 'axios'
 import { notification } from 'antd'
-import useSWR, { useSWRConfig } from "swr";
+import { useSWRConfig } from "swr";
 
 interface ProductListProps {
     items: Product[] | undefined;
@@ -27,7 +27,6 @@ const ProductList: FC<ProductListProps> = ({ items, setProducts, url, currentPag
                 ],
             }),
         )
-        console.log(12)
     };
 
     const onDragEnd = async (updatedItems: Product[]) => {

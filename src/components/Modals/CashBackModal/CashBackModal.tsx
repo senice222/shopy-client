@@ -47,12 +47,12 @@ const CashBackModal: FC<CashbackModalI> = ({ user, cashback, onClose }) => {
                 <div className={style.amountOfOrders}>
                     <div>
                         <p>Сумма заказов</p>
-                        <p>{totalBuys}₽</p>
+                        <p>{totalBuys}€</p>
                     </div>
                     {nextThreshold && (
                         <div>
                             <p>До повышения:</p>
-                            <p>{remainingAmount}₽</p>
+                            <p>{remainingAmount}€</p>
                         </div>
                     )}
                 </div>

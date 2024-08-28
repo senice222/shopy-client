@@ -107,8 +107,8 @@ const DetailedProduct: FC<ModalAndFavorite> = ({ setAddedFunc, isAdd, added, set
                         <div className={style.info}>
                             <h2>{data.name}</h2>
                             <div>
-                                <h1>{price}₽</h1>
-                                <h3>{oldPrice}₽</h3>
+                                <h1>{price}€</h1>
+                                <h3>{oldPrice}€</h3>
                                 <div className={style.skidka}>-50%</div>
                             </div>
                             <p>+ 3% кешбека</p>
