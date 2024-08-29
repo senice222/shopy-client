@@ -30,7 +30,7 @@ const FavoriteProducts: FC<ModalAndFavorite> = ({ setAddedFunc, isAdd, added, se
                     {state.length > 0 ? state.map((item, i) => (
                         <Fragment key={i}>
                             <div className={styles.container}>
-                                <div className={styles.productCard}>
+                                <div className={styles.productCard} onClick={() => handleClick(item)}>
                                     <div className={styles.productCardTop}>
                                         <div className={styles.icon}>
                                             <svg
@@ -54,7 +54,7 @@ const FavoriteProducts: FC<ModalAndFavorite> = ({ setAddedFunc, isAdd, added, se
                                         </div>
                                         <img style={{ width: '165px', height: '165px' }} src={`${url}/api/uploads/${item.img}`} alt="Spotify Premium Image" />
                                     </div>
-                                    <div className={styles.productCardBottom} onClick={() => handleClick(item)}>
+                                    <div className={styles.productCardBottom} >
                                         <h3 className={styles.cardTitle}>{item.name}</h3>
                                         <span className={styles.price}>от {item.price}₽</span>
                                     </div>

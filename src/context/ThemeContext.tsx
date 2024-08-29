@@ -23,7 +23,7 @@ const ThemeProvider: React.FC<Props> = ({ children }) => {
     return (
         <ThemeContext.Provider
             value={{
-                darkTheme: darkTheme,
+                darkTheme,
                 toggleTheme: toggleThemeHandler,
             }}
         >

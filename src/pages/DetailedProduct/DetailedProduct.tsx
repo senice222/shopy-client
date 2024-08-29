@@ -52,7 +52,7 @@ const DetailedProduct: FC<ModalAndFavorite> = ({ setAddedFunc, isAdd, added, set
 
     useEffect(() => {
         const product = compare();
-        if (product && product.length > 0) {
+        if (product.length > 0) {
             setPrice(product[0].price);
             setOldPrice(product[0].oldPrice);
             setVariantId(product[0]._id ? product[0]._id : "")
