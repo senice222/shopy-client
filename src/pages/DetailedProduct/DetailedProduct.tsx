@@ -61,8 +61,7 @@ const DetailedProduct: FC<ModalAndFavorite> = ({ setAddedFunc, isAdd, added, set
 
     const handleVariantChange = (tariff: string, dataId: string, option: string, banner?: { title: string, description: string }) => {
         setSelectedVariants((prevState: SelectedVariants) => {
-            console.log(prevState)
-            const currentData = prevState[dataId] || [];
+            const currentData = prevState[dataId];
             const updatedData = currentData.map((item: ComparisonObject) =>
                 item.label === tariff
                     ? { ...item, option, banner: banner || null }
