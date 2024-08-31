@@ -1,7 +1,7 @@
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
 import s from "./DetailedFeedback.module.scss";
 import BackTick from "../../../../components/ADMIN/BackTick/BackTick";
-import { PoleIcon, RadioSvg, TextSvg } from "../Svgs";
+import {Avatar, PoleIcon, RadioSvg, Search, TextSvg} from "../Svgs";
 import { Trash, Arrow2, Copy, Plus } from "../../CategoriesAndProducts/Svg";
 import { FeedBackInput } from "../Fields/Input/Input";
 import { FeedBackRadio } from "../Fields/Radio/Radio";
@@ -11,6 +11,11 @@ import {OwnSelect} from "../../../../components/OwnSelect/OwnSelect";
 import {CheckBox} from "../../../../components/CheckBox/CheckBox";
 import Button from "../../../../components/Button/Button";
 import {FieldValues, SubmitHandler, useForm} from "react-hook-form";
+import {Cross} from "../../../../components/Modals/AdminModal/Svgs";
+import axios from "axios";
+import {url} from '../../../../core/fetch'
+import { useNavigate } from 'react-router-dom';
+
 
 export interface Variant {
   name: string;
@@ -26,23 +31,96 @@ interface Block {
   variants?: Variant[];
 }
 
+interface Banner {
+  title: string;
+  description: string;
+}
+
+interface Value {
+  id: string;
+  value: string;
+}
+
+interface VariantD {
+  price: number;
+  oldPrice: number;
+  img: string;
+  quantity: number;
+  attachedId: string;
+  visible: boolean;
+  banner: Banner;
+  values: Value[];
+}
 const DetailedFeedback = () => {
   const [blocks, setBlocks] = useState<Block[]>([]);
+  const [attachedOpened, setAttachedOpened] = useState(false)
+  const [query, setQuery] = useState('')
+  const [results, setResults] = useState<Variant[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [attached, setAttached] = useState<Variant[]>([])
+  const navigate = useNavigate()
 
+  // Ссылка для хранения таймера
+  const debounceRef = useRef<NodeJS.Timeout | null>(null);
+  const filteredAndSortedResults = useMemo(() => {
+    // Создаём множество ID из массива attached для быстрой проверки
+    const attachedIds = new Set(attached.map(item => item.id));
+
+    // Фильтруем элементы, исключая те, у которых id есть в attached
+    const filteredResults = results.filter(result => !attachedIds.has(result.id));
+
+    // Сортируем по какому-либо критерию, например, по имени
+
+    return filteredResults;
+  }, [results, attached]);
+  // Функция для отправки запроса на сервер
+  const fetchResults = async (searchQuery: string) => {
+    try {
+      setLoading(true);
+      const response = await axios.get(`${url}/api/products/variants?query=${encodeURIComponent(searchQuery)}`);
+      setResults(response.data);
+    } catch (error) {
+      console.error('Ошибка при выполнении поиска:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Обработка изменений в поле ввода
+  useEffect(() => {
+    if (query.trim()) {
+      // Очищаем предыдущий таймер, если он был
+      if (debounceRef.current) {
+        clearTimeout(debounceRef.current);
+      }
+
+      // Устанавливаем новый таймер
+      debounceRef.current = setTimeout(() => {
+        fetchResults(query);
+      }, 500);
+    } else {
+      // Если запрос пустой, очищаем результаты
+      setResults([]);
+    }
+
+    // Очистка при размонтировании
+    return () => {
+      if (debounceRef.current) {
+        clearTimeout(debounceRef.current);
+      }
+    };
+  }, [query]);
   const onSubmit = async (values : any) => {
     console.log()
   }
-  // Функция генерации уникального ID
   const generateUniqueId = () => '_' + Math.random().toString(36).substr(2, 9);
 
-  // Функция обновления блока
   const updateBlock = <K extends keyof Block>(index: number, key: K, value: Block[K]) => {
     const updatedBlocks = [...blocks];
     updatedBlocks[index][key] = value;
     setBlocks(updatedBlocks);
   };
 
-  // Функция добавления блока
   const addBlock = (inputType: Block["inputType"]) => {
     const newBlock: Block = {
       inputType,
@@ -55,11 +133,22 @@ const DetailedFeedback = () => {
     setBlocks([...blocks, newBlock]);
   };
 
-  // Функция перемещения блока вперед
+  const save = async () => {
+    const token = localStorage.getItem('token')
+    const { data } = await axios.post(`${url}/api/feedback/create`, {
+      blocks, attached, name: generateUniqueId()
+    },{
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+    if (data) {
+      navigate('/panel/settings')
+    }
+  }
   const moveBlock = (index: number, direction: 'up' | 'down') => {
     const newBlocks = [...blocks];
 
-    // Убедитесь, что индекс корректен
     if (direction === 'up' && index > 0) {
       const [removed] = newBlocks.splice(index, 1);
       newBlocks.splice(index - 1, 0, removed);
@@ -71,19 +160,16 @@ const DetailedFeedback = () => {
     setBlocks(newBlocks);
   };
 
-  // Функция копирования блока
   const copyBlock = (index: number) => {
     const blockToCopy = blocks[index];
     const copiedBlock = { ...blockToCopy, name: `${blockToCopy.name} (copy)` };
     setBlocks([...blocks.slice(0, index + 1), copiedBlock, ...blocks.slice(index + 1)]);
   };
 
-  // Функция удаления блока
   const deleteBlock = (index: number) => {
     setBlocks(blocks.filter((_, i) => i !== index));
   };
 
-  // Функция обработки изменения варианта
   const handleVariantChange = (
       blockIndex: number,
       variantId: string,
@@ -95,13 +181,11 @@ const DetailedFeedback = () => {
     updateBlock(blockIndex, "variants", updatedVariants);
   };
 
-  // Функция добавления нового варианта
   const addVariant = (index: number) => {
     const newVariant: Variant = { name: `Option ${blocks[index].variants!.length + 1}`, id: generateUniqueId() };
     updateBlock(index, "variants", [...(blocks[index].variants || []), newVariant]);
   };
 
-  // Функция удаления варианта
   const deleteVariant = (blockIndex: number, variantId: string) => {
     updateBlock(blockIndex, "variants", blocks[blockIndex].variants!.filter(v => v.id !== variantId));
   };
@@ -164,7 +248,7 @@ const DetailedFeedback = () => {
           <div className={s.lastBtns}>
             <div className={s.btns}>
               <button className={s.gray}>Отмена</button>
-              <button className={s.blue}>Сохранить</button>
+              <button onClick={save} className={s.blue}>Сохранить</button>
             </div>
           </div>
         </div>
@@ -241,6 +325,56 @@ const DetailedFeedback = () => {
                 }
               })}
             </div>
+          </div>
+          <div className={`${s.attachedTo} ${attachedOpened ? s.activeAttached : ""}`}>
+            <div className={s.topDiv4ik}>
+              <h3>Прикрпеить к товарам</h3>
+              <svg
+                  className={attachedOpened ? s.active2 : ''}
+                  onClick={() => setAttachedOpened((prev) => !prev)}
+                  xmlns="http://www.w3.org/2000/svg"
+                  width={20}
+                  height={20}
+                  viewBox="0 0 20 20"
+                  fill="none"
+              >
+                <path
+                    d="M5 7.5L10 12.5L15 7.5"
+                    stroke="#98A2B3"
+                    strokeWidth="1.66667"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                />
+              </svg>
+            </div>
+            <div className={s.searchWrapper}>
+              <div className={s.searchDiv}>
+                <Search />
+                <input value={query} onChange={(e) => setQuery(e.target.value)} type="text" placeholder="Поиск" />
+              </div>
+            </div>
+            <div className={s.itemsAttached}>
+              {
+                attached.map((item) => <div className={s.attachedItem}>
+                  <div className={s.avatarDiv}>
+                    <Avatar />
+                    <h2>{item.name}</h2>
+                  </div>
+                  <div onClick={() => {
+                      setAttached((prevItems) => prevItems.filter(item2 => String(item2.id) !== String(item.id)));
+                  }} className={s.cross}><Cross /></div>
+                </div>)
+              }
+            </div>
+            <div className={s.line} />
+            {
+              results ? filteredAndSortedResults.map((item) => <div onClick={() => setAttached((prev) => [...prev, item])} className={s.attachedItem}>
+                <div className={s.avatarDiv}>
+                  <Avatar />
+                  <h2>{item.name}</h2>
+                </div>
+              </div>) : <p>Loading...</p>
+            }
           </div>
         </div>
       </div>
