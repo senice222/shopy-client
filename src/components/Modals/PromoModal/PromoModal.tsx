@@ -5,29 +5,36 @@ import BootstrapModal from "../BootstrapModal/BootstrapModal";
 import {RequestSent} from "../RequestSent/RequestSent";
 import MobileDetect from "mobile-detect";
 import useElementFocus from '../../../hooks/useElementFocus';
+import axios from "axios";
+import {url} from "../../../core/fetch";
+import {addPromo} from "../../../store/features/cartSlice";
+import {useAppDispatch} from "../../../hooks/redux-hooks";
 
 
 export const PromoModal: FC<PromoModalI> = ({promoActive, onClose, setBurger}) => {
     const [promoInputValue, setPromoInputValue] = useState('');
-    const [errorStatus, setErrorStatus] = useState(false);
+    const [errorStatus, setErrorStatus] = useState('');
     const [isModal, setModal] = useState(false)
     const [isFocused, setIsFocused] = useState(false);
     const md = new MobileDetect(window.navigator.userAgent);
     const isMobileDevice = md.mobile();
     const inputRef = useRef<HTMLInputElement>(null);
     useElementFocus(inputRef, isMobileDevice, setIsFocused)
-    
-    const checkingPromo = (e: ChangeEvent<HTMLInputElement>) => {
-        const value = e.target.value;
-        setPromoInputValue(value);
-        setErrorStatus(value !== '123'); // Замените 'VALID_PROMO_CODE' на ваш валидный промокод
-    };
+    const dispatch = useAppDispatch()
 
-    const setConfirmDialog = () => {
+    const setConfirmDialog = async () => {
         if (!errorStatus) {
-            onClose()
-            setModal(true)
-
+            try {
+                const {data} = await axios.post(`${url}/api/apply-promo`, {userId: 878990615, promoCode: promoInputValue});
+                if (data) {
+                    dispatch(addPromo(data.discount));
+                    setPromoInputValue('');
+                    onClose();
+                    setModal(true);
+                }
+            } catch (error: any) {
+                setErrorStatus(error.response?.data?.message || 'Произошла ошибка при активации промокода');
+            }
         }
     };
 
@@ -77,7 +84,6 @@ export const PromoModal: FC<PromoModalI> = ({promoActive, onClose, setBurger}) =
                 <div className="input">
                     <input
                         ref={inputRef}
-                        onInput={checkingPromo}
                         value={promoInputValue}
                         onChange={(e) => setPromoInputValue(e.target.value)}
                         className="rounded-border"
@@ -106,11 +112,11 @@ export const PromoModal: FC<PromoModalI> = ({promoActive, onClose, setBurger}) =
                     )}
                 </div>
                 {errorStatus ? <span style={{color: 'red', fontFamily: "Graphik LCG Regular", marginTop: '5px'}}>
-                      Такого промокода не существует
+                      {errorStatus}
                     </span> : null}
                 <button
                     className="blue-btn"
-                    disabled={errorStatus}
+                    disabled={Boolean(errorStatus)}
                     onClick={setConfirmDialog}
                 >
                     Активировать
