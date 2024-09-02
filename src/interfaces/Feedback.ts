@@ -8,6 +8,7 @@ export interface FeedbackBlock {
     savingData?: boolean
 }
 export interface FeedBackI {
+    _id: string,
     name: string,
     blocks: FeedbackBlock[],
     products: string[]

@@ -54,6 +54,7 @@ export const AppRoutes = () => {
                         isAdd,
                         added,
                         setAdded,
+                        updating: true
                     };
 
                     if (route.children) {

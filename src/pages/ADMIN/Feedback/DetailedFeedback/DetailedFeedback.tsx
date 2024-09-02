@@ -13,6 +13,7 @@ import Button from "../../../../components/Button/Button";
 import {FieldValues, SubmitHandler, useForm} from "react-hook-form";
 import {Cross} from "../../../../components/Modals/AdminModal/Svgs";
 import axios from "axios";
+import { useParams } from 'react-router-dom';
 import {url} from '../../../../core/fetch'
 import { useNavigate } from 'react-router-dom';
 
@@ -58,6 +59,10 @@ const DetailedFeedback = () => {
   const [results, setResults] = useState<Variant[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [attached, setAttached] = useState<Variant[]>([])
+  const [data, setData] = useState(null)
+  const params = useParams()
+  console.log(params)
+
   const navigate = useNavigate()
 
   // Ссылка для хранения таймера
@@ -73,6 +78,26 @@ const DetailedFeedback = () => {
 
     return filteredResults;
   }, [results, attached]);
+  const getFeedback = async (id : string) => {
+    try {
+      const {data : data2} = await axios.get(`${url}/api/feedback/${id}`)
+
+      if (data2) {
+        setData(data2._id)
+        if (data2.attached) {
+          setAttached(data2.attached)
+        }
+        setBlocks(data2.blocks)
+      }
+    } catch (err) {
+
+    }
+  }
+  useEffect(() => {
+    if (params.id) {
+      getFeedback(params.id)
+    }
+  }, [params])
   // Функция для отправки запроса на сервер
   const fetchResults = async (searchQuery: string) => {
     try {
@@ -85,7 +110,6 @@ const DetailedFeedback = () => {
       setLoading(false);
     }
   };
-
   // Обработка изменений в поле ввода
   useEffect(() => {
     if (query.trim()) {
@@ -135,16 +159,30 @@ const DetailedFeedback = () => {
 
   const save = async () => {
     const token = localStorage.getItem('token')
-    const { data } = await axios.post(`${url}/api/feedback/create`, {
-      blocks, attached, name: generateUniqueId()
-    },{
-      headers: {
-        'Authorization': `Bearer ${token}`
+    if (params.id) {
+      const { data } = await axios.put(`${url}/api/feedback/${params.id}`, {
+        blocks, attached
+      },{
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      if (data) {
+        navigate('/panel/settings')
       }
-    })
-    if (data) {
-      navigate('/panel/settings')
+    } else {
+      const { data } = await axios.post(`${url}/api/feedback/create`, {
+        blocks, attached, name: generateUniqueId()
+      },{
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      })
+      if (data) {
+        navigate('/panel/settings')
+      }
     }
+    
   }
   const moveBlock = (index: number, direction: 'up' | 'down') => {
     const newBlocks = [...blocks];
@@ -203,8 +241,8 @@ const DetailedFeedback = () => {
             <h1>Настройки обратной связи</h1>
             <p>Название обратной связи</p>
             <div className={s.btns}>
-              <button className={s.gray}>Отмена</button>
-              <button className={s.blue}>Сохранить</button>
+              <button onClick={() => navigate('/panel/settings')} className={s.gray}>Отмена</button>
+              <button onClick={save} className={s.blue}>Сохранить</button>
             </div>
           </div>
           {blocks.map((block, index) => {
@@ -247,7 +285,7 @@ const DetailedFeedback = () => {
           })}
           <div className={s.lastBtns}>
             <div className={s.btns}>
-              <button className={s.gray}>Отмена</button>
+              <button onClick={() => navigate('/panel/settings')} className={s.gray}>Отмена</button>
               <button onClick={save} className={s.blue}>Сохранить</button>
             </div>
           </div>

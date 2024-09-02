@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import s from "./Feedback.module.scss";
 import { Search } from "./Svgs";
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { Pencil, Trash } from "../CategoriesAndProducts/Svg";
 import useSWR from "swr";
 import { fetcher, url } from "../../../core/fetch";
@@ -19,7 +19,7 @@ const Feedback = () => {
     const handlePageChange = (page: number) => {
         setCurrentPage(page);
     };
-
+    
     useEffect(() => {
         if (feedbacks) {
             console.log(feedbacks.totalPages, 228)
@@ -40,7 +40,7 @@ const Feedback = () => {
                         <Search />
                         <input type="text" placeholder="Поиск" />
                     </div>
-                    <button>Добавить новую</button>
+                    <button onClick={() => navigate('/panel/feedback/create')}>Добавить новую</button>
                 </div>
             </div>
             <table className={s.usersTable}>
@@ -53,7 +53,7 @@ const Feedback = () => {
                 </thead>
                 <tbody>
                     {feedbacks.feedbacks.map((item: FeedBackI, i: number) =>
-                        <tr onClick={() => navigate('/panel/feedback/asd')} key={i}>
+                        <tr onClick={() => navigate(`/panel/feedback/${item._id}`)} key={i}>
                             <td className={s.td1}>
                                 <p>{item.name}</p>
                             </td>

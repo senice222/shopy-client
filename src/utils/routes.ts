@@ -52,7 +52,8 @@ export const routes: RouteConfig[] = [
             { path: "newsletter", element: Newsletter, props: {} },
             { path: "categoriesAndProducts", element: CategoriesAndProducts, props: {} },
             { path: "users/:username", element: DetailedUser, props: {} },
-            { path: "feedback/:id", element: FeedbackDetailed, props: {} },
+            { path: "feedback/create", element: FeedbackDetailed, props: {} },
+            { path: "feedback/:id", element: FeedbackDetailed, props: {updating: null}},
             { path: "settings", element: Settings, props: {}, children: [
                     { path: "", element: Feedback, props: {} }
                 ]
