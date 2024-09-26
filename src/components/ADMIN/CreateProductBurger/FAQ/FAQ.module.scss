@@ -64,7 +64,7 @@
   input {
     margin-top: 10px;
     width: 100%;
-    border: 1px solid #D0D5DD;
+    border: 1px solid #d0d5dd;
     padding: 10px;
     border-radius: 8px;
     color: #667085;
@@ -73,7 +73,7 @@
     font-size: 16px;
   }
   .block {
-      margin-top: 20px;
+    margin-top: 20px;
   }
 }
 .createBtns {
@@ -81,10 +81,12 @@
   display: flex;
   width: 100%;
   justify-content: space-between;
+  gap: 30px;
   button {
-    border: 1px solid #D0D5DD;
+    border: 1px solid #d0d5dd;
     height: 50px;
-    width: 48%;
+    // width: 48%;
+    width: 33%;
     border-radius: 8px;
     color: #344054;
     background: transparent;
@@ -92,9 +94,19 @@
     letter-spacing: 0.6px;
     font-weight: 600;
     &:last-child {
-      border: 1px solid #7CC5FD;
-      color: #0157A3;
+      border: 1px solid #7cc5fd;
+      color: #0157a3;
     }
+  }
+  .delete {
+    background-color: #d92d20;
+    // width: 110.67px;
+    height: 44pxpx;
+    padding: 10px 16px 10px 16px;
+    border-radius: 8px;
+    color: white;
+    border: none;
+    outline: none;
   }
 }
 .addDiv {
@@ -108,7 +120,7 @@
     cursor: pointer;
     user-select: none;
     font-family: "Inter Semi Bold", sans-serif;
-    color: #0157A3;
+    color: #0157a3;
     font-size: 16px;
     font-weight: 600;
     margin-bottom: 10px;
@@ -130,9 +142,9 @@
       font-family: "Inter Semi Bold", sans-serif;
       border-radius: 8px;
       margin-top: 10px;
-      height: 44px;;
-      letter-spacing: .6px;
-      background-color: #0070CC;
+      height: 44px;
+      letter-spacing: 0.6px;
+      background-color: #0070cc;
       color: white;
       svg {
         margin-left: 3px;

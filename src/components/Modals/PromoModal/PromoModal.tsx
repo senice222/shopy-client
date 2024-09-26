@@ -1,17 +1,17 @@
 import './PromoModal.scss'
-import {ChangeEvent, FC, useEffect, useRef, useState} from "react";
-import {PromoModalI} from "../../../interfaces/PromoModalI";
+import { ChangeEvent, FC, useEffect, useRef, useState } from "react";
+import { PromoModalI } from "../../../interfaces/PromoModalI";
 import BootstrapModal from "../BootstrapModal/BootstrapModal";
-import {RequestSent} from "../RequestSent/RequestSent";
+import { RequestSent } from "../RequestSent/RequestSent";
 import MobileDetect from "mobile-detect";
 import useElementFocus from '../../../hooks/useElementFocus';
 import axios from "axios";
-import {url} from "../../../core/fetch";
-import {addPromo} from "../../../store/features/cartSlice";
-import {useAppDispatch} from "../../../hooks/redux-hooks";
+import { url } from "../../../core/fetch";
+import { addPromo } from "../../../store/features/cartSlice";
+import { useAppDispatch } from "../../../hooks/redux-hooks";
 
 
-export const PromoModal: FC<PromoModalI> = ({promoActive, onClose, setBurger}) => {
+export const PromoModal: FC<PromoModalI> = ({ promoActive, onClose, setBurger }) => {
     const [promoInputValue, setPromoInputValue] = useState('');
     const [errorStatus, setErrorStatus] = useState('');
     const [isModal, setModal] = useState(false)
@@ -23,25 +23,23 @@ export const PromoModal: FC<PromoModalI> = ({promoActive, onClose, setBurger}) =
     const dispatch = useAppDispatch()
 
     const setConfirmDialog = async () => {
-        if (!errorStatus) {
-            try {
-                const {data} = await axios.post(`${url}/api/apply-promo`, {userId: 878990615, promoCode: promoInputValue});
-                if (data) {
-                    dispatch(addPromo(data.discount));
-                    setPromoInputValue('');
-                    onClose();
-                    setModal(true);
-                }
-            } catch (error: any) {
-                setErrorStatus(error.response?.data?.message || 'Произошла ошибка при активации промокода');
+        try {
+            const { data } = await axios.post(`${url}/api/apply-promo`, { userId: 878990615, promoCode: promoInputValue });
+            if (data) {
+                dispatch(addPromo(data.discount));
+                setPromoInputValue('');
+                onClose();
+                setModal(true);
             }
+        } catch (error: any) {
+            setErrorStatus(error.response?.data?.message || 'Произошла ошибка при активации промокода');
         }
     };
 
     return (
         <>
             <RequestSent setBurger={setBurger} isOpen={isModal} onClose={() => setModal((prev: boolean) => !prev)}
-                         switchDialog={onClose} type={'promo'}/>
+                switchDialog={onClose} type={'promo'} />
             <BootstrapModal isFocused={isFocused} active={promoActive} onClose={onClose}>
                 <div className="modal-win__popup-head">
                     <div className="rounded-border">
@@ -69,7 +67,7 @@ export const PromoModal: FC<PromoModalI> = ({promoActive, onClose, setBurger}) =
                         viewBox="0 0 24 24"
                         fill="none"
                         xmlns="http://www.w3.org/2000/svg"
-                        style={{cursor: 'pointer'}}
+                        style={{ cursor: 'pointer' }}
                     >
                         <path
                             d="M18 6L6 18M6 6L18 18"
@@ -88,7 +86,7 @@ export const PromoModal: FC<PromoModalI> = ({promoActive, onClose, setBurger}) =
                         onChange={(e) => setPromoInputValue(e.target.value)}
                         className="rounded-border"
                         placeholder="Введите промокод"
-                        style={errorStatus ? {border: '1px solid red'} : {}}
+                        style={errorStatus ? { border: '1px solid red' } : {}}
                     />
                     {errorStatus && (
                         <>
@@ -111,9 +109,9 @@ export const PromoModal: FC<PromoModalI> = ({promoActive, onClose, setBurger}) =
                         </>
                     )}
                 </div>
-                {errorStatus ? <span style={{color: 'red', fontFamily: "Graphik LCG Regular", marginTop: '5px'}}>
-                      {errorStatus}
-                    </span> : null}
+                {errorStatus ? <span style={{ color: 'red', fontFamily: "Graphik LCG Regular", marginTop: '5px' }}>
+                    {errorStatus}
+                </span> : null}
                 <button
                     className="blue-btn"
                     disabled={Boolean(errorStatus)}

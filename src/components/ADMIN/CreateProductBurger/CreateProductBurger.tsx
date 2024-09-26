@@ -44,7 +44,7 @@ export const CreateProductBurger = ({isOpened, setOpened}: { isOpened: boolean, 
             properties: [],
             items: []
         }
-    )
+    )   
 
     const validateForm = () => {
         const errors: Record<string, string> = {};
@@ -137,6 +137,10 @@ export const CreateProductBurger = ({isOpened, setOpened}: { isOpened: boolean, 
         setCategoryValue(event.target.value);
     };
 
+    const handleTypeChange = (event: any) => {
+        setType(event.target.value);
+    };
+
     const handleServiceChange = (event: any) => {
         setServiceValue(event.target.value);
     };
@@ -226,8 +230,8 @@ export const CreateProductBurger = ({isOpened, setOpened}: { isOpened: boolean, 
                             <FormControl className={s.select}>
                                 <InputLabel>Выберите нужный вариант</InputLabel>
                                 <Select
-                                    value={categoryValue}
-                                    onChange={handleCategoryChange}
+                                    value={type}
+                                    onChange={handleTypeChange}
                                     label="Выберите нужный вариант"
                                 >
                                     <MenuItem value={"Код"} onClick={() => setType("Код")}>
@@ -235,7 +239,7 @@ export const CreateProductBurger = ({isOpened, setOpened}: { isOpened: boolean, 
                                             <Typography>Код</Typography>
                                         </div>
                                     </MenuItem>
-                                    <MenuItem value={"Активация"} onClick={() => handleCategorySelect("Активация")}>
+                                    <MenuItem value={"Активация"} onClick={() => setType("Активация")}>
                                         <div className={s.selectItem}>
                                             <Typography>Активация</Typography>
                                         </div>

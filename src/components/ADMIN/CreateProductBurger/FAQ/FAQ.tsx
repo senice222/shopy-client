@@ -1,10 +1,11 @@
 import s from './FAQ.module.scss'
-import BlueButton from "../../../Button/Button";
-import { Dispatch, SetStateAction, useState } from 'react';
+import { useState } from 'react';
 import { Pencil } from '../../../Modals/AdminModals/UserMessage/Svgs';
 import { Btns } from '../../../Modals/AdminModals/UserMessage/UserMessageModal';
+import styled from '@emotion/styled/types/base';
 
-const QuestionsFAQ = ({btns, setBtns}: any) => {
+
+const QuestionsFAQ = ({ btns, setBtns }: any) => {
     const [isCreating, setCreating] = useState<boolean>(false)
     const [btnText, setBtnText] = useState<string>('')
     const [btnLink, setBtnLink] = useState<string>('')
@@ -49,6 +50,15 @@ const QuestionsFAQ = ({btns, setBtns}: any) => {
         setCreating(true)
     }
 
+    const deleteBtn = ({id}: {id: string}) => {
+        const index = btns.findIndex((item: Btns) => item.id === id)
+        if (index!== -1) {
+            btns.splice(index, 1)
+            setBtns(btns)
+            setCreating(false)
+        }
+    }
+
     return (
         <div className={s.faq}>
             <h2>Часто задаваемые вопросы</h2>
@@ -69,6 +79,7 @@ const QuestionsFAQ = ({btns, setBtns}: any) => {
                         <input value={btnLink} onChange={(e) => setBtnLink(e.target.value)} placeholder={'Напишите ответ'} />
                     </div>
                     <div className={s.createBtns}>
+                        {isEditing && <button className={s.delete} onClick={() => deleteBtn({id: isEditing})}>Удалить</button>}
                         <button onClick={() => setCreating(false)}>Отмена</button>
                         <button onClick={isEditing ? updateData : addButton}>{isEditing ? "Сохранить" : "Добавить"}</button>
                     </div>
@@ -76,7 +87,7 @@ const QuestionsFAQ = ({btns, setBtns}: any) => {
                     <h1 onClick={() => setCreating(true)}>+ Добавить кнопки</h1>
                     <div className={s.createdBtns}>
                         {btns.map((item: any) => <>
-                            <button onClick={() => handleChange({ id: item.id, text: item.question, link: item.answer })}>{item.question} <Pencil /></button>
+                            <button onClick={() => handleChange({ id: item.id, text: item.title, link: item.value })}>{item.title} <Pencil /></button>
                         </>)}
                     </div>
                 </div>}

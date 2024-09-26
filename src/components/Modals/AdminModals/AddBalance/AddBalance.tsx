@@ -1,13 +1,13 @@
 import s from './AddBalance.module.scss'
-import {AdminModal} from "../../AdminModal/AdminModal";
-import React, {FC, useEffect, useState} from "react";
-import {motion} from "framer-motion";
-import useSWR, {useSWRConfig} from "swr";
-import {fetcher, url} from "../../../../core/fetch";
+import { AdminModal } from "../../AdminModal/AdminModal";
+import React, { FC, useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import useSWR, { useSWRConfig } from "swr";
+import { fetcher, url } from "../../../../core/fetch";
 import Loader from "../../../Loader/Loader";
-import {useDebounce} from "../../../../hooks/useDebouce";
+import { useDebounce } from "../../../../hooks/useDebouce";
 import axios from "axios";
-import {notification} from "antd";
+import { notification } from "antd";
 
 interface AddBalanceI {
     setOpen: () => void,
@@ -15,13 +15,13 @@ interface AddBalanceI {
     id?: number,
 }
 
-export const AddBalance : FC<AddBalanceI> = ({id, setOpen, isOpened}) => {
+export const AddBalance: FC<AddBalanceI> = ({ id, setOpen, isOpened }) => {
     const [type, setType] = useState('increase')
     const [value, setValue] = useState('')
     const debouncedValue = useDebounce(value, 400)
     const [balance, setBalance] = useState()
-    const {data: user} = useSWR(`${url}/api/user/${id}`, fetcher)
-    const {mutate} = useSWRConfig()
+    const { data: user } = useSWR(`${url}/api/user/${id}`, fetcher)
+    const { mutate } = useSWRConfig()
 
     useEffect(() => {
         if (user) {
@@ -54,7 +54,9 @@ export const AddBalance : FC<AddBalanceI> = ({id, setOpen, isOpened}) => {
         }
     }
 
-    const handleClose = () => { }
+    const handleClose = () => {
+        setOpen()
+    }
 
     if (!user) return <Loader />
 
@@ -63,31 +65,29 @@ export const AddBalance : FC<AddBalanceI> = ({id, setOpen, isOpened}) => {
             <h2>Изменить баланс</h2>
             <p>Введите необходиые значения</p>
             <div className={s.typeWrapper}>
-                <div className={'type'}>
-                    <div className="items">
-                        <motion.div
-                            onClick={() => setType('increase')}
-                            className={`item ${type === 'increase' ? 'active' : ''}`}
-                            animate={{ opacity: type === 'increase' ? 1 : 0.5 }}
-                            transition={{ duration: 0.5 }}
-                        >
-                            Увеличить
-                        </motion.div>
-                        <motion.div
-                            onClick={() => setType('decrease')}
-                            className={`item ${type === 'decrease' ? 'active' : ''}`}
-                            animate={{ opacity: type === 'decrease' ? 1 : 0.5 }}
-                            transition={{ duration: 0.5 }}
-                        >
-                            Уменьшить
-                        </motion.div>
-                    </div>
+                <div className={s.items}>
+                    <motion.div
+                        onClick={() => setType('increase')}
+                        className={`${s.item} ${type === 'increase' ? s.active : ''}`}
+                        animate={{ opacity: type === 'increase' ? 1 : 0.5 }}
+                        transition={{ duration: 0.5 }}
+                    >
+                        Увеличить
+                    </motion.div>
+                    <motion.div
+                        onClick={() => setType('decrease')}
+                        className={`${s.item} ${type === 'decrease' ? s.active : ''}`}
+                        animate={{ opacity: type === 'decrease' ? 1 : 0.5 }}
+                        transition={{ duration: 0.5 }}
+                    >
+                        Уменьшить
+                    </motion.div>
                 </div>
             </div>
             <div className={s.blocks}>
                 <div className={s.block}>
                     <h3>Введите значение</h3>
-                    <input value={value} onChange={(e) => setValue(e.target.value)} placeholder={'Например, 300'}/>
+                    <input value={value} onChange={(e) => setValue(e.target.value)} placeholder={'Например, 300'} />
                 </div>
                 <div className={s.block}>
                     <h3>Итоговый баланс клиента</h3>
