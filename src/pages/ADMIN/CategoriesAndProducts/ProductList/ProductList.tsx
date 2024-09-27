@@ -6,6 +6,7 @@ import Loader from "../../../../components/Loader/Loader";
 import axios from 'axios'
 import { notification } from 'antd'
 import { useSWRConfig } from "swr";
+import {url} from "../../../../core/fetch";
 
 interface ProductListProps {
     items: Product[] | undefined;
@@ -14,9 +15,11 @@ interface ProductListProps {
     setProducts: React.Dispatch<React.SetStateAction<Product[]>>;
 }
 
-const ProductList: FC<ProductListProps> = ({ items, setProducts, url, currentPage, }) => {
+
+const ProductList: FC<ProductListProps> = ({ items, setProducts, url : url2, currentPage, }) => {
     const token = localStorage.getItem('token')
     const { mutate } = useSWRConfig()
+    console.log(url)
 
     const moveItem = (dragIndex: number, hoverIndex: number) => {
         setProducts((prevCards: Product[]) =>
@@ -51,7 +54,7 @@ const ProductList: FC<ProductListProps> = ({ items, setProducts, url, currentPag
         <tbody>
             {items ? items.sort().map((item, index) => (
                 <DraggableProductItem
-                    url1={url}
+                    url1={url2}
                     key={item._id}
                     items={items}
                     index={index}

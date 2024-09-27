@@ -59,7 +59,7 @@ export const CategoriesBurger : FC<CategoriesBurger> = ({isOpened, setOpened, ca
                                         <h2>Все товары</h2>
                                     </div>
                                 </div>
-                                {categories ? categories.map((item : CategoryI) => <CategoryItem setCurrentCategory={setCurrentCategory} _id={item._id} main={item.name} sub={item.subCategories} />) : null}                                {/*<CategoryItem main={'Категория'} sub={['Суб-категория', 'Суб-категория', 'Суб-категория']} />*/}
+                                {categories ? categories.map((item : CategoryI) => <CategoryItem inModal={true} setCurrentCategory={setCurrentCategory} _id={item._id} main={item.name} sub={item.subCategories} />) : null}                                {/*<CategoryItem main={'Категория'} sub={['Суб-категория', 'Суб-категория', 'Суб-категория']} />*/}
                             </div>
                         </div>
                     </div>

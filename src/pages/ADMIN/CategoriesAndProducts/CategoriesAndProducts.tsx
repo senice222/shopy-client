@@ -74,13 +74,14 @@ const CategoriesAndProducts: FC = () => {
                                 </div>
                             </div>
                             {categories ? categories.map((item: CategoryI) => <CategoryItem
+                                currentCatgeoryId={currentCategory ? currentCategory._id : 'loading...' }
                                 setCurrentCategory={setCurrentCategory} _id={item._id} main={item.name}
                                 sub={item.subCategories}/>) : null}
                         </div>
                     </div>
                     <div className={s.products}>
                         <div className={s.topWrapper1}>
-                            <h2 className={s.title2}>Товары</h2>
+                            <h2 className={s.title2}>{currentCategory ? currentCategory.name : 'Все товары'}</h2>
                             <div className={s.searchBar}>
                                 <input value={searchQuery} onChange={handleSearchChange} type="text"
                                        placeholder="Поиск товаров"/>
