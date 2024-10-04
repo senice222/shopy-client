@@ -76,6 +76,7 @@ export const CreateProductBurger = ({isOpened, setOpened}: { isOpened: boolean, 
         const errors = validateForm();
         if (Object.keys(errors).length > 0) {
             setFormErrors(errors);
+            console.log(errors)
         } else {
             const token = localStorage.getItem('token')
             const formData = new FormData();
