@@ -1,16 +1,12 @@
-import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import s from "./DetailedFeedback.module.scss";
 import BackTick from "../../../../components/ADMIN/BackTick/BackTick";
 import {Avatar, PoleIcon, RadioSvg, Search, TextSvg} from "../Svgs";
-import { Trash, Arrow2, Copy, Plus } from "../../CategoriesAndProducts/Svg";
+import { Plus } from "../../CategoriesAndProducts/Svg";
 import { FeedBackInput } from "../Fields/Input/Input";
 import { FeedBackRadio } from "../Fields/Radio/Radio";
 import { FeedBackTextArea } from "../Fields/TextArea/TextArea";
-import {FeedbackBlock} from "../../../../interfaces/Feedback";
 import {OwnSelect} from "../../../../components/OwnSelect/OwnSelect";
-import {CheckBox} from "../../../../components/CheckBox/CheckBox";
-import Button from "../../../../components/Button/Button";
-import {FieldValues, SubmitHandler, useForm} from "react-hook-form";
 import {Cross} from "../../../../components/Modals/AdminModal/Svgs";
 import axios from "axios";
 import { useParams } from 'react-router-dom';
@@ -184,6 +180,7 @@ const DetailedFeedback = () => {
     }
     
   }
+
   const moveBlock = (index: number, direction: 'up' | 'down') => {
     const newBlocks = [...blocks];
 
@@ -237,6 +234,32 @@ const DetailedFeedback = () => {
               nestedTitle={"Feedback"}
               nestedTo={"/panel/settings/"}
           />
+          <div className={s.addBlock + ' ' +s.addBlock2}>
+            <h3>Добавить блок</h3>
+            <div className={s.blocks}>
+              <div className={s.block} onClick={() => addBlock('input')}>
+                <div className={s.flex12}>
+                  <div className={s.icon}><PoleIcon /></div>
+                  <p>Поле для ввода в одну строку</p>
+                </div>
+                <button><Plus /> Добавить</button>
+              </div>
+              <div className={s.block} onClick={() => addBlock('textarea')}>
+                <div className={s.flex12}>
+                  <div className={s.icon}><TextSvg /></div>
+                  <p>Текстовое поле в несколько строк</p>
+                </div>
+                <button><Plus /> Добавить</button>
+              </div>
+              <div className={s.block} onClick={() => addBlock('radio')}>
+                <div className={s.flex12}>
+                  <div className={s.icon}><RadioSvg /></div>
+                  <p>Радио-кнопки</p>
+                </div>
+                <button><Plus /> Добавить</button>
+              </div>
+            </div>
+          </div>
           <div className={s.topDiv}>
             <h1>Настройки обратной связи</h1>
             <p>Название обратной связи</p>

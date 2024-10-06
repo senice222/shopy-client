@@ -72,7 +72,10 @@ const AdminBurger : FC<AdminBurgerI> = ({isActive, setActive1}) => {
                     </div>
                 </div>
                 <div className={style.settings}>
-                    <div className={style.itemSettings}>
+                    <div onClick={() => {
+                            setActive()
+                            navigate('/panel/settings')
+                        }} className={style.itemSettings}>
                         <img src={settings} alt={"/"}/>
                         <p>Настройки</p>
                     </div>

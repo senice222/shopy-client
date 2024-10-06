@@ -3,8 +3,17 @@
   display: flex;
   justify-content: space-between;
   padding: 32px;
+  @media (max-width: 1130px) {
+    flex-direction: column;
+    .addBlock {
+      display: none;
+    }
+  }
   .leftDiv {
     width: 48%;
+    @media (max-width: 1130px) {
+      width: 100%;
+    }
     .topDiv {
       margin-top: 30px;
       h1 {
@@ -183,55 +192,10 @@
 }
 .rightDiv {
   width: 48%;
-  .addBlock {
-    border-radius: 8px;
-    border: 1px solid #D0D5DD;
-    padding: 32px;
-    width: 95%;
-    h3 {
-      margin-top: 15px;
-      color: #101828;
-      font-size: 18px;
-      font-weight: 600;
-    }
-    .blocks {
-      margin-top: 30px;
-      .block {
-        margin-top: 10px;
-        display: flex;
-        height: 68px;
-        width: 100%;
-        align-items: center;
-        border-radius: 12px;
-        border: 1px solid #EAECF0;
-        justify-content: space-between;
-        padding: 0 20px;
-        p {
-          font-weight: 500;
-          font-size: 14px;
-          color: #344054;
-          margin-left: 10px;
-        }
-        .flex12 {
-          display: flex;
-          align-items: center;
-        }
-        button {
-          width: 120px;
-          height: 36px;
-          color: white;
-          background-color: #0070CC;
-          border-radius: 8px;
-          svg {
-            path {
-              stroke: white;
-            }
-          }
-        }
-      }
-
-    }
+  @media (max-width: 1130px) {
+    width: 100%;
   }
+  
 }
 .view {
   margin-top: 25px;
@@ -454,4 +418,60 @@
   width: 100%;
   background-color: #d2d2d2;
   margin: 10px 0;
+}
+.addBlock {
+  border-radius: 8px;
+  border: 1px solid #D0D5DD;
+  padding: 32px;
+  width: 95%;
+  h3 {
+    margin-top: 15px;
+    color: #101828;
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .blocks {
+    margin-top: 30px;
+    .block {
+      margin-top: 10px;
+      display: flex;
+      height: 68px;
+      width: 100%;
+      align-items: center;
+      border-radius: 12px;
+      border: 1px solid #EAECF0;
+      justify-content: space-between;
+      padding: 0 20px;
+      p {
+        font-weight: 500;
+        font-size: 14px;
+        color: #344054;
+        margin-left: 10px;
+      }
+      .flex12 {
+        display: flex;
+        align-items: center;
+      }
+      button {
+        width: 120px;
+        height: 36px;
+        color: white;
+        background-color: #0070CC;
+        border-radius: 8px;
+        svg {
+          path {
+            stroke: white;
+          }
+        }
+      }
+    }
+
+  }
+}
+.addBlock2 {
+  margin-top: 15px;
+  display: none;
+  @media (max-width: 1130px) {
+    display: block !important;
+  }
 }
