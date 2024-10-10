@@ -161,3 +161,7 @@
 .sideActive {
   left: 0 !important;
 }
+.activeItem {
+  background-color: #333; // Темный фон
+  color: #fff; // Белый текст, чтобы выделить
+}

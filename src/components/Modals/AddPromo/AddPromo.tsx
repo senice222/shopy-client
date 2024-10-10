@@ -73,7 +73,7 @@ const AddPromo: FC<{ open: boolean, setOpen: any }> = ({ open, setOpen }) => {
                             render={({ field }) => (
                                 <input
                                     type="text"
-                                    placeholder="Название акции"
+                                    placeholder="Название промокода"
                                     {...field}
                                 />
                             )}
@@ -102,16 +102,23 @@ const AddPromo: FC<{ open: boolean, setOpen: any }> = ({ open, setOpen }) => {
                             name="discount"
                             control={control}
                             rules={{ required: "Скидка обязательна" }}
+                            // render={({ field }) => (
+                            //     <Select
+                            //         value={field.value}  // Set the value from the react-hook-form state
+                            //         style={{ width: "100%" }}
+                            //         onChange={(value) => field.onChange(value)}  // Use field.onChange to update the form state
+                            //         options={[
+                            //             { value: '15%', label: '15% скидка' },
+                            //             { value: '10%', label: '10% скидка' },
+                            //             { value: '5%', label: '5% скидка' },
+                            //         ]}
+                            //     />
+                            // )}
                             render={({ field }) => (
-                                <Select
-                                    value={field.value}  // Set the value from the react-hook-form state
-                                    style={{ width: "100%" }}
-                                    onChange={(value) => field.onChange(value)}  // Use field.onChange to update the form state
-                                    options={[
-                                        { value: '15%', label: '15% скидка' },
-                                        { value: '10%', label: '10% скидка' },
-                                        { value: '5%', label: '5% скидка' },
-                                    ]}
+                                <input
+                                    type="text"
+                                    placeholder="Процент скидки"
+                                    {...field}
                                 />
                             )}
                         />

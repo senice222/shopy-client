@@ -5,9 +5,10 @@ import {Cross} from "../Modals/AdminModal/Svgs";
 import CategoryItem from "../../pages/ADMIN/CategoriesAndProducts/CategoryItem/CategoryItem";
 import {AddCategory} from "../Modals/AdminModals/AddCategory/AddCategory";
 import {AddSubCategory} from "../Modals/AdminModals/AddSubCategory/AddSubCategory";
-import useSWR from "swr";
+import useSWR, {useSWRConfig} from "swr";
 import {fetcher, url} from "../../core/fetch";
 import {CategoryI, SubCategoryIState} from "../../interfaces/Category";
+import axios from 'axios';
 
 interface CategoriesBurger {
     isOpened: boolean,
@@ -19,13 +20,16 @@ interface CategoriesBurger {
 export const CategoriesBurger : FC<CategoriesBurger> = ({isOpened, setOpened, categories, setCurrentCategory1}) => {
     const [addCategory, setAddCategory] = useState<boolean>(false)
     const [addSubCategory, setAddSubCategory] = useState<boolean>(false)
+    const {mutate} = useSWRConfig()
 
     // console.log(data)
     const setCurrentCategory = (a : SubCategoryIState | null) => {
         setOpened()
         setCurrentCategory1(a)
     }
-
+    
+    
+    console.log(categories, 22)
     return (
         <>
             <AddSubCategory categories={categories} isActive={addSubCategory} setActive={() => setAddSubCategory((prev) => !prev)}/>

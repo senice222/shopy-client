@@ -8,50 +8,50 @@ import orders from '../../../assets/receipt.png'
 import rassylka from '../../../assets/message-text-square-01.png'
 import settings from '../../../assets/settings-01.png'
 import logout from '../../../assets/log-out-01.png'
-import {useNavigate} from "react-router-dom";
+import {useNavigate, useLocation} from "react-router-dom";
 import {useAppDispatch} from "../../../hooks/redux-hooks";
 import {signOut} from "../../../store/features/AdminSlice";
-
 
 const Sidebar = () => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
+    const location = useLocation() // Получаем текущий маршрут
 
     return (
         <div className={style.sidebar}>
             <div>
-                <img src={logo} alt="/"/>
+                <img src={logo} alt="/" />
                 <div className={style.items}>
-                    <div onClick={() => navigate('/panel')} className={style.item}>
-                        <img src={home} alt="/"/>
+                    <div onClick={() => navigate('/panel')} className={`${style.itemNotActive} ${location.pathname === '/panel' ? style.activeItem : ""}`}>
+                        <img src={home} alt="/" />
                         <h2>Панель управления</h2>
                     </div>
-                    <div onClick={() => navigate('/panel/users')} className={style.itemNotActive}>
-                        <img src={users} alt="/"/>
+                    <div onClick={() => navigate('/panel/users')} className={`${style.itemNotActive} ${location.pathname === '/panel/users' ? style.activeItem : ""}`}>
+                        <img src={users} alt="/" />
                         <h2>Пользователи</h2>
                     </div>
-                    <div onClick={() => navigate('/panel/categoriesAndProducts')} className={style.itemNotActive}>
-                        <img src={bag} alt="/"/>
+                    <div onClick={() => navigate('/panel/categoriesAndProducts')} className={`${style.itemNotActive} ${location.pathname === '/panel/categoriesAndProducts' ? style.activeItem : ""}`}>
+                        <img src={bag} alt="/" />
                         <h2>Категории и товары</h2>
                     </div>
-                    <div className={style.itemNotActive} onClick={() => navigate('/panel/orders')}>
-                        <img src={orders} alt="/"/>
+                    <div className={`${style.itemNotActive} ${location.pathname === '/panel/orders' ? style.activeItem : ""}`} onClick={() => navigate('/panel/orders')}>
+                        <img src={orders} alt="/" />
                         <h2>Заказы</h2>
                     </div>
-                    <div className={style.itemNotActive} onClick={() => navigate('/panel/newsletter')}>
-                        <img src={rassylka} alt="/"/>
+                    <div className={`${style.itemNotActive} ${location.pathname === '/panel/newsletter' ? style.activeItem : ""}`} onClick={() => navigate('/panel/newsletter')}>
+                        <img src={rassylka} alt="/" />
                         <h2>Рассылка</h2>
                     </div>
                 </div>
             </div>
             <div className={style.settings}>
-                <div onClick={() => navigate('/panel/settings')} className={style.itemSettings}>
-                    <img src={settings} alt={"/"}/>
+                <div onClick={() => navigate('/panel/settings')} className={`${style.itemSettings} ${location.pathname === '/panel/settings' ? style.activeItem : ""}`}>
+                    <img src={settings} alt="/" />
                     <p>Настройки</p>
                 </div>
                 <div className={style.admin}>
                     <div className={style.circle}>
-                        <img src={user} alt="/"/>
+                        <img src={user} alt="/" />
                     </div>
                     <div className={style.info}>
                         <div>
@@ -61,7 +61,7 @@ const Sidebar = () => {
                         <img onClick={() => {
                             dispatch(signOut())
                             navigate('/login')
-                        }} src={logout} alt={"/"}/>
+                        }} src={logout} alt="/" />
                     </div>
                 </div>
             </div>
